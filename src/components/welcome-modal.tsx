@@ -1,0 +1,144 @@
+'use client';
+
+import { VideoVisitCard } from '@/components/video-visit-card';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { getUiText } from '@/lib/i18n';
+import { buildChatHref } from '@/lib/navigation';
+import { useDisplayPreferences } from '@/lib/use-display-preferences';
+import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { useState } from 'react';
+
+// Added a trigger prop to accept custom triggers
+interface WelcomeModalProps {
+  trigger?: React.ReactNode;
+}
+
+export default function WelcomeModal({ trigger }: WelcomeModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { language, theme } = useDisplayPreferences();
+  const text = getUiText(language);
+  const introLabel = language === 'ko' ? 'О сайте' : 'About';
+
+  // Default trigger is the logo
+  const defaultTrigger = (
+    <Button
+      variant="ghost"
+      className="border-border/60 bg-background/45 hover:bg-background/70 h-auto w-auto cursor-pointer rounded-full border px-3 py-1.5 shadow-none backdrop-blur-lg focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+      onClick={() => setIsOpen(true)}
+    >
+      <span className="text-sm font-semibold">Ask Romeo</span>
+      <span className="bg-border h-3.5 w-px" aria-hidden />
+      <span className="text-muted-foreground text-xs font-medium">
+        {introLabel}
+      </span>
+      <span className="sr-only">{text.welcomeTitle}</span>
+    </Button>
+  );
+
+  const handleContactMe = () => {
+    setIsOpen(false);
+    window.location.href = buildChatHref({
+      query: text.contactQuery,
+      language,
+      theme,
+    });
+  };
+
+  return (
+    <>
+      {/* Use custom trigger if provided, otherwise use default */}
+      {trigger ? (
+        <div onClick={() => setIsOpen(true)}>{trigger}</div>
+      ) : (
+        defaultTrigger
+      )}
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="bg-background z-52 max-h-[85vh] overflow-auto rounded-2xl border-none p-4 py-6 shadow-xl sm:max-w-[85vw] md:max-w-[80vw] lg:max-w-[1000px]">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative flex h-full flex-col"
+          >
+            {/* Header */}
+            <DialogHeader className="px-6 pt-16 pb-6 text-left sm:px-8">
+              <div className="min-w-0">
+                <DialogTitle className="text-3xl leading-tight font-bold tracking-tight break-words sm:text-4xl">
+                  {text.welcomeTitle}
+                </DialogTitle>
+                <DialogDescription className="mt-3 text-base">
+                  {text.welcomeDescription}
+                </DialogDescription>
+              </div>
+            </DialogHeader>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 z-10 cursor-pointer rounded-full bg-black p-2 text-white hover:bg-black/90 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              <X className="h-6 w-6" />
+              <span className="sr-only">{text.close}</span>
+            </Button>
+
+            {/* Content area */}
+            <div className="space-y-6 overflow-y-auto px-2 py-4 md:px-8">
+              <section className="bg-accent w-full space-y-8 rounded-2xl p-8">
+                <VideoVisitCard className="mx-auto aspect-square h-28 w-28" />
+                {/* What section */}
+                <div className="space-y-3">
+                  <h3 className="text-primary flex items-center gap-2 text-xl font-semibold">
+                    {text.whatIsAskOosu}
+                  </h3>
+                  <p className="text-accent-foreground text-base leading-relaxed">
+                    {text.whatIsAskOosuBody}
+                  </p>
+                </div>
+
+                {/* Why section */}
+                <div className="space-y-3">
+                  <h3 className="text-primary flex items-center gap-2 text-xl font-semibold">
+                    {text.whyThisFormat}
+                  </h3>
+                  <p className="text-accent-foreground text-base leading-relaxed">
+                    {text.whyThisFormatBody}
+                  </p>
+                </div>
+              </section>
+            </div>
+
+            {/* Footer */}
+            <div className="flex flex-col items-center px-8 pt-4 pb-0 md:pb-8">
+              <Button
+                onClick={() => setIsOpen(false)}
+                className="h-auto rounded-full px-4 py-3"
+                size="sm"
+              >
+                {text.startChatting}
+              </Button>
+              <div className="mt-6 flex w-full flex-col items-center justify-center gap-1 text-center text-sm">
+                <p className="text-muted-foreground">{text.feedback}</p>
+                <button
+                  type="button"
+                  className="cursor-pointer text-center text-blue-500 hover:underline"
+                  onClick={handleContactMe}
+                >
+                  {text.contactMe}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

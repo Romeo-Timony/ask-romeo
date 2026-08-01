@@ -1,0 +1,36 @@
+name: ask-romeo
+
+services:
+  app:
+    container_name: ask-romeo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ask-romeo-app:prod
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://91.132.196.202}
+      ASKOOSU_RAG_STORE: memory
+      ASKOOSU_RATE_LIMIT_STORE: memory
+      ASKOOSU_FAQ_SEMANTIC_ROUTER_ENABLED: 'false'
+      ASKOOSU_AI_PROVIDER: openai
+    ports:
+      - '80:3000'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          "node -e \"fetch('http://127.0.0.1:3000/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
