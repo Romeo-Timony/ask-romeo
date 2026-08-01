@@ -952,7 +952,19 @@ function ImageFallbackCards({
   );
 }
 
+const PROFILE_TAGS = [
+  'Fullstack',
+  'QA',
+  'AI',
+  'RAG',
+  'System Design',
+  'APIs',
+  'CI/CD',
+] as const;
+
 function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
+  const isRu = language === 'ko';
+
   return (
     <section className="overflow-hidden rounded-lg border bg-white/80 shadow-sm dark:bg-white/[0.05]">
       <div className="grid gap-4 p-4 md:grid-cols-[0.95fr_1.15fr] md:items-center">
@@ -965,29 +977,57 @@ function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
               {oosuProfile.name}
             </h3>
             <p className="text-muted-foreground text-base">
-              {oosuProfile.title}
+              {isRu ? oosuProfile.title : oosuProfile.titleEn}
             </p>
             <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
               <MapPin className="h-3.5 w-3.5" />
-              {oosuProfile.location}
+              {isRu ? oosuProfile.location : oosuProfile.locationEn}
             </p>
           </div>
 
-          <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
-            {language === 'ko'
-              ? '안녕하세요. 우수는 화면만 예쁘게 만드는 데서 멈추지 않고, API, 데이터, RAG, 배포까지 이어 붙여 실제로 굴러가는 흐름을 만들고 싶어하는 개발자입니다.'
-              : 'Hi, I am Oosu: a developer who does not want to stop at a nice screen. I like connecting UI, APIs, data, RAG, and deployment into something that actually runs.'}
-          </p>
-          <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
-            {language === 'ko'
-              ? 'AskOosu는 그 성향을 그대로 담은 작은 실험실이에요. 포트폴리오가 스스로 질문을 받고, Wiki 근거를 찾아, 카드와 답변으로 보여주게 만들고 있습니다.'
-              : 'AskOosu is that tendency turned into a small lab: the portfolio takes questions, checks Wiki evidence, and turns the answer into cards and conversation.'}
-          </p>
+          {isRu ? (
+            <>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                Специализируюсь на разработке современных веб-приложений,
+                автоматизации тестирования и интеграции AI в процессы
+                разработки.
+              </p>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                Работаю на стыке frontend, backend и quality engineering.
+                Проектирую архитектуру решений, создаю надежные API, развиваю
+                автоматизацию тестирования и применяю LLM, RAG и AI-ассистентов
+                для повышения эффективности разработки.
+              </p>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                Предпочитаю инженерный подход: сначала понять проблему, затем
+                выбрать наиболее простое и надежное решение, которое легко
+                поддерживать и масштабировать.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                I specialize in modern web apps, test automation, and integrating
+                AI into development workflows.
+              </p>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                I work at the intersection of frontend, backend, and quality
+                engineering — designing architectures, reliable APIs, automation,
+                and applying LLM, RAG, and AI assistants to ship faster with
+                confidence.
+              </p>
+              <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
+                I prefer an engineering approach: understand the problem first,
+                then choose the simplest reliable solution that is easy to
+                maintain and scale.
+              </p>
+            </>
+          )}
         </div>
       </div>
       <div className="border-t px-4 py-3">
         <div className="flex flex-wrap gap-1.5">
-          {['Frontend', 'Fullstack', 'AI/RAG', 'UX', 'Business'].map((tag) => (
+          {PROFILE_TAGS.map((tag) => (
             <span
               key={tag}
               className="bg-background text-muted-foreground rounded-lg border px-2.5 py-1 text-xs"
@@ -1202,7 +1242,7 @@ function getSourceBadgeCopy(language: 'ko' | 'en') {
       hideSources: '근거 접기',
       publicAriaLabel: '답변 근거',
       debugAriaLabel: '근거 디버그 정보',
-      sourceLabel: (index: number) => `Oosu Wiki 근거 ${index}`,
+      sourceLabel: (index: number) => `Wiki Romeo · источник ${index}`,
     };
   }
 
@@ -1211,7 +1251,7 @@ function getSourceBadgeCopy(language: 'ko' | 'en') {
     hideSources: 'Hide sources',
     publicAriaLabel: 'Answer sources',
     debugAriaLabel: 'Source chunk debug metadata',
-    sourceLabel: (index: number) => `Oosu Wiki source ${index}`,
+    sourceLabel: (index: number) => `Romeo Wiki source ${index}`,
   };
 }
 

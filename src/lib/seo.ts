@@ -97,7 +97,7 @@ export const jsonLdGraph = [
     name: 'Romeo Timony',
     alternateName: ['Romeo-Timony', 'Ask Romeo'],
     url: siteUrl,
-    jobTitle: 'QA Engineer / Prompt Engineer',
+    jobTitle: 'Fullstack QA Engineer with AI tooling',
     description:
       'Romeo Timony is a QA Engineer / Prompt Engineer building AI-connected portfolio systems, Telegram assistants, and RAG workflows.',
     knowsAbout: [

@@ -16,7 +16,7 @@ import React, {
 import ChatBottombar from '@/components/chat/chat-bottombar';
 import ChatLanding from '@/components/chat/chat-landing';
 import { PortfolioSidebar } from '@/components/portfolio-sidebar';
-import { OosuAvatar } from '@/components/oosu-avatar';
+import { FuturisticQuestionMark } from '@/components/futuristic-question-mark';
 import { SimplifiedChatView } from '@/components/chat/simple-chat-view';
 import { getUiText } from '@/lib/i18n';
 import { isAskOosuDebugUiEnabled } from '@/lib/debug-ui';
@@ -857,13 +857,15 @@ function UserQuestionBubble({
   return (
     <div
       ref={questionRef}
-      className="mx-auto flex w-full max-w-3xl scroll-mt-4 justify-end px-4 pb-4"
+      className="mx-auto flex w-full max-w-3xl scroll-mt-4 justify-center px-4 pb-4"
     >
       <ChatBubble
         variant="sent"
-        className="mr-0 ml-auto max-w-[min(85%,40rem)] self-end"
+        className="mx-auto max-w-[min(85%,40rem)] self-center text-center"
       >
-        <ChatBubbleMessage>{content}</ChatBubbleMessage>
+        <ChatBubbleMessage className="text-center">
+          {content}
+        </ChatBubbleMessage>
       </ChatBubble>
     </div>
   );
@@ -877,11 +879,11 @@ function PendingQuestionBubble({
   language: 'ko' | 'en';
 }) {
   return (
-    <div className="mx-auto flex w-full max-w-3xl justify-end px-4 pb-4">
-      <div className="mr-0 ml-auto max-w-[min(85%,40rem)] rounded-2xl border border-dashed border-teal-400/45 bg-teal-500/10 px-4 py-3 text-right text-sm text-teal-900/75 backdrop-blur-sm dark:text-teal-100/75">
+    <div className="mx-auto flex w-full max-w-3xl justify-center px-4 pb-4">
+      <div className="mx-auto max-w-[min(85%,40rem)] rounded-2xl border border-dashed border-teal-400/45 bg-teal-500/10 px-4 py-3 text-center text-sm text-teal-900/75 backdrop-blur-sm dark:text-teal-100/75">
         <p className="break-words whitespace-pre-wrap">{content}</p>
         <p className="mt-1 text-xs text-teal-800/55 dark:text-teal-100/50">
-          {language === 'ko' ? '답변 대기 중' : 'Queued'}
+          {language === 'ko' ? 'Ожидание ответа' : 'Queued'}
         </p>
       </div>
     </div>
@@ -894,14 +896,9 @@ function ConversationAvatarHeader({ compact }: { compact: boolean }) {
       <button
         className="cursor-pointer"
         onClick={() => (window.location.href = '/')}
-        aria-label="Go to AskOosu home"
+        aria-label="Go to Ask Romeo home"
       >
-        <OosuAvatar
-          priority
-          variant="static"
-          animate={false}
-          className={`transition-all duration-300 ${compact ? 'h-20 w-20' : 'h-28 w-28'}`}
-        />
+        <FuturisticQuestionMark compact={compact} />
       </button>
     </div>
   );

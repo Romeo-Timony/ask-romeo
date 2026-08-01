@@ -1231,8 +1231,8 @@ function getAnswerSourceBadge(
 ) {
   const labels: Record<string, Record<ChatLanguage, string>> = {
     faq_cache: {
-      ko: 'Oosu Wiki 기반',
-      en: 'From Oosu Wiki',
+      ko: 'Из Wiki Romeo',
+      en: 'From Romeo Wiki',
     },
     philosophy_docs: {
       ko: 'Visionary Builder Docs 기반',

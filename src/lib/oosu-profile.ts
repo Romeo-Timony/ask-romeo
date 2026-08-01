@@ -3,8 +3,10 @@ import { getSuggestedQuestionText } from '@/lib/suggested-questions';
 export const oosuProfile = {
   name: 'Romeo Timony',
   handle: '@Romeo-Timony',
-  title: 'QA Engineer / Prompt Engineer',
-  location: 'Remote',
+  title: 'Fullstack QA-инженер со знанием ИИ-инструментов',
+  titleEn: 'Fullstack QA Engineer with AI tooling',
+  location: 'Удаленно',
+  locationEn: 'Remote',
   residence: '',
   education: '',
   email: '',
@@ -21,7 +23,7 @@ export const oosuProfile = {
   resumeEnUrl: '',
   wikiSource: 'Static portfolio knowledge (WIP)',
   sourceSummary:
-    'Romeo Timony — QA Engineer / Prompt Engineer. AI-connected portfolio with Ask chat and RAG (content in progress).',
+    'Romeo Timony — Fullstack QA Engineer with AI tooling. AI-connected portfolio with Ask chat and RAG (content in progress).',
 } as const;
 
 export const suggestedQuestions = {

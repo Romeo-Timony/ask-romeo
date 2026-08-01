@@ -49,23 +49,42 @@ const questionConfig: Record<string, { color: string; icon: ElementType }> = {
   contactCollab: { color: '#C19433', icon: UserRoundSearch },
 };
 
-const aeoLinks = [
-  {
-    href: '/about',
-    label: 'About',
-    description: 'Profile',
-  },
-  {
-    href: '/projects',
-    label: 'Projects',
-    description: 'Selected work',
-  },
-  {
-    href: '/chat',
-    label: 'Ask',
-    description: 'Chat with Romeo',
-  },
-];
+const aeoLinks = {
+  ko: [
+    {
+      href: '/about',
+      label: 'О себе',
+      description: 'Профиль',
+    },
+    {
+      href: '/projects',
+      label: 'Проекты',
+      description: 'Избранные работы',
+    },
+    {
+      href: '/chat',
+      label: 'Спросить',
+      description: 'Чат с Romeo',
+    },
+  ],
+  en: [
+    {
+      href: '/about',
+      label: 'About',
+      description: 'Profile',
+    },
+    {
+      href: '/projects',
+      label: 'Projects',
+      description: 'Selected work',
+    },
+    {
+      href: '/chat',
+      label: 'Ask',
+      description: 'Chat with Romeo',
+    },
+  ],
+} as const;
 
 export default function Home() {
   return (
@@ -197,6 +216,10 @@ function HomeContent() {
     },
   };
 
+  const links = aeoLinks[language];
+  const heroTitle =
+    language === 'ko' ? oosuProfile.title : oosuProfile.titleEn;
+
   return (
     <div className="relative flex min-h-dvh flex-col items-center justify-start overflow-x-hidden px-4 pt-20 pb-32 md:min-h-screen md:px-8 md:pt-12 md:pb-44">
       <HomeJsonLd />
@@ -214,7 +237,7 @@ function HomeContent() {
 
       {/* header */}
       <motion.div
-        className="relative z-10 mb-6 flex w-full max-w-7xl flex-col items-center text-center md:mt-4 md:mb-9"
+        className="relative z-10 flex w-full max-w-7xl flex-col items-center text-center md:mt-4"
         variants={topElementVariants}
         initial={false}
         animate="visible"
@@ -226,15 +249,14 @@ function HomeContent() {
         <h2 className="text-secondary-foreground text-base font-semibold md:text-xl">
           {oosuProfile.name}
         </h2>
-        <h1 className="mt-3 max-w-[22rem] text-4xl leading-tight font-bold sm:max-w-2xl sm:text-5xl md:max-w-4xl md:text-6xl lg:text-7xl">
-          <span className="block">QA Engineer /</span>
-          <span className="block">Prompt Engineer</span>
+        <h1 className="mt-3 max-w-[22rem] text-3xl leading-tight font-bold sm:max-w-3xl sm:text-4xl md:max-w-4xl md:text-5xl lg:text-6xl">
+          {heroTitle}
         </h1>
         <nav
           aria-label="Featured portfolio pages"
           className="mt-5 flex max-w-3xl flex-wrap justify-center gap-2"
         >
-          {aeoLinks.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -249,10 +271,12 @@ function HomeContent() {
         </nav>
       </motion.div>
 
-      <VideoVisitCard
-        className="relative z-10 aspect-[4/5] h-40 w-32 sm:h-56 sm:w-44 md:h-72 md:w-56 lg:h-80 lg:w-64"
-        label="Video visit card"
-      />
+      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center py-8 md:py-10">
+        <VideoVisitCard
+          className="aspect-[4/5] h-40 w-32 sm:h-56 sm:w-44 md:h-72 md:w-56 lg:h-80 lg:w-64"
+          label={language === 'ko' ? 'Видеовизитка' : 'Video visit card'}
+        />
+      </div>
 
       {/* quick buttons */}
       <motion.div

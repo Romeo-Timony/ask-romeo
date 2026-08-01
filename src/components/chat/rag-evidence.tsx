@@ -694,7 +694,7 @@ export function RagEvidencePanel({
             onClick={() => setIsFeedbackOpen((current) => !current)}
           >
             {displayLanguage === 'ko'
-              ? '답변 수정 제안'
+              ? 'Предложить улучшение'
               : 'Suggest an improvement'}
             {isFeedbackOpen ? (
               <ChevronUp className="h-3.5 w-3.5" />
@@ -1036,14 +1036,14 @@ function getFeedbackStatusText(
   language: 'ko' | 'en'
 ) {
   if (language === 'ko') {
-    if (state === 'saving') return '피드백 저장 중...';
-    if (state === 'saved') return '고마워요. 피드백이 저장됐어요.';
-    if (state === 'error') return '피드백 저장에 실패했어요.';
-    if (state === 'editing-down') return '어떤 점을 개선하면 좋을까요?';
-    if (rating === 'up') return '피드백 고마워요.';
-    if (rating === 'down') return '고마워요. 이 답변은 개선할 수 있어요.';
+    if (state === 'saving') return 'Сохраняем отзыв...';
+    if (state === 'saved') return 'Спасибо. Отзыв сохранён.';
+    if (state === 'error') return 'Не удалось сохранить отзыв.';
+    if (state === 'editing-down') return 'Что стоит улучшить?';
+    if (rating === 'up') return 'Спасибо за отзыв.';
+    if (rating === 'down') return 'Спасибо. Этот ответ можно улучшить.';
 
-    return '충분한 답변이 되었나요?';
+    return 'Ответ был полезен?';
   }
 
   if (state === 'saving') return 'Saving feedback...';
@@ -1194,7 +1194,7 @@ function normalizeProjectEntityId(entityId: string) {
 function getConfidenceTone(confidence: number, language: 'ko' | 'en') {
   if (confidence >= 0.78) {
     return {
-      label: language === 'ko' ? '근거 충분' : 'Well grounded',
+      label: language === 'ko' ? 'Хорошо обосновано' : 'Well grounded',
       className:
         'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-700/70 dark:bg-emerald-950/30 dark:text-emerald-200',
     };
@@ -1202,14 +1202,14 @@ function getConfidenceTone(confidence: number, language: 'ko' | 'en') {
 
   if (confidence >= 0.5) {
     return {
-      label: language === 'ko' ? '일부 정보 확인 중' : 'Partially grounded',
+      label: language === 'ko' ? 'Частично обосновано' : 'Partially grounded',
       className:
         'border-blue-300 bg-blue-50 text-blue-800 dark:border-blue-700/70 dark:bg-blue-950/30 dark:text-blue-200',
     };
   }
 
   return {
-    label: language === 'ko' ? '근거 부족' : 'Limited evidence',
+    label: language === 'ko' ? 'Мало доказательств' : 'Limited evidence',
     className:
       'border-zinc-300 bg-zinc-50 text-zinc-800 dark:border-zinc-700/70 dark:bg-zinc-900/40 dark:text-zinc-200',
   };
@@ -1270,18 +1270,18 @@ function getPublicSourceBadgeText(
   answerSource?: string
 ) {
   if (count === 0) {
-    return language === 'ko' ? '근거 부족' : 'Limited evidence';
+    return language === 'ko' ? 'Мало доказательств' : 'Limited evidence';
   }
 
   if (answerSource === 'philosophy_docs') {
     if (language === 'ko') {
-      return `Visionary Builder Docs · ${count}개 출처`;
+      return `Visionary Builder Docs · ${count} источников`;
     }
     return `Visionary Builder Docs · ${count} source${count === 1 ? '' : 's'}`;
   }
 
-  if (language === 'ko') return `Oosu Wiki 기반 · ${count}개 출처`;
-  return `From Oosu Wiki · ${count} source${count === 1 ? '' : 's'}`;
+  if (language === 'ko') return `Из Wiki Romeo · ${count} источников`;
+  return `From Romeo Wiki · ${count} source${count === 1 ? '' : 's'}`;
 }
 
 function getRemainingSourcesButtonLabel({
@@ -1339,11 +1339,15 @@ function formatPublicSourceTitle(source: RagSource, language: 'ko' | 'en') {
     return humanizeSourcePathSegment(source.section_path[0]);
   }
 
-  if (source.title && source.title !== 'Oosu Wiki') {
+  if (
+    source.title &&
+    source.title !== 'Oosu Wiki' &&
+    source.title !== 'Romeo Wiki'
+  ) {
     return humanizeSourcePathSegment(source.title);
   }
 
-  return language === 'ko' ? 'Oosu Wiki' : 'Oosu Wiki';
+  return language === 'ko' ? 'Wiki Romeo' : 'Romeo Wiki';
 }
 
 function formatSectionPathLabel(source: RagSource, language: 'ko' | 'en') {
@@ -1359,7 +1363,7 @@ function formatSectionPathLabel(source: RagSource, language: 'ko' | 'en') {
   const label = path.map(humanizeSourcePathSegment).filter(Boolean).join(' > ');
 
   if (label) return label;
-  return language === 'ko' ? 'Oosu Wiki' : 'Oosu Wiki';
+  return language === 'ko' ? 'Wiki Romeo' : 'Romeo Wiki';
 }
 
 function formatPublicChunkLabel(chunkId: string, language: 'ko' | 'en') {
