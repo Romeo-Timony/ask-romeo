@@ -1002,46 +1002,21 @@ function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
 }
 
 function ProgressiveProfileMotion() {
-  const [canLoadMotion, setCanLoadMotion] = useState(false);
-  const [isMotionLoaded, setIsMotionLoaded] = useState(false);
-
   return (
     <div
       className="relative aspect-[4/5] h-full w-full md:aspect-[5/6]"
       role="img"
-      aria-label="Oosu profile portrait"
+      aria-label="Romeo Timony profile portrait"
     >
       <Image
-        src="/images/profile/oosu-profile-poster.webp"
-        alt=""
-        width={432}
-        height={572}
+        src="/images/profile/romeo-profile.png"
+        alt="Romeo Timony"
+        width={864}
+        height={1144}
         priority
-        onLoad={() => setCanLoadMotion(true)}
-        onError={() => setCanLoadMotion(true)}
-        className={cn(
-          'absolute inset-0 h-full w-full origin-bottom translate-y-[4%] scale-[1.18] object-cover object-bottom transition-opacity duration-300',
-          isMotionLoaded ? 'opacity-0' : 'opacity-100'
-        )}
+        className="absolute inset-0 h-full w-full object-cover object-[50%_20%]"
         sizes="(min-width: 768px) 360px, calc(100vw - 3rem)"
       />
-      {canLoadMotion && (
-        <Image
-          src="/images/profile/oosu-profile-motion.webp"
-          alt=""
-          width={300}
-          height={397}
-          aria-hidden="true"
-          decoding="async"
-          loading="eager"
-          unoptimized
-          onLoad={() => setIsMotionLoaded(true)}
-          className={cn(
-            'absolute inset-0 h-full w-full origin-bottom translate-y-[4%] scale-[1.18] object-cover object-bottom transition-opacity duration-300',
-            isMotionLoaded ? 'opacity-100' : 'opacity-0'
-          )}
-        />
-      )}
     </div>
   );
 }
