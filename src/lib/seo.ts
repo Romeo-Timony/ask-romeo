@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { oosuProfile, oosuProjects } from '@/lib/oosu-profile';
+import { romeoProfile, romeoProjects } from '@/lib/romeo-profile';
 
 export const siteUrl = 'http://91.132.196.202';
 export const siteName = 'Ask Romeo';
@@ -83,11 +83,11 @@ export function createPageMetadata({
   };
 }
 
-export const sameAsLinks = [oosuProfile.github, oosuProfile.linkedin].filter(
+export const sameAsLinks = [romeoProfile.github, romeoProfile.linkedin].filter(
   Boolean
 );
 
-export const featuredProjects = oosuProjects.slice(0, 4);
+export const featuredProjects = romeoProjects.slice(0, 4);
 
 export const jsonLdGraph = [
   {

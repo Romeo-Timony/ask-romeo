@@ -76,26 +76,13 @@ export function parsePreferencePath(pathname: string): PreferenceTokens {
 }
 
 export function detectBrowserLanguage(): DisplayLanguage {
-  if (typeof navigator === 'undefined') return 'ru';
-
-  const languages = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language];
-
-  if (languages.some((language) => language.toLowerCase().startsWith('en'))) {
-    return 'en';
-  }
-
-  // Default to Russian UI (stored as internal 'ko' locale key).
+  // Russian is always the default language, regardless of browser locale.
   return 'ru';
 }
 
 export function detectSystemTheme(): DisplayTheme {
-  if (typeof window === 'undefined') return 'light';
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  // Dark theme is always the default, regardless of system preference.
+  return 'dark';
 }
 
 export function readStoredDisplayPreferences(): PreferenceTokens {

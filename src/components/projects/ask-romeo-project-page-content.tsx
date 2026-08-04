@@ -4,9 +4,9 @@ import {
   PublicPageShell,
   TextSection,
 } from '@/components/seo/public-page-shell';
-import { oosuProjects } from '@/lib/oosu-profile';
+import { romeoProjects } from '@/lib/romeo-profile';
 
-const askRomeo = oosuProjects[0];
+const askRomeo = romeoProjects[0];
 
 export function AskRomeoProjectPageContent() {
   return (

@@ -1,4 +1,4 @@
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import type { ChatLanguage } from '@/lib/i18n/detect-language';
 import type { ChatAnswerSource } from '@/lib/chat/types';
 import {
@@ -224,7 +224,7 @@ const mediaRefs: FaqMediaRef[] = [
     kind: 'gallery',
     src: '/images/life/oosu-salon-desktop.webp',
     mobileSrc: '/images/life/oosu-salon-mobile.webp',
-    alt: 'Oosu Salon visual memory',
+    alt: 'Romeo Salon visual memory',
     status: 'ready',
   },
   {
@@ -240,14 +240,14 @@ const mediaRefs: FaqMediaRef[] = [
 const representativeProjectsKo = [
   {
     id: 'askoosu',
-    title: 'AskOosu 2026',
+    title: 'Ask Romeo 2026',
     label: 'AI Portfolio',
     subtitle: 'AI-connected 대화형 포트폴리오',
     description:
       'Next.js 채팅 UI, Notion Wiki, RAG, Groq, PostgreSQL 검색 캐시를 연결한 현재 대표 프로젝트입니다.',
     image: 'project.askoosu.cover',
     tags: ['Next.js', 'RAG', 'Groq', 'Notion', 'PostgreSQL'],
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
   },
   {
     id: 'instagram_clone',
@@ -276,14 +276,14 @@ const representativeProjectsKo = [
 const representativeProjectsEn = [
   {
     id: 'askoosu',
-    title: 'AskOosu 2026',
+    title: 'Ask Romeo 2026',
     label: 'AI Portfolio',
     subtitle: 'AI-connected conversational portfolio',
     description:
       'The current flagship project connecting a Next.js chat UI, Notion Wiki, RAG, Groq, and PostgreSQL search cache.',
     image: 'project.askoosu.cover',
     tags: ['Next.js', 'RAG', 'Groq', 'Notion', 'PostgreSQL'],
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
   },
   {
     id: 'instagram_clone',
@@ -319,7 +319,7 @@ const moreProjectsKo = [
       'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.',
     image: 'project.askoosu.cover',
     tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
   },
   {
     id: 'sminex_comfort',
@@ -363,7 +363,7 @@ const moreProjectsEn = [
       "An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo's projects and experience.",
     image: 'project.askoosu.cover',
     tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
   },
   {
     id: 'sminex_comfort',
@@ -412,7 +412,7 @@ const skillGroupsKo = [
       { name: 'Groq', proficiency: 'usable' },
     ],
     evidence: [
-      'AskOosu: Next.js, RAG, Groq, Notion API, PostgreSQL 연결 흐름',
+      'Ask Romeo: Next.js, RAG, Groq, Notion API, PostgreSQL 연결 흐름',
       'Aigram: Spring Boot + PostgreSQL 기반 SNS 데이터 흐름',
       'Sticks & Stones: TypeScript/Vite 기반 실서비스 리빌드',
     ],
@@ -453,7 +453,7 @@ const skillGroupsKo = [
       { name: 'OCR APIs', proficiency: 'experimental' },
     ],
     evidence: [
-      'AskOosu: AI SDK, Groq, Notion RAG 답변 파이프라인',
+      'Ask Romeo: AI SDK, Groq, Notion RAG 답변 파이프라인',
       'Webtoon AI Translate: OCR/DeepL/Groq 기반 번역 후보 흐름',
       'daily dev workflow: Codex, Claude Code, Gemini CLI로 구현/검증 보조',
     ],
@@ -470,7 +470,7 @@ const skillGroupsKo = [
     ],
     evidence: [
       'GfK Korea: 고객/시장 데이터를 읽는 업무 경험',
-      'OOSU SALON: 브랜드 운영과 고객 경험 감각',
+      'ROMEO SALON: 브랜드 운영과 고객 경험 감각',
       'UX/UI projects: 화면 흐름과 서비스 기획으로 연결',
     ],
   },
@@ -491,7 +491,7 @@ const skillGroupsEn = [
       { name: 'Groq', proficiency: 'usable' },
     ],
     evidence: [
-      'AskOosu: Next.js, RAG, Groq, Notion API, and PostgreSQL connected in one answer flow',
+      'Ask Romeo: Next.js, RAG, Groq, Notion API, and PostgreSQL connected in one answer flow',
       'Aigram: Spring Boot and PostgreSQL in a fullstack SNS data flow',
       'Sticks & Stones: TypeScript/Vite used in a real service rebuild',
     ],
@@ -532,7 +532,7 @@ const skillGroupsEn = [
       { name: 'OCR APIs', proficiency: 'experimental' },
     ],
     evidence: [
-      'AskOosu: AI SDK, Groq, and Notion RAG in the answer pipeline',
+      'Ask Romeo: AI SDK, Groq, and Notion RAG in the answer pipeline',
       'Webtoon AI Translate: OCR/DeepL/Groq translation-candidate flow',
       'daily dev workflow: Codex, Claude Code, and Gemini CLI for implementation and verification support',
     ],
@@ -549,7 +549,7 @@ const skillGroupsEn = [
     ],
     evidence: [
       'GfK Korea: customer and market-data reading experience',
-      'OOSU SALON: brand operation and customer-experience taste',
+      'ROMEO SALON: brand operation and customer-experience taste',
       'UX/UI projects: service planning connected to screen flows',
     ],
   },
@@ -711,14 +711,14 @@ const ragWorkflowEn = [
 ];
 
 const contactActionsKo = [
-  { label: 'Email', href: `mailto:${oosuProfile.email}`, kind: 'email' },
-  { label: 'Telegram', href: oosuProfile.telegram, kind: 'telegram' },
-  { label: 'GitHub', href: oosuProfile.github, kind: 'github' },
-  { label: 'LinkedIn', href: oosuProfile.linkedin, kind: 'linkedin' },
-  { label: 'Instagram', href: oosuProfile.instagram, kind: 'instagram' },
+  { label: 'Email', href: `mailto:${romeoProfile.email}`, kind: 'email' },
+  { label: 'Telegram', href: romeoProfile.telegram, kind: 'telegram' },
+  { label: 'GitHub', href: romeoProfile.github, kind: 'github' },
+  { label: 'LinkedIn', href: romeoProfile.linkedin, kind: 'linkedin' },
+  { label: 'Instagram', href: romeoProfile.instagram, kind: 'instagram' },
   {
     label: 'Portfolio',
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
     kind: 'portfolio',
   },
 ];
@@ -809,26 +809,26 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Projects',
     displayQuestion:
-      "Could you show Oosu's representative projects and how they connect to his growth?",
+      "Could you show Romeo's representative projects and how they connect to his growth?",
     patterns: [
       'projects',
       'project',
       'top projects',
       'project overview',
-      "Can you show Oosu's top three projects at a glance?",
-      "Could you show Oosu's representative projects and how they connect to his growth?",
+      "Can you show Romeo's top three projects at a glance?",
+      "Could you show Romeo's representative projects and how they connect to his growth?",
       'representative projects',
       'best projects',
-      "Which portfolio projects best show Oosu's growth as a developer?",
-      "projects that show Oosu's growth",
-      'AskOosu Instagram Clone Sticks & Stones',
+      "Which portfolio projects best show Romeo's growth as a developer?",
+      "projects that show Romeo's growth",
+      'Ask Romeo Instagram Clone Sticks & Stones',
     ],
     shortAnswer:
-      'The featured projects are AskOosu, Aigram / Instagram Clone, and Sticks & Stones, with additional projects showing earlier growth and experiments.',
+      'The featured projects are Ask Romeo, Aigram / Instagram Clone, and Sticks & Stones, with additional projects showing earlier growth and experiments.',
     defaultAnswer: [
-      'Projects are a fun place to start. The clearest first three are AskOosu, Aigram, and Sticks & Stones.',
+      'Projects are a fun place to start. The clearest first three are Ask Romeo, Aigram, and Sticks & Stones.',
       '',
-      'AskOosu reads as AI Portfolio, Aigram as Fullstack SNS, and Sticks & Stones as Real Migration. The cards keep the stack tags, related questions, and public links close by, while the more-projects rail lets visitors keep exploring Portfoli-Oh!, Onjung, Nomad Market, Webtoon AI Translate, and smaller experiments.',
+      'Ask Romeo reads as AI Portfolio, Aigram as Fullstack SNS, and Sticks & Stones as Real Migration. The cards keep the stack tags, related questions, and public links close by, while the more-projects rail lets visitors keep exploring Portfoli-Oh!, Onjung, Nomad Market, Webtoon AI Translate, and smaller experiments.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -942,21 +942,21 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Tech stack',
     displayQuestion:
-      'What technologies does Oosu use, and where has he applied them?',
+      'What technologies does Romeo use, and where has he applied them?',
     patterns: [
       'skills',
       'skill',
       'tech stack',
-      'What technologies does Oosu use, and where has he applied them?',
+      'What technologies does Romeo use, and where has he applied them?',
       'frontend backend AI skills',
       'technical skills',
     ],
     shortAnswer:
-      'Oosu’s current core stack is Next.js, React, TypeScript, Spring Boot, PostgreSQL, Notion API, RAG, and Groq, with wider project-proven experience across Flutter, FastAPI, GSAP, and more.',
+      'Romeo’s current core stack is Next.js, React, TypeScript, Spring Boot, PostgreSQL, Notion API, RAG, and Groq, with wider project-proven experience across Flutter, FastAPI, GSAP, and more.',
     defaultAnswer: [
-      'A tech stack is more useful when you can see where it was actually used. AskOosu groups skills by project evidence instead of presenting every keyword at the same level.',
+      'A tech stack is more useful when you can see where it was actually used. Ask Romeo groups skills by project evidence instead of presenting every keyword at the same level.',
       '',
-      'The current emphasis is Next.js, React, TypeScript, Tailwind CSS, Spring Boot, PostgreSQL, Notion API, RAG, and Groq. AskOosu connects Next.js, AI SDK, Groq, Notion RAG, and PostgreSQL, while Aigram shows Spring Boot and PostgreSQL in a fullstack SNS flow. The answer separates confident, usable, learning, and experimental levels so the breadth does not sound inflated.',
+      'The current emphasis is Next.js, React, TypeScript, Tailwind CSS, Spring Boot, PostgreSQL, Notion API, RAG, and Groq. Ask Romeo connects Next.js, AI SDK, Groq, Notion RAG, and PostgreSQL, while Aigram shows Spring Boot and PostgreSQL in a fullstack SNS flow. The answer separates confident, usable, learning, and experimental levels so the breadth does not sound inflated.',
     ].join('\n'),
     renderSpec: {
       layout: 'skill_cloud',
@@ -1019,11 +1019,11 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     defaultAnswer: [
       '우수에게 연락하려면 이메일, LinkedIn, GitHub, Instagram이 가장 깔끔합니다. AI를 붙인 웹 제품, RAG/검색 UX, 풀스택 프로토타입처럼 “아이디어를 실제로 만져지는 화면까지 끌고 가는” 협업에 특히 잘 맞습니다.',
       '',
-      `- Email: ${oosuProfile.email}`,
-      `- GitHub: ${oosuProfile.github}`,
-      `- LinkedIn: ${oosuProfile.linkedin}`,
-      `- Instagram: ${oosuProfile.instagram}`,
-      `- Portfolio: ${oosuProfile.currentPortfolioUrl}`,
+      `- Email: ${romeoProfile.email}`,
+      `- GitHub: ${romeoProfile.github}`,
+      `- LinkedIn: ${romeoProfile.linkedin}`,
+      `- Instagram: ${romeoProfile.instagram}`,
+      `- Portfolio: ${romeoProfile.currentPortfolioUrl}`,
     ].join('\n'),
     renderSpec: {
       layout: 'contact_card',
@@ -1034,7 +1034,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'contactCard',
-        title: 'Contact Oosu',
+        title: 'Contact Romeo',
         dataKey: 'contact.public',
         items: contactActionsKo,
       },
@@ -1060,25 +1060,25 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Contact',
     displayQuestion:
-      'How can I reach Oosu, and what kind of collaboration is he open to?',
+      'How can I reach Romeo, and what kind of collaboration is he open to?',
     patterns: [
       'contact',
       'contacts',
-      'How can I reach Oosu, and what kind of collaboration is he open to?',
+      'How can I reach Romeo, and what kind of collaboration is he open to?',
       'How can I get in touch or collaborate?',
       'contact oosu',
       'github link',
     ],
     shortAnswer:
-      'You can reach Oosu by email, LinkedIn, GitHub, or Instagram.',
+      'You can reach Romeo by email, LinkedIn, GitHub, or Instagram.',
     defaultAnswer: [
-      'Email, LinkedIn, GitHub, and Instagram are the clearest ways to reach Oosu. He is a good fit for AI-connected web products, RAG/search UX, and fullstack prototypes where an idea needs to become a working screen.',
+      'Email, LinkedIn, GitHub, and Instagram are the clearest ways to reach Romeo. He is a good fit for AI-connected web products, RAG/search UX, and fullstack prototypes where an idea needs to become a working screen.',
       '',
-      `- Email: ${oosuProfile.email}`,
-      `- GitHub: ${oosuProfile.github}`,
-      `- LinkedIn: ${oosuProfile.linkedin}`,
-      `- Instagram: ${oosuProfile.instagram}`,
-      `- Portfolio: ${oosuProfile.currentPortfolioUrl}`,
+      `- Email: ${romeoProfile.email}`,
+      `- GitHub: ${romeoProfile.github}`,
+      `- LinkedIn: ${romeoProfile.linkedin}`,
+      `- Instagram: ${romeoProfile.instagram}`,
+      `- Portfolio: ${romeoProfile.currentPortfolioUrl}`,
     ].join('\n'),
     renderSpec: {
       layout: 'contact_card',
@@ -1089,7 +1089,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'contactCard',
-        title: 'Contact Oosu',
+        title: 'Contact Romeo',
         dataKey: 'contact.public',
         items: contactActionsEn,
       },
@@ -1146,7 +1146,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       '',
       '구현 단계에서는 코드 초안, 리팩터링 방향, 디버깅 가설, 문서화 초안을 AI와 함께 만들지만, 결과물을 그대로 붙이는 방식으로 끝내지 않습니다. 코드 흐름을 직접 읽고 타입 체크, 빌드, 실행 로그, 공식 문서 대조로 실제 동작을 확인합니다.',
       '',
-      'AskOosu 자체도 그 방식을 보여주는 프로젝트입니다. 단순 챗봇이 아니라 FAQ cache, Notion Wiki, RAG, source badge, feedback loop를 연결해 “AI 답변이 어디에 근거하는지”까지 제품 흐름 안에 넣고 있습니다.',
+      'Ask Romeo 자체도 그 방식을 보여주는 프로젝트입니다. 단순 챗봇이 아니라 FAQ cache, Notion Wiki, RAG, source badge, feedback loop를 연결해 “AI 답변이 어디에 근거하는지”까지 제품 흐름 안에 넣고 있습니다.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1181,32 +1181,32 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'AI workflow',
     displayQuestion:
-      'How does Oosu actually use tools like Claude Code, Codex, and Gemini in development?',
+      'How does Romeo actually use tools like Claude Code, Codex, and Gemini in development?',
     patterns: [
       'AI workflow',
       'AI usage',
       'AI usage workflow',
-      'How does Oosu use AI?',
-      'How does Oosu use AI tools?',
-      'How does Oosu actually use tools like Claude Code, Codex, and Gemini in development?',
+      'How does Romeo use AI?',
+      'How does Romeo use AI tools?',
+      'How does Romeo actually use tools like Claude Code, Codex, and Gemini in development?',
       'How do you actually use AI in development?',
       'ai tools development',
     ],
     shortAnswer:
-      'Oosu uses AI to connect planning, implementation, debugging, and documentation faster while keeping human review in charge.',
+      'Romeo uses AI to connect planning, implementation, debugging, and documentation faster while keeping human review in charge.',
     defaultAnswer: [
-      'Oosu uses AI less like a search box and more like a development partner.',
+      'Romeo uses AI less like a search box and more like a development partner.',
       '',
-      'Tools such as Claude Code, Gemini CLI, and Codex help break down requirements, inspect code structure, implement changes, verify behavior, and document decisions. The important habit is not trusting generated output automatically: Oosu still reads code flow, runs checks, compares logs, and verifies against documentation.',
+      'Tools such as Claude Code, Gemini CLI, and Codex help break down requirements, inspect code structure, implement changes, verify behavior, and document decisions. The important habit is not trusting generated output automatically: Romeo still reads code flow, runs checks, compares logs, and verifies against documentation.',
     ].join('\n'),
     detailedAnswer: [
-      'Oosu’s AI workflow is closer to “structure faster, then verify harder” than “let AI build it for me.”',
+      'Romeo’s AI workflow is closer to “structure faster, then verify harder” than “let AI build it for me.”',
       '',
       'At the planning stage, he breaks requirements into smaller units and defines the quality bar before asking AI tools for options. Claude Code, Codex, and Gemini are useful because they expose implementation paths quickly.',
       '',
-      'During implementation, AI can draft code, suggest refactors, form debugging hypotheses, and help with documentation. But the final responsibility stays human: Oosu reads the code flow, runs type checks and builds, compares logs, and checks official docs when behavior is uncertain.',
+      'During implementation, AI can draft code, suggest refactors, form debugging hypotheses, and help with documentation. But the final responsibility stays human: Romeo reads the code flow, runs type checks and builds, compares logs, and checks official docs when behavior is uncertain.',
       '',
-      'AskOosu is the concrete proof of that workflow. It is not only a chat UI; it connects FAQ cache, Notion Wiki, RAG retrieval, source badges, and feedback loops so the answer experience remains grounded instead of becoming free-form AI copy.',
+      'Ask Romeo is the concrete proof of that workflow. It is not only a chat UI; it connects FAQ cache, Notion Wiki, RAG retrieval, source badges, and feedback loops so the answer experience remains grounded instead of becoming free-form AI copy.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1240,18 +1240,18 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'ru',
     quickLabel: 'RAG 구조',
     displayQuestion:
-      'AskOosu 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
+      'Ask Romeo 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
     patterns: [
       'RAG 구조',
-      'AskOosu 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
-      'AskOosu RAG',
+      'Ask Romeo 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
+      'Ask Romeo RAG',
       'Notion RAG Groq PostgreSQL',
       '포트폴리오를 왜 대화형으로 만들었어요?',
     ],
     shortAnswer:
-      'AskOosu는 채팅 UI, FAQ 캐시, Notion Wiki/RAG, PostgreSQL 검색 캐시, Groq 생성 모델을 질문 성격에 따라 연결합니다.',
+      'Ask Romeo는 채팅 UI, FAQ 캐시, Notion Wiki/RAG, PostgreSQL 검색 캐시, Groq 생성 모델을 질문 성격에 따라 연결합니다.',
     defaultAnswer: [
-      'AskOosu는 방문자의 질문을 먼저 FAQ Answer Cache로 확인하고, 반복 질문이면 Groq 호출 없이 바로 답변합니다.',
+      'Ask Romeo는 방문자의 질문을 먼저 FAQ Answer Cache로 확인하고, 반복 질문이면 Groq 호출 없이 바로 답변합니다.',
       '',
       'FAQ로 충분하지 않은 질문은 Notion Wiki 기반 chunk와 PostgreSQL 검색 캐시를 통해 근거를 찾고, 필요한 경우에만 Groq 같은 모델 생성으로 넘어갑니다. 답변에는 source chunk id, confidence, TODO 여부 같은 메타데이터를 붙여 UI에서 근거와 fallback 상태를 확인할 수 있게 합니다.',
     ].join('\n'),
@@ -1264,7 +1264,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'AskOosu Answer Flow',
+        title: 'Ask Romeo Answer Flow',
         dataKey: 'askoosu.rag.workflow',
         items: ragWorkflowKo,
       },
@@ -1288,18 +1288,18 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'RAG system',
     displayQuestion:
-      'How do Notion, RAG, Groq, and PostgreSQL work together inside AskOosu?',
+      'How do Notion, RAG, Groq, and PostgreSQL work together inside Ask Romeo?',
     patterns: [
       'RAG system',
-      'How do Notion, RAG, Groq, and PostgreSQL work together inside AskOosu?',
-      'AskOosu RAG',
+      'How do Notion, RAG, Groq, and PostgreSQL work together inside Ask Romeo?',
+      'Ask Romeo RAG',
       'Notion RAG Groq PostgreSQL',
       'Why build this portfolio as a conversation?',
     ],
     shortAnswer:
-      'AskOosu connects chat UI, FAQ cache, Notion Wiki/RAG, PostgreSQL retrieval cache, and Groq generation depending on the question type.',
+      'Ask Romeo connects chat UI, FAQ cache, Notion Wiki/RAG, PostgreSQL retrieval cache, and Groq generation depending on the question type.',
     defaultAnswer: [
-      'AskOosu checks the FAQ Answer Cache first, so repeated questions can return a grounded answer without calling Groq.',
+      'Ask Romeo checks the FAQ Answer Cache first, so repeated questions can return a grounded answer without calling Groq.',
       '',
       'When the FAQ is not enough, it searches Notion Wiki chunks through a PostgreSQL-backed retrieval cache and only then uses a model such as Groq when generation is needed. The answer carries metadata such as source chunk IDs, confidence, and TODO state so the UI can show evidence and fallback status.',
     ].join('\n'),
@@ -1312,7 +1312,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'AskOosu Answer Flow',
+        title: 'Ask Romeo Answer Flow',
         dataKey: 'askoosu.rag.workflow',
         items: ragWorkflowEn,
       },
@@ -1464,7 +1464,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'stable',
     guardrails: [
       ...sharedGuardrails,
-      'Do not frame Oosu Salon only as failure. Connect it to user, brand, service, and operating-risk learning.',
+      'Do not frame Romeo Salon only as failure. Connect it to user, brand, service, and operating-risk learning.',
       'Avoid private medical details or emotional storytelling unless the user explicitly asks.',
     ],
     matchedEntityIds: ['career', 'career.oosu_salon', 'project.uncorked'],
@@ -1476,23 +1476,23 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'career.oosu_salon_closed',
     entityId: 'career.oosu_salon',
     language: 'en',
-    quickLabel: 'Oosu Salon',
-    displayQuestion: 'Why did Oosu close the wine bar?',
+    quickLabel: 'Romeo Salon',
+    displayQuestion: 'Why did Romeo close the wine bar?',
     patterns: [
-      'Why did Oosu close the wine bar?',
-      'Why did Oosu stop Oosu Salon?',
-      'Why did Oosu Salon close?',
+      'Why did Romeo close the wine bar?',
+      'Why did Romeo stop Romeo Salon?',
+      'Why did Romeo Salon close?',
       'wine bar career story',
       'why did the business end',
     ],
     shortAnswer:
-      'Oosu Salon is not just an unrelated business story. It was where Oosu learned customer experience, brand operation, service constraints, and operating risk before moving toward more scalable software work.',
+      'Romeo Salon is not just an unrelated business story. It was where Romeo learned customer experience, brand operation, service constraints, and operating risk before moving toward more scalable software work.',
     defaultAnswer: [
-      'That is a fair question. Oosu does not frame the wine bar only as a failed business. Oosu Salon was a period of learning customer experience, brand, space, menu, and operating risk directly, while also seeing how strongly an offline business can be tied to time and place.',
+      'That is a fair question. Romeo does not frame the wine bar only as a failed business. Romeo Salon was a period of learning customer experience, brand, space, menu, and operating risk directly, while also seeing how strongly an offline business can be tied to time and place.',
       '',
       'In the later stage, repetitive operating pressure and market changes made it clearer that he wanted to solve problems in a more scalable and repeatable way. Programming was not an escape from that experience. It was a move toward building systems that can keep working beyond one physical location.',
       '',
-      'That background still matters in product work. It helps Oosu read which message feels trustworthy, what kind of experience makes people return, and how operating risk affects a real service.',
+      'That background still matters in product work. It helps Romeo read which message feels trustworthy, what kind of experience makes people return, and how operating risk affects a real service.',
     ].join('\n'),
     renderSpec: {
       layout: 'experience_bridge',
@@ -1510,7 +1510,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'stable',
     guardrails: [
       ...sharedGuardrails,
-      'Do not frame Oosu Salon only as failure. Connect it to user, brand, service, and operating-risk learning.',
+      'Do not frame Romeo Salon only as failure. Connect it to user, brand, service, and operating-risk learning.',
       'Avoid private medical details or emotional storytelling unless the user explicitly asks.',
     ],
     matchedEntityIds: ['career', 'career.oosu_salon', 'project.uncorked'],
@@ -1522,22 +1522,22 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.overview',
     entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'AskOosu',
+    quickLabel: 'Ask Romeo',
     displayQuestion:
-      'AskOosu는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
+      'Ask Romeo는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
     patterns: [
-      'AskOosu',
-      'AskOosu 프로젝트를 설명해줘',
-      'AskOosu는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
+      'Ask Romeo',
+      'Ask Romeo 프로젝트를 설명해줘',
+      'Ask Romeo는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
       'askoosu 설명',
       'ask oosu 프로젝트',
     ],
     shortAnswer:
-      'AskOosu는 방문자가 스크롤 대신 질문으로 우수의 프로젝트와 기술 스택을 탐색하는 AI-connected 대화형 포트폴리오입니다.',
+      'Ask Romeo는 방문자가 스크롤 대신 질문으로 우수의 프로젝트와 기술 스택을 탐색하는 AI-connected 대화형 포트폴리오입니다.',
     defaultAnswer: [
-      'AskOosu는 우수의 2026 대화형 AI 포트폴리오입니다.',
+      'Ask Romeo는 우수의 2026 대화형 AI 포트폴리오입니다.',
       '',
-      `방문자는 ${oosuProfile.currentPortfolioUrl}에서 스크롤 대신 질문으로 프로젝트와 경험을 탐색할 수 있습니다. 구조는 Next.js App Router 기반 프론트엔드와 API Route Handler, Notion Wiki, PostgreSQL RAG cache, Groq 생성 모델을 연결한 형태입니다.`,
+      `방문자는 ${romeoProfile.currentPortfolioUrl}에서 스크롤 대신 질문으로 프로젝트와 경험을 탐색할 수 있습니다. 구조는 Next.js App Router 기반 프론트엔드와 API Route Handler, Notion Wiki, PostgreSQL RAG cache, Groq 생성 모델을 연결한 형태입니다.`,
       '',
       '핵심 의도는 포트폴리오가 단순 소개 페이지가 아니라, 프론트엔드·백엔드·DB·AI orchestration·홈서버 배포 역량을 한 화면에서 증명하는 것입니다.',
     ].join('\n'),
@@ -1554,7 +1554,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'projectCards',
-        title: 'AskOosu',
+        title: 'Ask Romeo',
         dataKey: 'project.askoosu',
         items: [representativeProjectsKo[0]],
       },
@@ -1583,21 +1583,21 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.overview',
     entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'AskOosu',
+    quickLabel: 'Ask Romeo',
     displayQuestion:
-      'What problem led to AskOosu, and why did Oosu build it as a conversational portfolio?',
+      'What problem led to Ask Romeo, and why did Romeo build it as a conversational portfolio?',
     patterns: [
-      'AskOosu',
-      'Explain the AskOosu project',
-      'What problem led to AskOosu, and why did Oosu build it as a conversational portfolio?',
+      'Ask Romeo',
+      'Explain the Ask Romeo project',
+      'What problem led to Ask Romeo, and why did Romeo build it as a conversational portfolio?',
       'what is askoosu',
     ],
     shortAnswer:
-      'AskOosu is an AI-connected conversational portfolio where visitors explore projects and skills by asking questions instead of scrolling.',
+      'Ask Romeo is an AI-connected conversational portfolio where visitors explore projects and skills by asking questions instead of scrolling.',
     defaultAnswer: [
-      'AskOosu is Oosu’s 2026 conversational AI portfolio.',
+      'Ask Romeo is Romeo’s 2026 conversational AI portfolio.',
       '',
-      `At ${oosuProfile.currentPortfolioUrl}, visitors can explore projects and experience by asking questions instead of scrolling through a static portfolio. The system connects a Next.js App Router frontend, API Route Handlers, a Notion Wiki, PostgreSQL-backed RAG cache, and Groq generation.`,
+      `At ${romeoProfile.currentPortfolioUrl}, visitors can explore projects and experience by asking questions instead of scrolling through a static portfolio. The system connects a Next.js App Router frontend, API Route Handlers, a Notion Wiki, PostgreSQL-backed RAG cache, and Groq generation.`,
       '',
       'The point is to make the portfolio itself demonstrate frontend, backend, database, AI orchestration, and home-server deployment ability.',
     ].join('\n'),
@@ -1614,7 +1614,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'projectCards',
-        title: 'AskOosu',
+        title: 'Ask Romeo',
         dataKey: 'project.askoosu',
         items: [representativeProjectsEn[0]],
       },
@@ -1702,17 +1702,17 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Aigram',
     displayQuestion:
-      'What did building Instagram Clone teach Oosu about fullstack development?',
+      'What did building Instagram Clone teach Romeo about fullstack development?',
     patterns: [
       'Instagram Clone',
       'What did you learn from Instagram Clone?',
-      'What did building Instagram Clone teach Oosu about fullstack development?',
+      'What did building Instagram Clone teach Romeo about fullstack development?',
       'instagram clone learning',
     ],
     shortAnswer:
-      'Instagram Clone shows Oosu connecting SNS data, API, and UI flows as a solo fullstack project.',
+      'Instagram Clone shows Romeo connecting SNS data, API, and UI flows as a solo fullstack project.',
     defaultAnswer: [
-      'Instagram Clone shows Oosu’s fullstack practice around core SNS flows.',
+      'Instagram Clone shows Romeo’s fullstack practice around core SNS flows.',
       '',
       'By building feed, follow, and comment features, he worked across React UI, Spring Boot APIs, PostgreSQL data structure, and deployed frontend/backend connectivity. It is evidence that he is moving beyond frontend-only work into product and system flow.',
       '',
@@ -1816,11 +1816,11 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Sticks & Stones',
     displayQuestion:
-      "Why does the Sticks & Stones project matter in Oosu's portfolio?",
+      "Why does the Sticks & Stones project matter in Romeo's portfolio?",
     patterns: [
       'Sticks & Stones',
       'Why does the Sticks & Stones project matter?',
-      "Why does the Sticks & Stones project matter in Oosu's portfolio?",
+      "Why does the Sticks & Stones project matter in Romeo's portfolio?",
       'sticks and stones project',
     ],
     shortAnswer:
@@ -1828,7 +1828,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     defaultAnswer: [
       'Sticks & Stones matters because it is real service migration work, not just a practice project.',
       '',
-      'Oosu migrated a WordPress-based company homepage into a TypeScript/Vite frontend, handling the structure and deployment of a real brand site. It shows practical web delivery in an operational context.',
+      'Romeo migrated a WordPress-based company homepage into a TypeScript/Vite frontend, handling the structure and deployment of a real brand site. It shows practical web delivery in an operational context.',
       '',
       'Live: https://stks.oosu.dev',
     ].join('\n'),
@@ -1870,30 +1870,30 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.portfoliooh_vs_askoosu',
     entityId: 'portfoli_oh',
     language: 'ru',
-    quickLabel: 'Portfoli-Oh! vs AskOosu',
-    displayQuestion: 'Portfoli-Oh!와 AskOosu는 어떤 점이 다른가요?',
+    quickLabel: 'Portfoli-Oh! vs Ask Romeo',
+    displayQuestion: 'Portfoli-Oh!와 Ask Romeo는 어떤 점이 다른가요?',
     patterns: [
-      'Portfoli-Oh!와 AskOosu는 어떤 점이 다른가요?',
-      'Portfoli-Oh!의 한계가 AskOosu로 어떻게 이어졌나요?',
+      'Portfoli-Oh!와 Ask Romeo는 어떤 점이 다른가요?',
+      'Portfoli-Oh!의 한계가 Ask Romeo로 어떻게 이어졌나요?',
       'portfoli-oh askoosu 차이',
-      'old portfolio vs AskOosu',
+      'old portfolio vs Ask Romeo',
       'before after portfolio',
     ],
     shortAnswer:
-      'Portfoli-Oh!는 인터랙션 중심의 프론트엔드 아카이브였고, AskOosu는 질문 중심의 AI/RAG 포트폴리오입니다.',
+      'Portfoli-Oh!는 인터랙션 중심의 프론트엔드 아카이브였고, Ask Romeo는 질문 중심의 AI/RAG 포트폴리오입니다.',
     defaultAnswer: [
-      'Portfoli-Oh!는 우수가 프론트엔드 인터랙션을 많이 실험했던 2025 포트폴리오이고, AskOosu는 그 경험을 바탕으로 만든 2026 대화형 AI 포트폴리오입니다.',
+      'Portfoli-Oh!는 우수가 프론트엔드 인터랙션을 많이 실험했던 2025 포트폴리오이고, Ask Romeo는 그 경험을 바탕으로 만든 2026 대화형 AI 포트폴리오입니다.',
       '',
       'Portfoli-Oh!에서는 GSAP, Three.js, Lottie, 커스텀 커서, JSON 키워드 매칭 챗봇처럼 “보여줄 수 있는 것”을 많이 넣었습니다. 배운 점은 컸지만 기능이 늘수록 방문자가 무엇을 봐야 하는지 흐름이 흐려질 수 있다는 한계도 보였습니다.',
       '',
-      'AskOosu는 그 반성에서 출발해 “더 많이 보여주기”보다 “더 빨리 묻고 찾게 하기”를 우선합니다. 그래서 FAQ cache, Notion Wiki, RAG, source badge, contextual quick question처럼 정보 구조와 답변 신뢰도를 중심에 둡니다.',
+      'Ask Romeo는 그 반성에서 출발해 “더 많이 보여주기”보다 “더 빨리 묻고 찾게 하기”를 우선합니다. 그래서 FAQ cache, Notion Wiki, RAG, source badge, contextual quick question처럼 정보 구조와 답변 신뢰도를 중심에 둡니다.',
     ].join('\n'),
     detailedAnswer: [
-      'Portfoli-Oh!와 AskOosu의 차이는 단순히 2025 포트폴리오와 2026 포트폴리오의 차이가 아니라, 우수의 제품 사고가 어떻게 바뀌었는지를 보여줍니다.',
+      'Portfoli-Oh!와 Ask Romeo의 차이는 단순히 2025 포트폴리오와 2026 포트폴리오의 차이가 아니라, 우수의 제품 사고가 어떻게 바뀌었는지를 보여줍니다.',
       '',
       'Portfoli-Oh!는 프론트엔드 학습 아카이브에 가까웠습니다. 애니메이션, 3D, 하이라이터, JSON 챗봇 등 여러 인터랙션을 넣으면서 구현 경험을 쌓았지만, 데이터가 커질수록 JSON 기반 챗봇 유지보수가 어려워지고 방문자 입장에서는 탐색 방향이 흐려지는 문제가 생겼습니다.',
       '',
-      'AskOosu는 그 문제를 정보 구조로 다시 푼 프로젝트입니다. 방문자가 특정 섹션을 오래 스크롤하지 않아도 질문으로 바로 들어가고, FAQ cache와 RAG가 질문 성격에 맞게 답변을 라우팅합니다. 그래서 AskOosu는 “인터랙션을 많이 만든 포트폴리오”가 아니라 “질문과 근거로 탐색하는 포트폴리오”에 가깝습니다.',
+      'Ask Romeo는 그 문제를 정보 구조로 다시 푼 프로젝트입니다. 방문자가 특정 섹션을 오래 스크롤하지 않아도 질문으로 바로 들어가고, FAQ cache와 RAG가 질문 성격에 맞게 답변을 라우팅합니다. 그래서 Ask Romeo는 “인터랙션을 많이 만든 포트폴리오”가 아니라 “질문과 근거로 탐색하는 포트폴리오”에 가깝습니다.',
     ].join('\n'),
     renderSpec: {
       layout: 'comparison_grid',
@@ -1904,12 +1904,12 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'comparisonTable',
-        title: 'Portfoli-Oh! → AskOosu',
+        title: 'Portfoli-Oh! → Ask Romeo',
         dataKey: 'project.portfoliooh_vs_askoosu',
         items: [
           {
             leftTitle: 'Portfoli-Oh! 2025',
-            rightTitle: 'AskOosu 2026',
+            rightTitle: 'Ask Romeo 2026',
             rows: [
               {
                 label: '중심',
@@ -1949,30 +1949,30 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.portfoliooh_vs_askoosu',
     entityId: 'portfoli_oh',
     language: 'en',
-    quickLabel: 'Portfoli-Oh! vs AskOosu',
-    displayQuestion: 'What is the difference between Portfoli-Oh! and AskOosu?',
+    quickLabel: 'Portfoli-Oh! vs Ask Romeo',
+    displayQuestion: 'What is the difference between Portfoli-Oh! and Ask Romeo?',
     patterns: [
-      'What is the difference between Portfoli-Oh! and AskOosu?',
-      'How did the limits of Portfoli-Oh! lead to AskOosu?',
+      'What is the difference between Portfoli-Oh! and Ask Romeo?',
+      'How did the limits of Portfoli-Oh! lead to Ask Romeo?',
       'portfoli-oh askoosu difference',
-      'old portfolio vs AskOosu',
+      'old portfolio vs Ask Romeo',
       'before after portfolio',
     ],
     shortAnswer:
-      'Portfoli-Oh! was an interaction-heavy frontend archive; AskOosu is a question-first AI/RAG portfolio.',
+      'Portfoli-Oh! was an interaction-heavy frontend archive; Ask Romeo is a question-first AI/RAG portfolio.',
     defaultAnswer: [
-      'Portfoli-Oh! was Oosu’s 2025 portfolio for experimenting with frontend interactions, while AskOosu is the 2026 conversational AI portfolio built from those lessons.',
+      'Portfoli-Oh! was Romeo’s 2025 portfolio for experimenting with frontend interactions, while Ask Romeo is the 2026 conversational AI portfolio built from those lessons.',
       '',
       'Portfoli-Oh! included GSAP, Three.js, Lottie, a custom cursor, highlighting, and a JSON keyword-matching chatbot. It was valuable as a learning archive, but it also showed that too many features can make visitors lose direction.',
       '',
-      'AskOosu starts from that reflection. Instead of adding more visual effects, it focuses on helping visitors ask, find, and trust answers faster through FAQ cache, Notion Wiki, RAG, source badges, and contextual quick questions.',
+      'Ask Romeo starts from that reflection. Instead of adding more visual effects, it focuses on helping visitors ask, find, and trust answers faster through FAQ cache, Notion Wiki, RAG, source badges, and contextual quick questions.',
     ].join('\n'),
     detailedAnswer: [
-      'The difference between Portfoli-Oh! and AskOosu is also a difference in product thinking.',
+      'The difference between Portfoli-Oh! and Ask Romeo is also a difference in product thinking.',
       '',
-      'Portfoli-Oh! was closer to a frontend learning archive. Oosu tried animation, 3D, highlighting, and a JSON chatbot, which created useful implementation experience. But as the content grew, the JSON chatbot became harder to maintain and the visitor journey became less clear.',
+      'Portfoli-Oh! was closer to a frontend learning archive. Romeo tried animation, 3D, highlighting, and a JSON chatbot, which created useful implementation experience. But as the content grew, the JSON chatbot became harder to maintain and the visitor journey became less clear.',
       '',
-      'AskOosu reframes that problem as information architecture. Visitors can ask instead of scrolling through every section, and the system routes questions through FAQ cache and RAG depending on the intent. That makes AskOosu less about showing every possible interaction and more about conversational discovery with evidence.',
+      'Ask Romeo reframes that problem as information architecture. Visitors can ask instead of scrolling through every section, and the system routes questions through FAQ cache and RAG depending on the intent. That makes Ask Romeo less about showing every possible interaction and more about conversational discovery with evidence.',
     ].join('\n'),
     renderSpec: {
       layout: 'comparison_grid',
@@ -1983,12 +1983,12 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'comparisonTable',
-        title: 'Portfoli-Oh! → AskOosu',
+        title: 'Portfoli-Oh! → Ask Romeo',
         dataKey: 'project.portfoliooh_vs_askoosu',
         items: [
           {
             leftTitle: 'Portfoli-Oh! 2025',
-            rightTitle: 'AskOosu 2026',
+            rightTitle: 'Ask Romeo 2026',
             rows: [
               {
                 label: 'Center',
@@ -2046,12 +2046,12 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       '만든 사람 누구야?',
       '개발자는 누구야?',
       '누가 개발했어?',
-      'AskOosu 누가 만들었어?',
+      'Ask Romeo 누가 만들었어?',
       'oosu.dev 누가 만들었어?',
     ],
-    shortAnswer: 'AskOosu는 Oosu Jang이 직접 기획하고 개발했습니다.',
+    shortAnswer: 'Ask Romeo는 Romeo Timony이 직접 기획하고 개발했습니다.',
     defaultAnswer: [
-      '이 포트폴리오 AskOosu는 Oosu Jang이 직접 기획하고 개발한 AI-connected conversational portfolio입니다. 정적인 포트폴리오를 단순히 보여주는 방식이 아니라, 방문자가 질문을 통해 프로젝트, 기술 스택, 커리어, 협업 가능성을 탐색할 수 있도록 만든 대화형 포트폴리오입니다.',
+      '이 포트폴리오 Ask Romeo는 Romeo Timony이 직접 기획하고 개발한 AI-connected conversational portfolio입니다. 정적인 포트폴리오를 단순히 보여주는 방식이 아니라, 방문자가 질문을 통해 프로젝트, 기술 스택, 커리어, 협업 가능성을 탐색할 수 있도록 만든 대화형 포트폴리오입니다.',
       '',
       '기술적으로는 Next.js 기반 채팅 UI, FAQ answer cache, Notion Wiki/RAG 구조, PostgreSQL 검색 캐시, Groq 기반 답변 생성을 연결하는 방향으로 설계되었습니다.',
     ].join('\n'),
@@ -2091,15 +2091,15 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'who built this site?',
       'who created this website?',
       'who created this portfolio website?',
-      'who developed AskOosu?',
+      'who developed Ask Romeo?',
       'who is the creator of this portfolio?',
       'who is the creator of this site?',
       'who made oosu.dev?',
-      'who built AskOosu?',
+      'who built Ask Romeo?',
     ],
-    shortAnswer: 'AskOosu was planned and built by Oosu Jang.',
+    shortAnswer: 'Ask Romeo was planned and built by Romeo Timony.',
     defaultAnswer: [
-      'AskOosu was planned and built by Oosu Jang as an AI-connected conversational portfolio. Instead of making visitors scroll through a static portfolio, it lets them ask questions and explore projects, skills, career background, and collaboration fit through chat.',
+      'Ask Romeo was planned and built by Romeo Timony as an AI-connected conversational portfolio. Instead of making visitors scroll through a static portfolio, it lets them ask questions and explore projects, skills, career background, and collaboration fit through chat.',
       '',
       'Technically, it connects a Next.js chat UI, FAQ answer cache, Notion Wiki/RAG structure, PostgreSQL search cache, and Groq-based answer generation.',
     ].join('\n'),
@@ -2200,19 +2200,19 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Business to dev',
     displayQuestion:
-      "How does Oosu's business and customer experience background shape the way he builds products?",
+      "How does Romeo's business and customer experience background shape the way he builds products?",
     patterns: [
       'Business to dev',
-      "How does Oosu's business and customer experience background shape the way he builds products?",
+      "How does Romeo's business and customer experience background shape the way he builds products?",
       'How does business experience connect to development?',
       'business background development',
     ],
     shortAnswer:
-      "Oosu's business background helps him decide what to build and why a product should be structured that way.",
+      "Romeo's business background helps him decide what to build and why a product should be structured that way.",
     defaultAnswer: [
-      'Oosu’s business background helps him think about what to build and why a product should be structured a certain way.',
+      'Romeo’s business background helps him think about what to build and why a product should be structured a certain way.',
       '',
-      'His business major, POS data consulting experience at GfK Korea, and Oosu Salon operation experience give him a user, market, and operations lens. That makes him look beyond implementation details toward service structure, priority, and real usage context.',
+      'His business major, POS data consulting experience at GfK Korea, and Romeo Salon operation experience give him a user, market, and operations lens. That makes him look beyond implementation details toward service structure, priority, and real usage context.',
     ].join('\n'),
     renderSpec: {
       layout: 'experience_bridge',
@@ -2288,7 +2288,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     defaultAnswer: [
       'Fun 쪽으로 살짝 새면, 우수는 새로운 도구나 감각적인 인터페이스를 만져보는 걸 꽤 좋아하는 편이에요.',
       '',
-      '다만 이 Wiki에서는 사적인 정보가 아니라 공개 가능한 작업 취향까지만 다룹니다. OOSU SALON 운영 경험, 시각적인 실험, 도구를 실제 흐름으로 연결하려는 습관은 프로젝트를 풀어가는 방식과도 이어져요. 더 유용한 이야기는 “이 사람이 프로젝트를 어떻게 구조화하나?” 쪽에서 이어가볼게요.',
+      '다만 이 Wiki에서는 사적인 정보가 아니라 공개 가능한 작업 취향까지만 다룹니다. ROMEO SALON 운영 경험, 시각적인 실험, 도구를 실제 흐름으로 연결하려는 습관은 프로젝트를 풀어가는 방식과도 이어져요. 더 유용한 이야기는 “이 사람이 프로젝트를 어떻게 구조화하나?” 쪽에서 이어가볼게요.',
     ].join('\n'),
     renderSpec: {
       layout: 'experience_bridge',
@@ -2305,7 +2305,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
           {
             image: 'life.oosu_salon.cover',
             caption:
-              'OOSU SALON 운영 경험은 고객 경험과 서비스 감각으로 이어집니다.',
+              'ROMEO SALON 운영 경험은 고객 경험과 서비스 감각으로 이어집니다.',
           },
           {
             image: 'life.sensory_interests.cover',
@@ -2336,22 +2336,22 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Work taste',
     displayQuestion:
-      'Can you share Oosu’s working style or public personal interests lightly?',
+      'Can you share Romeo’s working style or public personal interests lightly?',
     patterns: [
       'fun',
       'hobbies',
       'work taste',
       'working style',
       'public interests',
-      'Can you share Oosu’s working style or public personal interests lightly?',
+      'Can you share Romeo’s working style or public personal interests lightly?',
       'oosu salon',
     ],
     shortAnswer:
       'The Fun area should stay around public working taste and interface curiosity, not private life.',
     defaultAnswer: [
-      'A light Fun detour: Oosu seems drawn to new tools, tactile interfaces, and visual experiments.',
+      'A light Fun detour: Romeo seems drawn to new tools, tactile interfaces, and visual experiments.',
       '',
-      'This Wiki keeps that public and work-adjacent. OOSU SALON, sensory UI references, and tooling experiments are useful because they explain how Oosu approaches projects: not as abstract tech lists, but as experiences someone has to actually touch and understand.',
+      'This Wiki keeps that public and work-adjacent. ROMEO SALON, sensory UI references, and tooling experiments are useful because they explain how Romeo approaches projects: not as abstract tech lists, but as experiences someone has to actually touch and understand.',
     ].join('\n'),
     renderSpec: {
       layout: 'experience_bridge',
@@ -2368,7 +2368,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
           {
             image: 'life.oosu_salon.cover',
             caption:
-              'OOSU SALON connects to customer experience and service taste.',
+              'ROMEO SALON connects to customer experience and service taste.',
           },
           {
             image: 'life.sensory_interests.cover',
@@ -2409,7 +2409,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     ],
     shortAnswer: '현재 공개 이력서 URL은 아직 준비 중입니다.',
     defaultAnswer:
-      '현재 공개 이력서 URL은 아직 준비 중입니다. 공개 가능한 한국어/영어 이력서 링크가 준비되면 AskOosu와 Notion Wiki에 연결할 예정입니다.',
+      '현재 공개 이력서 URL은 아직 준비 중입니다. 공개 가능한 한국어/영어 이력서 링크가 준비되면 Ask Romeo와 Notion Wiki에 연결할 예정입니다.',
     renderSpec: {
       layout: 'contact_card',
       density: 'compact',
@@ -2440,17 +2440,17 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Resume',
     displayQuestion:
-      "Is Oosu's resume or detailed career profile ready to share?",
+      "Is Romeo's resume or detailed career profile ready to share?",
     patterns: [
       'resume',
-      "Is Oosu's resume or detailed career profile ready to share?",
+      "Is Romeo's resume or detailed career profile ready to share?",
       'resume URL',
       'resume link',
       'CV link',
     ],
     shortAnswer: 'The public resume URL is not available yet.',
     defaultAnswer:
-      'The public resume URL is not available yet. Once Korean and English resume links are ready, they will be connected to AskOosu and the Notion Wiki.',
+      'The public resume URL is not available yet. Once Korean and English resume links are ready, they will be connected to Ask Romeo and the Notion Wiki.',
     renderSpec: {
       layout: 'contact_card',
       density: 'compact',
@@ -2490,14 +2490,14 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'private 프로젝트',
     ],
     shortAnswer:
-      '바로 확인 가능한 공개 링크는 AskOosu, Instagram Clone, Sticks & Stones, Portfoli-Oh! 중심으로 안내할 수 있습니다.',
+      '바로 확인 가능한 공개 링크는 Ask Romeo, Instagram Clone, Sticks & Stones, Portfoli-Oh! 중심으로 안내할 수 있습니다.',
     defaultAnswer: [
       '바로 확인할 수 있는 공개 링크는 확인된 것만 안내합니다.',
       '',
-      `- AskOosu: ${oosuProfile.currentPortfolioUrl}`,
+      `- Ask Romeo: ${romeoProfile.currentPortfolioUrl}`,
       '- Instagram Clone: https://aigram.oosu.dev',
       '- Sticks & Stones: https://stks.oosu.dev',
-      `- Portfoli-Oh!: ${oosuProfile.legacyPortfolioUrl}`,
+      `- Portfoli-Oh!: ${romeoProfile.legacyPortfolioUrl}`,
       '',
       '라이브 URL이 없는 프로젝트는 배포된 것처럼 단정하지 않고, 공개 여부나 준비 중 상태를 그대로 말하는 것이 원칙입니다.',
     ].join('\n'),
@@ -2545,14 +2545,14 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'private project',
     ],
     shortAnswer:
-      'Verified public links can be shared for AskOosu, Instagram Clone, Sticks & Stones, and Portfoli-Oh!.',
+      'Verified public links can be shared for Ask Romeo, Instagram Clone, Sticks & Stones, and Portfoli-Oh!.',
     defaultAnswer: [
       'Only verified public links should be shown as live.',
       '',
-      `- AskOosu: ${oosuProfile.currentPortfolioUrl}`,
+      `- Ask Romeo: ${romeoProfile.currentPortfolioUrl}`,
       '- Instagram Clone: https://aigram.oosu.dev',
       '- Sticks & Stones: https://stks.oosu.dev',
-      `- Portfoli-Oh!: ${oosuProfile.legacyPortfolioUrl}`,
+      `- Portfoli-Oh!: ${romeoProfile.legacyPortfolioUrl}`,
       '',
       'Projects without live URLs should not be described as deployed. TODO, needs_review, or private evidence should stay unconfirmed.',
     ].join('\n'),
@@ -2590,31 +2590,31 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     entityId: 'askoosu',
     language: 'ru',
     quickLabel: 'UI/UX 방향',
-    displayQuestion: 'AskOosu의 UI/UX는 어떤 방향으로 설계했나요?',
+    displayQuestion: 'Ask Romeo의 UI/UX는 어떤 방향으로 설계했나요?',
     patterns: [
-      'AskOosu의 UI는 어떻게 설계했나요?',
-      'AskOosu UI UX 방향',
+      'Ask Romeo의 UI는 어떻게 설계했나요?',
+      'Ask Romeo UI UX 방향',
       '대화형 포트폴리오 UX 설명',
-      'AskOosu visual ui',
-      'AskOosu design direction',
+      'Ask Romeo visual ui',
+      'Ask Romeo design direction',
     ],
     shortAnswer:
-      'AskOosu의 UI/UX는 긴 포트폴리오를 읽게 하기보다 궁금한 것을 바로 묻게 하는 방향으로 설계했습니다.',
+      'Ask Romeo의 UI/UX는 긴 포트폴리오를 읽게 하기보다 궁금한 것을 바로 묻게 하는 방향으로 설계했습니다.',
     defaultAnswer: [
-      'AskOosu의 UI/UX는 정적인 포트폴리오를 대화형 정보 탐색 경험으로 바꾸는 방향으로 설계되었습니다.',
+      'Ask Romeo의 UI/UX는 정적인 포트폴리오를 대화형 정보 탐색 경험으로 바꾸는 방향으로 설계되었습니다.',
       '',
       '핵심은 사용자가 긴 스크롤 페이지를 읽는 대신, 궁금한 것을 바로 질문하고 빠르게 답에 도달하게 만드는 것입니다. 그래서 중심 인터페이스는 채팅이지만, 답변이 전부 텍스트로만 끝나지 않도록 추천 질문, 프로젝트 카드, source/confidence badge, quick action 같은 시각 블록을 함께 두는 방향으로 보고 있습니다.',
       '',
-      'Portfoli-Oh!를 만들면서 인터랙션이 많아질수록 사용자가 길을 잃을 수 있다는 점을 배웠기 때문에, AskOosu에서는 “더 화려하게”보다 “더 빨리 이해되게”를 우선합니다.',
+      'Portfoli-Oh!를 만들면서 인터랙션이 많아질수록 사용자가 길을 잃을 수 있다는 점을 배웠기 때문에, Ask Romeo에서는 “더 화려하게”보다 “더 빨리 이해되게”를 우선합니다.',
     ].join('\n'),
     detailedAnswer: [
-      'AskOosu의 UI/UX 방향은 세 가지 원칙으로 정리할 수 있습니다.',
+      'Ask Romeo의 UI/UX 방향은 세 가지 원칙으로 정리할 수 있습니다.',
       '',
       '첫째, 질문 중심 탐색입니다. 방문자가 About, Projects, Skills를 순서대로 읽지 않아도 궁금한 질문 하나로 바로 원하는 맥락에 들어갈 수 있어야 합니다.',
       '',
-      '둘째, 텍스트와 시각 블록을 섞은 답변입니다. 대표 프로젝트, 기술 스택, 연락/협업, AskOosu 구조 같은 질문은 카드, 칩, 단계형 다이어그램으로 보여줄 때 이해가 더 빠릅니다.',
+      '둘째, 텍스트와 시각 블록을 섞은 답변입니다. 대표 프로젝트, 기술 스택, 연락/협업, Ask Romeo 구조 같은 질문은 카드, 칩, 단계형 다이어그램으로 보여줄 때 이해가 더 빠릅니다.',
       '',
-      '셋째, 과한 인터랙션보다 명확한 정보 위계입니다. AskOosu는 “보기 좋은 포트폴리오”보다 “질문하기 쉬운 포트폴리오”에 가깝습니다.',
+      '셋째, 과한 인터랙션보다 명확한 정보 위계입니다. Ask Romeo는 “보기 좋은 포트폴리오”보다 “질문하기 쉬운 포트폴리오”에 가깝습니다.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -2625,7 +2625,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'AskOosu UI Principles',
+        title: 'Ask Romeo UI Principles',
         dataKey: 'askoosu.ui_principles',
         items: [
           {
@@ -2664,31 +2664,31 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     entityId: 'askoosu',
     language: 'en',
     quickLabel: 'UI/UX direction',
-    displayQuestion: 'What was the UI/UX direction behind AskOosu?',
+    displayQuestion: 'What was the UI/UX direction behind Ask Romeo?',
     patterns: [
-      'What was the UI direction of AskOosu?',
-      'AskOosu UI UX',
+      'What was the UI direction of Ask Romeo?',
+      'Ask Romeo UI UX',
       'conversational portfolio UX',
-      'AskOosu visual ui',
-      'AskOosu design direction',
+      'Ask Romeo visual ui',
+      'Ask Romeo design direction',
     ],
     shortAnswer:
-      'AskOosu is designed around letting people ask immediately rather than making them read a long portfolio.',
+      'Ask Romeo is designed around letting people ask immediately rather than making them read a long portfolio.',
     defaultAnswer: [
-      'AskOosu’s UI/UX is designed to turn a static portfolio into a conversational information-discovery experience.',
+      'Ask Romeo’s UI/UX is designed to turn a static portfolio into a conversational information-discovery experience.',
       '',
       'The goal is to help visitors reach answers quickly by asking natural questions instead of scrolling through long sections. Chat is the main interface, but the answer experience should not be text-only: recommended questions, project cards, source/confidence badges, and quick actions should support understanding.',
       '',
-      'Portfoli-Oh! taught that too many interactions can make people lose their way, so AskOosu prioritizes “easier to understand faster” over “more flashy.”',
+      'Portfoli-Oh! taught that too many interactions can make people lose their way, so Ask Romeo prioritizes “easier to understand faster” over “more flashy.”',
     ].join('\n'),
     detailedAnswer: [
-      'The UI/UX direction of AskOosu has three principles.',
+      'The UI/UX direction of Ask Romeo has three principles.',
       '',
       'First, question-first navigation. Visitors should not need to read About, Projects, and Skills in a fixed order.',
       '',
       'Second, blended text and visual answer blocks. High-value answers are easier to understand as cards, chips, badges, or step diagrams.',
       '',
-      'Third, clear information hierarchy over excessive interaction. AskOosu is meant to be a portfolio that is easy to ask, not just easy to look at.',
+      'Third, clear information hierarchy over excessive interaction. Ask Romeo is meant to be a portfolio that is easy to ask, not just easy to look at.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -2699,7 +2699,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'AskOosu UI Principles',
+        title: 'Ask Romeo UI Principles',
         dataKey: 'askoosu.ui_principles',
         items: [
           {
@@ -2740,23 +2740,23 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     entityId: 'askoosu',
     language: 'ru',
     quickLabel: '배포 / 운영',
-    displayQuestion: 'AskOosu는 어떻게 배포하고 운영하나요?',
+    displayQuestion: 'Ask Romeo는 어떻게 배포하고 운영하나요?',
     patterns: [
-      'AskOosu 배포',
-      'AskOosu는 어디서 돌아가나요?',
+      'Ask Romeo 배포',
+      'Ask Romeo는 어디서 돌아가나요?',
       '포트폴리오 운영 구조',
-      'deployment of AskOosu',
+      'deployment of Ask Romeo',
       'home server 배포',
     ],
     shortAnswer:
-      'AskOosu는 oosu.dev를 canonical live URL로 두고, Notion Wiki 원본과 Next.js 앱, RAG 캐시, 답변 생성을 연결하는 구조를 지향합니다.',
+      'Ask Romeo는 oosu.dev를 canonical live URL로 두고, Notion Wiki 원본과 Next.js 앱, RAG 캐시, 답변 생성을 연결하는 구조를 지향합니다.',
     defaultAnswer: [
-      'AskOosu는 `https://oosu.dev`를 canonical live URL로 두고 운영하는 방향입니다.',
+      'Ask Romeo는 `https://oosu.dev`를 canonical live URL로 두고 운영하는 방향입니다.',
       '',
       '콘텐츠 원본은 Notion Wiki이고, 서비스 레이어에서는 Next.js 기반 프론트엔드와 API route handler, RAG 검색 캐시용 데이터 저장소, Groq 기반 답변 생성을 연결합니다. 운영 관점에서는 Notion 내용을 주기적으로 sync해 chunk를 갱신하고, 자주 묻는 질문은 FAQ cache로 먼저 처리해 API 비용과 응답 지연을 줄입니다.',
     ].join('\n'),
     detailedAnswer: [
-      'AskOosu의 배포/운영 구조는 네 층으로 볼 수 있습니다.',
+      'Ask Romeo의 배포/운영 구조는 네 층으로 볼 수 있습니다.',
       '',
       '첫째, Notion Wiki를 편집 가능한 콘텐츠 원본으로 둡니다. 둘째, Next.js 앱이 채팅 UI, 추천 질문, 시각 답변 블록, API route handler를 담당합니다.',
       '',
@@ -2815,23 +2815,23 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     entityId: 'askoosu',
     language: 'en',
     quickLabel: 'Deployment',
-    displayQuestion: 'How is AskOosu deployed and operated?',
+    displayQuestion: 'How is Ask Romeo deployed and operated?',
     patterns: [
-      'How is AskOosu deployed?',
-      'Where does AskOosu run?',
+      'How is Ask Romeo deployed?',
+      'Where does Ask Romeo run?',
       'portfolio deployment',
-      'deployment of AskOosu',
+      'deployment of Ask Romeo',
       'home server deployment',
     ],
     shortAnswer:
-      'AskOosu uses oosu.dev as the canonical public URL and connects Notion Wiki, the Next.js app, retrieval cache, and answer generation around it.',
+      'Ask Romeo uses oosu.dev as the canonical public URL and connects Notion Wiki, the Next.js app, retrieval cache, and answer generation around it.',
     defaultAnswer: [
-      'AskOosu is intended to run with `https://oosu.dev` as the canonical live URL.',
+      'Ask Romeo is intended to run with `https://oosu.dev` as the canonical live URL.',
       '',
       'The original content lives in Notion Wiki, while the service layer connects a Next.js frontend, route handlers, a retrieval/cache data layer, and Groq-based answer generation. Operationally, Notion content should be synced into chunks, and frequently asked questions should be handled by the FAQ cache first to reduce cost and latency.',
     ].join('\n'),
     detailedAnswer: [
-      'The deployment and operations model of AskOosu can be understood in four layers.',
+      'The deployment and operations model of Ask Romeo can be understood in four layers.',
       '',
       'First, Notion Wiki is the editable source of truth. Second, the Next.js app handles chat UI, suggested questions, visual answer blocks, and route handlers.',
       '',
@@ -2908,7 +2908,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       '즉, FAQ cache는 속도와 비용 절감, RAG는 유연성과 근거 검색을 담당합니다.',
     ].join('\n'),
     detailedAnswer: [
-      'AskOosu에서 FAQ cache와 RAG는 경쟁 관계가 아니라 역할 분담 관계입니다.',
+      'Ask Romeo에서 FAQ cache와 RAG는 경쟁 관계가 아니라 역할 분담 관계입니다.',
       '',
       'FAQ cache는 모범답안 뱅크에 가깝습니다. FAQ ID, intent, patterns, short/default/detailed answer를 미리 관리하고 높은 confidence로 매칭되면 바로 반환합니다.',
       '',
@@ -2987,7 +2987,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'Cache is mainly for speed and cost reduction; RAG is for flexibility and evidence retrieval.',
     ].join('\n'),
     detailedAnswer: [
-      'In AskOosu, FAQ cache and RAG are complementary.',
+      'In Ask Romeo, FAQ cache and RAG are complementary.',
       '',
       'FAQ cache is closer to a model answer bank. Each cached item has an FAQ ID, intent, patterns, and answer variants. When a user question matches with high confidence, the system returns it immediately.',
       '',
@@ -3057,20 +3057,20 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'what projects used spring boot and postgresql',
     ],
     shortAnswer:
-      'Spring Boot와 PostgreSQL은 Instagram Clone에서 함께 사용했고, AskOosu에서는 PostgreSQL을 RAG 검색 캐시 구조로 활용합니다.',
+      'Spring Boot와 PostgreSQL은 Instagram Clone에서 함께 사용했고, Ask Romeo에서는 PostgreSQL을 RAG 검색 캐시 구조로 활용합니다.',
     defaultAnswer: [
       'Spring Boot와 PostgreSQL을 가장 본격적으로 다룬 프로젝트는 Instagram Clone입니다.',
       '',
       '이 프로젝트에서 Spring Boot 백엔드와 PostgreSQL을 기반으로 사용자, 게시글, 댓글, 팔로우, 검색 같은 SNS의 관계형 데이터 흐름을 설계하고 구현했습니다.',
       '',
-      'PostgreSQL은 AskOosu에서도 중요합니다. AskOosu에서는 Notion Wiki에서 가져온 chunk를 저장하고 검색하는 RAG 캐시 구조를 PostgreSQL/pgvector 확장 가능 구조로 연결하는 방향을 보고 있습니다.',
+      'PostgreSQL은 Ask Romeo에서도 중요합니다. Ask Romeo에서는 Notion Wiki에서 가져온 chunk를 저장하고 검색하는 RAG 캐시 구조를 PostgreSQL/pgvector 확장 가능 구조로 연결하는 방향을 보고 있습니다.',
     ].join('\n'),
     detailedAnswer: [
       'Spring Boot와 PostgreSQL은 우수의 백엔드 성장 흐름을 보여주는 기술 조합입니다.',
       '',
       'Instagram Clone에서는 Spring Boot, PostgreSQL, REST API를 기반으로 SNS 서비스의 핵심 도메인을 다뤘습니다. 사용자 계정, 게시물, 댓글, 팔로우 관계, 검색, 인증 같은 기능을 연결하면서 데이터 모델링과 API 설계가 얼마나 중요한지 체감한 프로젝트입니다.',
       '',
-      'AskOosu에서는 PostgreSQL이 전통적인 CRUD보다 지식 chunk, metadata, source id, feedback log를 저장하고 retrieval cache로 활용하는 역할에 가깝습니다.',
+      'Ask Romeo에서는 PostgreSQL이 전통적인 CRUD보다 지식 chunk, metadata, source id, feedback log를 저장하고 retrieval cache로 활용하는 역할에 가깝습니다.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -3128,18 +3128,18 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'what projects used spring boot and postgresql',
     ],
     shortAnswer:
-      'The clearest Spring Boot and PostgreSQL project is Instagram Clone. PostgreSQL also matters in AskOosu as a retrieval/cache data layer.',
+      'The clearest Spring Boot and PostgreSQL project is Instagram Clone. PostgreSQL also matters in Ask Romeo as a retrieval/cache data layer.',
     defaultAnswer: [
       'The project where Spring Boot and PostgreSQL were used together most clearly is Instagram Clone.',
       '',
-      'In that project, Spring Boot and PostgreSQL were used to design and implement the relational flow behind users, posts, comments, follows, and search. PostgreSQL is also important in AskOosu, where it supports a retrieval/cache-oriented data structure for RAG.',
+      'In that project, Spring Boot and PostgreSQL were used to design and implement the relational flow behind users, posts, comments, follows, and search. PostgreSQL is also important in Ask Romeo, where it supports a retrieval/cache-oriented data structure for RAG.',
     ].join('\n'),
     detailedAnswer: [
-      'Spring Boot and PostgreSQL together show an important part of Oosu’s backend growth.',
+      'Spring Boot and PostgreSQL together show an important part of Romeo’s backend growth.',
       '',
       'In Instagram Clone, Spring Boot, PostgreSQL, and REST API were used to build the core domain of an SNS product. Users, posts, comments, follows, search, and auth required data modeling and API design.',
       '',
-      'In AskOosu, PostgreSQL plays a different role: storing knowledge chunks, metadata, source IDs, and feedback logs for retrieval-oriented AI architecture.',
+      'In Ask Romeo, PostgreSQL plays a different role: storing knowledge chunks, metadata, source IDs, and feedback logs for retrieval-oriented AI architecture.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -3269,14 +3269,14 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'what would you do first',
     ],
     shortAnswer:
-      'In the first 30 days, Oosu could learn the product and domain quickly, then ship small improvements right away.',
+      'In the first 30 days, Romeo could learn the product and domain quickly, then ship small improvements right away.',
     defaultAnswer: [
       'In the first 30 days, the best contribution would not be trying to change everything at once, but understanding the product context and user flow quickly, then finding areas that can be improved immediately.',
       '',
-      'Oosu is strong at learning new tools and structures fast, and turning that understanding into small execution such as UX fixes, documentation, FAQ/help structure, or a small feature.',
+      'Romeo is strong at learning new tools and structures fast, and turning that understanding into small execution such as UX fixes, documentation, FAQ/help structure, or a small feature.',
     ].join('\n'),
     detailedAnswer: [
-      'Oosu’s contribution in the first 30 days can be divided into three stages.',
+      'Romeo’s contribution in the first 30 days can be divided into three stages.',
       '',
       '0-10 days: absorb context by using the product, understanding the user journey, and learning the team’s important problems.',
       '',
@@ -3378,7 +3378,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
               'Industrial AI',
               'Internal tools',
             ],
-            evidence: ['AskOosu', 'Instagram Clone', 'Business/UX background'],
+            evidence: ['Ask Romeo', 'Instagram Clone', 'Business/UX background'],
           },
         ],
       },
@@ -3413,12 +3413,12 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     shortAnswer:
       'Projects where AI becomes part of the real user experience, and where problem definition and implementation both matter, are the most exciting.',
     defaultAnswer: [
-      'The kind of project that would make Oosu say yes immediately is one where AI genuinely improves the user experience.',
+      'The kind of project that would make Romeo say yes immediately is one where AI genuinely improves the user experience.',
       '',
       'Not just attaching a model for the sake of it, but creating a flow where users can find faster, get less lost, or make better decisions. RAG/search, AI application development, fullstack web services, knowledge-heavy products, and operational efficiency tools are especially interesting.',
     ].join('\n'),
     detailedAnswer: [
-      'There are a few common traits in the projects Oosu would say yes to immediately.',
+      'There are a few common traits in the projects Romeo would say yes to immediately.',
       '',
       'First, AI should live inside the real service experience. Second, problem definition and implementation should both matter. Third, the work should connect to real-world problems such as industrial data, customer experience, knowledge management, or internal productivity.',
     ].join('\n'),
@@ -3449,7 +3449,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
               'Industrial AI',
               'Internal tools',
             ],
-            evidence: ['AskOosu', 'Instagram Clone', 'Business/UX background'],
+            evidence: ['Ask Romeo', 'Instagram Clone', 'Business/UX background'],
           },
         ],
       },

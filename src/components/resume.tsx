@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, FileText } from 'lucide-react';
 import { getUiText } from '@/lib/i18n';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 export function Resume() {
@@ -14,16 +14,16 @@ export function Resume() {
   // Resume details
   const resumeDetails = {
     title: text.resumeTitle,
-    description: oosuProfile.title,
+    description: romeoProfile.title,
     lastUpdated: text.resumeUpdated,
     versions: [
       {
-        label: text.resumeKorean,
-        url: oosuProfile.resumeKoUrl,
+        label: text.resumeRussian,
+        url: romeoProfile.resumeKoUrl,
       },
       {
         label: text.resumeEnglish,
-        url: oosuProfile.resumeEnUrl,
+        url: romeoProfile.resumeEnUrl,
       },
     ],
   };

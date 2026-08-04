@@ -2,7 +2,7 @@
 
 import { ChevronRight } from 'lucide-react';
 import { getUiText } from '@/lib/i18n';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 export function Contact() {
@@ -11,21 +11,21 @@ export function Contact() {
 
   // Contact information
   const contactInfo = {
-    name: oosuProfile.name,
-    email: oosuProfile.email,
-    handle: oosuProfile.handle,
+    name: romeoProfile.name,
+    email: romeoProfile.email,
+    handle: romeoProfile.handle,
     socials: [
       {
         name: 'LinkedIn',
-        url: oosuProfile.linkedin,
+        url: romeoProfile.linkedin,
       },
       {
         name: 'Instagram',
-        url: oosuProfile.instagram,
+        url: romeoProfile.instagram,
       },
       {
         name: 'Github',
-        url: oosuProfile.github,
+        url: romeoProfile.github,
       },
     ],
   };

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 
 export function FastfolioCTA() {
   const [isMobile, setIsMobile] = useState(false);
@@ -19,7 +19,7 @@ export function FastfolioCTA() {
   }, []);
 
   const handleClick = () => {
-    window.open(oosuProfile.notionWikiUrl, '_blank');
+    window.open(romeoProfile.notionWikiUrl, '_blank');
   };
 
   const position = isMobile
@@ -38,7 +38,7 @@ export function FastfolioCTA() {
     >
       <BookOpen className="h-5 w-5" />
       <span className="text-foreground hidden text-sm font-medium sm:inline">
-        Open AskOosu Wiki
+        Open Ask Romeo Wiki
       </span>
       <span className="text-foreground text-sm font-medium sm:hidden">
         Wiki

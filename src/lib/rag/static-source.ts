@@ -1,20 +1,20 @@
-import { oosuProfile, oosuProjects } from '@/lib/oosu-profile';
+import { romeoProfile, romeoProjects } from '@/lib/romeo-profile';
 import { chunkLongText, normalizeText } from './text';
 import type { RagChunk } from './types';
 
 export function getStaticChunks(): RagChunk[] {
   const profileText = normalizeText(`
-Name: ${oosuProfile.name}
-Title: ${oosuProfile.title}
-Location: ${oosuProfile.location}
-Residence: ${oosuProfile.residence}
-Education: ${oosuProfile.education}
-Email: ${oosuProfile.email}
-GitHub: ${oosuProfile.github}
-LinkedIn: ${oosuProfile.linkedin}
-Instagram: ${oosuProfile.instagram}
-Portfolio: ${oosuProfile.currentPortfolioUrl}
-Wiki: ${oosuProfile.notionWikiUrl}
+Name: ${romeoProfile.name}
+Title: ${romeoProfile.title}
+Location: ${romeoProfile.location}
+Residence: ${romeoProfile.residence}
+Education: ${romeoProfile.education}
+Email: ${romeoProfile.email}
+GitHub: ${romeoProfile.github}
+LinkedIn: ${romeoProfile.linkedin}
+Instagram: ${romeoProfile.instagram}
+Portfolio: ${romeoProfile.currentPortfolioUrl}
+Wiki: ${romeoProfile.notionWikiUrl}
   `);
 
   return [
@@ -23,12 +23,12 @@ Wiki: ${oosuProfile.notionWikiUrl}
       title: 'Romeo profile',
       source: 'static',
       text: profileText,
-      url: oosuProfile.notionSourceUrl,
+      url: romeoProfile.notionSourceUrl,
       metadata: {
         sourceKind: 'profile',
       },
     }),
-    ...oosuProjects.flatMap((project) =>
+    ...romeoProjects.flatMap((project) =>
       chunkLongText({
         id: `static-project-${project.title}`,
         title: project.title,

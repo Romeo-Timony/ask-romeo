@@ -1,6 +1,6 @@
 import { getSuggestedQuestionText } from '@/lib/suggested-questions';
 
-export const oosuProfile = {
+export const romeoProfile = {
   name: 'Romeo Timony (Роман Тимошенко)',
   handle: '@Romeo-Timony',
   title: 'Fullstack QA/AI engineer',
@@ -35,7 +35,7 @@ export const suggestedQuestions = {
   Contact: getSuggestedQuestionText('en', 'contactCollab'),
 } as const;
 
-export const oosuProjects = [
+export const romeoProjects = [
   {
     title: 'Ask Romeo',
     category: 'AI Portfolio',
@@ -55,16 +55,16 @@ export const oosuProjects = [
     links: [
       {
         name: 'Live Site',
-        url: oosuProfile.currentPortfolioUrl,
+        url: romeoProfile.currentPortfolioUrl,
       },
       {
         name: 'GitHub',
-        url: oosuProfile.currentPortfolioGithub,
+        url: romeoProfile.currentPortfolioGithub,
       },
     ],
     images: [
       {
-        src: '/oosuhada.png',
+        src: '/romeo.png',
         alt: 'Ask Romeo project preview placeholder',
       },
     ],
@@ -84,7 +84,7 @@ export const oosuProjects = [
     ],
     images: [
       {
-        src: '/oosuhada.png',
+        src: '/romeo.png',
         alt: 'QA Assistant preview placeholder',
       },
     ],
@@ -103,7 +103,7 @@ export const oosuProjects = [
     ],
     images: [
       {
-        src: '/oosuhada.png',
+        src: '/romeo.png',
         alt: 'Onboard preview placeholder',
       },
     ],
@@ -122,7 +122,7 @@ export const oosuProjects = [
     ],
     images: [
       {
-        src: '/oosuhada.png',
+        src: '/romeo.png',
         alt: 'incoming_lids preview placeholder',
       },
     ],
@@ -141,7 +141,7 @@ export const oosuProjects = [
     ],
     images: [
       {
-        src: '/oosuhada.png',
+        src: '/romeo.png',
         alt: 'pikabaka preview placeholder',
       },
     ],

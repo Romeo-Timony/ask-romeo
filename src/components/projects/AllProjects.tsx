@@ -11,7 +11,7 @@ export default function AllProjects() {
   return (
     <div className="h-full w-full pt-8">
       <h2 className="mx-auto max-w-7xl font-sans text-xl font-bold text-neutral-800 md:text-3xl dark:text-neutral-200">
-        Oosu Projects
+        Romeo Projects
       </h2>
       <Carousel items={cards} />
     </div>

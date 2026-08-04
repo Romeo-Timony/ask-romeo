@@ -6,22 +6,22 @@ import { Photos, PhotoItem } from './photos';
 const Sports = () => {
   const sportPhotos: PhotoItem[] = [
     {
-      src: '/oosu-projects/portfoli-oh-2025.webp',
+      src: '/romeo-projects/portfoli-oh-2025.webp',
       alt: 'Portfoli-Oh 2025 portfolio preview',
       caption: 'Portfoli-Oh! 2025, the frontend bootcamp portfolio.',
     },
     {
-      src: '/oosu-projects/onjung.webp',
+      src: '/romeo-projects/onjung.webp',
       alt: 'Onjung Flutter app preview',
       caption: 'Onjung, a Flutter app for life-event money records.',
     },
     {
-      src: '/oosu-projects/nomad-market.webp',
+      src: '/romeo-projects/nomad-market.webp',
       alt: 'Nomad Market Flutter app preview',
       caption: 'Nomad Market, a cross-border marketplace app concept.',
     },
     {
-      src: '/oosu-avatar/hover-12.webp',
+      src: '/romeo-avatar/hover-12.webp',
       alt: 'Notion wiki placeholder avatar frame',
       caption:
         'Notion wiki and resume pages are planned as the next source layer.',

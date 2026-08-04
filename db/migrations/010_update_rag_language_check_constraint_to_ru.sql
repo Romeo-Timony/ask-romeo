@@ -1,0 +1,11 @@
+-- Drop the old check constraints restricting language to ('ko', 'en')
+ALTER TABLE rag_sources DROP CONSTRAINT IF EXISTS rag_sources_language_check;
+ALTER TABLE rag_chunks DROP CONSTRAINT IF EXISTS rag_chunks_language_check;
+ALTER TABLE answer_cache DROP CONSTRAINT IF EXISTS answer_cache_language_check;
+ALTER TABLE rag_search_cache DROP CONSTRAINT IF EXISTS rag_search_cache_language_check;
+
+-- Add new check constraints to support 'ru', 'en', and 'ko' (backward compatibility)
+ALTER TABLE rag_sources ADD CONSTRAINT rag_sources_language_check CHECK (language IS NULL OR language IN ('ru', 'en', 'ko'));
+ALTER TABLE rag_chunks ADD CONSTRAINT rag_chunks_language_check CHECK (language IS NULL OR language IN ('ru', 'en', 'ko'));
+ALTER TABLE answer_cache ADD CONSTRAINT answer_cache_language_check CHECK (language IN ('ru', 'en', 'ko'));
+ALTER TABLE rag_search_cache ADD CONSTRAINT rag_search_cache_language_check CHECK (language IS NULL OR language IN ('ru', 'en', 'ko'));

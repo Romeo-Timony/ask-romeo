@@ -3,12 +3,12 @@ import { z } from 'zod';
 
 export const getPresentation = tool({
   description:
-    'Return a concise personal introduction of Oosu Jang. Use it when the user asks who Oosu is.',
+    'Return a concise personal introduction of Romeo Timony. Use it when the user asks who Romeo is.',
   inputSchema: z.object({}),
   execute: async () => {
     return {
       presentation:
-        'Oosu Jang is an AI-connected Fullstack Developer building AskOosu, a 2026 conversational portfolio that connects frontend experience, backend logic, and LLM-powered answers.',
+        'Romeo Timony is an AI-connected Fullstack Developer building Ask Romeo, a 2026 conversational portfolio that connects frontend experience, backend logic, and LLM-powered answers.',
     };
   },
 });

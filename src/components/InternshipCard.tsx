@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { BriefcaseBusiness, Code2, Globe } from 'lucide-react';
-import { OosuAvatar } from '@/components/oosu-avatar';
+import { RomeoAvatar } from '@/components/romeo-avatar';
 import { getUiText } from '@/lib/i18n';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 const InternshipCard = () => {
@@ -12,7 +12,7 @@ const InternshipCard = () => {
   const text = getUiText(language);
 
   const openMail = () => {
-    window.open(`mailto:${oosuProfile.email}`, '_blank');
+    window.open(`mailto:${romeoProfile.email}`, '_blank');
   };
 
   return (
@@ -24,7 +24,7 @@ const InternshipCard = () => {
     >
       <div className="mb-6 flex flex-col items-center sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <OosuAvatar
+          <RomeoAvatar
             variant="hover"
             animate
             interval={1000}
@@ -33,7 +33,7 @@ const InternshipCard = () => {
           />
           <div>
             <h2 className="text-foreground text-2xl font-semibold">
-              {oosuProfile.name}
+              {romeoProfile.name}
             </h2>
             <p className="text-muted-foreground text-sm">
               AI-connected Fullstack Developer
@@ -68,7 +68,7 @@ const InternshipCard = () => {
           <div>
             <p className="text-foreground text-sm font-medium">Location</p>
             <p className="text-muted-foreground text-sm">
-              {oosuProfile.residence}, building from Seoul.
+              {romeoProfile.residence}, building from Seoul.
             </p>
           </div>
         </div>
@@ -109,8 +109,8 @@ const InternshipCard = () => {
           What I bring
         </p>
         <p className="text-foreground text-sm">
-          Oosu connects data analysis, service operations, frontend execution,
-          and AI tooling into practical product work. GfK Korea consulting, Oosu
+          Roman connects data analysis, service operations, frontend execution,
+          and AI tooling into practical product work. GfK Korea consulting, Romeo
           Salon founder/operator experience, and recent web/app projects give
           the portfolio a business-to-implementation perspective.
         </p>

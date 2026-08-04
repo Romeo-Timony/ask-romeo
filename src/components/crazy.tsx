@@ -6,10 +6,10 @@ import { Photos, PhotoItem } from './photos';
 const Crazy = () => {
   const sportPhotos: PhotoItem[] = [
     {
-      src: '/oosu-avatar/hover-23.webp',
-      alt: 'AskOosu animated avatar frame',
+      src: '/romeo-avatar/hover-23.webp',
+      alt: 'Ask Romeo animated avatar frame',
       caption:
-        'AskOosu uses Oosu profile frames as a lightweight conversational identity.',
+        'Ask Romeo uses Romeo profile frames as a lightweight conversational identity.',
     },
   ];
 
@@ -17,7 +17,7 @@ const Crazy = () => {
     <div className="mx-auto w-full">
       <div className="mb-8">
         <h2 className="text-foreground text-3xl font-semibold md:text-4xl">
-          AskOosu Identity
+          Ask Romeo Identity
         </h2>
         <p className="text-muted-foreground mt-4">
           A reusable legacy section, now customized as a compact visual story

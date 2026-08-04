@@ -275,18 +275,18 @@ function normalizeKoreanPortfolioVoice(value: string) {
 function normalizeEnglishPortfolioVoice(value: string) {
   return value
     .replace(/\bHonestly,\s*/g, '')
-    .replace(/\bI am\b/g, 'Oosu is')
-    .replace(/\bI'm\b/g, 'Oosu is')
-    .replace(/\bI've\b/g, 'Oosu has')
-    .replace(/\bI have\b/g, 'Oosu has')
-    .replace(/\bI think\b/g, 'Oosu thinks')
-    .replace(/\bI believe\b/g, 'Oosu believes')
-    .replace(/\bI use\b/g, 'Oosu uses')
-    .replace(/\bI can\b/g, 'Oosu can')
-    .replace(/\bI want\b/g, 'Oosu wants')
-    .replace(/\bI\b/g, 'Oosu')
-    .replace(/\bmy\b/gi, "Oosu's")
-    .replace(/\bme\b/gi, 'Oosu');
+    .replace(/\bI am\b/g, 'Romeo is')
+    .replace(/\bI'm\b/g, 'Romeo is')
+    .replace(/\bI've\b/g, 'Romeo has')
+    .replace(/\bI have\b/g, 'Romeo has')
+    .replace(/\bI think\b/g, 'Romeo thinks')
+    .replace(/\bI believe\b/g, 'Romeo believes')
+    .replace(/\bI use\b/g, 'Romeo uses')
+    .replace(/\bI can\b/g, 'Romeo can')
+    .replace(/\bI want\b/g, 'Romeo wants')
+    .replace(/\bI\b/g, 'Romeo')
+    .replace(/\bmy\b/gi, "Romeo's")
+    .replace(/\bme\b/gi, 'Romeo');
 }
 
 function appendSourceFooter(value: string) {

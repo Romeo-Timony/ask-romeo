@@ -159,7 +159,7 @@ function useSourceColumnCount() {
 const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
   askoosu: {
     id: 'askoosu',
-    title: 'AskOosu',
+    title: 'Ask Romeo',
     category: {
       ru: 'AI-портфолио',
       en: 'AI Portfolio',
@@ -259,8 +259,8 @@ const PROJECT_ENTITY_ALIASES: Record<string, keyof typeof PROJECT_CARDS> = {
 };
 
 const SOURCE_SEGMENT_LABELS: Record<string, string> = {
-  askoosu: 'AskOosu',
-  'project.askoosu': 'AskOosu',
+  askoosu: 'Ask Romeo',
+  'project.askoosu': 'Ask Romeo',
   aigram: 'Aigram',
   'project.aigram': 'Aigram',
   instagram_clone: 'Instagram Clone',
@@ -278,7 +278,7 @@ const SOURCE_SEGMENT_LABELS: Record<string, string> = {
   'policy.guardrail': 'Answer policy',
   'profile.identity': 'Profile',
   'profile.career': 'Career',
-  'career.oosu_salon': 'Oosu Salon',
+  'career.oosu_salon': 'Romeo Salon',
 };
 
 const SOURCE_WORD_LABELS: Record<string, string> = {
@@ -295,8 +295,8 @@ const SOURCE_WORD_LABELS: Record<string, string> = {
   wiki: 'Wiki',
   nextjs: 'Next.js',
   postgresql: 'PostgreSQL',
-  askoosu: 'AskOosu',
-  oosu: 'Oosu',
+  askoosu: 'Ask Romeo',
+  oosu: 'Romeo',
 };
 
 const SOURCE_CHUNK_LABELS: Record<string, Record<'ru' | 'en', string>> = {
@@ -1505,7 +1505,7 @@ function formatEntityLabel(entityId: string, language: 'ru' | 'en') {
   const labels: Record<string, Record<'ru' | 'en', string>> = {
     'profile.identity': { ru: 'Профиль', en: 'Profile' },
     'profile.career': { ru: 'Карьера', en: 'Career' },
-    'career.oosu_salon': { ru: 'Операционный опыт', en: 'Oosu Salon' },
+    'career.oosu_salon': { ru: 'Операционный опыт', en: 'Romeo Salon' },
     'policy.guardrail': { ru: 'Политика ответов', en: 'Answer policy' },
   };
 

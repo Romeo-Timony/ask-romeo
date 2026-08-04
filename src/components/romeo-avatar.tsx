@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 
-interface OosuAvatarProps {
+interface RomeoAvatarProps {
   animate?: boolean;
   interval?: number;
   frameStep?: number;
@@ -16,10 +16,10 @@ interface OosuAvatarProps {
 
 const frames = Array.from(
   { length: 23 },
-  (_, index) => `/oosu-avatar/hover-${String(index + 1).padStart(2, '0')}.webp`
+  (_, index) => `/romeo-avatar/hover-${String(index + 1).padStart(2, '0')}.webp`
 );
 
-export function OosuAvatar({
+export function RomeoAvatar({
   animate = false,
   interval = 120,
   frameStep = 1,
@@ -27,12 +27,12 @@ export function OosuAvatar({
   imageClassName,
   priority = false,
   variant = 'static',
-}: OosuAvatarProps) {
+}: RomeoAvatarProps) {
   const [frame, setFrame] = useState(0);
   const [imageFailed, setImageFailed] = useState(false);
   const normalizedFrameStep = Math.max(1, Math.floor(frameStep));
   const currentFrame = useMemo(
-    () => (variant === 'hover' ? frames[frame] : '/oosuhada.png'),
+    () => (variant === 'hover' ? frames[frame] : '/romeo.png'),
     [frame, variant]
   );
 
@@ -59,14 +59,14 @@ export function OosuAvatar({
         'relative isolate flex items-end justify-center overflow-hidden',
         className
       )}
-      aria-label="Oosu Jang avatar"
+      aria-label="Romeo Timony avatar"
     >
       {imageFailed ? (
         <div
           aria-hidden="true"
           className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center rounded-full border text-sm font-semibold"
         >
-          OJ
+          RT
         </div>
       ) : (
         <Image

@@ -33,9 +33,11 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
     aliases: [
       'AskOosu',
       'Ask Oosu',
-      '애스크우수',
-      '2026 포트폴리오',
-      'AI 포트폴리오',
+      'Ask Romeo',
+      'Ask-Romeo',
+      'Аск Ромео',
+      'Ромео',
+      'AI-портфолио',
       '대화형 포트폴리오',
       'RAG 포트폴리오',
       '챗봇 포트폴리오',
@@ -52,7 +54,6 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       'SNS 프로젝트',
       '인스타 프로젝트',
       '풀스택 SNS',
-      'Spring Boot SNS',
       'Spring Boot',
     ],
   },
@@ -63,8 +64,6 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       'Sticks and Stones',
       'sticksandstones',
       '스틱스앤스톤스',
-      '한옥 리모델링',
-      '레거시 홈페이지',
       'WordPress 리빌드',
     ],
   },
@@ -75,11 +74,7 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       'Portfoli Oh',
       'portfolioh',
       '포트폴리오오',
-      '포폴리오',
-      '포트폴리오 2025',
-      '이전 포트폴리오',
       '인터랙션 포트폴리오',
-      'JSON 챗봇',
     ],
   },
   ez_air: {
@@ -89,9 +84,6 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       'EZAir',
       '이지에어',
       '항공권 AI',
-      '자연어 항공권 검색',
-      'Gemini 항공권',
-      'Amadeus API',
     ],
   },
   uncorked: {
@@ -99,29 +91,30 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
     aliases: [
       'Uncorked',
       '언코크드',
-      '와인바 사이트',
-      '우수살롱 디자인',
-      'Figma 와인바',
+      '와인바 사이т',
     ],
   },
   oosu_salon: {
     entityId: 'career.oosu_salon',
-    aliases: ['우수살롱', '와인바', '창업', '연남동 와인바', 'OOSU SALON'],
+    aliases: ['우수살롱', '와인바', '창업', 'OOSU SALON'],
   },
   profile: {
-    entityId: 'profile.identity',
+    entityId: 'profile.romeo',
     aliases: [
       'Profile',
       '기본 정보',
-      '한 줄 소개',
       '자기소개',
-      '장우수',
-      'Oosu Jang',
+      'Роман Тимошенко',
+      'Роман',
+      'Рома',
+      'Тимошенко',
+      'Romeo Timony',
+      'Romeo',
     ],
   },
   career: {
     entityId: 'profile.career',
-    aliases: ['Career', '경력', '커리어', '커리어 전환', 'GfK', 'JW CRONY'],
+    aliases: ['Career', '경력', '커리어', 'Резюме', 'Опыт работы', 'Хронология', 'IT-опыт', 'QA-опыт'],
   },
   guardrail: {
     entityId: 'policy.guardrail',
@@ -132,7 +125,8 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       '공개 범위',
       '과장 금지',
       'TODO 처리',
-      'Public Answer Redaction',
+      'приватность',
+      'ограничения',
     ],
   },
   recruiter: {
@@ -145,26 +139,49 @@ export const NOTION_ENTITY_ALIAS_MAP: Record<string, EntityAlias> = {
       'startup risk',
       'hiring risk',
       '채용담당자',
-      '채용 담당자',
       '면접관',
-      '채용 리스크',
-      '장기 근속',
-      '이직 리스크',
-      '퇴사 리스크',
-      '창업 리스크',
-      '배울 것만',
-      '금방 그만둘',
+      'риски',
+      'рекрутер',
     ],
   },
   ai_usage: {
     entityId: 'skill.ai_usage',
     aliases: [
       'AI dependency',
-      'AI tool dependency',
       'AI 의존도',
-      'AI 없이도',
-      '직접 코딩',
-      '프롬프트만',
+      'AI в работе',
+      'использование AI',
+    ],
+  },
+  sminex: {
+    entityId: 'experience.sminex',
+    aliases: [
+      'Sminex',
+      'Смайнэкс',
+      'Сманекс',
+    ],
+  },
+  messer_group: {
+    entityId: 'experience.messer-group',
+    aliases: [
+      'Messer Group',
+      'Messer',
+      'Мессер',
+    ],
+  },
+  dpd: {
+    entityId: 'experience.dpd',
+    aliases: [
+      'DPD',
+      'ДПД',
+      'DPD Russia',
+    ],
+  },
+  kode: {
+    entityId: 'experience.kode',
+    aliases: [
+      'KODE',
+      'Коде',
     ],
   },
 };
@@ -194,7 +211,7 @@ export function hasTodoMarker(value: string) {
 
 export function detectEntityId(value: string) {
   const explicitEntityId = value.match(
-    /\b(?:person|project|career|profile|skill|knowledge|policy|contact|audience|question|recruiter|collaboration|ai_usage)\.[a-z0-9_.-]+\b/i
+    /\b(?:person|project|career|profile|skill|knowledge|policy|contact|audience|question|recruiter|collaboration|ai_usage|experience)\.[a-z0-9_.-]+\b/i
   );
 
   if (explicitEntityId) return explicitEntityId[0].toLowerCase();
@@ -306,7 +323,7 @@ function normalizeAliasText(value: string) {
     .normalize('NFKC')
     .toLowerCase()
     .replace(/&/g, 'and')
-    .replace(/[^a-z0-9가-힣]+/g, ' ')
+    .replace(/[^a-z0-9а-яё가-힣]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }

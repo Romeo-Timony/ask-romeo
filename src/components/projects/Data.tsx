@@ -1,12 +1,12 @@
 import { Separator } from '@/components/ui/separator';
 import type { QuestionSurface } from '@/data/question-surfaces.shared';
-import { oosuProjects } from '@/lib/oosu-profile';
+import { romeoProjects } from '@/lib/romeo-profile';
 import { ChevronRight, Link } from 'lucide-react';
 import Image from 'next/image';
 
-type OosuProject = (typeof oosuProjects)[number];
+type RomeoProject = (typeof romeoProjects)[number];
 
-const ProjectContent = ({ project }: { project: OosuProject }) => {
+const ProjectContent = ({ project }: { project: RomeoProject }) => {
   return (
     <div className="space-y-10">
       <div className="rounded-2xl bg-[#F5F5F7] p-8 dark:bg-[#1D1D1F]">
@@ -86,10 +86,10 @@ const ProjectContent = ({ project }: { project: OosuProject }) => {
   );
 };
 
-export const data = oosuProjects.map((project) => ({
+export const data = romeoProjects.map((project) => ({
   category: project.category,
   title: project.title,
-  src: project.images[0]?.src ?? '/oosu-avatar/hover-01.webp',
+  src: project.images[0]?.src ?? '/romeo-avatar/hover-01.webp',
   surface: questionSurfaceForProjectTitle(project.title),
   content: <ProjectContent project={project} />,
 }));
@@ -99,7 +99,7 @@ function questionSurfaceForProjectTitle(
 ): QuestionSurface | undefined {
   const normalizedTitle = title.toLowerCase();
 
-  if (normalizedTitle.includes('askoosu')) return 'project.askoosu';
+  if (normalizedTitle.includes('ask-romeo') || normalizedTitle.includes('askoosu')) return 'project.ask-romeo';
   if (normalizedTitle.includes('instagram')) return 'project.instagram';
   if (normalizedTitle.includes('sticks')) return 'project.sticks';
   if (

@@ -1,5 +1,5 @@
 export async function GET() {
-  const res = await fetch('https://api.github.com/repos/oosuhada/AskOosu', {
+  const res = await fetch('https://api.github.com/repos/Romeo-Timony/ask-romeo', {
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },

@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { BookOpen, Database, Github, MessageSquare } from 'lucide-react';
-import { OosuAvatar } from '@/components/oosu-avatar';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { RomeoAvatar } from '@/components/romeo-avatar';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { PoweredByFastfolio } from './powered-by-fastfolio';
 
 interface FastfolioPopupProps {
@@ -24,7 +24,7 @@ export function FastfolioPopup({
   hasReachedLimit = false,
 }: FastfolioPopupProps) {
   const handleCTA = () => {
-    window.open(oosuProfile.notionWikiUrl, '_blank');
+    window.open(romeoProfile.notionWikiUrl, '_blank');
     onOpenChange(false);
   };
 
@@ -32,7 +32,7 @@ export function FastfolioPopup({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="overflow-hidden border-none p-0 sm:max-w-[500px]">
         <div className="bg-accent flex h-[200px] items-center justify-center">
-          <OosuAvatar
+          <RomeoAvatar
             variant="hover"
             animate
             interval={1000}
@@ -45,10 +45,10 @@ export function FastfolioPopup({
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">
               {hasReachedLimit ? (
-                <>AskOosu is still being tuned</>
+                <>Ask Romeo is still being tuned</>
               ) : (
                 <>
-                  AskOosu <span className="text-[#4c55fa]">Knowledge Wiki</span>
+                  Ask Romeo <span className="text-[#4c55fa]">Knowledge Wiki</span>
                 </>
               )}
             </DialogTitle>
@@ -97,7 +97,7 @@ export function FastfolioPopup({
               onClick={handleCTA}
               className="flex-1 cursor-pointer border-none bg-[#4c55fa] hover:bg-[#4c55fa]/80"
             >
-              Open AskOosu Wiki
+              Open Ask Romeo Wiki
             </Button>
           </div>
 

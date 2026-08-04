@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { normalizeMarkdownSpacing } from '@/lib/chat/markdown-spacing';
 import { QuoteBlock } from '@/components/ui/quote-block';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 import { cn } from '@/lib/utils';
 import { isAskOosuDebugUiEnabled } from '@/lib/debug-ui';
@@ -537,7 +537,7 @@ function createAskRomeoProject(language: 'ru' | 'en'): ProjectItem {
         : 'An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo\'s projects and experience.',
     image: 'project.askoosu.cover',
     tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
-    href: oosuProfile.currentPortfolioUrl,
+    href: romeoProfile.currentPortfolioUrl,
   };
 }
 
@@ -985,7 +985,7 @@ function ContactCard({
         ...parsedActions,
         {
           label: 'Telegram',
-          href: oosuProfile.telegram,
+          href: romeoProfile.telegram,
           kind: 'telegram',
         },
       ];
@@ -1004,7 +1004,7 @@ function ContactCard({
       href:
         action.kind?.toLowerCase().includes('email') ||
         action.href.startsWith('mailto:')
-          ? `mailto:${oosuProfile.email}`
+          ? `mailto:${romeoProfile.email}`
           : action.kind?.toLowerCase().includes('portfolio')
           ? language === 'ru'
             ? '/projects?lang=rus&theme=dark'
@@ -1031,7 +1031,7 @@ function ContactCard({
           </div>
           <div className="min-w-0">
             <h3 className="min-w-0 text-xl font-bold tracking-normal break-words">
-              {oosuProfile.name}
+              {romeoProfile.name}
             </h3>
             <p className="text-muted-foreground text-sm">
               {language === 'ru' ? 'Бриф для сотрудничества' : 'Collaboration Brief'}
@@ -1058,7 +1058,7 @@ function ContactCard({
           icon={Globe2}
           title={language === 'ru' ? 'Локация' : 'Location'}
           text={
-            language === 'ru' ? oosuProfile.location : oosuProfile.locationEn
+            language === 'ru' ? romeoProfile.location : romeoProfile.locationEn
           }
         />
               <ContactBriefItem
@@ -1299,14 +1299,14 @@ function ProfileHeroCard({ language }: { language: 'ru' | 'en' }) {
         <div className="min-w-0 space-y-3">
           <div className="space-y-1">
             <h3 className="text-2xl font-bold tracking-normal break-words md:text-3xl">
-              {oosuProfile.name}
+              {romeoProfile.name}
             </h3>
             <p className="text-muted-foreground text-base">
-              {isRu ? oosuProfile.title : oosuProfile.titleEn}
+              {isRu ? romeoProfile.title : romeoProfile.titleEn}
             </p>
             <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
               <MapPin className="h-3.5 w-3.5" />
-              {isRu ? oosuProfile.location : oosuProfile.locationEn}
+              {isRu ? romeoProfile.location : romeoProfile.locationEn}
             </p>
           </div>
 

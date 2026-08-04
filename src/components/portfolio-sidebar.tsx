@@ -10,7 +10,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { getUiText } from '@/lib/i18n';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import type { DisplayLanguage, DisplayTheme } from '@/lib/preferences';
 import {
   archiveAllStoredConversations,
@@ -726,7 +726,7 @@ function SettingsPanel({
         icon={Languages}
         label={text.languageSetting}
         options={[
-          { label: text.korean, value: 'ko' },
+          { label: text.russian, value: 'ru' },
           { label: text.english, value: 'en' },
         ]}
         value={language}
@@ -759,7 +759,7 @@ function SettingsPanel({
       </button>
 
       <a
-        href={oosuProfile.github}
+        href={romeoProfile.github}
         target="_blank"
         rel="noreferrer"
         className="hover:bg-accent flex items-center justify-between rounded-lg px-3 py-3 text-sm transition-colors"
@@ -780,7 +780,7 @@ function SettingsPanel({
           <span className="min-w-0">
             <span className="block">{text.resume}</span>
             <span className="block truncate text-xs">
-              {text.resumeKorean} · {text.resumeEnglish}
+              {text.resumeRussian} · {text.resumeEnglish}
             </span>
           </span>
         </span>

@@ -53,9 +53,8 @@ const preferenceInitScript = `
     storedTheme = themeTokens.has(storedPreferences.theme) ? storedPreferences.theme : undefined;
     storedLanguage = languageMap.get(storedPreferences.lang);
   } catch {}
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const browserLanguage = (navigator.languages || [navigator.language])
-    .some((language) => language.toLowerCase().startsWith('en')) ? 'en' : 'ru';
+  const systemTheme = 'dark'; // Dark theme is always the default.
+  const browserLanguage = 'ru'; // Russian is always the default.
   const theme = explicitTheme || storedTheme || systemTheme;
   const language = explicitLanguage || storedLanguage || browserLanguage;
 

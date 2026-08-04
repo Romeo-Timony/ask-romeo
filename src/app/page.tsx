@@ -10,7 +10,7 @@ import WelcomeModal from '@/components/welcome-modal';
 import { useSuggestedQuestions } from '@/hooks/use-suggested-questions';
 import { getUiText } from '@/lib/i18n';
 import { buildChatHref } from '@/lib/navigation';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 import {
   BriefcaseBusiness,
@@ -215,7 +215,7 @@ function HomeContent() {
 
   const links = aeoLinks[language];
   const heroTitle =
-    language === 'ru' ? oosuProfile.title : oosuProfile.titleEn;
+    language === 'ru' ? romeoProfile.title : romeoProfile.titleEn;
 
   return (
     <div className="relative flex h-dvh max-h-dvh flex-col overflow-hidden px-4 pt-14 md:px-8 md:pt-8 md:pl-[calc(72px+2rem)]">

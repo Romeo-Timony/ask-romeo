@@ -1125,11 +1125,11 @@ function buildErrorReportHref({
   kind: string;
   language: 'ru' | 'en';
 }) {
-  const subject = `[AskOosu] Chat error report: ${kind}`;
+  const subject = `[Ask Romeo] Chat error report: ${kind}`;
   const currentUrl =
     typeof window === 'undefined' ? 'unknown' : window.location.href;
   const body = [
-    'AskOosu chat error report',
+    'Ask Romeo chat error report',
     '',
     `Kind: ${kind}`,
     `Language: ${language}`,

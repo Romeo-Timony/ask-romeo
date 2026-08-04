@@ -20,7 +20,7 @@ export function useDisplayPreferences() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [systemTheme, setSystemTheme] = useState<DisplayTheme>('light');
+  const [systemTheme, setSystemTheme] = useState<DisplayTheme>('dark');
   const [browserLanguage, setBrowserLanguage] = useState<DisplayLanguage>('ru');
   const [storedPreferences, setStoredPreferences] = useState<PreferenceTokens>(
     {}

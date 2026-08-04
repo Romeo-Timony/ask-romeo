@@ -1,7 +1,7 @@
 'use client';
 
 import { getUiText } from '@/lib/i18n';
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
 import { motion } from 'framer-motion';
 import React from 'react';
@@ -12,9 +12,9 @@ export function Presentation() {
 
   // Personal information
   const profile = {
-    name: oosuProfile.name,
-    role: oosuProfile.title,
-    location: oosuProfile.location,
+    name: romeoProfile.name,
+    role: romeoProfile.title,
+    location: romeoProfile.location,
     description: text.presentationDescription,
   };
 

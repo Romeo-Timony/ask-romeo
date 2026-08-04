@@ -1,4 +1,4 @@
-import { oosuProfile } from '@/lib/oosu-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 import { getListEnv, getNotionVersion, NOTION_API_BASE_URL } from './config';
 import { chunkLongText, normalizeText, parseNotionId } from './text';
 import type {
@@ -19,7 +19,7 @@ export async function fetchNotionChunks() {
   const pageIds =
     pageInputs.length > 0
       ? pageInputs.map(parseNotionId).filter(Boolean)
-      : [parseNotionId(oosuProfile.notionSourceUrl)].filter(Boolean);
+      : [parseNotionId(romeoProfile.notionSourceUrl)].filter(Boolean);
   const databaseIds = databaseInputs.map(parseNotionId).filter(Boolean);
   const dataSourceIds = dataSourceInputs.map(parseNotionId).filter(Boolean);
 
