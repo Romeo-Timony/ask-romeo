@@ -1,11 +1,26 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
+type PublicCta = {
+  href: string;
+  label: string;
+};
+
+type PublicNavLabels = {
+  ask: string;
+  projects: string;
+  faq: string;
+};
+
 type PublicPageShellProps = {
   eyebrow: string;
   title: string;
   summary: string;
   children: React.ReactNode;
+  brandLabel?: string;
+  primaryCta?: PublicCta;
+  secondaryCta?: PublicCta;
+  navLabels?: PublicNavLabels;
 };
 
 export function PublicPageShell({
@@ -13,32 +28,40 @@ export function PublicPageShell({
   title,
   summary,
   children,
+  brandLabel = 'Ask Romeo',
+  primaryCta = { href: '/chat', label: 'Ask Romeo' },
+  secondaryCta = { href: '/projects', label: 'View projects' },
+  navLabels = {
+    ask: 'Ask Romeo',
+    projects: 'Projects',
+    faq: 'FAQ',
+  },
 }: PublicPageShellProps) {
   return (
     <div className="bg-background text-foreground min-h-dvh">
       <header className="border-border/60 border-b">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-5 py-4">
           <Link href="/" className="text-sm font-semibold">
-            Oosu.dev
+            {brandLabel}
           </Link>
           <nav
             aria-label="Public pages"
             className="flex items-center gap-3 text-sm"
           >
             <Link className="text-muted-foreground hover:text-foreground" href="/ask">
-              AskOosu
+              {navLabels.ask}
             </Link>
             <Link
               className="text-muted-foreground hover:text-foreground"
               href="/projects"
             >
-              Projects
+              {navLabels.projects}
             </Link>
             <Link
               className="text-muted-foreground hover:text-foreground"
               href="/faq/ai-competitiveness"
             >
-              FAQ
+              {navLabels.faq}
             </Link>
           </nav>
         </div>
@@ -56,17 +79,17 @@ export function PublicPageShell({
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href="/chat"
+              href={primaryCta.href}
               className="bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
             >
-              Ask Oosu
+              {primaryCta.label}
               <ArrowUpRight size={16} />
             </Link>
             <Link
-              href="/projects/askoosu"
+              href={secondaryCta.href}
               className="border-border hover:bg-muted inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition-colors"
             >
-              View AskOosu project
+              {secondaryCta.label}
               <ArrowUpRight size={16} />
             </Link>
           </div>

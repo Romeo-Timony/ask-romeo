@@ -144,7 +144,7 @@ export default function HelperBoost({
         <div
           ref={quickQuestionRailRef}
           id="quick-question-starters"
-          className="custom-scrollbar mb-2 w-full max-w-full cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 active:cursor-grabbing [-webkit-overflow-scrolling:touch]"
+          className="custom-scrollbar mb-0 w-full max-w-full cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 active:cursor-grabbing [-webkit-overflow-scrolling:touch]"
           onWheel={handleQuickQuestionWheel}
           onPointerDown={handleQuickQuestionPointerDown}
           onPointerMove={handleQuickQuestionPointerMove}
@@ -178,8 +178,12 @@ export default function HelperBoost({
                   }`}
                   aria-label={
                     isAsked
-                      ? `Already asked starter question: ${question.displayQuestion}`
-                      : `Ask starter question: ${question.displayQuestion}`
+                      ? language === 'ko'
+                        ? `Уже спрашивали: ${question.displayQuestion}`
+                        : `Already asked starter question: ${question.displayQuestion}`
+                      : language === 'ko'
+                        ? `Задать вопрос: ${question.displayQuestion}`
+                        : `Ask starter question: ${question.displayQuestion}`
                   }
                 >
                   <div className="relative z-10 flex min-w-0 items-center gap-2.5">
@@ -206,7 +210,7 @@ export default function HelperBoost({
 
       <div
         className={
-          isVisible ? 'mb-2 flex justify-center' : 'mb-0 flex justify-center'
+          isVisible ? 'mt-5 mb-0 flex justify-center' : 'mb-0 flex justify-center'
         }
       >
         <button
@@ -215,7 +219,13 @@ export default function HelperBoost({
           aria-controls="quick-question-starters"
           aria-expanded={isVisible}
           aria-label={
-            isVisible ? 'Hide starter questions' : 'Show starter questions'
+            isVisible
+              ? language === 'ko'
+                ? 'Скрыть быстрые вопросы'
+                : 'Hide starter questions'
+              : language === 'ko'
+                ? 'Показать быстрые вопросы'
+                : 'Show starter questions'
           }
         >
           {isVisible ? (

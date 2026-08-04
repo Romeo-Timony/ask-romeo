@@ -1,15 +1,16 @@
 import { getSuggestedQuestionText } from '@/lib/suggested-questions';
 
 export const oosuProfile = {
-  name: 'Romeo Timony',
+  name: 'Romeo Timony (Роман Тимошенко)',
   handle: '@Romeo-Timony',
-  title: 'Fullstack QA-инженер со знанием ИИ-инструментов',
-  titleEn: 'Fullstack QA Engineer with AI tooling',
-  location: 'Удаленно',
+  title: 'Fullstack QA/AI engineer',
+  titleEn: 'Fullstack QA/AI engineer',
+  location: 'Удалённо',
   locationEn: 'Remote',
   residence: '',
   education: '',
-  email: '',
+  email: 'roman.timoshenko@gmail.com',
+  telegram: 'https://t.me/romeo_timony',
   github: 'https://github.com/Romeo-Timony',
   linkedin: '',
   instagram: '',

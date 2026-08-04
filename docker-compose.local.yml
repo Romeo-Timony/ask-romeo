@@ -1,0 +1,27 @@
+name: ask-romeo-local
+
+services:
+  postgres:
+    container_name: ask-romeo-postgres-local
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ask_romeo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ask_romeo_local_only}
+      POSTGRES_DB: ${POSTGRES_DB:-ask_romeo}
+    ports:
+      - '127.0.0.1:${ASKOOSU_POSTGRES_HOST_PORT:-5433}:5432'
+    volumes:
+      - ask-romeo-postgres-local-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  ask-romeo-postgres-local-data:

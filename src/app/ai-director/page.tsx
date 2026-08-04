@@ -8,76 +8,88 @@ import {
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'AI Director-style Product Builder',
+  title: 'Senior QA в эпоху AI',
   description:
-    'AI Director is Oosu’s grounded working thesis for connecting planning, design, engineering, content, deployment, and operations with AI as an execution partner.',
+    'Подход Романа Тимошенко к качеству: системное тестирование Web, Mobile, API и микросервисов, развитие QA-процессов и применение AI для анализа, автоматизации и контроля рисков.',
   path: '/ai-director',
-  keywords: ['AI Director', 'AI product builder', 'AI-assisted workflows'],
+  keywords: [
+    'Senior QA',
+    'AI в тестировании',
+    'QA automation',
+    'контроль качества ПО',
+  ],
 });
 
 export default function AiDirectorPage() {
   return (
     <PublicPageShell
-      eyebrow="Working thesis"
-      title="AI Director-style Product Builder"
-      summary="AI Director is not a formal title. It is Oosu’s working thesis for the AI era: connecting product planning, design, engineering, marketing, and operations into one product loop with AI as an execution partner."
+      eyebrow="Рабочий подход"
+      title="Senior QA в эпоху AI"
+      summary="Мой подход объединяет инженерное мышление, управление рисками и практическое применение AI. Я выстраиваю качество от анализа требований до мониторинга после релиза, а AI использую для ускорения исследований, автоматизации проверок и принятия более обоснованных решений."
+      primaryCta={{
+        href: '/chat?lang=rus&theme=dark',
+        label: 'Спросить Romeo',
+      }}
+      secondaryCta={{ href: '/projects', label: 'Смотреть проекты' }}
+      navLabels={{
+        ask: 'Спросить Romeo',
+        projects: 'Проекты',
+        faq: 'FAQ',
+      }}
     >
-      <TextSection title="What It Means">
+      <TextSection title="Что это означает">
         <p>
-          Oosu does not use AI Director to claim that one person can replace an
-          entire team. The phrase describes a working style: understanding the
-          language of multiple product roles and using AI tools to connect ideas,
-          implementation, content, deployment, and feedback.
+          Для меня Senior QA — это не только поиск дефектов. Это понимание
+          продукта и архитектуры, раннее выявление рисков, прозрачные критерии
+          качества и процессы, которые помогают команде выпускать надёжное ПО
+          без лишних задержек.
         </p>
         <p>
-          AI can expand speed and options, but product judgment still matters:
-          what problem is worth solving, which interface feels trustworthy,
-          which message sounds overclaimed, and which data should guide the next
-          iteration.
+          В работе я охватываю Web и Mobile, API, интеграции и микросервисы:
+          проверяю требования, проектирую тестовые сценарии, развиваю регрессию
+          и автоматизацию, анализирую логи и метрики. AI дополняет этот подход,
+          но не заменяет инженерную оценку и ответственность за результат.
         </p>
       </TextSection>
 
-      <TextSection title="How AskOosu Shows This">
+      <TextSection title="Как Ask Romeo подтверждает этот подход">
         <p>
-          AskOosu connects a conversational portfolio UI, FAQ routing, Wiki/RAG
-          source documents, source-aware answer rendering, and deployment
-          operations. It is a practical example of AI-assisted product workflow,
-          not just a chatbot prompt.
+          Ask Romeo — практический AI-проект, в котором соединены диалоговый
+          интерфейс, база знаний, Wiki/RAG-поиск, отображение источников и
+          контроль качества ответов. В нём я применяю QA-подход к AI-продукту:
+          проверяю локализацию, устойчивость интерфейса, корректность маршрутов,
+          работу при недостатке данных и регрессию пользовательских сценариев.
         </p>
         <p>
-          Related pages:{' '}
-          <Link className="underline" href="/ai-era-developer">
-            AI-era Developer Competitiveness
-          </Link>
-          ,{' '}
-          <Link className="underline" href="/faq/ai-competitiveness">
-            AI competitiveness FAQ
-          </Link>
-          , and{' '}
-          <Link className="underline" href="/projects/askoosu">
-            AskOosu project notes
+          Подробнее можно посмотреть в разделе{' '}
+          <Link className="underline" href="/projects/ask-romeo">
+            проекта Ask Romeo
+          </Link>{' '}
+          и в разделе{' '}
+          <Link className="underline" href="/projects">
+            проектов
           </Link>
           .
         </p>
       </TextSection>
 
-      <TextSection title="FAQ">
+      <TextSection title="Частые вопросы">
         <FaqList
           items={[
             {
-              question: 'Is AI Director a formal job title?',
+              question: 'Какую роль AI играет в вашей работе?',
               answer:
-                'No. In this portfolio, AI Director is a working style for coordinating product judgment and AI-assisted execution.',
+                'AI помогает быстрее анализировать требования и логи, готовить тестовые данные и черновики проверок, исследовать риски и автоматизировать повторяемые задачи. Финальные решения остаются за инженером.',
             },
             {
-              question: 'Does it mean replacing designers, PMs, or engineers?',
+              question: 'На чём сосредоточена ваша QA-экспертиза?',
               answer:
-                'No. The safer claim is that Oosu tries to understand those roles well enough to collaborate with people and use AI tools responsibly across the product loop.',
+                'На построении и развитии QA-процессов, тестировании Web и Mobile, API, интеграций и микросервисов, а также на регрессии, наблюдаемости и автоматизации качества.',
             },
             {
-              question: 'Where is the proof?',
+              question: 'Где можно увидеть практический результат?',
               answer:
-                'AskOosu is the main proof point: a RAG portfolio system with FAQ routing, Wiki source documents, answer guardrails, and source-aware UX.',
+                'В Ask Romeo и других проектах портфолио: там показаны реальные продуктовые сценарии, применяемые технологии и QA-задачи, с которыми я работаю.',
             },
           ]}
         />

@@ -18,9 +18,9 @@ export function detectPromptLeakage(answer: string) {
 export function buildInsufficientEvidenceAnswer(language: ChatLanguage) {
   if (language === 'ko') {
     return [
-      '이 질문에 바로 답할 만큼의 Wiki 근거를 찾지 못했어요.',
+      'В Wiki недостаточно подтверждённых данных для уверенного ответа на этот вопрос.',
       '',
-      '대신 AskOosu의 기술 구조, 대표 프로젝트, 연락 방법처럼 문서화된 주제로 질문해 주시면 더 정확히 답할 수 있어요.',
+      'Попробуйте спросить об опыте Романа, его QA-проектах, навыках или способах связи.',
     ].join('\n');
   }
 

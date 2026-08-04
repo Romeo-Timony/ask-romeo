@@ -9,134 +9,44 @@ type TopicRule = {
 };
 
 const TOPIC_RULES: TopicRule[] = [
-  {
-    ko: 'IDE/작업환경 이슈 분리',
-    en: 'Separate IDE/workspace issues',
-    pattern:
-      /(vscode|intellij|IDE|창|절전|비활성화|battery|배터리|sleep|window)/i,
-  },
-  {
-    ko: '서버/Docker 관리 방법 확인',
-    en: 'Check server/Docker management',
-    pattern:
-      /(localserver|localhost|docker|서버|도커|GUI|껐다|켰다|compose|container)/i,
-  },
-  {
-    ko: '메모리 사용량 해석',
-    en: 'Interpret memory usage',
-    pattern: /(메모리|램|RAM|GB|프로세스|memory|pressure|swap)/i,
-  },
-  {
-    ko: '프로젝트 근거 확인',
-    en: 'Check project evidence',
-    pattern:
-      /(프로젝트|대표|포트폴리오|askoosu|aigram|instagram|project|portfolio)/i,
-  },
-  {
-    ko: 'AI 활용 방식 분리',
-    en: 'Separate AI workflow points',
-    pattern:
-      /(ai|AI|Claude|Codex|Gemini|에이전트|agent|workflow|워크플로|활용|사용)/i,
-  },
-  {
-    ko: '협업/팀 적합성 확인',
-    en: 'Check collaboration fit',
-    pattern: /(협업|팀워크|팀|collaboration|teamwork|team fit|work in a team)/i,
-  },
-  {
-    ko: '역할 포지셔닝 정리',
-    en: 'Frame role positioning',
-    pattern:
-      /(PM|PO|Product Owner|개발자|프론트엔드|풀스택|developer|role|position)/i,
-  },
-  {
-    ko: '연락/제안 방식 확인',
-    en: 'Check contact path',
-    pattern:
-      /(연락|이메일|메일|깃허브|링크드인|contact|email|github|linkedin)/i,
-  },
-  {
-    ko: '리스크 표현 완화',
-    en: 'Calibrate risk wording',
-    pattern:
-      /(리스크|걱정|우려|의존|혼자|부족|risk|concern|dependent|solo|weak)/i,
-  },
+  { ko: 'Проверяю IDE и рабочее окружение', en: 'Review IDE and workspace', pattern: /(vscode|intellij|ide|workspace|battery|sleep|window|редактор|окно|сон|энергосбережение)/i },
+  { ko: 'Проверяю сервер и Docker', en: 'Review server and Docker', pattern: /(localserver|localhost|docker|server|gui|compose|container|сервер|докер|контейнер)/i },
+  { ko: 'Анализирую использование памяти', en: 'Interpret memory usage', pattern: /(memory|ram|gb|pressure|swap|память|оперативная)/i },
+  { ko: 'Сверяю данные по проектам', en: 'Check project evidence', pattern: /(project|portfolio|askoosu|ask romeo|aigram|instagram|проект|портфолио)/i },
+  { ko: 'Уточняю роль AI в процессе', en: 'Clarify the AI workflow', pattern: /(ai|claude|codex|gemini|agent|workflow|искусственный интеллект|агент|процесс)/i },
+  { ko: 'Проверяю контекст команды', en: 'Check collaboration context', pattern: /(collaboration|teamwork|team fit|work in a team|команда|сотрудничество)/i },
+  { ko: 'Уточняю профессиональную роль', en: 'Frame role positioning', pattern: /(pm|po|product owner|developer|role|position|разработчик|роль|позиция)/i },
+  { ko: 'Проверяю удобный канал связи', en: 'Check contact path', pattern: /(contact|email|github|linkedin|контакт|почта|связь)/i },
+  { ko: 'Уточняю риски и ограничения', en: 'Calibrate risks and constraints', pattern: /(risk|concern|dependent|solo|weak|риск|сомнение|ограничение)/i },
 ];
 
-export function buildVisibleAnswerPlan(
-  question: string | null | undefined,
-  language: ChatLanguage
-) {
+export function buildVisibleAnswerPlan(question: string | null | undefined, language: ChatLanguage) {
   const normalizedQuestion = normalizeQuestion(question ?? '');
   if (!normalizedQuestion) return getDefaultVisiblePlan(language);
 
-  const matchedTopics = uniqueValues(
-    TOPIC_RULES.filter((rule) => rule.pattern.test(question ?? '')).map(
-      (rule) => rule[language]
-    )
-  );
-
+  const matchedTopics = uniqueValues(TOPIC_RULES.filter((rule) => rule.pattern.test(question ?? '')).map((rule) => rule[language]));
   if (matchedTopics.length > 0) {
-    if (
-      matchedTopics.length >= 2 ||
-      shouldSplitLongQuestion(normalizedQuestion)
-    ) {
-      return matchedTopics.slice(0, MAX_VISIBLE_STEPS);
-    }
-
-    return [
-      getQuestionSplitLabel(language, normalizedQuestion),
-      ...matchedTopics,
-    ].slice(0, MAX_VISIBLE_STEPS);
+    if (matchedTopics.length >= 2 || shouldSplitLongQuestion(normalizedQuestion)) return matchedTopics.slice(0, MAX_VISIBLE_STEPS);
+    return [getQuestionSplitLabel(language, normalizedQuestion), ...matchedTopics].slice(0, MAX_VISIBLE_STEPS);
   }
-
-  if (shouldSplitLongQuestion(normalizedQuestion)) {
-    return getLongQuestionPlan(language);
-  }
-
-  return getDefaultVisiblePlan(language);
+  return shouldSplitLongQuestion(normalizedQuestion) ? getLongQuestionPlan(language) : getDefaultVisiblePlan(language);
 }
 
 function shouldSplitLongQuestion(question: string) {
-  return (
-    question.length >= 80 ||
-    question.split(/[?？]/).filter(Boolean).length > 1 ||
-    /(그리고|또|마지막으로|추가로|한가지는|두번째|first|second|also|lastly)/i.test(
-      question
-    )
-  );
+  return question.length >= 80 || question.split(/[?？]/).filter(Boolean).length > 1 || /(и ещё|также|наконец|дополнительно|во-вторых|first|second|also|lastly)/i.test(question);
 }
 
 function getQuestionSplitLabel(language: ChatLanguage, question: string) {
-  if (shouldSplitLongQuestion(question)) {
-    return language === 'ko'
-      ? '긴 질문을 2~3개 포인트로 나누는 중'
-      : 'Splitting the longer question into 2-3 points';
-  }
-
-  return language === 'ko'
-    ? '질문 의도를 확인하는 중'
-    : 'Checking the question intent';
+  if (shouldSplitLongQuestion(question)) return language === 'ko' ? 'Разбиваю вопрос на 2–3 части' : 'Splitting the longer question into 2–3 points';
+  return language === 'ko' ? 'Уточняю смысл вопроса' : 'Checking the question intent';
 }
 
 function getDefaultVisiblePlan(language: ChatLanguage) {
-  return language === 'ko'
-    ? ['질문 의도 확인', 'Wiki/FAQ 근거 확인', '답변 구조 정리']
-    : ['Check intent', 'Review Wiki/FAQ evidence', 'Shape the answer'];
+  return language === 'ko' ? ['Уточняю запрос', 'Проверяю источники Wiki и FAQ', 'Собираю структурированный ответ'] : ['Check intent', 'Review Wiki/FAQ evidence', 'Shape the answer'];
 }
 
 function getLongQuestionPlan(language: ChatLanguage) {
-  return language === 'ko'
-    ? [
-        '긴 질문을 2~3개 포인트로 나누는 중',
-        '각 포인트별 근거 확인',
-        '겹치는 답변은 줄이고 구조화',
-      ]
-    : [
-        'Splitting the longer question into 2-3 points',
-        'Checking evidence for each point',
-        'Removing repeated answer blocks',
-      ];
+  return language === 'ko' ? ['Разбиваю вопрос на 2–3 части', 'Проверяю источники для каждой части', 'Убираю повторы и структурирую ответ'] : ['Splitting the longer question into 2–3 points', 'Checking evidence for each point', 'Removing repeated answer blocks'];
 }
 
 function uniqueValues(values: string[]) {
@@ -144,9 +54,5 @@ function uniqueValues(values: string[]) {
 }
 
 function normalizeQuestion(input: string) {
-  return input
-    .trim()
-    .replace(/\s+/g, ' ')
-    .replace(/[“”‘’]/g, "'")
-    .toLowerCase();
+  return input.trim().replace(/\s+/g, ' ').replace(/[“”‘’]/g, "'").toLowerCase();
 }

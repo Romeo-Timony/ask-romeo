@@ -39,7 +39,7 @@ export const uiText = {
     feedback: 'Если было полезно — буду рад фидбеку и репосту.',
     contactMe: 'Связаться',
     welcomeTitle: 'Добро пожаловать в Ask Romeo',
-    welcomeDescription: 'AI-портфолио Romeo Timony',
+    welcomeDescription: 'AI-портфолио Romeo Timony (Роман Тимошенко)',
     whatIsAskOosu: 'Что такое Ask Romeo?',
     whatIsAskOosuBody:
       'Спросите Romeo о чём угодно: проекты, навыки, подход к работе или кто он как специалист — вместо длинного скролла можно просто поговорить.',
@@ -95,7 +95,7 @@ export const uiText = {
     siteStackBody:
       'Интерфейс: Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, Vercel AI SDK. Ответы через OpenAI, знания — static/RAG (база наполняется).',
     presentationDescription:
-      'Ask Romeo — AI-портфолио Romeo Timony: QA Engineer / Prompt Engineer. Здесь можно спросить о проектах, навыках и подходе к работе с AI.',
+      'Ask Romeo — AI-портфолио Romeo Timony. Здесь можно спросить о проектах, навыках и подходе к работе с AI.',
     resumeTitle: 'Резюме Romeo Timony',
     resumeUpdated: 'Ссылки на резюме появятся позже',
     resumeKorean: 'Резюме (RU)',
@@ -183,7 +183,7 @@ export const uiText = {
     siteStackBody:
       'The interface uses Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, and the Vercel AI SDK. Answers go through OpenAI; knowledge uses static/RAG sources (content still being filled in).',
     presentationDescription:
-      'Ask Romeo is Romeo Timony’s AI-connected portfolio: QA Engineer / Prompt Engineer. Ask about projects, skills, and how he works with AI.',
+      'Ask Romeo is Romeo Timony’s AI-connected portfolio. Ask about projects, skills, and how he works with AI.',
     resumeTitle: "Romeo Timony's Resume",
     resumeUpdated: 'Resume links will be connected later',
     resumeKorean: 'Resume (RU)',

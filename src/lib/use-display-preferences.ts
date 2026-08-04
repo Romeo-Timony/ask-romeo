@@ -3,9 +3,11 @@
 import {
   detectBrowserLanguage,
   detectSystemTheme,
+  normalizeLanguage,
   parsePreferencePath,
   parsePreferenceSearchParams,
   readStoredDisplayPreferences,
+  toUrlLanguage,
   type DisplayLanguage,
   type DisplayTheme,
   type PreferenceTokens,
@@ -54,13 +56,35 @@ export function useDisplayPreferences() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     document.documentElement.dataset.theme = theme;
-    document.documentElement.lang = language;
+    document.documentElement.lang = language === 'ko' ? 'ru' : 'en';
   }, [theme, language]);
+
+  // Canonical public URL uses lang=rus / lang=eng.
+  useEffect(() => {
+    const rawLang = searchParams.get('lang');
+    if (!rawLang) return;
+
+    const normalized = normalizeLanguage(rawLang);
+    if (!normalized) return;
+
+    const canonical = toUrlLanguage(normalized);
+    if (rawLang.toLowerCase() === canonical) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('lang', canonical);
+    const nextUrl = params.toString()
+      ? `${pathname}?${params.toString()}`
+      : pathname;
+    router.replace(nextUrl, { scroll: false });
+  }, [pathname, router, searchParams]);
 
   const updateUrlPreference = useCallback(
     (key: 'theme' | 'lang', value: DisplayTheme | DisplayLanguage) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(key, value);
+      params.set(
+        key,
+        key === 'lang' ? toUrlLanguage(value as DisplayLanguage) : value
+      );
 
       const nextUrl = params.toString()
         ? `${pathname}?${params.toString()}`

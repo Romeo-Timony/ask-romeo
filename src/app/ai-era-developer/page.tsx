@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+
 import {
   FaqList,
   PublicPageShell,
@@ -8,55 +9,91 @@ import {
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'AI-era Developer Competitiveness',
+  title: 'QA / AI: инженерный подход к качеству',
   description:
-    'Oosu’s AI-era competitiveness is based on connecting AI-generated options to real users, product judgment, UX quality, and responsible implementation.',
+    'Как Romeo Timony сочетает QA-инженерию, тестовую автоматизацию, LLM и RAG, чтобы быстрее поставлять проверяемые и поддерживаемые решения.',
   path: '/ai-era-developer',
-  keywords: ['AI-era developer', 'trustworthy AI UX', 'AI application development'],
+  keywords: [
+    'QA инженер',
+    'AI в разработке',
+    'тестовая автоматизация',
+    'LLM',
+    'RAG',
+    'quality engineering',
+  ],
 });
 
 export default function AiEraDeveloperPage() {
   return (
     <PublicPageShell
-      eyebrow="AI-era positioning"
-      title="AI-era Developer Competitiveness"
-      summary="Oosu’s AI-era competitiveness is not based on claiming that AI cannot replace humans. It is based on connecting AI-generated options to real users, product judgment, UX quality, and responsible implementation."
+      eyebrow="QA / AI-подход"
+      title="Качество в эпоху AI"
+      summary="AI ускоряет анализ, подготовку решений и тестов, но не отменяет инженерную ответственность. Я использую LLM и RAG как инструменты для более быстрого и прозрачного QA-цикла: от рисков и критериев приёмки до проверки релиза."
+      primaryCta={{
+        href: '/chat?lang=rus&theme=dark',
+        label: 'Спросить Romeo',
+      }}
+      secondaryCta={{ href: '/projects', label: 'Посмотреть проекты' }}
+      navLabels={{
+        ask: 'Спросить Romeo',
+        projects: 'Проекты',
+        faq: 'FAQ',
+      }}
     >
-      <TextSection title="The Practical Edge">
+      <TextSection title="Практическое преимущество">
         <p>
-          AI can generate many options quickly. The developer’s job becomes more
-          about choosing the right problem, checking whether the output fits the
-          product context, and integrating it without losing quality or trust.
+          Генеративные инструменты быстро создают варианты кода, тест-кейсов,
+          документации и гипотез для отладки. Задача QA/AI-инженера — выбрать
+          релевантный вариант, проверить его на реальном продукте и не
+          пропустить риск за красивым ответом модели.
         </p>
         <p>
-          Oosu’s public positioning is intentionally grounded: AI-connected
-          fullstack developer, product-minded builder, RAG portfolio system
-          builder, and trustworthy AI UX practitioner.
-        </p>
-      </TextSection>
-
-      <TextSection title="What This Does Not Claim">
-        <p>
-          This page does not claim that Oosu is a famous AI researcher, senior
-          Silicon Valley engineer, or proven industry expert. It describes a
-          portfolio direction and the work style shown by AskOosu and related
-          projects.
+          Мой фокус — соединять frontend, backend и quality engineering:
+          формулировать критерии приёмки, проверять API-контракты, автоматизировать
+          повторяемые проверки, анализировать логи и подтверждать результат в
+          пользовательских сценариях. AI помогает быстрее проходить этот цикл,
+          но решение о готовности остаётся за человеком.
         </p>
       </TextSection>
 
-      <TextSection title="Related Reading">
+      <TextSection title="Как устроен QA / AI-цикл">
         <p>
-          Continue with{' '}
-          <Link className="underline" href="/ai-director">
-            AI Director-style Product Builder
+          Работа начинается не с генерации кода, а с контекста: цели,
+          ограничений, рисков, граничных случаев и Definition of Done. Затем
+          Codex, Claude Code и Gemini помогают декомпозировать задачу, изучить
+          кодовую базу, подготовить альтернативы и сценарии тестирования.
+        </p>
+        <p>
+          После реализации я читаю изменения, проверяю интеграции и обработку
+          ошибок, запускаю type-check, build и автотесты. Перед релизом сверяю
+          поведение в интерфейсе, ответы API, логи и критичные пользовательские
+          пути. Обратная связь после релиза превращается в новые проверки и
+          улучшения процесса.
+        </p>
+      </TextSection>
+
+      <TextSection title="Что этот подход не обещает">
+        <p>
+          AI не гарантирует корректность ответа и не заменяет знания продукта,
+          тестовую стратегию или ответственность за релиз. Сгенерированный код
+          и выводы модели считаю гипотезами, пока они не подтверждены тестами,
+          наблюдаемыми данными и понятной логикой работы системы.
+        </p>
+      </TextSection>
+
+      <TextSection title="Связанные материалы">
+        <p>
+          Посмотрите, как этот подход реализован в{' '}
+          <Link className="underline" href="/projects/ask-romeo">
+            проекте Ask Romeo
           </Link>
-          ,{' '}
+          , изучите{' '}
           <Link className="underline" href="/faq/ai-competitiveness">
-            AI competitiveness FAQ
-          </Link>
-          , or{' '}
-          <Link className="underline" href="/ask">
-            AskOosu
+            FAQ о работе с AI
+          </Link>{' '}
+          или задайте вопрос в{' '}
+          <Link className="underline" href="/chat?lang=rus&theme=dark">
+            чате
           </Link>
           .
         </p>
@@ -66,19 +103,19 @@ export default function AiEraDeveloperPage() {
         <FaqList
           items={[
             {
-              question: 'Does Oosu compete with AI?',
+              question: 'Заменяет ли AI QA-инженера?',
               answer:
-                'No. The portfolio frames AI as an execution layer. Oosu’s focus is connecting AI output to real product context and human judgment.',
+                'Нет. AI ускоряет подготовку гипотез, кода и тестов, но не понимает продуктовый контекст и не несёт ответственности за качество релиза. QA-инженер определяет риски, проверяет результат и принимает решение на основе доказательств.',
             },
             {
-              question: 'What is trustworthy AI UX?',
+              question: 'Как вы проверяете результат работы AI?',
               answer:
-                'It means designing AI features so users can understand what is grounded, what is uncertain, and where the answer came from.',
+                'Через review изменений, API-контракты, type-check, build, автотесты, логи и ручные пользовательские сценарии. Если ответ модели нельзя объяснить и повторно проверить, он не считается готовым решением.',
             },
             {
-              question: 'Why does this matter for a junior developer?',
+              question: 'Где здесь используется RAG?',
               answer:
-                'AI changes the execution layer, but teams still need people who can learn quickly, verify output, explain tradeoffs, and ship working product surfaces.',
+                'В Ask Romeo RAG помогает связывать ответы с поддерживаемой базой знаний и источниками. Это снижает вероятность произвольных ответов и позволяет показать, на каких данных основан вывод.',
             },
           ]}
         />

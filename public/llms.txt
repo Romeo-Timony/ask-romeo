@@ -8,7 +8,7 @@
 - [AskOosu](https://oosu.dev/ask): Public explanation of the conversational portfolio interface.
 - [AskOosu Chat](https://oosu.dev/chat): Live portfolio Q&A interface grounded in FAQ, Wiki, and RAG documents.
 - [Projects](https://oosu.dev/projects): Selected public project summaries.
-- [AskOosu Project](https://oosu.dev/projects/askoosu): RAG portfolio system project notes.
+- [Ask Romeo Project](https://oosu.dev/projects/ask-romeo): Conversational QA/AI portfolio project notes.
 - [AI Director](https://oosu.dev/ai-director): Oosu's AI Director-style product-building thesis.
 - [AI-era Developer](https://oosu.dev/ai-era-developer): Grounded positioning for AI-era developer competitiveness.
 - [AI Competitiveness FAQ](https://oosu.dev/faq/ai-competitiveness): Common recruiter and AI-era Q&A.

@@ -68,7 +68,7 @@ function createPostgresStore(): RagStore {
 
   if (!databaseUrl) {
     throw new Error(
-      'DATABASE_URL or POSTGRES_URL is required when ASKOOSU_RAG_STORE=postgres.'
+      'DATABASE_URL or POSTGRES_URL is required when ASKROMEO_RAG_STORE=postgres.'
     );
   }
 

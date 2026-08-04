@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = createPageMetadata({
-  title: 'AskOosu Chat',
-  description:
-    'Ask Oosu questions about projects, skills, AI workflow, career direction, and collaboration fit through the live conversational portfolio.',
-  path: '/chat',
-  keywords: ['AskOosu chat', 'portfolio Q&A', 'AI portfolio chat'],
-});
+export const metadata: Metadata = {
+  ...createPageMetadata({
+    title: 'Ask Romeo',
+    description:
+      'Ask Romeo about projects, QA skills, AI workflow, experience, and collaboration through the conversational portfolio.',
+    path: '/chat',
+    keywords: ['Ask Romeo', 'portfolio Q&A', 'QA portfolio chat'],
+  }),
+  title: { absolute: 'Ask Romeo' },
+};
 
 export default function ChatLayout({
   children,

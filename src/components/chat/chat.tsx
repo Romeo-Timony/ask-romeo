@@ -16,7 +16,6 @@ import React, {
 import ChatBottombar from '@/components/chat/chat-bottombar';
 import ChatLanding from '@/components/chat/chat-landing';
 import { PortfolioSidebar } from '@/components/portfolio-sidebar';
-import { FuturisticQuestionMark } from '@/components/futuristic-question-mark';
 import { SimplifiedChatView } from '@/components/chat/simple-chat-view';
 import { getUiText } from '@/lib/i18n';
 import { isAskOosuDebugUiEnabled } from '@/lib/debug-ui';
@@ -103,6 +102,7 @@ const Chat = () => {
   const [conversations, setConversations] = useState<StoredChatConversation[]>(
     []
   );
+  const [isConversationHydrated, setIsConversationHydrated] = useState(false);
   const [input, setInput] = useState('');
   const [activeSurface, setActiveSurface] = useState<QuestionSurface>('home');
   const [showJumpToLatest, setShowJumpToLatest] = useState(false);
@@ -238,7 +238,10 @@ const Chat = () => {
   }, [status]);
 
   const replaceChatUrl = useCallback(() => {
-    const params = new URLSearchParams({ lang: language, theme });
+    const params = new URLSearchParams({
+      lang: language === 'ko' ? 'rus' : 'eng',
+      theme,
+    });
     if (isDebugMode) params.set('debug', 'true');
     router.replace(`/chat?${params.toString()}`, { scroll: false });
   }, [isDebugMode, language, router, theme]);
@@ -269,6 +272,7 @@ const Chat = () => {
       !initialConversationId ||
       activeConversationId === initialConversationId
     ) {
+      setIsConversationHydrated(true);
       return;
     }
 
@@ -276,12 +280,37 @@ const Chat = () => {
       (conversation) => conversation.id === initialConversationId
     );
 
-    if (!requestedConversation) return;
-
-    setMessages(requestedConversation.messages);
-    setInput('');
-    setActiveConversationId(requestedConversation.id);
+    if (requestedConversation) {
+      setMessages(requestedConversation.messages);
+      setInput('');
+      setActiveConversationId(requestedConversation.id);
+    }
+    setIsConversationHydrated(true);
   }, [activeConversationId, initialConversationId, setInput, setMessages]);
+
+  useEffect(() => {
+    if (
+      !activeConversationId ||
+      activeConversationId === initialConversationId
+    ) {
+      return;
+    }
+
+    const params = new URLSearchParams({
+      lang: language === 'ko' ? 'rus' : 'eng',
+      theme,
+      conversationId: activeConversationId,
+    });
+    if (isDebugMode) params.set('debug', 'true');
+    router.replace(`/chat?${params.toString()}`, { scroll: false });
+  }, [
+    activeConversationId,
+    initialConversationId,
+    isDebugMode,
+    language,
+    router,
+    theme,
+  ]);
 
   useEffect(() => {
     if (!activeConversationId || messages.length === 0) return;
@@ -305,7 +334,7 @@ const Chat = () => {
     }
   }, [activeConversationId, markQueryAsked, messages]);
 
-  const { latestUserMessage, hasActiveTool, latestAssistantMessageIndex } =
+  const { latestUserMessage, latestAssistantMessageIndex } =
     useMemo(() => {
       const latestAIMessageIndex = messages.findLastIndex(
         (m) => m.role === 'assistant'
@@ -319,18 +348,8 @@ const Chat = () => {
           latestUserMessageIndex !== -1
             ? messages[latestUserMessageIndex]
             : null,
-        hasActiveTool: false,
         latestAssistantMessageIndex: latestAIMessageIndex,
       };
-
-      const currentAIMessage =
-        latestAIMessageIndex !== -1 ? messages[latestAIMessageIndex] : null;
-
-      if (currentAIMessage) {
-        result.hasActiveTool =
-          currentAIMessage.parts?.some((part) => isCompletedToolPart(part)) ||
-          false;
-      }
 
       return result;
     }, [messages]);
@@ -693,10 +712,17 @@ const Chat = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleChatScroll}
-          className="flex-1 overflow-y-auto px-2 pt-4 pb-36 md:pb-40"
+          className="flex-1 overflow-y-auto px-2 pt-[30px] pb-[159px] md:pb-[175px]"
         >
-          <AnimatePresence mode="wait">
-            {isEmptyState ? (
+          {!isConversationHydrated ? (
+            <div
+              className="flex min-h-full"
+              aria-busy="true"
+              aria-label="Loading conversation"
+            />
+          ) : (
+            <AnimatePresence mode="wait">
+              {isEmptyState ? (
               <motion.div
                 key="landing"
                 className="flex min-h-full items-center justify-center"
@@ -710,8 +736,6 @@ const Chat = () => {
                 className="flex min-h-full flex-col justify-start gap-4 pb-4"
                 {...MOTION_CONFIG}
               >
-                <ConversationAvatarHeader compact={hasActiveTool} />
-
                 {messages.map((message, index) => {
                   if (message.role === 'user') {
                     return (
@@ -787,13 +811,14 @@ const Chat = () => {
                 ))}
                 <div ref={conversationEndRef} className="h-1" />
               </motion.div>
-            )}
-          </AnimatePresence>
+              )}
+            </AnimatePresence>
+          )}
         </div>
 
         {/* Fixed Bottom Bar */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 px-2 pt-8 pb-[max(0.75rem,env(safe-area-inset-bottom))] before:pointer-events-none before:absolute before:inset-x-[-100vw] before:top-0 before:bottom-0 before:-z-10 before:bg-white/[0.025] before:backdrop-blur-2xl before:[mask-image:linear-gradient(to_bottom,transparent,black_34%,black)] md:px-0 md:pb-4 dark:before:bg-white/[0.012]">
-          <div className="pointer-events-auto relative flex flex-col items-center gap-3">
+          <div className="pointer-events-auto relative flex flex-col items-center gap-[15px]">
             <AnimatePresence>
               {showJumpToLatest && (
                 <motion.div
@@ -809,14 +834,14 @@ const Chat = () => {
                     variant="secondary"
                     aria-label={
                       language === 'ko'
-                        ? '최신 답변으로 이동'
+                        ? 'К последнему ответу'
                         : 'Jump to the latest answer'
                     }
                     className="h-8 rounded-full border shadow-sm"
                     onClick={() => scrollToLatest()}
                   >
                     <ArrowDown className="h-4 w-4" />
-                    {language === 'ko' ? '최신 답변' : 'Latest'}
+                    {language === 'ko' ? 'Последний' : 'Latest'}
                   </Button>
                 </motion.div>
               )}
@@ -886,20 +911,6 @@ function PendingQuestionBubble({
           {language === 'ko' ? 'Ожидание ответа' : 'Queued'}
         </p>
       </div>
-    </div>
-  );
-}
-
-function ConversationAvatarHeader({ compact }: { compact: boolean }) {
-  return (
-    <div className="flex justify-center pt-4">
-      <button
-        className="cursor-pointer"
-        onClick={() => (window.location.href = '/')}
-        aria-label="Go to Ask Romeo home"
-      >
-        <FuturisticQuestionMark compact={compact} />
-      </button>
     </div>
   );
 }
@@ -1086,8 +1097,9 @@ function buildChatErrorNotice(
 
   return {
     ...copy,
-    retryLabel: language === 'ko' ? '다시 시도' : 'Retry',
-    reportLabel: language === 'ko' ? '오류 리포트 보내기' : 'Report this issue',
+    retryLabel: language === 'ko' ? 'Повторить' : 'Retry',
+    reportLabel:
+      language === 'ko' ? 'Сообщить об ошибке' : 'Report this issue',
     reportHref: buildErrorReportHref({
       kind,
       language,
@@ -1098,8 +1110,9 @@ function buildChatErrorNotice(
 function getChatErrorCopy(language: 'ko' | 'en') {
   if (language === 'ko') {
     return {
-      title: '잠시 후 다시 시도해 주세요.',
-      message: '답변 엔진이 잠깐 쉬는 중이에요. 잠시 후 다시 시도해 주세요.',
+      title: 'Попробуйте чуть позже.',
+      message:
+        'Движок ответов сейчас недоступен. Подождите немного и попробуйте снова.',
     };
   }
 

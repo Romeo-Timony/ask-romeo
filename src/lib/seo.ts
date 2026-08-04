@@ -24,7 +24,7 @@ export const publicRoutes = [
   '/chat',
   '/about',
   '/projects',
-  '/projects/askoosu',
+  '/projects/ask-romeo',
   '/ai-director',
   '/ai-era-developer',
   '/faq/ai-competitiveness',
@@ -97,7 +97,7 @@ export const jsonLdGraph = [
     name: 'Romeo Timony',
     alternateName: ['Romeo-Timony', 'Ask Romeo'],
     url: siteUrl,
-    jobTitle: 'Fullstack QA Engineer with AI tooling',
+    jobTitle: 'Fullstack QA/AI engineer',
     description:
       'Romeo Timony is a QA Engineer / Prompt Engineer building AI-connected portfolio systems, Telegram assistants, and RAG workflows.',
     knowsAbout: [

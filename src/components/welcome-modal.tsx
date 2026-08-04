@@ -93,7 +93,10 @@ export default function WelcomeModal({ trigger }: WelcomeModalProps) {
             {/* Content area */}
             <div className="space-y-6 overflow-y-auto px-2 py-4 md:px-8">
               <section className="bg-accent w-full space-y-8 rounded-2xl p-8">
-                <VideoVisitCard className="mx-auto aspect-square h-28 w-28" />
+                <VideoVisitCard
+                  className="mx-auto aspect-square h-28 w-28"
+                  compactControls
+                />
                 {/* What section */}
                 <div className="space-y-3">
                   <h3 className="text-primary flex items-center gap-2 text-xl font-semibold">

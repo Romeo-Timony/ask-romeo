@@ -1,6 +1,10 @@
 import { oosuProfile } from '@/lib/oosu-profile';
 import type { ChatLanguage } from '@/lib/i18n/detect-language';
 import type { ChatAnswerSource } from '@/lib/chat/types';
+import {
+  resumeProjectSkillGroupsEn,
+  resumeProjectSkillGroupsRu,
+} from '@/data/resume-project-skills';
 import { AI_ERA_COMPETITIVENESS_FAQ_ANSWERS } from './ai-era-competitiveness-answers';
 import { RECRUITER_RISK_FAQ_ANSWERS } from './recruiter-risk-answers';
 
@@ -116,17 +120,37 @@ const mediaRefs: FaqMediaRef[] = [
   {
     assetKey: 'profile.oosu.portrait',
     kind: 'profile',
-    src: '/images/profile/oosu-profile-desktop.webp',
-    mobileSrc: '/images/profile/oosu-profile-mobile.webp',
-    alt: 'Oosu profile portrait',
+    src: '/images/profile/romeo-timony-new.webp',
+    alt: 'Romeo Timony portrait',
     status: 'ready',
   },
   {
     assetKey: 'project.askoosu.cover',
     kind: 'project',
-    src: '/images/projects/askoosu-cover-light-desktop.webp',
-    darkSrc: '/images/projects/askoosu-cover-dark-desktop.webp',
-    alt: 'AskOosu project cover',
+    src: '/images/projects/ask-romeo-cover.webp',
+    darkSrc: '/images/projects/ask-romeo-cover.webp',
+    alt: 'Ask Romeo interface preview',
+    status: 'ready',
+  },
+  {
+    assetKey: 'project.sminex_comfort.cover',
+    kind: 'project',
+    src: '/images/projects/sminex-comfort-cover-new.webp',
+    alt: 'Sminex Comfort interface preview',
+    status: 'ready',
+  },
+  {
+    assetKey: 'project.elme_messer.cover',
+    kind: 'project',
+    src: '/images/projects/elme-messer-cover.webp',
+    alt: 'Elme Messer website preview',
+    status: 'ready',
+  },
+  {
+    assetKey: 'project.dpd.cover',
+    kind: 'project',
+    src: '/images/projects/dpd-cover-new.webp',
+    alt: 'DPD website interface preview',
     status: 'ready',
   },
   {
@@ -287,155 +311,89 @@ const representativeProjectsEn = [
 
 const moreProjectsKo = [
   {
-    id: 'portfoli_oh',
-    title: 'Portfoli-Oh!',
-    subtitle: '2025 인터랙티브 포트폴리오',
+    id: 'ask_romeo',
+    title: 'Ask Romeo',
+    label: 'AI Portfolio',
+    subtitle: 'AI-портфолио с диалоговым интерфейсом',
     description:
-      'GSAP, Three.js, Lottie, JSON 기반 챗봇까지 실험하며 AskOosu 이전 한계를 배운 프로젝트입니다.',
-    image: 'project.portfoliooh.cover',
-    tags: ['GSAP', 'Three.js', 'Lottie'],
-    href: oosuProfile.legacyPortfolioUrl,
+      'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.',
+    image: 'project.askoosu.cover',
+    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    href: oosuProfile.currentPortfolioUrl,
   },
   {
-    id: 'ez_air',
-    title: 'EZ Air',
-    subtitle: 'AI 항공권 검색 UX',
+    id: 'sminex_comfort',
+    title: 'Sminex Comfort',
+    subtitle: 'PropTech · web и mobile app',
     description:
-      'Gemini/Amadeus API 흐름과 여행 검색 UX를 연결해본 팀 프로젝트입니다.',
-    image: 'project.ezair.cover',
-    tags: ['Gemini API', 'Amadeus', 'GSAP'],
+      'QA веб- и мобильной платформы для жителей: пользовательские сценарии, API, интеграции внутренних сервисов и регрессия перед релизами.',
+    image: 'project.sminex_comfort.cover',
+    tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+    href: 'https://comfort.sminex.com/',
   },
   {
-    id: 'uncorked',
-    title: 'Uncorked',
-    subtitle: '와인바 서비스/브랜드 웹',
+    id: 'elme_messer',
+    title: 'Elme Messer',
+    subtitle: 'Enterprise · web и mobile app',
     description:
-      '오프라인 서비스 감각, 브랜드 방향성, 웹 프레즌스를 함께 정리한 프로젝트입니다.',
-    image: 'project.uncorked.cover',
-    tags: ['Figma', 'Brand UX', 'Website'],
+      'QA цифровых сервисов промышленного поставщика газов: каталог продукции, интернет-магазин, личный кабинет клиента, обмен документами и многоязычные пользовательские сценарии.',
+    image: 'project.elme_messer.cover',
+    tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+    href: 'https://elmemesser.lv/',
   },
   {
-    id: 'onjung',
-    title: 'Onjung',
-    subtitle: '경조사비 기록 Flutter 앱',
+    id: 'dpd',
+    title: 'DPD',
+    subtitle: 'Логистика · web и mobile app',
     description:
-      'Flutter, Dart, Firebase, Riverpod를 사용해 접근성 높은 모바일 기록 UX를 설계했습니다.',
-    image: 'project.onjung.cover',
-    tags: ['Flutter', 'Dart', 'Firebase'],
-  },
-  {
-    id: 'nomad_market',
-    title: 'Nomad Market',
-    subtitle: '크로스보더 마켓플레이스 앱',
-    description:
-      '여행자 구매대행 흐름을 실험하며 신뢰, 인증, 지도 기반 UX를 다뤘습니다.',
-    image: 'project.nomad_market.cover',
-    tags: ['Flutter', 'Firebase', 'Marketplace UX'],
-  },
-  {
-    id: 'webtoon_translate',
-    title: 'Webtoon AI Translate',
-    subtitle: 'AI 번역 파이프라인',
-    description:
-      'FastAPI/Python 백엔드와 OCR, DeepL, Groq, Next.js 편집기 흐름을 설계한 실험 프로젝트입니다.',
-    image: 'project.webtoon_translate.cover',
-    tags: ['FastAPI', 'OCR', 'DeepL'],
-  },
-  {
-    id: 'pyjavalingo',
-    title: 'Pylingo / Javalingo',
-    subtitle: '학습 웹앱',
-    description:
-      'Python과 Java 개념을 초보자가 실습 중심으로 익히도록 만든 교육형 웹앱입니다.',
-    image: 'project.pyjavalingo.cover',
-    tags: ['Python', 'Java', 'Education UX'],
-    href: 'https://oosuhada.github.io/pylingo/',
-  },
-  {
-    id: 'lab_gradient',
-    title: 'Lab / Gradient Therapy',
-    subtitle: '크리에이티브 테크 실험',
-    description:
-      'CSS/JS 실험, 그래디언트 영상, FFMPEG 자동화처럼 시각 감각과 도구화를 연결한 기록입니다.',
-    image: 'life.sensory_interests.cover',
-    tags: ['Creative coding', 'FFMPEG', 'Visual UX'],
+      'QA логистических сценариев: оформление и отслеживание отправлений, API, интеграции и регрессия критичных процессов доставки.',
+    image: 'project.dpd.cover',
+    tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+    href: 'https://dpd.ru/',
   },
 ];
 
 const moreProjectsEn = [
   {
-    id: 'portfoli_oh',
-    title: 'Portfoli-Oh!',
-    subtitle: '2025 interactive portfolio',
+    id: 'ask_romeo',
+    title: 'Ask Romeo',
+    label: 'AI Portfolio',
+    subtitle: 'AI-connected conversational portfolio',
     description:
-      'An experimental frontend portfolio with GSAP, Three.js, Lottie, and a JSON-based chatbot that led into AskOosu.',
-    image: 'project.portfoliooh.cover',
-    tags: ['GSAP', 'Three.js', 'Lottie'],
-    href: oosuProfile.legacyPortfolioUrl,
+      "An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo's projects and experience.",
+    image: 'project.askoosu.cover',
+    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    href: oosuProfile.currentPortfolioUrl,
   },
   {
-    id: 'ez_air',
-    title: 'EZ Air',
-    subtitle: 'AI flight-search UX',
+    id: 'sminex_comfort',
+    title: 'Sminex Comfort',
+    subtitle: 'PropTech · web and mobile app',
     description:
-      'A team project exploring travel search UX with Gemini and Amadeus API flows.',
-    image: 'project.ezair.cover',
-    tags: ['Gemini API', 'Amadeus', 'GSAP'],
+      'QA for a resident web and mobile platform: user journeys, APIs, internal-service integrations, and release regression testing.',
+    image: 'project.sminex_comfort.cover',
+    tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+    href: 'https://comfort.sminex.com/',
   },
   {
-    id: 'uncorked',
-    title: 'Uncorked',
-    subtitle: 'Wine-bar service and brand web',
+    id: 'elme_messer',
+    title: 'Elme Messer',
+    subtitle: 'Enterprise · web and mobile app',
     description:
-      'A project connecting offline service taste, brand direction, and a polished web presence.',
-    image: 'project.uncorked.cover',
-    tags: ['Figma', 'Brand UX', 'Website'],
+      'QA for a digital industrial-gas supplier: product catalogue, web shop, customer account, document exchange, and multilingual customer journeys.',
+    image: 'project.elme_messer.cover',
+    tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+    href: 'https://elmemesser.lv/',
   },
   {
-    id: 'onjung',
-    title: 'Onjung',
-    subtitle: 'Flutter app for life-event records',
+    id: 'dpd',
+    title: 'DPD',
+    subtitle: 'Logistics · web and mobile app',
     description:
-      'A mobile app using Flutter, Dart, Firebase, and Riverpod for accessible record management UX.',
-    image: 'project.onjung.cover',
-    tags: ['Flutter', 'Dart', 'Firebase'],
-  },
-  {
-    id: 'nomad_market',
-    title: 'Nomad Market',
-    subtitle: 'Cross-border marketplace app',
-    description:
-      'A marketplace experiment around traveler-mediated purchases, trust, verification, and location-based UX.',
-    image: 'project.nomad_market.cover',
-    tags: ['Flutter', 'Firebase', 'Marketplace UX'],
-  },
-  {
-    id: 'webtoon_translate',
-    title: 'Webtoon AI Translate',
-    subtitle: 'AI translation pipeline',
-    description:
-      'An experimental tool design using FastAPI/Python, OCR, DeepL, Groq, and a Next.js editing flow.',
-    image: 'project.webtoon_translate.cover',
-    tags: ['FastAPI', 'OCR', 'DeepL'],
-  },
-  {
-    id: 'pyjavalingo',
-    title: 'Pylingo / Javalingo',
-    subtitle: 'Learning web apps',
-    description:
-      'Education-focused web apps for practicing Python and Java concepts through staged exercises.',
-    image: 'project.pyjavalingo.cover',
-    tags: ['Python', 'Java', 'Education UX'],
-    href: 'https://oosuhada.github.io/pylingo/',
-  },
-  {
-    id: 'lab_gradient',
-    title: 'Lab / Gradient Therapy',
-    subtitle: 'Creative-tech experiments',
-    description:
-      'A record of CSS/JS experiments, gradient video work, and FFMPEG automation linking visual taste with tooling.',
-    image: 'life.sensory_interests.cover',
-    tags: ['Creative coding', 'FFMPEG', 'Visual UX'],
+      'QA for logistics scenarios: creating and tracking shipments, APIs, integrations, and regression of critical delivery flows.',
+    image: 'project.dpd.cover',
+    tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+    href: 'https://dpd.ru/',
   },
 ];
 
@@ -653,6 +611,51 @@ const aiWorkflowEn = [
   },
 ];
 
+const qaAiWorkflowRu = [
+  {
+    title: 'Контекст и риски',
+    description:
+      'Уточняю цель, сценарии, ограничения и риски. Формирую критерии приёмки и проверяемые допущения.',
+  },
+  {
+    title: 'AI-гипотезы',
+    description:
+      'Codex, Claude Code и Gemini помогают разобрать задачу, подготовить варианты реализации, тест-кейсы и негативные сценарии.',
+  },
+  {
+    title: 'Реализация и review',
+    description:
+      'Проверяю изменения в коде, контракты API, обработку ошибок и влияние на существующие пользовательские потоки.',
+  },
+  {
+    title: 'QA-валидация',
+    description:
+      'Запускаю type-check, build, автотесты и ручные проверки. Сверяю логи, ответы API и граничные случаи.',
+  },
+  {
+    title: 'Релиз и обратная связь',
+    description:
+      'Фиксирую результат, наблюдаю за поведением после релиза и превращаю найденные риски в новые проверки.',
+  },
+];
+
+const qaAiWorkflowRuCopy = {
+  shortAnswer:
+    'Использую AI для ускорения анализа и подготовки проверок, а качество подтверждаю тестами, логами и ручным review.',
+  defaultAnswer: [
+    'AI в моём процессе — не замена QA, а инструмент для более быстрого анализа, подготовки гипотез и покрытия рисков.',
+    '',
+    'Codex, Claude Code и Gemini помогают декомпозировать задачу, изучить кодовую базу, предложить варианты реализации и составить тестовые сценарии. Затем я проверяю изменения как QA-инженер: читаю код, сверяю API-контракты, запускаю type-check, build и автотесты, анализирую логи и прохожу критичные пользовательские сценарии вручную.',
+  ].join('\n'),
+  detailedAnswer: [
+    'Мой QA/AI-процесс строится вокруг доказуемого качества, а не вокруг доверия к сгенерированному коду.',
+    '',
+    'Сначала фиксирую цель, критерии приёмки, риски и запрещённые допущения. AI помогает быстрее собрать варианты, но не принимает решения за меня. На этапе реализации использую его для навигации по коду, идей по тестам, поиска edge cases и подготовки документации.',
+    '',
+    'После этого выполняю review изменений, проверяю ошибки и интеграции, запускаю статические проверки, сборку и тесты. Перед релизом прохожу пользовательские сценарии и контролирую результат по логам и обратной связи. Такой цикл позволяет ускоряться с AI, не теряя управляемость и ответственность за качество.',
+  ].join('\n'),
+};
+
 const ragWorkflowKo = [
   {
     title: 'Chat UI',
@@ -709,6 +712,7 @@ const ragWorkflowEn = [
 
 const contactActionsKo = [
   { label: 'Email', href: `mailto:${oosuProfile.email}`, kind: 'email' },
+  { label: 'Telegram', href: oosuProfile.telegram, kind: 'telegram' },
   { label: 'GitHub', href: oosuProfile.github, kind: 'github' },
   { label: 'LinkedIn', href: oosuProfile.linkedin, kind: 'linkedin' },
   { label: 'Instagram', href: oosuProfile.instagram, kind: 'instagram' },
@@ -737,25 +741,24 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.representative',
     entityId: 'projects.representative',
     language: 'ko',
-    quickLabel: 'Projects',
+    quickLabel: 'Проекты',
     displayQuestion:
-      '우수님의 대표 프로젝트와 성장 흐름이 어떻게 연결되는지 보여줄래요?',
+      'Покажи основные проекты Romeo и его опыт в QA.',
     patterns: [
-      '프로젝트',
-      '대표 프로젝트',
-      '대표 프로젝트 3개',
-      '프로젝트 소개',
-      '우수님의 대표 프로젝트 3개를 한눈에 볼 수 있게 소개해줄래요?',
-      '우수님의 대표 프로젝트와 성장 흐름이 어떻게 연결되는지 보여줄래요?',
-      '우수 대표 프로젝트',
-      'AskOosu Instagram Clone Sticks & Stones',
+      'проекты',
+      'основные проекты',
+      'три проекта',
+      'покажи проекты',
+      'проекты Romeo',
+      'QA проекты',
+      'Sminex Elme Messer DPD',
     ],
     shortAnswer:
-      '대표 프로젝트는 AskOosu, Aigram, Sticks & Stones이고, Portfoli-Oh!, Onjung, Nomad Market 같은 프로젝트가 성장 흐름을 보완합니다.',
+      'В портфолио представлены три проекта: Sminex Comfort, Elme Messer и DPD.',
     defaultAnswer: [
-      '프로젝트부터 보면 꽤 재밌습니다. 우수의 대표 흐름은 AskOosu, Aigram, Sticks & Stones 세 장으로 먼저 잡는 게 가장 선명해요.',
+      'В разделе собраны три проекта из QA-портфолио: Sminex Comfort, Elme Messer и DPD.',
       '',
-      'AskOosu는 AI Portfolio, Aigram은 Fullstack SNS, Sticks & Stones는 Real Migration으로 보면 됩니다. 카드 안에는 기술 스택, 관련 질문, 공개 링크를 같이 남겨뒀고, 더보기 레일에서는 Portfoli-Oh!, Onjung, Nomad Market, Webtoon AI Translate 같은 이전/확장 프로젝트까지 이어서 탐색할 수 있어요.',
+      'Карточки показывают назначение бизнеса, QA-контекст, используемые технологии и ссылку на сайт.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -768,25 +771,21 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
         type: 'projectCards',
         title: 'Featured Projects',
         dataKey: 'projects.representative',
-        items: representativeProjectsKo,
+        items: moreProjectsKo.slice(1),
       },
       {
         type: 'projectCards',
-        title: 'More Projects',
-        dataKey: 'projects.more',
+        title: 'Дополнительно',
+        dataKey: 'projects.wiki_featured',
         items: moreProjectsKo,
       },
     ],
     mediaRefs,
     sourceChunkIds: [
       'project.askoosu.overview',
-      'project.instagram_clone.overview',
-      'project.sticks_and_stones.overview',
-      'project.portfolioh',
-      'project.onjung',
-      'project.nomad_market',
-      'project.webtoon_translate',
-      'faq.project.top_three.default',
+      'project.sminex_comfort.overview',
+      'project.elme_messer.overview',
+      'project.dpd.overview',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -842,25 +841,21 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
         type: 'projectCards',
         title: 'Featured Projects',
         dataKey: 'projects.representative',
-        items: representativeProjectsEn,
+        items: moreProjectsEn.slice(1),
       },
       {
         type: 'projectCards',
-        title: 'More Projects',
-        dataKey: 'projects.more',
+        title: 'Additional',
+        dataKey: 'projects.wiki_featured',
         items: moreProjectsEn,
       },
     ],
     mediaRefs,
     sourceChunkIds: [
       'project.askoosu.overview',
-      'project.instagram_clone.overview',
-      'project.sticks_and_stones.overview',
-      'project.portfolioh',
-      'project.onjung',
-      'project.nomad_market',
-      'project.webtoon_translate',
-      'faq.project.top_three.default',
+      'project.sminex_comfort.overview',
+      'project.elme_messer.overview',
+      'project.dpd.overview',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -895,11 +890,11 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'tech stack',
     ],
     shortAnswer:
-      '우수의 현재 핵심 스택은 Next.js, React, TypeScript, Spring Boot, PostgreSQL, Notion API, RAG, Groq이며, Flutter/FastAPI/GSAP 같은 프로젝트 기반 경험도 함께 있습니다.',
+      'Навыки Romeo сгруппированы по проектам: Ask Romeo, Sminex, Elme Messer и DPD — с технологиями, QA-контекстом и подтверждёнными результатами.',
     defaultAnswer: [
-      '기술 스택은 단순 목록보다 “어디에 써봤는지”가 더 중요해요. 그래서 AskOosu에서는 기술을 프로젝트 근거와 같이 보여주는 쪽으로 정리했습니다.',
+      'Навыки сгруппированы по проектам, чтобы было видно не только название технологии, но и реальный контекст её применения.',
       '',
-      '현재 핵심은 Next.js, React, TypeScript, Tailwind CSS, Spring Boot, PostgreSQL, Notion API, RAG, Groq입니다. AskOosu에서는 Next.js, AI SDK, Groq, Notion RAG, PostgreSQL이 연결되어 있고, Aigram 쪽에서는 Spring Boot와 PostgreSQL이 풀스택 흐름을 보여줍니다. 모든 기술을 같은 숙련도로 과장하지 않고 confident, usable, learning, experimental로 나눠 표시합니다.',
+      'Ask Romeo показывает работу с AI/RAG и качеством ответов, Sminex — построение и масштабирование QA-процессов, Elme Messer — тестирование web-сервисов и интеграций, DPD — проверку логистической платформы и микросервисной архитектуры.',
     ].join('\n'),
     renderSpec: {
       layout: 'skill_cloud',
@@ -910,19 +905,19 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'skillChips',
-        title: 'Skills by Evidence',
+        title: 'Навыки, подтверждённые опытом',
         dataKey: 'skills.core',
-        items: skillGroupsKo,
+        items: resumeProjectSkillGroupsRu,
       },
     ],
     mediaRefs,
     sourceChunkIds: [
-      'skills.current_stack',
-      'project.askoosu.overview',
-      'project.onjung',
-      'project.nomad_market',
-      'project.webtoon_translate',
-      'project.portfolioh',
+      'skills.qa_processes',
+      'skills.requirements_shift_left',
+      'skills.api_integrations',
+      'skills.web_mobile_qa',
+      'skills.regression_documentation',
+      'skills.ai_qa_automation',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -974,17 +969,17 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
         type: 'skillChips',
         title: 'Skills by Evidence',
         dataKey: 'skills.core',
-        items: skillGroupsEn,
+        items: resumeProjectSkillGroupsEn,
       },
     ],
     mediaRefs,
     sourceChunkIds: [
-      'skills.current_stack',
-      'project.askoosu.overview',
-      'project.onjung',
-      'project.nomad_market',
-      'project.webtoon_translate',
-      'project.portfolioh',
+      'skills.qa_processes',
+      'skills.requirements_shift_left',
+      'skills.api_integrations',
+      'skills.web_mobile_qa',
+      'skills.regression_documentation',
+      'skills.ai_qa_automation',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -1046,9 +1041,10 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     ],
     mediaRefs,
     sourceChunkIds: [
-      'profile.basic_info',
-      'profile.faq.contact',
-      'connect.overview',
+      'profile.qa_summary',
+      'profile.qa_specialization',
+      'profile.collaboration',
+      'profile.contact_channels',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -1100,9 +1096,10 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     ],
     mediaRefs,
     sourceChunkIds: [
-      'profile.basic_info',
-      'profile.faq.contact',
-      'connect.overview',
+      'profile.qa_summary',
+      'profile.qa_specialization',
+      'profile.collaboration',
+      'profile.contact_channels',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -1338,25 +1335,25 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'profile.intro',
     entityId: 'profile.summary',
     language: 'ko',
-    quickLabel: '우수 소개',
-    displayQuestion: '우수님은 어떤 사람이고, 어떤 개발자로 성장하고 있나요?',
+    quickLabel: 'Кто ты?',
+    displayQuestion:
+      'Кто такой Romeo и чем он занимается? Расскажи коротко о себе.',
     patterns: [
-      '우수 소개',
-      '우수님은 어떤 사람이고, 어떤 개발자로 성장하고 있나요?',
-      '우수는 어떤 개발자예요?',
-      '우수는 어떤 개발자',
-      '장우수 소개',
-      '이 지원자는 어떤 지원자지',
-      '이 후보자는 어떤 사람인가',
-      '지원자 소개',
-      '어떤 지원자인가',
+      'Кто ты?',
+      'Кто такой Romeo',
+      'Расскажи коротко о себе',
+      'кто такой romeo и чем он занимается',
+      'расскажи о себе',
+      'Who are you?',
     ],
     shortAnswer:
-      '우수는 고객 경험, 비즈니스 인사이트, 프론트엔드, 백엔드, AI를 실제 서비스 흐름으로 연결하려는 AI-connected Fullstack Developer입니다.',
+      'Romeo Timony — Fullstack QA/AI engineer. Специализируется на качестве ПО, автоматизации тестирования и внедрении AI в инженерные процессы.',
     defaultAnswer: [
-      '안녕하세요. 우수는 화면만 예쁘게 만드는 데서 멈추지 않고, API, 데이터, RAG, 배포까지 이어 붙여 실제로 굴러가는 흐름을 만들고 싶어하는 개발자입니다.',
+      'Специализируюсь на современных веб-приложениях, автоматизации тестирования и внедрении AI в процессы разработки.',
       '',
-      'AskOosu는 그 성향을 그대로 담은 작은 실험실이에요. 포트폴리오가 스스로 질문을 받고, Wiki 근거를 찾아, 카드와 답변으로 보여주게 만들고 있습니다. 근거는 하단에 조용히 붙여두되, 답변은 너무 AI 티 나지 않게 우수의 말투와 위트를 살리는 방향으로 다듬고 있어요.',
+      'Работаю на стыке frontend, backend и quality engineering — проектирую архитектуру, надёжные API, автоматизацию и применяю LLM, RAG и AI-ассистентов, чтобы быстрее и увереннее выпускать продукт.',
+      '',
+      'Предпочитаю инженерный подход: сначала понять задачу, затем выбрать самое простое и надёжное решение, которое легко поддерживать и масштабировать.',
     ].join('\n'),
     renderSpec: {
       layout: 'profile_hero',
@@ -1365,7 +1362,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       components: ['ProfileHeroCard'],
     },
     visualBlocks: [
-      { type: 'profileCard', title: 'Oosu Jang', dataKey: 'profile.summary' },
+      { type: 'profileCard', title: 'Romeo Timony', dataKey: 'profile.summary' },
     ],
     mediaRefs,
     sourceChunkIds: [
@@ -1385,22 +1382,25 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'profile.intro',
     entityId: 'profile.summary',
     language: 'en',
-    quickLabel: 'About Oosu',
-    displayQuestion: 'Who is Oosu, and what kind of developer is he becoming?',
+    quickLabel: 'Who are you?',
+    displayQuestion:
+      'Who is Romeo, and what kind of engineer is he? Give a short intro.',
     patterns: [
-      'About Oosu',
-      'Who is Oosu, and what kind of developer is he becoming?',
-      'What kind of developer is Oosu?',
-      'who is oosu',
-      'what kind of candidate is this',
+      'Who are you?',
+      'Who is Romeo',
+      'About Romeo',
+      'what kind of engineer is Romeo',
       'candidate overview',
+      'tell me about yourself',
     ],
     shortAnswer:
-      'Oosu is an AI-connected fullstack developer connecting customer experience, business insight, frontend, backend, and AI into service flows.',
+      'Romeo Timony is a Fullstack QA/AI engineer focused on software quality, test automation, and integrating AI into engineering workflows.',
     defaultAnswer: [
-      'Hi, I am Oosu: a developer who does not want to stop at a nice screen. I like connecting UI, APIs, data, RAG, and deployment into something that actually runs.',
+      'I specialize in modern web apps, test automation, and integrating AI into development workflows.',
       '',
-      'AskOosu is that tendency turned into a small lab: the portfolio takes questions, checks Wiki evidence, and turns the answer into cards and conversation. The evidence stays quietly at the bottom, while the answer itself should feel more like Oosu than a generic AI voice.',
+      'I work at the intersection of frontend, backend, and quality engineering — designing architectures, reliable APIs, automation, and applying LLM, RAG, and AI assistants to ship faster with confidence.',
+      '',
+      'I prefer an engineering approach: understand the problem first, then choose the simplest reliable solution that is easy to maintain and scale.',
     ].join('\n'),
     renderSpec: {
       layout: 'profile_hero',
@@ -1409,7 +1409,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       components: ['ProfileHeroCard'],
     },
     visualBlocks: [
-      { type: 'profileCard', title: 'Oosu Jang', dataKey: 'profile.summary' },
+      { type: 'profileCard', title: 'Romeo Timony', dataKey: 'profile.summary' },
     ],
     mediaRefs,
     sourceChunkIds: [
@@ -3553,13 +3553,35 @@ function toContentKey(
 }
 
 function createFaqAnswer(input: FaqAnswerInput): FaqAnswer {
+  const localizedInput =
+    input.id === 'faq.ai_usage.workflow.default' && input.language === 'ko'
+      ? {
+          ...input,
+          quickLabel: 'AI в работе',
+          displayQuestion: 'Как вы используете AI в QA-процессе и разработке?',
+          alternativeDisplayQuestions: [
+            'Как AI помогает вам обеспечивать качество продукта?',
+            'Как вы используете Codex, Claude Code и Gemini в QA?',
+          ],
+          ...qaAiWorkflowRuCopy,
+          visualBlocks: [
+            {
+              type: 'statelessDiagram' as const,
+              title: 'QA / AI: управляемый цикл качества',
+              dataKey: 'qa.ai.workflow',
+              items: qaAiWorkflowRu,
+            },
+          ],
+        }
+      : input;
+
   return {
-    ...input,
-    answer: input.defaultAnswer,
-    cacheMode: input.cacheMode ?? 'direct_cache',
-    answerSource: input.answerSource ?? 'faq_cache',
-    skippedGroq: input.skippedGroq ?? true,
-    visibility: input.visibility ?? 'public',
+    ...localizedInput,
+    answer: localizedInput.defaultAnswer,
+    cacheMode: localizedInput.cacheMode ?? 'direct_cache',
+    answerSource: localizedInput.answerSource ?? 'faq_cache',
+    skippedGroq: localizedInput.skippedGroq ?? true,
+    visibility: localizedInput.visibility ?? 'public',
   };
 }
 

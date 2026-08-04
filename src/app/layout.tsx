@@ -8,20 +8,12 @@ import {
   siteName,
   siteUrl,
 } from '@/lib/seo';
-import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import type { Viewport } from 'next';
-import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import './globals.css';
-
-// Load Inter font for non-Apple devices
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
 
 const preferenceInitScript = `
 (() => {
@@ -63,13 +55,13 @@ const preferenceInitScript = `
   } catch {}
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   const browserLanguage = (navigator.languages || [navigator.language])
-    .some((language) => language.toLowerCase().startsWith('ko')) ? 'ko' : 'en';
+    .some((language) => language.toLowerCase().startsWith('en')) ? 'en' : 'ko';
   const theme = explicitTheme || storedTheme || systemTheme;
   const language = explicitLanguage || storedLanguage || browserLanguage;
 
   document.documentElement.classList.toggle('dark', theme === 'dark');
   document.documentElement.dataset.theme = theme;
-  document.documentElement.lang = language;
+  document.documentElement.lang = language === 'ko' ? 'ru' : 'en';
 })();
 `;
 
@@ -77,24 +69,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: defaultTitle,
-    template: '%s | Oosu',
+    template: '%s | Ask Romeo',
   },
   description: defaultDescription,
   keywords: seoKeywords,
   authors: [
     {
-      name: 'Oosu Jang',
-      url: 'https://github.com/oosuhada',
+      name: 'Romeo Timony',
+      url: 'https://github.com/Romeo-Timony',
     },
   ],
-  creator: 'Oosu Jang',
-  publisher: 'Oosu Jang',
+  creator: 'Romeo Timony',
+  publisher: 'Romeo Timony',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
-    locale: 'ko_KR',
+    locale: 'ru_RU',
     url: siteUrl,
     title: defaultTitle,
     description: defaultDescription,
@@ -112,7 +104,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: defaultTitle,
     description: defaultDescription,
-    creator: '@oosuhada',
+    creator: '@Romeo-Timony',
     images: ['/twitter-image'],
   },
   robots: {
@@ -129,11 +121,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon.svg',
+        url: '/favicon.svg?v=3',
         sizes: 'any',
       },
     ],
-    shortcut: '/favicon.svg?v=2',
+    shortcut: '/favicon.svg?v=3',
     apple: '/apple-touch-icon.png?v=2',
   },
 };
@@ -157,17 +149,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.svg" sizes="any" />
+        <link rel="icon" href="/favicon.svg?v=3" sizes="any" />
         <script dangerouslySetInnerHTML={{ __html: preferenceInitScript }} />
       </head>
       <body
         suppressHydrationWarning
-        className={cn(
-          'bg-background min-h-screen font-sans antialiased',
-          inter.variable
-        )}
+        className="bg-background min-h-screen font-sans antialiased"
       >
         <ThemeProvider
           attribute="class"

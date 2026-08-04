@@ -29,7 +29,7 @@ export default function ChatBottombar({
   stop,
   isToolInProgress,
   disabled = false,
-  placeholder = 'Ask Oosu anything...',
+  placeholder = 'Ask Romeo anything...',
   thinkingLabel = 'Drafting the answer...',
 }: ChatBottombarProps) {
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
@@ -94,7 +94,7 @@ export default function ChatBottombar({
             disabled={
               !isLoading && (!input.trim() || isToolInProgress || disabled)
             }
-            aria-label={isLoading ? 'Stop response' : 'Send message'}
+            aria-label={isLoading ? 'Stop' : 'Send'}
             className="focus-visible:ring-ring/50 mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full outline-none transition-transform hover:scale-[1.03] focus-visible:ring-[3px] disabled:opacity-50 md:h-9 md:w-9"
             onClick={(e) => {
               if (isLoading) {

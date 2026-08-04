@@ -13,9 +13,14 @@ import {
 import { normalizeMarkdownSpacing } from '@/lib/chat/markdown-spacing';
 import { QuoteBlock } from '@/components/ui/quote-block';
 import { oosuProfile } from '@/lib/oosu-profile';
+import { useDisplayPreferences } from '@/lib/use-display-preferences';
 import { cn } from '@/lib/utils';
 import { isAskOosuDebugUiEnabled } from '@/lib/debug-ui';
 import type { QuestionSurface } from '@/data/question-surfaces.shared';
+import {
+  resumeProjectSkillGroupsEn,
+  resumeProjectSkillGroupsRu,
+} from '@/data/resume-project-skills';
 import {
   BookOpenCheck,
   BriefcaseBusiness,
@@ -138,8 +143,18 @@ export function RichAnswerRenderer({
   metadata?: unknown;
   markdownContent: string;
 }) {
-  const payload = parseRichPayload(metadata);
-  if (!payload) return null;
+  const { language: uiLanguage } = useDisplayPreferences();
+  const parsedPayload = parseRichPayload(metadata);
+  if (!parsedPayload) return null;
+
+  // Prefer UI language so profile/cards match the selected locale
+  // even if the stored answer metadata was generated in another language.
+  const payload: RichPayload = {
+    ...parsedPayload,
+    language: uiLanguage,
+    badge: localizeBadge(parsedPayload.badge, uiLanguage),
+    todoBadge: localizeTodoBadge(parsedPayload.todoBadge, uiLanguage),
+  };
 
   const parts = normalizeAnswerPartsForDisplay(
     payload.answerParts.length > 0
@@ -200,9 +215,59 @@ function renderPart({
   markdownContent: string;
 }) {
   if (part.type === 'markdown') {
-    const content = sanitizeRichMarkdownContent(
-      part.content ?? markdownContent
+    const hasLegacyMoreProjects = payload.visualBlocks.some(
+      (block) =>
+        block.type === 'projectCards' && block.dataKey === 'projects.more'
     );
+    const hasCoreSkills = payload.visualBlocks.some(
+      (block) => block.type === 'skillChips' && block.dataKey === 'skills.core'
+    );
+    const hasContactCard = payload.visualBlocks.some(
+      (block) => block.type === 'contactCard'
+    );
+    const localizedProjectContent = [
+      'В разделе собраны три проекта из QA-портфолио: Sminex Comfort, Elme Messer и DPD.',
+      '',
+      'Карточки показывают назначение бизнеса, QA-контекст, используемые технологии и ссылку на сайт.',
+      '',
+      '---',
+      '',
+      '> «Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»',
+    ].join('\n');
+    const localizedSkillContent = [
+      'Навыки сгруппированы по проектам, чтобы было видно не только название технологии, но и реальный контекст её применения.',
+      '',
+      'Ask Romeo показывает работу с AI/RAG и качеством ответов, Sminex — построение и масштабирование QA-процессов, Elme Messer — тестирование web-сервисов и интеграций, DPD — проверку логистической платформы и микросервисной архитектуры.',
+      '',
+      '---',
+      '',
+      '> «Зрелость QA определяется не количеством знакомых инструментов, а способностью превратить требования, риски и данные в уверенность перед релизом.»',
+    ].join('\n');
+    const localizedContactContent = [
+      'Связаться со мной можно по электронной почте, через Telegram, GitHub или портфолио. Я открыт к диалогу о задачах Senior QA, построении и развитии QA-процессов, тестировании Web и Mobile, API и микросервисов, а также применении AI/LLM для автоматизации и повышения качества продукта.',
+      '',
+      '---',
+      '',
+      '> «Сильное сотрудничество начинается с ясности: какая задача стоит перед командой, какие риски критичны и что будет считаться качественным результатом.»',
+    ].join('\n');
+    const localizedContent = (
+      payload.language === 'ko' && hasCoreSkills
+        ? localizedSkillContent
+        : payload.language === 'ko' && hasContactCard
+        ? localizedContactContent
+        : payload.language === 'ko' && hasLegacyMoreProjects
+        ? localizedProjectContent
+        : (part.content ?? markdownContent)
+    )
+      .replace(
+        'Хороший UX — это не украшение, а отсутствие препятствий для пользователя.',
+        'Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.'
+      )
+      .replace(
+        'Хороший UX — это не просто красота, а отсутствие препятствий.',
+        'Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.'
+      );
+    const content = sanitizeRichMarkdownContent(localizedContent);
     if (!content.trim()) return null;
 
     return <MarkdownBlock key={`markdown-${index}`} content={content} />;
@@ -223,12 +288,27 @@ function renderPart({
   if (!block) return null;
 
   if (block.type === 'projectCards') {
+    const hasExplicitWikiBlock = payload.visualBlocks.some(
+      (candidate) =>
+        candidate.type === 'projectCards' &&
+        candidate.dataKey === 'projects.wiki_featured'
+    );
+    const splitLegacyWiki =
+      block.dataKey === 'projects.representative' &&
+      !hasExplicitWikiBlock &&
+      block.items.some(
+        (item) =>
+          isRecord(item) &&
+          ['sminex_comfort', 'elme_messer', 'dpd'].includes(String(item.id))
+      );
+
     return (
       <ProjectShowcaseCards
         key={`${block.type}-${index}`}
         block={block}
         mediaRefs={payload.mediaRefs}
         language={payload.language}
+        splitLegacyWiki={splitLegacyWiki}
       />
     );
   }
@@ -325,7 +405,7 @@ function MarkdownBlock({ content }: { content: string }) {
           ),
           li: ({ children }) => <li className="my-0 pl-0">{children}</li>,
           blockquote: ({ children }) => (
-            <QuoteBlock attribution="Oosu">{children}</QuoteBlock>
+            <QuoteBlock attribution="Romeo">{children}</QuoteBlock>
           ),
           a: ({ href, children }) => (
             <a
@@ -360,11 +440,14 @@ function renderProjectActionText(children: ReactNode): ReactNode {
 
 function renderProjectActionString(value: string): ReactNode {
   const phrases: Array<{ label: string; action: ProjectActionHighlight }> = [
-    { label: '관련 질문', action: 'questions' },
-    { label: '공개 링크', action: 'open' },
-    { label: '열기', action: 'open' },
+    { label: 'Связанные вопросы', action: 'questions' },
+    { label: 'Открыть ссылку', action: 'open' },
+    { label: 'Открыть', action: 'open' },
     { label: 'Questions', action: 'questions' },
     { label: 'related questions', action: 'questions' },
+    { label: 'Похожие вопросы', action: 'questions' },
+    { label: 'Публичные ссылки', action: 'open' },
+    { label: 'Открыть', action: 'open' },
     { label: 'public links', action: 'open' },
     { label: 'Open', action: 'open' },
   ];
@@ -408,8 +491,8 @@ function escapeRegExp(value: string) {
 
 function sanitizeRichMarkdownContent(content: string) {
   const hiddenPublicPolicyLines = [
-    '비공개 레포, 준비되지 않은 이력서 링크, 사적인 주소 같은 정보는 공개하지 않고, 공개 가능한 프로젝트/연락/협업 맥락만 정리합니다.',
-    '지금 화면에서는 공개된 연락 채널과 협업에 바로 이어질 수 있는 프로젝트 맥락만 깔끔하게 정리합니다.',
+    'Приватные репозитории, черновики резюме и личные адреса не публикуются: показывается только открытый контекст проектов, связи и сотрудничества.',
+    'На этом экране оставлены только публичные контакты и информация о проектах, полезная для начала сотрудничества.',
     'Private repositories, unprepared resume links, and personal addresses stay out of the public portfolio response.',
     'This view keeps the focus on public contact channels and project context that can lead into a practical collaboration conversation.',
   ];
@@ -439,20 +522,131 @@ function sanitizeRichMarkdownContent(content: string) {
   );
 }
 
+function createAskRomeoProject(language: 'ko' | 'en'): ProjectItem {
+  return {
+    id: 'ask_romeo',
+    title: 'Ask Romeo',
+    label: 'AI Portfolio',
+    subtitle:
+      language === 'ko'
+        ? 'AI-портфолио с диалоговым интерфейсом'
+        : 'AI-connected conversational portfolio',
+    description:
+      language === 'ko'
+        ? 'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.'
+        : 'An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo\'s projects and experience.',
+    image: 'project.askoosu.cover',
+    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    href: oosuProfile.currentPortfolioUrl,
+  };
+}
+
+function createQaFeaturedProjects(language: 'ko' | 'en'): ProjectItem[] {
+  return [
+    {
+      id: 'sminex_comfort',
+      title: 'Sminex Comfort',
+      label: 'PropTech',
+      subtitle:
+        language === 'ko'
+          ? 'Web- и мобильная платформа'
+          : 'Web and mobile platform',
+      description:
+        language === 'ko'
+          ? 'QA платформы для жителей: пользовательские сценарии, API, интеграции и регрессия перед релизами.'
+          : 'QA for a resident platform: user journeys, APIs, integrations, and release regression testing.',
+      image: 'project.sminex_comfort.cover',
+      tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+      href: 'https://comfort.sminex.com/',
+    },
+    {
+      id: 'elme_messer',
+      title: 'Elme Messer',
+      label: 'Enterprise',
+      subtitle:
+        language === 'ko'
+          ? 'Web- и мобильная платформа'
+          : 'Web and mobile platform',
+      description:
+        language === 'ko'
+          ? 'QA корпоративных цифровых сервисов: функциональность, интеграции, пользовательские сценарии и релизы.'
+          : 'QA for enterprise digital services: functionality, integrations, user journeys, and releases.',
+      image: 'project.elme_messer.cover',
+      tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+      href: 'https://elmemesser.lv/',
+    },
+    {
+      id: 'dpd',
+      title: 'DPD',
+      label: 'Logistics',
+      subtitle:
+        language === 'ko'
+          ? 'Web- и мобильная платформа'
+          : 'Web and mobile platform',
+      description:
+        language === 'ko'
+          ? 'QA логистических сценариев: отправления, API, интеграции и регрессия критичных процессов доставки.'
+          : 'QA for logistics flows: shipments, APIs, integrations, and regression of critical delivery processes.',
+      image: 'project.dpd.cover',
+      tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+      href: 'https://dpd.ru/',
+    },
+  ];
+}
+
 function ProjectShowcaseCards({
   block,
   mediaRefs,
   language,
+  splitLegacyWiki = false,
 }: {
   block: VisualBlock;
   mediaRefs: MediaRef[];
   language: 'ko' | 'en';
+  splitLegacyWiki?: boolean;
 }) {
-  const projects = block.items.map(parseProjectItem).filter(isDefined);
+  const featuredProjectIds = new Set([
+    'ask_romeo',
+    'askoosu',
+    'sminex_comfort',
+    'elme_messer',
+    'dpd',
+  ]);
+  const parsedProjects = block.items
+    .map(parseProjectItem)
+    .filter(isDefined);
+  const isWikiProjects =
+    block.dataKey === 'projects.more' ||
+    block.dataKey === 'projects.wiki_featured';
+  const visibleProjects = isWikiProjects
+    ? parsedProjects.filter((project) => featuredProjectIds.has(project.id))
+    : parsedProjects;
+  const normalizedProjects = isWikiProjects
+    ? visibleProjects.map((project) =>
+        project.id === 'askoosu'
+          ? { ...project, id: 'ask_romeo', title: 'Ask Romeo' }
+          : project
+      )
+    : visibleProjects;
+  const verifiedProjectTags: Record<string, string[]> = {
+    sminex_comfort: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+    elme_messer: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+    dpd: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+  };
+  const projectsWithVerifiedTags = normalizedProjects.map((project) => ({
+    ...project,
+    tags: verifiedProjectTags[project.id] ?? project.tags,
+  }));
+  const projects =
+    isWikiProjects &&
+    !projectsWithVerifiedTags.some((project) => project.id === 'ask_romeo')
+      ? [createAskRomeoProject(language), ...projectsWithVerifiedTags]
+      : projectsWithVerifiedTags;
   const [highlightedAction, setHighlightedAction] =
     useState<ProjectActionHighlight | null>(null);
   const isMoreProjectsRail =
     block.dataKey === 'projects.more' ||
+    block.dataKey === 'projects.wiki_featured' ||
     block.title?.toLowerCase().includes('more project');
 
   useEffect(() => {
@@ -474,19 +668,55 @@ function ProjectShowcaseCards({
       );
   }, []);
 
+  if (splitLegacyWiki) {
+    return (
+      <div className="space-y-4">
+        <ProjectShowcaseCards
+          block={{
+            type: 'projectCards',
+            title: 'Featured Projects',
+            dataKey: 'projects.original_featured',
+            items: createQaFeaturedProjects(language),
+          }}
+          mediaRefs={mediaRefs}
+          language={language}
+        />
+        <ProjectShowcaseCards
+          block={{
+            ...block,
+            title: language === 'ko' ? 'Дополнительно' : 'Additional',
+            dataKey: 'projects.wiki_featured',
+          }}
+          mediaRefs={mediaRefs}
+          language={language}
+        />
+      </div>
+    );
+  }
+
   if (projects.length === 0) return null;
 
+  const sectionTitle =
+    block.dataKey === 'projects.wiki_featured' ||
+    block.dataKey === 'projects.more'
+      ? language === 'ko'
+        ? 'Дополнительно'
+        : 'Additional'
+      : language === 'ko' && block.title === 'Featured Projects'
+        ? 'Избранные проекты'
+        : block.title;
+
   return (
-    <section className="space-y-2" aria-label={block.title ?? 'Projects'}>
+    <section className="space-y-2" aria-label={sectionTitle ?? 'Projects'}>
       <div className="flex items-center justify-between gap-3">
-        {block.title && (
+        {sectionTitle && (
           <h3 className="min-w-0 text-sm font-semibold tracking-normal">
-            {block.title}
+            {sectionTitle}
           </h3>
         )}
         {isMoreProjectsRail && (
           <span className="text-muted-foreground shrink-0 text-xs">
-            {language === 'ko' ? '좌우로 더 보기' : 'Scroll for more'}
+            {language === 'ko' ? 'Листайте в стороны' : 'Scroll for more'}
           </span>
         )}
       </div>
@@ -530,7 +760,7 @@ function ProjectShowcaseCards({
                 )}
               </div>
               {project.description && (
-                <p className="text-muted-foreground line-clamp-3 text-xs leading-relaxed">
+                <p className="text-muted-foreground text-xs leading-relaxed">
                   {project.description}
                 </p>
               )}
@@ -558,7 +788,7 @@ function ProjectShowcaseCards({
                   >
                     <MessageSquareText className="h-3.5 w-3.5" />
                     <span className="min-w-0 truncate">
-                      {language === 'ko' ? '관련 질문' : 'Questions'}
+                      {language === 'ko' ? 'Вопросы' : 'Questions'}
                     </span>
                   </button>
                 )}
@@ -575,7 +805,7 @@ function ProjectShowcaseCards({
                     )}
                   >
                     <span className="min-w-0 truncate">
-                      {language === 'ko' ? '열기' : 'Open'}
+                      {language === 'ko' ? 'Открыть' : 'Open'}
                     </span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
@@ -612,7 +842,7 @@ function ComparisonGrid({
           >
             <div className="grid grid-cols-[0.72fr_1fr_1fr] border-b bg-slate-50 text-xs font-semibold dark:bg-slate-900/40">
               <div className="px-3 py-2 text-slate-500 dark:text-slate-400">
-                {language === 'ko' ? '기준' : 'Criteria'}
+                {language === 'ko' ? 'Критерий' : 'Criteria'}
               </div>
               <div className="min-w-0 truncate border-l px-3 py-2">
                 {table.leftTitle}
@@ -651,13 +881,23 @@ function SkillChipGroup({
   block: VisualBlock;
   language: 'ko' | 'en';
 }) {
-  const skillGroups = block.items.map(parseSkillGroup).filter(isDefined);
+  const skillItems =
+    block.dataKey === 'skills.core'
+      ? language === 'ko'
+        ? resumeProjectSkillGroupsRu
+        : resumeProjectSkillGroupsEn
+      : block.items;
+  const skillGroups = skillItems.map(parseSkillGroup).filter(isDefined);
   if (skillGroups.length === 0) return null;
+  const sectionTitle =
+    block.dataKey === 'skills.core' && language === 'ko'
+      ? 'Навыки, подтверждённые опытом'
+      : block.title;
 
   return (
-    <section className="space-y-3" aria-label={block.title ?? 'Skills'}>
-      {block.title && (
-        <h3 className="text-sm font-semibold tracking-normal">{block.title}</h3>
+    <section className="space-y-3" aria-label={sectionTitle ?? 'Skills'}>
+      {sectionTitle && (
+        <h3 className="text-sm font-semibold tracking-normal">{sectionTitle}</h3>
       )}
       <div className="space-y-4">
         {skillGroups.map((group) => (
@@ -682,7 +922,7 @@ function SkillChipGroup({
                   <span className="min-w-0 truncate">{skill.name}</span>
                   {skill.proficiency && (
                     <span className="shrink-0 rounded-md bg-white/12 px-1.5 py-0.5 text-[10px] text-white/70">
-                      {skill.proficiency}
+                      {localizeSkillProficiency(skill.proficiency, language)}
                     </span>
                   )}
                 </span>
@@ -691,7 +931,7 @@ function SkillChipGroup({
             {group.evidence.length > 0 && (
               <div className="text-muted-foreground mt-3 space-y-1.5 text-xs leading-relaxed">
                 <p className="font-medium text-slate-600 dark:text-slate-300">
-                  {language === 'ko' ? '사용 맥락' : 'Used in context'}
+                  {language === 'ko' ? 'Контекст использования' : 'Used in context'}
                 </p>
                 <ul className="space-y-1">
                   {group.evidence.map((evidence) => (
@@ -709,6 +949,22 @@ function SkillChipGroup({
   );
 }
 
+function localizeSkillProficiency(
+  proficiency: string,
+  language: 'ko' | 'en'
+) {
+  if (language !== 'ko') return proficiency;
+
+  const labels: Record<string, string> = {
+    confident: 'уверенно',
+    usable: 'использую',
+    learning: 'изучаю',
+    experimental: 'эксперимент',
+  };
+
+  return labels[proficiency] ?? proficiency;
+}
+
 function ContactCard({
   block,
   mediaRefs,
@@ -718,7 +974,47 @@ function ContactCard({
   mediaRefs: MediaRef[];
   language: 'ko' | 'en';
 }) {
-  const actions = block.items.map(parseContactAction).filter(isDefined);
+  const parsedActions = block.items
+    .map(parseContactAction)
+    .filter(isDefined);
+  const actionsWithTelegram = parsedActions.some(
+    (action) => action.kind?.toLowerCase().includes('telegram')
+  )
+    ? parsedActions
+    : [
+        ...parsedActions,
+        {
+          label: 'Telegram',
+          href: oosuProfile.telegram,
+          kind: 'telegram',
+        },
+      ];
+  const orderedActions = [...actionsWithTelegram].sort((left, right) => {
+    const leftIsPortfolio = left.kind?.toLowerCase().includes('portfolio')
+      ? 1
+      : 0;
+    const rightIsPortfolio = right.kind?.toLowerCase().includes('portfolio')
+      ? 1
+      : 0;
+    return leftIsPortfolio - rightIsPortfolio;
+  });
+  const actions = orderedActions
+    .map((action) => ({
+      ...action,
+      href:
+        action.kind?.toLowerCase().includes('email') ||
+        action.href.startsWith('mailto:')
+          ? `mailto:${oosuProfile.email}`
+          : action.kind?.toLowerCase().includes('portfolio')
+          ? language === 'ko'
+            ? '/projects?lang=rus&theme=dark'
+            : '/projects?lang=en&theme=dark'
+          : action.href,
+      label:
+        language === 'ko'
+          ? localizeContactActionLabel(action.label)
+          : action.label,
+    }));
 
   return (
     <section className="rounded-lg border bg-slate-50 p-4 shadow-sm dark:bg-white/[0.05]">
@@ -738,67 +1034,73 @@ function ContactCard({
               {oosuProfile.name}
             </h3>
             <p className="text-muted-foreground text-sm">
-              {language === 'ko' ? '협업 브리프' : 'Collaboration Brief'}
+              {language === 'ko' ? 'Бриф для сотрудничества' : 'Collaboration Brief'}
             </p>
           </div>
         </div>
         <div className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 sm:px-3 sm:text-sm dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200">
           <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          {language === 'ko' ? 'Open' : 'Open'}
+          {language === 'ko' ? 'Открыт' : 'Open'}
         </div>
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <ContactBriefItem
           icon={CalendarDays}
-          title={language === 'ko' ? 'Mode' : 'Mode'}
+          title={language === 'ko' ? 'Режим' : 'Mode'}
           text={
             language === 'ko'
-              ? '프로젝트/협업 대화 열려 있음'
+              ? 'Открыт к разговору о проектах и сотрудничестве'
               : 'Open to project and collaboration conversations'
           }
         />
         <ContactBriefItem
           icon={Globe2}
-          title={language === 'ko' ? 'Location' : 'Location'}
-          text={oosuProfile.location}
-        />
-        <ContactBriefItem
-          icon={Layers3}
-          title={language === 'ko' ? 'Good fit' : 'Good fit'}
+          title={language === 'ko' ? 'Локация' : 'Location'}
           text={
-            language === 'ko'
-              ? 'AI 웹 제품, RAG/검색 UX, 풀스택 프로토타입'
-              : 'AI web products, RAG/search UX, fullstack prototypes'
+            language === 'ko' ? oosuProfile.location : oosuProfile.locationEn
           }
         />
-        <ContactBriefItem
-          icon={Rocket}
-          title={language === 'ko' ? 'Stack' : 'Stack'}
-          text="Next.js, TypeScript, Spring Boot, PostgreSQL, RAG"
-        />
+              <ContactBriefItem
+                icon={Layers3}
+                title={language === 'ko' ? 'Специализация' : 'Specialization'}
+                text={
+                  language === 'ko'
+                    ? 'Senior QA: процессы качества, Shift-Left, Web и Mobile, API, интеграции, микросервисы и AI-автоматизация.'
+                    : 'Senior QA: quality processes, Shift-Left, Web and Mobile, APIs, integrations, microservices, and AI-assisted automation.'
+                }
+              />
+              <ContactBriefItem
+                icon={Rocket}
+                title={language === 'ko' ? 'Стек' : 'Stack'}
+                text={
+                  language === 'ko'
+                    ? 'Web/Mobile, REST/SOAP, SQL, Postman, Swagger, Allure TestOps, Sentry, Kibana, Grafana, Charles, Docker, Kafka и CI/CD.'
+                    : 'Web/Mobile, REST/SOAP, SQL, Postman, Swagger, Allure TestOps, Sentry, Kibana, Grafana, Charles, Docker, Kafka, and CI/CD.'
+                }
+              />
       </div>
 
       <div className="mt-5 space-y-4">
         <div>
           <h4 className="flex items-center gap-2 text-sm font-semibold">
             <Sparkles className="h-4 w-4" />
-            {language === 'ko' ? 'What I bring' : 'What I bring'}
+            {language === 'ko' ? 'Что я даю' : 'What I bring'}
           </h4>
           <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
             {language === 'ko'
-              ? '아이디어를 실제 화면, API, 데이터, AI 답변 흐름까지 끌고 가는 연결력이 강점입니다. 빠르게 만들면서도 사용자가 이해하기 쉬운 흐름과 작동하는 결과물을 중요하게 봅니다.'
+              ? 'Сильная сторона — связывать требования, качество, автоматизацию и AI-инструменты в рабочий процесс команды. Важно быстро находить риски и доводить продукт до стабильного релиза.'
               : 'I connect ideas into screens, APIs, data flows, and AI answer experiences. I care about fast prototypes that still feel clear, usable, and real enough to discuss.'}
           </p>
         </div>
         <div>
           <h4 className="flex items-center gap-2 text-sm font-semibold">
             <Goal className="h-4 w-4" />
-            {language === 'ko' ? 'Goal' : 'Goal'}
+            {language === 'ko' ? 'Цель' : 'Goal'}
           </h4>
           <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
             {language === 'ko'
-              ? '사용자가 실제로 쓰고 이해할 수 있는 AI-connected 제품을 더 많이 만들고 싶습니다. 재미는 챙기되, 결과물은 작동하게 만드는 쪽으로요.'
+              ? 'Помогать командам выпускать надёжное ПО и применять AI там, где это реально ускоряет QA и инженерные процессы.'
               : 'I want to build more AI-connected products that people can actually use and understand: playful where it helps, but working where it matters.'}
           </p>
         </div>
@@ -813,6 +1115,16 @@ function ContactCard({
       )}
     </section>
   );
+}
+
+function localizeContactActionLabel(label: string) {
+  const labels: Record<string, string> = {
+    Email: 'Почта',
+    Portfolio: 'Портфолио',
+    Contact: 'Связаться',
+  };
+
+  return labels[label] ?? label;
 }
 
 function ContactBriefItem({
@@ -845,14 +1157,16 @@ function CtaButtons({ block }: { block: VisualBlock }) {
     <div className="flex flex-wrap gap-2">
       {actions.map((action) => {
         const Icon = iconForAction(action.kind ?? action.label);
+        const opensInCurrentTab =
+          action.href.startsWith('mailto:') || action.href.startsWith('/');
 
         return (
           <a
             key={`${action.label}-${action.href}`}
             href={action.href}
-            target={action.href.startsWith('mailto:') ? undefined : '_blank'}
+            target={opensInCurrentTab ? undefined : '_blank'}
             rel={
-              action.href.startsWith('mailto:')
+              opensInCurrentTab
                 ? undefined
                 : 'noopener noreferrer'
             }
@@ -886,8 +1200,8 @@ function WorkflowSteps({ block }: { block: VisualBlock }) {
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#0D9487] text-xs font-semibold text-white shadow-sm">
                 {index + 1}
               </span>
-              <h4 className="min-w-0 text-sm font-semibold break-words">
-                {step.title}
+              <h4 className="min-w-0 flex-1 whitespace-nowrap text-[13px] leading-5 font-semibold">
+                {getWorkflowStepTitle(block.dataKey, index, step.title)}
               </h4>
             </div>
             {step.description && (
@@ -900,6 +1214,16 @@ function WorkflowSteps({ block }: { block: VisualBlock }) {
       </div>
     </section>
   );
+}
+
+function getWorkflowStepTitle(
+  dataKey: string | undefined,
+  index: number,
+  fallbackTitle: string
+) {
+  if (dataKey !== 'qa.ai.workflow') return fallbackTitle;
+
+  return ['Контекст', 'AI-идеи', 'Проверка', 'QA-тесты', 'Релиз'][index] ?? fallbackTitle;
 }
 
 function ImageFallbackCards({
@@ -941,7 +1265,7 @@ function ImageFallbackCards({
                 {media?.status === 'ready'
                   ? caption
                   : language === 'ko'
-                    ? '미리보기 준비 중'
+                    ? 'Превью скоро появится'
                     : 'Preview asset pending'}
               </p>
             </div>
@@ -960,6 +1284,7 @@ const PROFILE_TAGS = [
   'System Design',
   'APIs',
   'CI/CD',
+  'UI/UX',
 ] as const;
 
 function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
@@ -988,19 +1313,18 @@ function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
           {isRu ? (
             <>
               <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
-                Специализируюсь на разработке современных веб-приложений,
-                автоматизации тестирования и интеграции AI в процессы
-                разработки.
+                Специализируюсь на современных веб-приложениях, автоматизации
+                тестирования и внедрении AI в процессы разработки.
               </p>
               <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
-                Работаю на стыке frontend, backend и quality engineering.
-                Проектирую архитектуру решений, создаю надежные API, развиваю
-                автоматизацию тестирования и применяю LLM, RAG и AI-ассистентов
-                для повышения эффективности разработки.
+                Работаю на стыке frontend, backend и quality engineering —
+                проектирую архитектуру, надёжные API, автоматизацию и применяю
+                LLM, RAG и AI-ассистентов, чтобы быстрее и увереннее выпускать
+                продукт.
               </p>
               <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">
-                Предпочитаю инженерный подход: сначала понять проблему, затем
-                выбрать наиболее простое и надежное решение, которое легко
+                Предпочитаю инженерный подход: сначала понять задачу, затем
+                выбрать самое простое и надёжное решение, которое легко
                 поддерживать и масштабировать.
               </p>
             </>
@@ -1076,7 +1400,74 @@ function MediaPreview({
   preferMobile?: boolean;
   language: 'ko' | 'en';
 }) {
-  const media = assetKey ? findMediaRef(mediaRefs, assetKey) : null;
+  const storedMedia = assetKey ? findMediaRef(mediaRefs, assetKey) : null;
+  const media =
+    assetKey === 'profile.oosu.portrait'
+      ? {
+          ...(storedMedia ?? {
+            assetKey,
+            kind: 'profile',
+          }),
+          src: '/images/profile/romeo-timony-new.webp',
+          darkSrc: undefined,
+          mobileSrc: undefined,
+          mobileDarkSrc: undefined,
+          alt: 'Romeo Timony portrait',
+          status: 'ready' as const,
+        }
+      : assetKey === 'project.askoosu.cover'
+      ? {
+          ...(storedMedia ?? {
+            assetKey,
+            kind: 'project',
+          }),
+          src: '/images/projects/ask-romeo-cover.webp',
+          darkSrc: '/images/projects/ask-romeo-cover.webp',
+          mobileSrc: undefined,
+          mobileDarkSrc: undefined,
+          alt: 'Ask Romeo interface preview',
+          status: 'ready' as const,
+        }
+      : assetKey === 'project.dpd.cover'
+        ? {
+            ...(storedMedia ?? {
+              assetKey,
+              kind: 'project',
+            }),
+            src: '/images/projects/dpd-cover-new.webp',
+            darkSrc: undefined,
+            mobileSrc: undefined,
+            mobileDarkSrc: undefined,
+            alt: 'DPD website interface preview',
+            status: 'ready' as const,
+          }
+        : assetKey === 'project.sminex_comfort.cover'
+          ? {
+              ...(storedMedia ?? {
+                assetKey,
+                kind: 'project',
+              }),
+              src: '/images/projects/sminex-comfort-cover-new.webp',
+              darkSrc: undefined,
+              mobileSrc: undefined,
+              mobileDarkSrc: undefined,
+              alt: 'Sminex Comfort interface preview',
+              status: 'ready' as const,
+            }
+          : assetKey === 'project.elme_messer.cover'
+            ? {
+                ...(storedMedia ?? {
+                  assetKey,
+                  kind: 'project',
+                }),
+                src: '/images/projects/elme-messer-cover.webp',
+                darkSrc: undefined,
+                mobileSrc: undefined,
+                mobileDarkSrc: undefined,
+                alt: 'Elme Messer website preview',
+                status: 'ready' as const,
+              }
+            : storedMedia;
   const canRenderImage =
     media?.status === 'ready' && media.src && media.src !== 'TODO_ASSET';
 
@@ -1231,17 +1622,17 @@ function SourceBadgeList({
 }
 
 function getPendingAssetLabel(language: 'ko' | 'en', compact: boolean) {
-  if (language === 'ko') return compact ? '준비 중' : '미리보기 준비 중';
+  if (language === 'ko') return compact ? 'Скоро' : 'Превью скоро появится';
   return compact ? 'Pending' : 'Preview asset pending';
 }
 
 function getSourceBadgeCopy(language: 'ko' | 'en') {
   if (language === 'ko') {
     return {
-      viewSources: '근거 보기',
-      hideSources: '근거 접기',
-      publicAriaLabel: '답변 근거',
-      debugAriaLabel: '근거 디버그 정보',
+      viewSources: 'Показать источники',
+      hideSources: 'Скрыть источники',
+      publicAriaLabel: 'Источники ответа',
+      debugAriaLabel: 'Отладочная информация источников',
       sourceLabel: (index: number) => `Wiki Romeo · источник ${index}`,
     };
   }
@@ -1305,6 +1696,33 @@ function componentNameForBlock(blockType: string) {
   };
 
   return componentByType[blockType] ?? blockType;
+}
+
+function localizeBadge(
+  badge: string | undefined,
+  language: 'ko' | 'en'
+): string | undefined {
+  if (!badge) return badge;
+  const map: Record<string, { ko: string; en: string }> = {
+    'From Romeo Wiki': { ko: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
+    'Из Wiki Romeo': { ko: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
+  };
+  return map[badge]?.[language] ?? badge;
+}
+
+function localizeTodoBadge(
+  badge: string | undefined,
+  language: 'ko' | 'en'
+): string | undefined {
+  if (!badge) return badge;
+  const map: Record<string, { ko: string; en: string }> = {
+    'Some assets pending': { ko: 'Часть материалов скоро появится', en: 'Some assets pending' },
+    'Часть материалов скоро появится': {
+      ko: 'Часть материалов скоро появится',
+      en: 'Some assets pending',
+    },
+  };
+  return map[badge]?.[language] ?? badge;
 }
 
 function parseRichPayload(metadata: unknown): RichPayload | null {
@@ -1527,6 +1945,7 @@ function parseComparisonRow(value: unknown): ComparisonRow | null {
 function surfaceForProject(projectId: string): QuestionSurface | null {
   const normalizedId = projectId.trim().toLowerCase();
   const surfaceByProjectId: Record<string, QuestionSurface> = {
+    ask_romeo: 'project.askoosu',
     askoosu: 'project.askoosu',
     askoosu_2026: 'project.askoosu',
     instagram_clone: 'project.instagram',
@@ -1554,6 +1973,7 @@ function switchQuestionSurface(projectId: string) {
 
 function iconForAction(kind: string) {
   const normalizedKind = kind.toLowerCase();
+  if (normalizedKind.includes('telegram')) return MessageSquareText;
   if (normalizedKind.includes('github')) return Github;
   if (normalizedKind.includes('linkedin')) return Linkedin;
   if (normalizedKind.includes('mail') || normalizedKind.includes('email')) {

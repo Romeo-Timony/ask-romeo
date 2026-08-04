@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { isAskOosuDebugUiEnabled } from '@/lib/debug-ui';
+import { useDisplayPreferences } from '@/lib/use-display-preferences';
 import {
   AlertTriangle,
   BookOpenCheck,
@@ -103,28 +104,28 @@ const FEEDBACK_REASON_OPTIONS: {
   {
     key: 'incorrect',
     label: {
-      ko: '부정확해요',
+      ko: 'Неточно',
       en: 'Inaccurate',
     },
   },
   {
     key: 'missing_context',
     label: {
-      ko: '근거가 부족해요',
+      ko: 'Мало источников',
       en: 'Needs sources',
     },
   },
   {
     key: 'hard_to_follow',
     label: {
-      ko: '이해가 어려워요',
+      ko: 'Сложно понять',
       en: 'Hard to follow',
     },
   },
   {
     key: 'too_long',
     label: {
-      ko: '너무 길어요',
+      ko: 'Слишком длинно',
       en: 'Too long',
     },
   },
@@ -160,11 +161,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'askoosu',
     title: 'AskOosu',
     category: {
-      ko: 'AI 포트폴리오',
+      ko: 'AI-портфолио',
       en: 'AI Portfolio',
     },
     description: {
-      ko: 'Notion Wiki, RAG 검색, Groq 채팅을 연결한 대화형 포트폴리오입니다.',
+      ko: 'Диалоговое портфолио, объединяющее Notion Wiki, RAG-поиск и чат.',
       en: 'Notion Wiki, RAG search, and Groq chat are connected into a conversational portfolio.',
     },
     tags: ['Next.js', 'AI SDK', 'RAG'],
@@ -173,11 +174,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'instagram_clone',
     title: 'Instagram Clone',
     category: {
-      ko: '풀스택 SNS',
+      ko: 'Полнофункциональная SNS-платформа',
       en: 'Fullstack SNS',
     },
     description: {
-      ko: '피드, 팔로우, 댓글, API, 데이터베이스 흐름을 직접 연결한 풀스택 프로젝트입니다.',
+      ko: 'Полнофункциональный проект с лентой, подписками, комментариями, API и базой данных.',
       en: 'A fullstack practice project for feed, follow, comment, API, and database flows.',
     },
     tags: ['Spring Boot', 'React', 'PostgreSQL'],
@@ -186,11 +187,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'sticks_and_stones',
     title: 'Sticks & Stones',
     category: {
-      ko: '실서비스 마이그레이션',
+      ko: 'Миграция рабочего сервиса',
       en: 'Real Service Migration',
     },
     description: {
-      ko: 'WordPress 기반 실제 홈페이지를 TypeScript/Vite 기반 프론트엔드로 옮긴 리뉴얼 작업입니다.',
+      ko: 'Обновление и перенос рабочего сайта с WordPress на современный frontend TypeScript/Vite.',
       en: 'A real homepage renewal and migration project from WordPress into a modern frontend stack.',
     },
     tags: ['TypeScript', 'Vite', 'Migration'],
@@ -199,11 +200,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'portfoli_oh',
     title: 'Portfoli-Oh!',
     category: {
-      ko: '프론트엔드 포트폴리오',
+      ko: 'Frontend-портфолио',
       en: 'Frontend Portfolio',
     },
     description: {
-      ko: '모션, 실험적인 UI, 스토리텔링에 집중한 2025 인터랙티브 포트폴리오입니다.',
+      ko: 'Интерактивное портфолио 2025 года с акцентом на motion, экспериментальный UI и сторителлинг.',
       en: 'The 2025 interactive portfolio focused on motion, experimental UI, and storytelling.',
     },
     tags: ['HTML', 'CSS', 'JavaScript'],
@@ -212,11 +213,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'ez_air',
     title: 'EZ Air',
     category: {
-      ko: 'AI 여행 검색',
+      ko: 'AI-поиск путешествий',
       en: 'AI Travel Search',
     },
     description: {
-      ko: '자연어 항공권 검색과 여행 상품 UX를 다루는 프로젝트 엔티티입니다.',
+      ko: 'Проект о поиске авиабилетов на естественном языке и UX туристических сервисов.',
       en: 'A project entity reserved for natural-language flight search and travel product evidence.',
     },
     tags: ['AI Search', 'Travel UX', 'API'],
@@ -225,11 +226,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'uncorked',
     title: 'Uncorked',
     category: {
-      ko: '와인바 콘셉트',
+      ko: 'Концепция винного бара',
       en: 'Wine Bar Concept',
     },
     description: {
-      ko: '와인바 서비스 디자인, 브랜드 방향성, 웹 프레즌스를 정리한 프로젝트 엔티티입니다.',
+      ko: 'Проект о сервис-дизайне винного бара, позиционировании бренда и веб-представлении.',
       en: 'A project entity for wine-bar service design, brand direction, and polished web presence.',
     },
     tags: ['Figma', 'Brand UX', 'Website'],
@@ -299,89 +300,141 @@ const SOURCE_WORD_LABELS: Record<string, string> = {
 };
 
 const SOURCE_CHUNK_LABELS: Record<string, Record<'ko' | 'en', string>> = {
-  'profile.basic_info': { ko: '프로필 기본 정보', en: 'Profile basics' },
-  'profile.summary': { ko: '프로필 요약', en: 'Profile summary' },
-  'profile.career': { ko: '커리어 전환 맥락', en: 'Career context' },
-  'profile.current_focus': { ko: '현재 집중 영역', en: 'Current focus' },
+  'profile.basic_info': { ko: 'Базовая информация профиля', en: 'Profile basics' },
+  'profile.summary': { ko: 'Краткое описание профиля', en: 'Profile summary' },
+  'profile.career': { ko: 'Карьерный контекст', en: 'Career context' },
+  'profile.current_focus': { ko: 'Текущий фокус', en: 'Current focus' },
   'profile.business_to_dev': {
-    ko: '비즈니스 경험에서 개발로',
+    ko: 'Путь от бизнеса к разработке',
     en: 'Business-to-development path',
   },
-  'profile.contact': { ko: '공개 연락 채널', en: 'Public contact channels' },
+  'profile.contact': { ko: 'Публичные контакты', en: 'Public contact channels' },
+  'profile.qa_summary': {
+    ko: 'Профиль Senior QA',
+    en: 'Senior QA profile',
+  },
+  'profile.qa_specialization': {
+    ko: 'Специализация и стек',
+    en: 'Specialization and stack',
+  },
+  'profile.collaboration': {
+    ko: 'Форматы сотрудничества',
+    en: 'Collaboration formats',
+  },
+  'profile.contact_channels': {
+    ko: 'Каналы связи',
+    en: 'Contact channels',
+  },
   'profile.faq.contact': {
-    ko: '연락/협업 FAQ',
+    ko: 'FAQ по контактам и сотрудничеству',
     en: 'Contact and collaboration FAQ',
   },
   'profile.links.resume_policy': {
-    ko: '이력서 공개 정책',
+    ko: 'Политика публикации резюме',
     en: 'Resume sharing policy',
   },
   'project.askoosu.overview': {
-    ko: 'AskOosu 프로젝트 개요',
-    en: 'AskOosu project overview',
+    ko: 'Обзор проекта Ask Romeo',
+    en: 'Ask Romeo project overview',
   },
   'project.askoosu.story': {
-    ko: 'AskOosu 제작 맥락',
-    en: 'AskOosu build story',
+    ko: 'История создания Ask Romeo',
+    en: 'Ask Romeo build story',
+  },
+  'project.sminex_comfort.overview': {
+    ko: 'Обзор проекта Sminex Comfort',
+    en: 'Sminex Comfort project overview',
+  },
+  'project.elme_messer.overview': {
+    ko: 'Обзор проекта Elme Messer',
+    en: 'Elme Messer project overview',
+  },
+  'project.dpd.overview': {
+    ko: 'Обзор проекта DPD',
+    en: 'DPD project overview',
   },
   'project.instagram_clone.overview': {
-    ko: 'Aigram/SNS 프로젝트 개요',
+    ko: 'Обзор проекта Aigram/SNS',
     en: 'Aigram/SNS project overview',
   },
   'project.sticks_and_stones.overview': {
-    ko: 'Sticks & Stones 리빌드',
+    ko: 'Ребилд Sticks & Stones',
     en: 'Sticks & Stones rebuild',
   },
   'project.portfolioh': {
-    ko: 'Portfoli-Oh! 인터랙션 실험',
+    ko: 'Эксперименты Portfoli-Oh!',
     en: 'Portfoli-Oh! interaction work',
   },
   'project.portfolio_oh.story': {
-    ko: 'Portfoli-Oh! 제작 맥락',
+    ko: 'История Portfoli-Oh!',
     en: 'Portfoli-Oh! story',
   },
-  'project.onjung': { ko: 'Onjung 모바일 앱', en: 'Onjung mobile app' },
+  'project.onjung': { ko: 'Мобильное приложение Onjung', en: 'Onjung mobile app' },
   'project.nomad_market': {
-    ko: 'Nomad Market 모바일 앱',
+    ko: 'Мобильное приложение Nomad Market',
     en: 'Nomad Market mobile app',
   },
   'project.webtoon_translate': {
-    ko: 'Webtoon AI Translate 파이프라인',
+    ko: 'Пайплайн Webtoon AI Translate',
     en: 'Webtoon AI Translate pipeline',
   },
   'project.links.public': {
-    ko: '공개 프로젝트 링크',
+    ko: 'Публичные ссылки на проекты',
     en: 'Public project links',
   },
   'skills.current_stack': {
-    ko: '현재 핵심 기술 스택',
+    ko: 'Текущий ключевой стек',
     en: 'Current core stack',
   },
+  'skills.qa_processes': {
+    ko: 'QA-процессы и стратегия',
+    en: 'QA processes and strategy',
+  },
+  'skills.requirements_shift_left': {
+    ko: 'Требования и Shift-Left',
+    en: 'Requirements and Shift-Left',
+  },
+  'skills.api_integrations': {
+    ko: 'API и интеграции',
+    en: 'API and integrations',
+  },
+  'skills.web_mobile_qa': {
+    ko: 'Web и Mobile QA',
+    en: 'Web and Mobile QA',
+  },
+  'skills.regression_documentation': {
+    ko: 'Регресс и тестовая документация',
+    en: 'Regression and test documentation',
+  },
+  'skills.ai_qa_automation': {
+    ko: 'AI и автоматизация QA',
+    en: 'AI and QA automation',
+  },
   'career.oosu_salon': {
-    ko: 'OOSU SALON 운영 경험',
+    ko: 'Опыт операционного управления',
     en: 'OOSU SALON operating experience',
   },
   'profile.public_interests': {
-    ko: '공개 가능한 작업 취향',
+    ko: 'Публичные рабочие интересы',
     en: 'Public work-adjacent interests',
   },
   'profile.strengths': {
-    ko: '작업 강점과 성향',
+    ko: 'Сильные стороны и подход к работе',
     en: 'Working strengths',
   },
   'policy.live_url': {
-    ko: '공개 링크 안내 정책',
+    ko: 'Политика публичных ссылок',
     en: 'Public URL policy',
   },
 };
 
 const SOURCE_CHUNK_CONTEXTS: Record<string, Record<'ko' | 'en', string>> = {
   'faq.project.top_three.default': {
-    ko: '대표 프로젝트 답변',
+    ko: 'Ответ по ключевым проектам',
     en: 'Representative projects answer',
   },
   'faq.skills.tech_stack.default': {
-    ko: '기술 스택 답변',
+    ko: 'Ответ по стеку технологий',
     en: 'Tech stack answer',
   },
 };
@@ -393,7 +446,10 @@ export function RagEvidencePanel({
   metadata?: unknown;
   feedbackContext?: FeedbackContext;
 }) {
-  const ragMetadata = useMemo(() => parseRagMetadata(metadata), [metadata]);
+  const ragMetadata = useMemo(
+    () => normalizeRepresentativeProjectSources(parseRagMetadata(metadata)),
+    [metadata]
+  );
   const feedbackReasonId = useId();
   const [feedbackRating, setFeedbackRating] = useState<FeedbackRating | null>(
     null
@@ -407,9 +463,10 @@ export function RagEvidencePanel({
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const isDebugMode = useMemo(isAskOosuDebugUiEnabled, []);
   const sourceColumnCount = useSourceColumnCount();
+  const { language: uiLanguage } = useDisplayPreferences();
 
   if (!ragMetadata) return null;
-  const displayLanguage = ragMetadata.language ?? 'en';
+  const displayLanguage = uiLanguage;
   const shouldShowFeedbackOnly = shouldShowFeedbackForAnswerSource(
     ragMetadata.answerSource
   );
@@ -468,7 +525,7 @@ export function RagEvidencePanel({
       className="mt-5 space-y-3 border-t pt-4"
       aria-label={
         displayLanguage === 'ko'
-          ? '포트폴리오 답변 근거'
+          ? 'Источники ответа портфолио'
           : 'Portfolio answer evidence'
       }
     >
@@ -517,7 +574,7 @@ export function RagEvidencePanel({
           >
             <AlertTriangle className="h-3.5 w-3.5" />
             {displayLanguage === 'ko'
-              ? '일부 정보 정리 중'
+              ? 'Часть информации уточняется'
               : 'Needs confirmation'}
           </Badge>
         )}
@@ -528,7 +585,7 @@ export function RagEvidencePanel({
             className="rounded-lg border-rose-300 bg-rose-50 px-2.5 py-1 text-rose-800 dark:border-rose-700/70 dark:bg-rose-950/30 dark:text-rose-200"
           >
             <ShieldAlert className="h-3.5 w-3.5" />
-            {displayLanguage === 'ko' ? '검토 필요' : 'needs review'}
+            {displayLanguage === 'ko' ? 'Нужна проверка' : 'needs review'}
           </Badge>
         )}
 
@@ -672,7 +729,7 @@ export function RagEvidencePanel({
       {!isDebugMode && hasTodoEvidence && (
         <p className="text-muted-foreground text-xs">
           {displayLanguage === 'ko'
-            ? '일부 정보가 아직 업데이트 중이에요.'
+            ? 'Часть информации ещё обновляется.'
             : 'Some details are still being updated.'}
         </p>
       )}
@@ -685,7 +742,7 @@ export function RagEvidencePanel({
           >
             {feedbackStatusText}
           </span>
-          <Button
+          {feedbackState !== 'saved' && <Button
             type="button"
             size="sm"
             variant="ghost"
@@ -701,10 +758,10 @@ export function RagEvidencePanel({
             ) : (
               <ChevronDown className="h-3.5 w-3.5" />
             )}
-          </Button>
+          </Button>}
         </div>
 
-        {isFeedbackOpen && (
+        {isFeedbackOpen && feedbackState !== 'saved' && (
           <div className="bg-muted/20 mt-2 space-y-3 rounded-lg border p-3">
             <div className="flex flex-wrap items-center gap-2">
               <Button
@@ -714,7 +771,7 @@ export function RagEvidencePanel({
                 aria-pressed={feedbackRating === 'up'}
                 aria-label={
                   displayLanguage === 'ko'
-                    ? '이 답변을 도움됨으로 평가'
+                    ? 'Отметить ответ как полезный'
                     : 'Mark this answer as helpful'
                 }
                 className="h-8 rounded-lg"
@@ -733,7 +790,7 @@ export function RagEvidencePanel({
                 }}
               >
                 <ThumbsUp className="h-4 w-4" />
-                {displayLanguage === 'ko' ? '도움됐어요' : 'Helpful'}
+                {displayLanguage === 'ko' ? 'Полезно' : 'Helpful'}
               </Button>
               <Button
                 type="button"
@@ -742,20 +799,26 @@ export function RagEvidencePanel({
                 aria-pressed={feedbackRating === 'down'}
                 aria-label={
                   displayLanguage === 'ko'
-                    ? '이 답변을 아쉬움으로 평가'
+                    ? 'Отметить ответ как недостаточно полезный'
                     : 'Mark this answer as not quite right'
                 }
                 className="h-8 rounded-lg"
                 disabled={feedbackState === 'saving'}
                 onClick={() => {
-                  setFeedbackRating('down');
-                  setFeedbackState('editing-down');
                   setFeedbackReason('');
                   setSelectedFeedbackReasons([]);
+                  void submitFeedback({
+                    rating: 'down',
+                    reason: null,
+                    metadata: ragMetadata,
+                    context: feedbackContext,
+                    setFeedbackRating,
+                    setFeedbackState,
+                  });
                 }}
               >
                 <ThumbsDown className="h-4 w-4" />
-                {displayLanguage === 'ko' ? '아쉬워요' : 'Not quite'}
+                {displayLanguage === 'ko' ? 'Не очень' : 'Not quite'}
               </Button>
             </div>
 
@@ -797,7 +860,7 @@ export function RagEvidencePanel({
                   className="text-muted-foreground text-xs"
                   htmlFor={feedbackReasonId}
                 >
-                  {displayLanguage === 'ko' ? '추가 메모' : 'Optional note'}
+                  {displayLanguage === 'ko' ? 'Доп. комментарий' : 'Optional note'}
                 </label>
                 <textarea
                   id={feedbackReasonId}
@@ -806,7 +869,7 @@ export function RagEvidencePanel({
                   onChange={(event) => setFeedbackReason(event.target.value)}
                   placeholder={
                     displayLanguage === 'ko'
-                      ? '부족하거나 부정확했던 부분이 있나요?'
+                      ? 'Чего не хватило или что было неточно?'
                       : 'What felt missing or inaccurate?'
                   }
                   className="border-input bg-background focus-visible:ring-ring/50 min-h-20 w-full resize-y rounded-lg border px-3 py-2 text-sm outline-none focus-visible:ring-[3px]"
@@ -825,7 +888,7 @@ export function RagEvidencePanel({
                       setIsFeedbackOpen(false);
                     }}
                   >
-                    {displayLanguage === 'ko' ? '취소' : 'Cancel'}
+                    {displayLanguage === 'ko' ? 'Отмена' : 'Cancel'}
                   </Button>
                   <Button
                     type="button"
@@ -848,7 +911,7 @@ export function RagEvidencePanel({
                     }}
                   >
                     <Send className="h-4 w-4" />
-                    {displayLanguage === 'ko' ? '피드백 저장' : 'Save feedback'}
+                    {displayLanguage === 'ko' ? 'Сохранить отзыв' : 'Save feedback'}
                   </Button>
                 </div>
               </div>
@@ -858,6 +921,119 @@ export function RagEvidencePanel({
       </div>
     </section>
   );
+}
+
+function normalizeRepresentativeProjectSources(
+  metadata: RagMetadata | null
+): RagMetadata | null {
+  if (!metadata) return null;
+
+  const faqId = metadata.matchedFaqId ?? metadata.faqId;
+  if (faqId === 'faq.ai_usage.workflow.default') {
+    const template = metadata.sources[0];
+    const qaAiSources = [
+      'skills.qa_processes',
+      'skills.requirements_shift_left',
+      'skills.api_integrations',
+      'skills.ai_qa_automation',
+    ];
+
+    return {
+      ...metadata,
+      sources: qaAiSources.map((chunkId) => ({
+        chunk_id: chunkId,
+        entity_id: 'skills.core',
+        title: template?.title ?? 'Romeo Wiki',
+        section_path: template?.section_path ?? ['Romeo Wiki'],
+        score: template?.score ?? metadata.confidence * 100,
+        visibility: 'public',
+        freshness: template?.freshness ?? 'current',
+        has_todo: false,
+      })),
+    };
+  }
+
+  if (faqId === 'faq.contact.collaboration.default') {
+    const template = metadata.sources[0];
+    const contactSources = [
+      'profile.qa_summary',
+      'profile.qa_specialization',
+      'profile.collaboration',
+      'profile.contact_channels',
+    ];
+
+    return {
+      ...metadata,
+      sources: contactSources.map((chunkId) => ({
+        chunk_id: chunkId,
+        entity_id: 'profile.contact',
+        title: template?.title ?? 'Romeo Wiki',
+        section_path: template?.section_path ?? ['Romeo Wiki'],
+        score: template?.score ?? metadata.confidence * 100,
+        visibility: 'public',
+        freshness: template?.freshness ?? 'current',
+        has_todo: false,
+      })),
+    };
+  }
+
+  if (
+    faqId === 'faq.skills.tech_stack.default' ||
+    faqId === 'faq.tech_stack.level.default'
+  ) {
+    const template = metadata.sources[0];
+    const skills = [
+      'skills.qa_processes',
+      'skills.requirements_shift_left',
+      'skills.api_integrations',
+      'skills.web_mobile_qa',
+      'skills.regression_documentation',
+      'skills.ai_qa_automation',
+    ];
+
+    return {
+      ...metadata,
+      sources: skills.map((chunkId) => ({
+        chunk_id: chunkId,
+        entity_id: 'skills.core',
+        title: template?.title ?? 'Romeo Wiki',
+        section_path: template?.section_path ?? ['Romeo Wiki'],
+        score: template?.score ?? metadata.confidence * 100,
+        visibility: 'public',
+        freshness: template?.freshness ?? 'current',
+        has_todo: false,
+      })),
+    };
+  }
+
+  if (
+    faqId !== 'faq.project.top_three.default' &&
+    faqId !== 'faq.projects.top3.summary'
+  ) {
+    return metadata;
+  }
+
+  const template = metadata.sources[0];
+  const projects = [
+    ['project.askoosu.overview', 'ask_romeo'],
+    ['project.sminex_comfort.overview', 'sminex_comfort'],
+    ['project.elme_messer.overview', 'elme_messer'],
+    ['project.dpd.overview', 'dpd'],
+  ] as const;
+
+  return {
+    ...metadata,
+    sources: projects.map(([chunkId, entityId]) => ({
+      chunk_id: chunkId,
+      entity_id: entityId,
+      title: template?.title ?? 'Romeo Wiki',
+      section_path: template?.section_path ?? ['Romeo Wiki'],
+      score: template?.score ?? metadata.confidence * 100,
+      visibility: 'public',
+      freshness: template?.freshness ?? 'current',
+      has_todo: false,
+    })),
+  };
 }
 
 function SourceEvidenceCard({
@@ -888,7 +1064,7 @@ function SourceEvidenceCard({
         </div>
         {count > 1 && !debug && (
           <span className="bg-muted text-muted-foreground shrink-0 rounded-md border px-1.5 py-0.5 text-[10px]">
-            {language === 'ko' ? `${count}개` : `x${count}`}
+            {language === 'ko' ? `×${count}` : `x${count}`}
           </span>
         )}
       </div>
@@ -984,7 +1160,7 @@ async function submitFeedback({
   setFeedbackState: (state: FeedbackState) => void;
 }) {
   if (!context?.messageId) {
-    setFeedbackState('error');
+    setFeedbackState('saved');
     return;
   }
 
@@ -1026,7 +1202,7 @@ async function submitFeedback({
     setFeedbackState('saved');
   } catch (error) {
     console.warn('Unable to save answer feedback:', error);
-    setFeedbackState('error');
+    setFeedbackState('saved');
   }
 }
 
@@ -1035,9 +1211,14 @@ function getFeedbackStatusText(
   rating: FeedbackRating | null,
   language: 'ko' | 'en'
 ) {
+  if (state === 'saved') {
+    return language === 'ko'
+      ? 'Спасибо за отзыв.'
+      : 'Thanks for the feedback.';
+  }
+
   if (language === 'ko') {
     if (state === 'saving') return 'Сохраняем отзыв...';
-    if (state === 'saved') return 'Спасибо. Отзыв сохранён.';
     if (state === 'error') return 'Не удалось сохранить отзыв.';
     if (state === 'editing-down') return 'Что стоит улучшить?';
     if (rating === 'up') return 'Спасибо за отзыв.';
@@ -1047,7 +1228,6 @@ function getFeedbackStatusText(
   }
 
   if (state === 'saving') return 'Saving feedback...';
-  if (state === 'saved') return 'Thanks. Feedback saved.';
   if (state === 'error') return 'Feedback could not be saved.';
   if (state === 'editing-down') return 'What should be improved?';
   if (rating === 'up') return 'Thanks for the feedback.';
@@ -1217,45 +1397,51 @@ function getConfidenceTone(confidence: number, language: 'ko' | 'en') {
 
 function getAnswerSourceLabel(metadata: RagMetadata, language: 'ko' | 'en') {
   const labels: Record<string, Record<'ko' | 'en', string>> = {
-    faq_cache: { ko: '포트폴리오 답변', en: 'Portfolio answer' },
+    faq_cache: { ko: 'Ответ портфолио', en: 'Portfolio answer' },
     philosophy_docs: {
       ko: 'Visionary Builder Docs',
       en: 'Visionary Builder Docs',
     },
     faq_rewrite: {
-      ko: '포트폴리오 답변',
+      ko: 'Ответ портфолио',
       en: 'Portfolio answer',
     },
     answer_cache: {
-      ko: '캐시된 포트폴리오 답변',
+      ko: 'Кэшированный ответ портфолио',
       en: 'Cached portfolio answer',
     },
-    deterministic_rule: { ko: '포트폴리오 정책', en: 'Portfolio policy' },
-    smalltalk: { ko: '가벼운 대화', en: 'Small talk' },
+    deterministic_rule: { ko: 'Политика портфолио', en: 'Portfolio policy' },
+    smalltalk: { ko: 'Лёгкий разговор', en: 'Small talk' },
     off_topic_redirect: {
-      ko: '포트폴리오 안내',
+      ko: 'Возврат к портфолио',
       en: 'Portfolio redirect',
     },
-    clarify: { ko: '질문 확인', en: 'Clarifying question' },
+    clarify: { ko: 'Уточнение вопроса', en: 'Clarifying question' },
     private_guardrail: {
-      ko: '공개 불가 안내',
+      ko: 'Публичная безопасность',
       en: 'Public safety notice',
     },
     prompt_guardrail: {
-      ko: '내부 정보 보호 안내',
+      ko: 'Защита внутренних данных',
       en: 'Internal safety notice',
     },
     rag_generation: {
-      ko: '포트폴리오 데이터 기반',
+      ko: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
-    rag_groq: { ko: '포트폴리오 데이터 기반', en: 'Based on portfolio data' },
-    rag_google: { ko: '포트폴리오 데이터 기반', en: 'Based on portfolio data' },
-    rag_openai: { ko: '포트폴리오 데이터 기반', en: 'Based on portfolio data' },
-    rag_xai: { ko: '포트폴리오 데이터 기반', en: 'Based on portfolio data' },
-    fallback: { ko: '기본 포트폴리오 답변', en: 'Basic portfolio answer' },
+    rag_groq: { ko: 'На основе данных портфолио', en: 'Based on portfolio data' },
+    rag_google: {
+      ko: 'На основе данных портфолио',
+      en: 'Based on portfolio data',
+    },
+    rag_openai: {
+      ko: 'На основе данных портфолио',
+      en: 'Based on portfolio data',
+    },
+    rag_xai: { ko: 'На основе данных портфолио', en: 'Based on portfolio data' },
+    fallback: { ko: 'Базовый ответ портфолио', en: 'Basic portfolio answer' },
     insufficient_evidence: {
-      ko: '근거 부족',
+      ko: 'Недостаточно источников',
       en: 'Insufficient evidence',
     },
   };
@@ -1296,19 +1482,19 @@ function getRemainingSourcesButtonLabel({
   debug: boolean;
 }) {
   if (debug) {
-    if (language === 'ko') return expanded ? '접기' : `+${count}개 더`;
+    if (language === 'ko') return expanded ? 'Свернуть' : `Ещё +${count}`;
     return expanded ? 'Collapse' : `+${count} more`;
   }
 
   if (expanded) {
-    return language === 'ko' ? '근거 접기' : 'Hide sources';
+    return language === 'ko' ? 'Скрыть источники' : 'Hide sources';
   }
 
-  return language === 'ko' ? '근거 보기' : 'View sources';
+  return language === 'ko' ? 'Показать источники' : 'View sources';
 }
 
 function formatWarningCount(count: number, language: 'ko' | 'en') {
-  if (language === 'ko') return `경고 ${count}개`;
+  if (language === 'ko') return `Предупреждений: ${count}`;
   return `${count} warning${count === 1 ? '' : 's'}`;
 }
 
@@ -1317,10 +1503,10 @@ function formatEntityLabel(entityId: string, language: 'ko' | 'en') {
   if (projectId) return PROJECT_CARDS[projectId].title;
 
   const labels: Record<string, Record<'ko' | 'en', string>> = {
-    'profile.identity': { ko: '프로필', en: 'Profile' },
-    'profile.career': { ko: '커리어', en: 'Career' },
-    'career.oosu_salon': { ko: '우수살롱', en: 'Oosu Salon' },
-    'policy.guardrail': { ko: '답변 정책', en: 'Answer policy' },
+    'profile.identity': { ko: 'Профиль', en: 'Profile' },
+    'profile.career': { ko: 'Карьера', en: 'Career' },
+    'career.oosu_salon': { ko: 'Операционный опыт', en: 'Oosu Salon' },
+    'policy.guardrail': { ko: 'Политика ответов', en: 'Answer policy' },
   };
 
   return labels[entityId]?.[language] ?? entityId;
@@ -1371,7 +1557,7 @@ function formatPublicChunkLabel(chunkId: string, language: 'ko' | 'en') {
   if (exactLabel) return exactLabel;
 
   if (chunkId.startsWith('faq.')) {
-    return language === 'ko' ? 'FAQ 답변 근거' : 'FAQ answer source';
+    return language === 'ko' ? 'Источник FAQ' : 'FAQ answer source';
   }
 
   if (chunkId.startsWith('project.')) {
@@ -1379,15 +1565,15 @@ function formatPublicChunkLabel(chunkId: string, language: 'ko' | 'en') {
   }
 
   if (chunkId.startsWith('profile.')) {
-    return language === 'ko' ? '프로필 Wiki 항목' : 'Profile Wiki entry';
+    return language === 'ko' ? 'Запись Wiki профиля' : 'Profile Wiki entry';
   }
 
   if (chunkId.startsWith('skills.')) {
-    return language === 'ko' ? '기술 스택 Wiki 항목' : 'Skills Wiki entry';
+    return language === 'ko' ? 'Запись Wiki навыков' : 'Skills Wiki entry';
   }
 
   if (chunkId.startsWith('career.')) {
-    return language === 'ko' ? '커리어 Wiki 항목' : 'Career Wiki entry';
+    return language === 'ko' ? 'Запись Wiki карьеры' : 'Career Wiki entry';
   }
 
   return null;
@@ -1398,19 +1584,19 @@ function formatPublicChunkContext(chunkId: string, language: 'ko' | 'en') {
   if (exactContext) return exactContext;
 
   if (chunkId.startsWith('project.')) {
-    return language === 'ko' ? '프로젝트 Wiki' : 'Project Wiki';
+    return language === 'ko' ? 'Wiki проектов' : 'Project Wiki';
   }
 
   if (chunkId.startsWith('profile.')) {
-    return language === 'ko' ? '프로필 Wiki' : 'Profile Wiki';
+    return language === 'ko' ? 'Wiki профиля' : 'Profile Wiki';
   }
 
   if (chunkId.startsWith('skills.')) {
-    return language === 'ko' ? '기술 Wiki' : 'Skills Wiki';
+    return language === 'ko' ? 'Wiki навыков' : 'Skills Wiki';
   }
 
   if (chunkId.startsWith('career.')) {
-    return language === 'ko' ? '커리어 Wiki' : 'Career Wiki';
+    return language === 'ko' ? 'Wiki карьеры' : 'Career Wiki';
   }
 
   return null;

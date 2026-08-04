@@ -25,7 +25,7 @@ export function getRagRetrievalMode(): RagRetrievalMode {
 }
 
 export function getRagStoreKind(): RagStoreKind {
-  const value = process.env.ASKOOSU_RAG_STORE;
+  const value = process.env.ASKROMEO_RAG_STORE;
   if (value === 'postgres') return 'postgres';
   return 'memory';
 }

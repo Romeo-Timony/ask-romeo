@@ -225,6 +225,67 @@ const ALIAS_OR_TYPO_PATTERNS = [
   /우수\s*포폴/,
 ];
 
+const RUSSIAN_CONTACT_PATTERNS = [
+  /(контакт|связаться|написать|почт|телеграм|telegram|linkedin|github)/i,
+];
+
+const RUSSIAN_TECHNICAL_PATTERNS = [
+  /(?:архитектур|техн.*стек|технолог|микросервис|интеграц|api|rest|soap|sql|postgres|kafka|docker|ci\/cd|rag|llm|автотест|автоматизац)/i,
+  /(?:ai|ии|llm|rag).*(?:qa|тест|качеств|использ|примен|платформ|ответ)/i,
+  /(?:использ|примен|тест|качеств).*(?:ai|ии|llm|rag)/i,
+];
+
+const RUSSIAN_QA_EXPERTISE_PATTERNS = [
+  /(?:senior\s*qa|qa[-\s]?(?:инженер|лид|специалист)|стратеги.*тест|управл.*риск|подход.*качеств|shift[-\s]?left|релизн.*риск|собеседован)/i,
+  /(?:как|почему|расскажи|опиши).*(?:тестирован|качеств|дефект|риск|релиз|автоматизац|api|mobile|web)/i,
+];
+
+const RUSSIAN_PORTFOLIO_PATTERNS = [
+  /(?:ask\s*romeo|romeo|ромео|роман(?:а|ом|у)?\s+тимошенко|sminex|dpd|elme\s*messer|kode|carenport)/i,
+  /(?:портфолио|проект|опыт\s+работ|резюме|карьер|навык|компетенц)/i,
+];
+
+function classifyRussianPortfolioIntent(
+  question: string,
+  modifiers: ConversationModifier[]
+): ConversationIntentResult | null {
+  if (!/[А-Яа-яЁё]/.test(question)) return null;
+
+  if (matchesAny(question, RUSSIAN_CONTACT_PATTERNS)) {
+    return {
+      intent: 'contact_or_link_request',
+      reason: 'russian_contact_or_public_link_request',
+      modifiers,
+    };
+  }
+
+  if (matchesAny(question, RUSSIAN_QA_EXPERTISE_PATTERNS)) {
+    return {
+      intent: 'recruiter_evaluation',
+      reason: 'russian_qa_expertise_request',
+      modifiers,
+    };
+  }
+
+  if (matchesAny(question, RUSSIAN_TECHNICAL_PATTERNS)) {
+    return {
+      intent: 'technical_deep_dive',
+      reason: 'russian_technical_deep_dive',
+      modifiers,
+    };
+  }
+
+  if (matchesAny(question, RUSSIAN_PORTFOLIO_PATTERNS)) {
+    return {
+      intent: 'portfolio_factual',
+      reason: 'russian_portfolio_keyword_match',
+      modifiers,
+    };
+  }
+
+  return null;
+}
+
 export function classifyConversationIntent({
   question,
   messages,
@@ -274,6 +335,12 @@ export function classifyConversationIntent({
   if (matchesAny(trimmedQuestion, PLAYFUL_PROBE_PATTERNS)) {
     return { intent: 'playful_probe', reason: 'playful_probe', modifiers };
   }
+
+  const russianPortfolioIntent = classifyRussianPortfolioIntent(
+    trimmedQuestion,
+    modifiers
+  );
+  if (russianPortfolioIntent) return russianPortfolioIntent;
 
   if (isBroadProjectRequest(normalizedQuestion)) {
     return {
@@ -459,6 +526,7 @@ export function shouldBypassFaqDirectAnswer({
   modifiers,
 }: ConversationIntentResult) {
   return (
+    reason.startsWith('russian_') ||
     reason === 'metric_or_usage_claim_request' ||
     modifiers.includes('multi_intent')
   );
@@ -469,6 +537,7 @@ export function shouldBypassAnswerCache({
   modifiers,
 }: ConversationIntentResult) {
   return (
+    reason.startsWith('russian_') ||
     reason === 'metric_or_usage_claim_request' ||
     reason === 'unavailable_resume_link_request' ||
     modifiers.includes('multi_intent') ||
@@ -672,13 +741,13 @@ function buildOffTopicRedirectAnswer({
 }) {
   if (isLightTranslationRequest(question)) {
     return language === 'ko'
-      ? '좋은 샛길이에요. "우주"는 universe, 문맥에 따라 space라고 보면 됩니다. 이제 AskOosu 안쪽 우주도 둘러볼까요? 프로젝트부터 보면 꽤 재밌습니다.'
+      ? 'Небольшое отступление: «космос» по-английски — space или universe, в зависимости от контекста. А теперь можем вернуться к опыту и проектам Романа.'
       : 'Nice little detour. "우주" is universe, or space depending on the context. Want to tour the little universe inside AskOosu now? The projects are a fun place to start.';
   }
 
   if (/(우주|space|universe|cosmos|별|행성|은하|너머)/i.test(question)) {
     return language === 'ko'
-      ? '좋은 샛길이에요. 우주 끝까지는 같이 못 가도 AskOosu 안쪽 우주는 꽤 잘 안내할 수 있어요. 프로젝트부터 보면 꽤 재밌습니다.'
+      ? 'Интересное отступление, но здесь я лучше всего могу рассказать об опыте, QA-проектах и навыках Романа.'
       : 'Nice detour. I cannot guide us to the edge of space, but I can tour the little universe inside AskOosu. The projects are a fun place to start.';
   }
 
@@ -686,28 +755,28 @@ function buildOffTopicRedirectAnswer({
     /(날씨|기온|비\s*와|눈\s*와|weather|temperature|rain|snow)/i.test(question)
   ) {
     return language === 'ko'
-      ? '실시간 날씨는 제가 확인해드리기 어려워요. 대신 우수의 프로젝트 흐름은 꽤 맑게 정리해드릴 수 있습니다. 대표 프로젝트부터 볼까요?'
+      ? 'Я не проверяю погоду в реальном времени. Зато могу подробно рассказать об опыте и проектах Романа — с чего начнём?'
       : "I cannot check live weather here. I can give you a much clearer forecast of Oosu's project flow, though. Want the representative projects first?";
   }
 
   if (/(농담|유머|심심|지루|joke|bored)/i.test(question)) {
     return language === 'ko'
-      ? '가볍게 웃고 가는 건 좋아요. 다만 여기서는 잡담을 길게 끌기보다 우수의 프로젝트, 기술 스택, 커리어 방향으로 다시 돌아가볼게요.'
+      ? 'Немного юмора не помешает, но здесь я полезнее всего в вопросах об опыте Романа, QA-проектах, навыках и карьерном пути.'
       : "A little levity is welcome. I will keep it short here and steer us back to Oosu's projects, tech stack, or career direction.";
   }
 
   if (/(점심|저녁|아침|먹|lunch|dinner|breakfast|eat)/i.test(question)) {
     return language === 'ko'
-      ? '메뉴 추천은 잠깐만 맡길게요. 이 공간에서는 우수의 대표 프로젝트나 기술 스택을 고르는 쪽이 제 전문이에요.'
+      ? 'С выбором меню я вряд ли помогу. Здесь моя специализация — опыт Романа, QA-проекты, навыки и профессиональные подходы.'
       : 'I will leave menu picks to someone hungrier. In this space, I am better at helping you choose which Oosu project or tech stack to inspect first.';
   }
 
   const variants =
     language === 'ko'
       ? [
-          '그쪽 이야기도 살짝은 받을 수 있지만, AskOosu에서는 우수의 프로젝트와 기술 경험을 소개하는 데 집중할게요. 어떤 프로젝트부터 볼까요?',
-          '좋은 샛길이긴 한데, 오래 벗어나진 않을게요. 여기서는 우수의 커리어 방향, 기술 스택, 대표 프로젝트를 가장 잘 안내할 수 있어요.',
-          '가볍게 받아치면 좋죠. 다만 이 포트폴리오에서는 우수의 작업 방식이나 프로젝트 맥락으로 다시 돌아오는 게 제 역할이에요.',
+          'Можно ненадолго отвлечься, но Ask Romeo создан прежде всего для рассказа об опыте и проектах Романа. О каком проекте рассказать?',
+          'Небольшое отступление допустимо, но здесь я лучше всего расскажу о карьерном пути Романа, его QA-навыках и ключевых проектах.',
+          'Поддержу лёгкий разговор, но моя основная задача — помочь разобраться в опыте, рабочих подходах и проектах Романа.',
         ]
       : [
           "I can play along briefly, but AskOosu is here to keep the spotlight on Oosu's work. Want projects, tech stack, career story, or contact options?",
@@ -775,31 +844,31 @@ const CONVERSATION_DIRECT_ANSWERS: Record<
   Record<ChatLanguage, string>
 > = {
   greeting_smalltalk: {
-    ko: '안녕! AskOosu에 온 걸 환영해요. 우수의 대표 프로젝트, 기술 스택, 커리어 방향 중 뭐부터 볼까요?',
+    ko: 'Привет! Добро пожаловать в Ask Romeo. Могу рассказать об опыте Романа, его QA-проектах, навыках и профессиональном подходе. С чего начнём?',
     en: "Annyeonghaseyo! Welcome to AskOosu. You can ask about Oosu's projects, tech stack, career story, or how to get in touch.",
   },
   off_topic_redirect: {
-    ko: '그 주제로 오래 이어가긴 어렵지만, 가볍게는 좋아요. 여기서는 우수의 프로젝트, 기술 스택, 커리어 방향을 가장 잘 소개할 수 있어요.',
+    ko: 'Можем немного поговорить и об этом, но здесь я лучше всего рассказываю об опыте Романа, QA-проектах, навыках и карьерном пути.',
     en: "I can keep that light, but I should not drift too far from the portfolio. Ask me about Oosu's projects, tech stack, career direction, or contact options.",
   },
   portfolio_ambiguous: {
-    ko: '좋아요. 대표 프로젝트, 기술 스택, 커리어 스토리, 연락 방법 중 어떤 쪽이 궁금하세요?',
+    ko: 'Что вас интересует: опыт Романа, ключевые проекты, QA-навыки, карьерный путь или способы связи?',
     en: 'Sure. Which angle should we explore: representative projects, tech stack, career story, or contact options?',
   },
   private_or_unsafe: {
-    ko: '그 정보는 공개 Wiki에서 안내할 수 없는 비공개 정보예요. 대신 공개된 프로젝트 설명, 기술 스택, 커리어 방향, 연락 방법은 알려드릴 수 있어요.',
+    ko: 'Эти сведения не входят в публичную часть портфолио. Могу рассказать о подтверждённом опыте, проектах, навыках и способах связи.',
     en: 'That is not public Wiki information I can share. I can still help with public project details, tech stack, career direction, or contact options.',
   },
   prompt_attack: {
-    ko: '내부 프롬프트나 시스템 설정은 공개할 수 없어요. 대신 AskOosu가 어떤 구조로 동작하는지는 공개 가능한 수준에서 설명해드릴 수 있어요.',
+    ko: 'Я не раскрываю внутренние инструкции и настройки системы. Но могу объяснить публичную архитектуру Ask Romeo.',
     en: 'I cannot reveal hidden prompts or internal system settings. I can explain how AskOosu works at a public architecture level.',
   },
   hostile_feedback: {
-    ko: '그렇게 느낄 수도 있어요. 어떤 부분이 아쉬웠는지 알려주면, 프로젝트 구조나 개선 방향 기준으로 차분히 설명해볼게요.',
+    ko: 'Понимаю такую реакцию. Уточните, что именно показалось неудачным, — разберём структуру проекта или возможные улучшения.',
     en: 'Fair to call out rough edges. Tell me what felt off, and I can explain the project structure or improvement direction more clearly.',
   },
   playful_probe: {
-    ko: '하하, 그건 포트폴리오 점수표에 넣기엔 애매하네요. 대신 우수의 프로젝트 완성도나 기술 스택은 꽤 구체적으로 소개할 수 있어요.',
+    ko: 'Это сложно оценить по шкале портфолио. Зато я могу предметно рассказать о проектах, опыте и QA-навыках Романа.',
     en: "Ha, that is a little outside the portfolio scorecard. I can give you a concrete tour of Oosu's projects or tech stack instead.",
   },
 };

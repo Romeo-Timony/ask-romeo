@@ -446,6 +446,7 @@ function getFaqEvidenceFallback({
   hasRagSources: boolean;
 }): FaqEvidenceFallback | null {
   if (hasRagSources) return null;
+  if (conversationIntent.reason.startsWith('russian_')) return null;
   if (
     conversationIntent.intent !== 'recruiter_evaluation' &&
     conversationIntent.intent !== 'portfolio_factual'
@@ -532,8 +533,8 @@ function buildFaqEvidenceFallbackSources(
   return fallback.sourceChunkIds.map((chunkId) => ({
     chunk_id: chunkId,
     entity_id: fallback.matchedEntityIds[0] ?? null,
-    title: 'Oosu Wiki',
-    section_path: ['Oosu Wiki'],
+    title: 'Ask Romeo Wiki',
+    section_path: ['Ask Romeo Wiki'],
     score: fallback.confidence * 100,
     visibility: 'public',
     freshness: 'current',
@@ -704,7 +705,14 @@ function buildRepeatedQuestionAnswer({
       : '';
 
   if (language === 'ko') {
-    return `이 대화 안에서는${label} 질문을 이미 다뤘어요. 같은 카드를 다시 반복하기보다, 이번엔 다른 각도로 이어가볼게요.\n\n더 자연스럽게 보려면 이렇게 물어보면 좋아요:\n- 이 내용을 프로젝트 사례와 연결해서 설명해줘\n- 기술 스택 근거 중심으로 다시 정리해줘\n- 채용/협업 관점에서 더 날카롭게 말해줘`;
+    if (/контакт|сотруднич/i.test(repeatedQuestion.label ?? '')) {
+      return `Способы связи и форматы сотрудничества указаны выше. Чтобы перейти к предметному разговору, напишите:\n\n- кратко о продукте и текущей задаче;\n- какие QA-риски или процессы нужно улучшить;\n- ожидаемый результат и сроки;\n- удобный канал для дальнейшей связи.\n\nДля быстрого контакта используйте почту или Telegram.`;
+    }
+
+    const topic = repeatedQuestion.label
+      ? ` тему «${repeatedQuestion.label}»`
+      : ' этот вопрос';
+    return `В этом диалоге мы уже обсуждали${topic}. Чтобы не повторять ту же карточку, продолжим с другого ракурса.\n\nМожно уточнить вопрос так:\n- Свяжи это с примерами из проектов\n- Покажи подтверждение через технологии и опыт\n- Сформулируй ответ с точки зрения найма или сотрудничества`;
   }
 
   return `We already covered${label} in this conversation, so I will avoid repeating the same card again.\n\nA better next angle would be:\n- connect this to project examples\n- reframe it around technical evidence\n- make it sharper for hiring or collaboration context`;
@@ -929,7 +937,7 @@ function hasRecentCollaborationBrief(messages: UIMessage[]) {
 
 function getCollaborationFollowUpClarifier(language: ChatLanguage) {
   return language === 'ko'
-    ? '위 협업 브리프만으로 원하는 정보가 부족했을 수 있어요. 협업 방식, 팀 적응, 역할 범위, 연락/제안 방식 중 어떤 쪽이 더 궁금한지 조금만 더 좁혀주시면 그 기준으로 이어서 설명할게요.'
+    ? 'Уточните, что именно вас интересует: стиль работы, адаптация в команде, зона ответственности или способ предложить сотрудничество.'
     : 'The collaboration brief above may not have covered the part you wanted. Tell me whether you mean working style, team fit, role scope, or how to reach out, and I’ll continue from that angle.';
 }
 
@@ -1235,43 +1243,43 @@ function getAnswerSourceBadge(
       en: 'From Romeo Wiki',
     },
     philosophy_docs: {
-      ko: 'Visionary Builder Docs 기반',
+      ko: 'На основе профессиональных материалов',
       en: 'From Visionary Builder Docs',
     },
     faq_rewrite: {
-      ko: '포트폴리오 답변',
+      ko: 'Ответ по портфолио',
       en: 'Portfolio answer',
     },
     rag_generation: {
-      ko: '포트폴리오 데이터 기반',
+      ko: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
     fallback: {
-      ko: '기본 포트폴리오 답변',
+      ko: 'Ответ по портфолио',
       en: 'Basic portfolio answer',
     },
     smalltalk: {
-      ko: '가벼운 대화',
+      ko: 'Общий ответ',
       en: 'Small talk',
     },
     off_topic_redirect: {
-      ko: '포트폴리오 안내',
+      ko: 'Навигация по портфолио',
       en: 'Portfolio redirect',
     },
     clarify: {
-      ko: '질문 확인',
+      ko: 'Уточнение вопроса',
       en: 'Clarifying question',
     },
     private_guardrail: {
-      ko: '공개 불가 안내',
+      ko: 'Непубличные сведения',
       en: 'Public safety notice',
     },
     prompt_guardrail: {
-      ko: '내부 정보 보호 안내',
+      ko: 'Защита внутренних данных',
       en: 'Internal safety notice',
     },
     insufficient_evidence: {
-      ko: '근거 부족',
+      ko: 'Недостаточно данных',
       en: 'Insufficient evidence',
     },
   };
@@ -1280,12 +1288,12 @@ function getAnswerSourceBadge(
 }
 
 function getTodoBadge(language: ChatLanguage) {
-  return language === 'ko' ? '일부 정보 정리 중' : 'Needs confirmation';
+  return language === 'ko' ? 'Требует уточнения' : 'Needs confirmation';
 }
 
 function getTodoWarning(language: ChatLanguage) {
   return language === 'ko'
-    ? '일부 정보가 정리 중입니다.'
+    ? 'Часть информации требует дополнительного подтверждения.'
     : 'Some information still needs confirmation.';
 }
 
@@ -1365,7 +1373,7 @@ function prefixRepeatedConcernAnswer({
 
   const prefix =
     language === 'ko'
-      ? '위에서 이미 언급 드렸지만, 표현을 조금 바꿔 다시 정리하면:'
+      ? 'Эта тема уже упоминалась выше. Сформулирую ещё раз с другого ракурса:'
       : 'As mentioned above, reframed slightly:';
 
   if (answer.startsWith(prefix)) return answer;
@@ -1406,6 +1414,10 @@ function hasMarkdownQuote(answer: string) {
 }
 
 function getQuoteCategoryForFaq(faqAnswer: FaqAnswer): ContextualQuoteCategory {
+  if (/contact|collaboration/i.test(faqAnswer.intentId)) {
+    return 'contact';
+  }
+
   if (/ux|product|role|recruiter|career|profile/i.test(faqAnswer.intentId)) {
     return 'product';
   }

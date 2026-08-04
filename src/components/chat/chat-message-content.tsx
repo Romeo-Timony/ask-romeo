@@ -145,6 +145,8 @@ export default function ChatMessageContent({
 }
 
 function PlainMarkdownContent({ content }: { content: string }) {
+  const localizedContent = localizeLegacyRepeatedAnswer(content);
+
   return (
     <div className="prose dark:prose-invert w-full whitespace-normal leading-7">
       <Markdown
@@ -177,10 +179,30 @@ function PlainMarkdownContent({ content }: { content: string }) {
           ),
         }}
       >
-        {normalizeMarkdownSpacing(content)}
+        {normalizeMarkdownSpacing(localizedContent)}
       </Markdown>
     </div>
   );
+}
+
+function localizeLegacyRepeatedAnswer(content: string) {
+  const contactFollowUp = `Способы связи и форматы сотрудничества указаны выше. Чтобы перейти к предметному разговору, напишите:\n\n- кратко о продукте и текущей задаче;\n- какие QA-риски или процессы нужно улучшить;\n- ожидаемый результат и сроки;\n- удобный канал для дальнейшей связи.\n\nДля быстрого контакта используйте почту или Telegram.`;
+
+  if (
+    content.includes('В этом диалоге мы уже обсуждали тему «Контакты»') ||
+    (content.includes('이 대화 안에서는') && content.includes('"Контакты"'))
+  ) {
+    return contactFollowUp;
+  }
+
+  if (!content.includes('이 대화 안에서는')) return content;
+
+  const repeatedLabel = content.match(
+    /^이 대화 안에서는(?: "([^"]+)")? 질문을/
+  )?.[1];
+  const topic = repeatedLabel ? ` тему «${repeatedLabel}»` : ' этот вопрос';
+
+  return `В этом диалоге мы уже обсуждали${topic}. Чтобы не повторять ту же карточку, продолжим с другого ракурса.\n\nМожно уточнить вопрос так:\n- Свяжи это с примерами из проектов\n- Покажи подтверждение через технологии и опыт\n- Сформулируй ответ с точки зрения найма или сотрудничества`;
 }
 
 class RichAnswerErrorBoundary extends Component<

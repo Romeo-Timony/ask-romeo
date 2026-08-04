@@ -12,7 +12,6 @@ import { getUiText } from '@/lib/i18n';
 import { buildChatHref } from '@/lib/navigation';
 import { oosuProfile } from '@/lib/oosu-profile';
 import { useDisplayPreferences } from '@/lib/use-display-preferences';
-import { motion } from 'framer-motion';
 import {
   BriefcaseBusiness,
   ChevronDown,
@@ -31,7 +30,7 @@ import type {
   PointerEvent as ReactPointerEvent,
   WheelEvent as ReactWheelEvent,
 } from 'react';
-import { Suspense, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 const questionConfig: Record<string, { color: string; icon: ElementType }> = {
   'home.profile.intro': { color: '#188B75', icon: MessageSquareText },
@@ -62,7 +61,7 @@ const aeoLinks = {
       description: 'Избранные работы',
     },
     {
-      href: '/chat',
+      href: '/projects/ask-romeo',
       label: 'Спросить',
       description: 'Чат с Romeo',
     },
@@ -79,7 +78,7 @@ const aeoLinks = {
       description: 'Selected work',
     },
     {
-      href: '/chat',
+      href: '/projects/ask-romeo',
       label: 'Ask',
       description: 'Chat with Romeo',
     },
@@ -121,9 +120,25 @@ function HomeContent() {
   };
 
   const startNewChat = () => {
-    const params = new URLSearchParams({ lang: language, theme });
+    const params = new URLSearchParams({
+      lang: language === 'ko' ? 'rus' : 'eng',
+      theme,
+    });
     router.push(`/chat?${params.toString()}`);
   };
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const { body } = document;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+    };
+  }, []);
 
   const handleQuickQuestionWheel = (
     event: ReactWheelEvent<HTMLDivElement>
@@ -198,30 +213,12 @@ function HomeContent() {
     suppressRailClickRef.current = false;
   };
 
-  /* hero animations (unchanged) */
-  const topElementVariants = {
-    hidden: { opacity: 0, y: -60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: 'ease', duration: 0.8 },
-    },
-  };
-  const bottomElementVariants = {
-    hidden: { opacity: 0, y: 80 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: 'ease', duration: 0.8, delay: 0.2 },
-    },
-  };
-
   const links = aeoLinks[language];
   const heroTitle =
     language === 'ko' ? oosuProfile.title : oosuProfile.titleEn;
 
   return (
-    <div className="relative flex min-h-dvh flex-col items-center justify-start overflow-x-hidden px-4 pt-20 pb-32 md:min-h-screen md:px-8 md:pt-12 md:pb-44">
+    <div className="relative flex h-dvh max-h-dvh flex-col overflow-hidden px-4 pt-14 md:px-8 md:pt-8 md:pl-[calc(72px+2rem)]">
       <HomeJsonLd />
       <PortfolioSidebar onNewChat={startNewChat} />
 
@@ -236,25 +233,22 @@ function HomeContent() {
       </div>
 
       {/* header */}
-      <motion.div
-        className="relative z-10 flex w-full max-w-7xl flex-col items-center text-center md:mt-4"
-        variants={topElementVariants}
-        initial={false}
-        animate="visible"
-      >
-        <div className="z-100 mb-5">
+      <div className="home-hero-enter-top relative z-10 flex w-full shrink-0 flex-col items-center text-center">
+        <div className="z-100 mb-[15px]">
           <WelcomeModal />
         </div>
 
-        <h2 className="text-secondary-foreground text-base font-semibold md:text-xl">
-          {oosuProfile.name}
-        </h2>
-        <h1 className="mt-3 max-w-[22rem] text-3xl leading-tight font-bold sm:max-w-3xl sm:text-4xl md:max-w-4xl md:text-5xl lg:text-6xl">
+        <h1 className="max-w-[22rem] text-xl leading-tight font-bold sm:max-w-3xl sm:text-2xl md:max-w-4xl md:text-3xl lg:text-4xl">
           {heroTitle}
         </h1>
+        <p className="text-muted-foreground mt-2 max-w-xl text-xs leading-relaxed font-medium italic sm:text-sm">
+          {language === 'ko'
+            ? '«Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»'
+            : '“Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error.”'}
+        </p>
         <nav
           aria-label="Featured portfolio pages"
-          className="mt-5 flex max-w-3xl flex-wrap justify-center gap-2"
+          className="mt-[15px] flex max-w-3xl flex-wrap justify-center gap-2"
         >
           {links.map((link) => (
             <Link
@@ -269,27 +263,25 @@ function HomeContent() {
             </Link>
           ))}
         </nav>
-      </motion.div>
+      </div>
 
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center py-8 md:py-10">
+      {/* video: exactly 15px under top chips and above bottom chips */}
+      <div className="relative z-20 flex min-h-0 w-full flex-1 items-center justify-center py-[15px] [container-type:size]">
         <VideoVisitCard
-          className="aspect-[4/5] h-40 w-32 sm:h-56 sm:w-44 md:h-72 md:w-56 lg:h-80 lg:w-64"
+          className="aspect-square size-[min(365px,100cqmin)] shrink-0"
           label={language === 'ko' ? 'Видеовизитка' : 'Video visit card'}
         />
       </div>
 
-      {/* quick buttons */}
-      <motion.div
-        variants={bottomElementVariants}
-        initial={false}
-        animate="visible"
-        className="fixed inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.75rem)] z-30 flex w-full flex-col items-center px-4 md:px-[calc(72px+2rem)]"
-      >
-        {isQuickQuestionsVisible && (
-          <div
-            ref={quickQuestionRailRef}
-            id="home-quick-questions"
-            className="custom-scrollbar w-full max-w-5xl cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 active:cursor-grabbing [-webkit-overflow-scrolling:touch]"
+      {/* bottom stack — chips + input, no page scroll */}
+      <div className="home-hero-enter-bottom relative z-30 flex w-full shrink-0 flex-col items-center gap-[15px] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div
+          ref={quickQuestionRailRef}
+          id="home-quick-questions"
+          aria-hidden={!isQuickQuestionsVisible}
+          className={`custom-scrollbar w-full max-w-5xl cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 active:cursor-grabbing [-webkit-overflow-scrolling:touch] ${
+            isQuickQuestionsVisible ? '' : 'pointer-events-none invisible'
+          }`}
             onWheel={handleQuickQuestionWheel}
             onPointerDown={handleQuickQuestionPointerDown}
             onPointerMove={handleQuickQuestionPointerMove}
@@ -297,7 +289,7 @@ function HomeContent() {
             onPointerCancel={handleQuickQuestionPointerEnd}
             onPointerLeave={handleQuickQuestionPointerEnd}
             onClickCapture={handleQuickQuestionClickCapture}
-          >
+        >
             <div className="flex w-max min-w-full flex-nowrap justify-center gap-2 md:gap-3">
               {visibleQuestions.map((question) => {
                 const isAsked = askedQuestionSet.has(question.id);
@@ -359,8 +351,7 @@ function HomeContent() {
                 );
               })}
             </div>
-          </div>
-        )}
+        </div>
 
         <button
           type="button"
@@ -369,7 +360,7 @@ function HomeContent() {
           }
           aria-controls="home-quick-questions"
           aria-expanded={isQuickQuestionsVisible}
-          className="text-muted-foreground hover:text-foreground bg-background/20 mt-2 flex items-center gap-1 rounded-full border border-transparent px-3 py-1 text-xs backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-white/[0.06]"
+          className="text-muted-foreground hover:text-foreground bg-background/20 flex items-center gap-1 rounded-full border border-transparent px-3 py-1 text-xs backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-white/[0.06]"
         >
           {isQuickQuestionsVisible ? (
             <>
@@ -383,15 +374,7 @@ function HomeContent() {
             </>
           )}
         </button>
-      </motion.div>
 
-      {/* free-form question */}
-      <motion.div
-        variants={bottomElementVariants}
-        initial={false}
-        animate="visible"
-        className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 md:inset-x-[calc(72px+2rem)]"
-      >
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -401,6 +384,7 @@ function HomeContent() {
         >
           <div className="hover:border-ring bg-background/50 mx-auto flex min-h-14 items-center rounded-full border border-white/55 py-2 pr-2 pl-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_12px_36px_rgba(15,23,42,0.14)] backdrop-blur-2xl transition-all dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_14px_40px_rgba(0,0,0,0.32)]">
             <input
+              id="ask-romeo-input"
               ref={inputRef}
               type="text"
               value={input}
@@ -418,7 +402,7 @@ function HomeContent() {
             </button>
           </div>
         </form>
-      </motion.div>
+      </div>
       <FluidCursor />
     </div>
   );

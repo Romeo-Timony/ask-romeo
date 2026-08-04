@@ -673,7 +673,7 @@ const RAG_CHAT_SYSTEM_PROMPT = `
 - If one user message contains several loosely connected concerns, do not answer as one long blob. Split it into at most three clear parts, name each part briefly, and answer each part with the available evidence or a careful boundary.
 - If a follow-up asks for more detail after a rich visual card was already shown, continue with deeper text or a different angle instead of repeating the same visual explanation.
 - Be natural, warm, and helpful for a portfolio visitor.
-- Answer in Korean when the user asks in Korean, and in English when the user asks in English.
+- The internal language key ko represents the Russian locale in Ask Romeo. When the resolved language is ko, answer only in Russian. When it is en, answer in English.
 - Do not output raw JSON metadata. Metadata is attached by the API separately.
 `;
 
@@ -918,10 +918,23 @@ function parseMappedLanguage(
 
   const normalizedValue = value.trim().toLowerCase().replace('_', '-');
   if (!normalizedValue) return null;
-  if (normalizedValue === 'ko' || normalizedValue.startsWith('ko-')) {
+  // Public URL uses lang=rus; internal chat locale key remains 'ko'.
+  if (
+    normalizedValue === 'ko' ||
+    normalizedValue.startsWith('ko-') ||
+    normalizedValue === 'ru' ||
+    normalizedValue === 'rus' ||
+    normalizedValue === 'russian' ||
+    normalizedValue.startsWith('ru-')
+  ) {
     return 'ko';
   }
-  if (normalizedValue === 'en' || normalizedValue.startsWith('en-')) {
+  if (
+    normalizedValue === 'en' ||
+    normalizedValue === 'eng' ||
+    normalizedValue === 'english' ||
+    normalizedValue.startsWith('en-')
+  ) {
     return 'en';
   }
 
@@ -962,7 +975,7 @@ function createRateLimitedJsonResponse({
 
 function getRateLimitedErrorCopy(language: ChatLanguage) {
   return language === 'ko'
-    ? '지금 질문이 잠깐 몰렸어요. 잠시 후 다시 말을 걸어주세요.'
+    ? 'Сейчас поступает слишком много вопросов. Попробуйте ещё раз немного позже.'
     : 'I’m getting a lot of questions right now. Please try again shortly.';
 }
 
@@ -1033,7 +1046,7 @@ function getOrchestrationMetadata(
 
 function buildModelUnavailableAnswer(language: ChatLanguage) {
   return language === 'ko'
-    ? '답변 엔진이 잠깐 쉬는 중이에요. 잠시 후 다시 시도해 주세요.'
+    ? 'Сервис ответов временно недоступен. Попробуйте ещё раз немного позже.'
     : 'The answer engine is taking a short break. Please try again soon.';
 }
 

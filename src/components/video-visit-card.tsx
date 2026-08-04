@@ -1,40 +1,118 @@
 'use client';
 
+import { useRef, useState } from 'react';
+import { Pause, Play, Volume2 } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 interface VideoVisitCardProps {
   className?: string;
   label?: string;
+  compactControls?: boolean;
 }
 
-/**
- * Centerpiece video business-card slot.
- * Drop an mp4/webm into /public/video-visit and point the sources here later.
- */
 export function VideoVisitCard({
   className,
   label = 'Video visit card',
+  compactControls = false,
 }: VideoVisitCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const togglePlayback = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.muted) {
+      video.muted = false;
+      setIsMuted(false);
+
+      try {
+        await video.play();
+      } catch {
+        setIsPlaying(false);
+      }
+      return;
+    }
+
+    if (video.paused) {
+      try {
+        await video.play();
+      } catch {
+        setIsPlaying(false);
+      }
+      return;
+    }
+
+    video.pause();
+    setIsPlaying(false);
+  };
+
   return (
     <div
       className={cn(
-        'relative isolate overflow-hidden rounded-3xl border border-white/50 bg-gradient-to-b from-slate-100/90 to-slate-200/70 shadow-[0_20px_60px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:from-white/[0.08] dark:to-white/[0.02] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]',
+        'group relative isolate aspect-square overflow-hidden rounded-full border border-white/50 bg-slate-950 shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-white/10 dark:shadow-[0_20px_60px_rgba(0,0,0,0.42)]',
         className
       )}
       aria-label={label}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(24,139,117,0.22),transparent_55%),radial-gradient(circle_at_70%_80%,rgba(36,107,254,0.18),transparent_50%)]" />
-      <div className="relative flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/60 bg-white/50 text-sm font-semibold tracking-wide text-slate-700 backdrop-blur dark:border-white/15 dark:bg-white/10 dark:text-slate-100">
-          RT
-        </div>
-        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-          {label}
-        </p>
-        <p className="max-w-[16rem] text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Placeholder — video will appear here soon
-        </p>
-      </div>
+      <video
+        ref={videoRef}
+        className="h-full w-full object-cover object-center brightness-[1.04] contrast-[1.06] saturate-[1.08]"
+        src="/video-visit/romeo-videovizitka.mp4"
+        poster="/video-visit/romeo-videovizitka-poster.jpg"
+        autoPlay
+        muted
+        loop
+        preload="auto"
+        playsInline
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onVolumeChange={() => setIsMuted(videoRef.current?.muted ?? true)}
+        onEnded={() => setIsPlaying(false)}
+      />
+
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_14%,rgba(45,212,191,0.34),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(59,130,246,0.28),transparent_42%),linear-gradient(145deg,rgba(8,47,73,0.22),transparent_48%,rgba(15,23,42,0.38))] mix-blend-screen" />
+      <div className="pointer-events-none absolute inset-0 border border-cyan-200/20 shadow-[inset_0_0_42px_rgba(45,212,191,0.15),0_0_32px_rgba(14,165,233,0.16)]" />
+
+      <button
+        type="button"
+        onClick={togglePlayback}
+        className={cn(
+          'absolute left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 font-semibold text-white shadow-lg backdrop-blur-md transition hover:scale-105 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none',
+          compactControls
+            ? 'bottom-[7%] size-7 p-0'
+            : 'bottom-[9%] gap-2 px-4 py-2 text-xs whitespace-nowrap'
+        )}
+        aria-label={
+          isMuted
+            ? 'Включить звук видеовизитки'
+            : isPlaying
+            ? 'Приостановить видеовизитку'
+            : 'Воспроизвести видеовизитку'
+        }
+      >
+        {isMuted ? (
+          <Volume2
+            className={compactControls ? 'size-3.5' : 'size-4'}
+            aria-hidden="true"
+          />
+        ) : isPlaying ? (
+          <Pause
+            className={cn('fill-current', compactControls ? 'size-3.5' : 'size-4')}
+            aria-hidden="true"
+          />
+        ) : (
+          <Play
+            className={cn('fill-current', compactControls ? 'size-3.5' : 'size-4')}
+            aria-hidden="true"
+          />
+        )}
+        {!compactControls && (
+          <span>{isMuted ? 'Включить звук' : isPlaying ? 'Пауза' : label}</span>
+        )}
+      </button>
     </div>
   );
 }

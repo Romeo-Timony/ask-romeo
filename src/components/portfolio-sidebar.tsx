@@ -211,7 +211,7 @@ export function PortfolioSidebar({
     } else {
       const params = new URLSearchParams({
         conversationId: conversation.id,
-        lang: language,
+        lang: language === 'ko' ? 'rus' : 'eng',
         theme,
       });
 

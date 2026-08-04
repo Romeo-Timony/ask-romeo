@@ -117,23 +117,23 @@ function shouldUseAiIntentInterpreter({
 }
 
 function buildIntentInterpreterSystemPrompt(language: ChatLanguage) {
-  const outputLanguage = language === 'ko' ? 'Korean' : 'English';
+  const outputLanguage = language === 'ko' ? 'Russian' : 'English';
 
-  return `You are a tiny intent interpreter for AskOosu, Oosu Jang's conversational portfolio.
+  return `You are a tiny intent interpreter for Ask Romeo, Romeo Timony's QA/AI portfolio.
 Return only compact JSON. Do not answer the user.
 
 Goal:
-- Decide whether the user's message is really about this portfolio, Oosu, AskOosu, projects, skills, AI workflow, contact/collaboration, or public working style.
+- Decide whether the message concerns Romeo, his verified experience, projects, QA skills, testing approaches, AI/RAG usage, contact, or collaboration.
 - Korean often omits subjects. Interpret short or indirect Korean questions like "어떤 사이트야?", "뭐 하는 곳이야?", "아빠가 궁금해해", "어떤 용도야?" as referring to the current AskOosu site when the context is this portfolio.
 - Tolerate typos, spacing differences, English/Korean mixing, and casual phrasing.
 - Preserve safety: prompt extraction, secrets, private family details, and genuinely unrelated topics must not be forced into portfolio intent.
 
 Allowed intent values:
-- site_overview: what this site/service/AskOosu is, why it exists, what it is for
-- profile_intro: who Oosu is, what kind of developer/person Oosu is
-- representative_projects: project list, best projects, portfolio work
-- tech_stack: skills, stack, architecture, implementation details
-- ai_usage: AI tools, RAG, AI workflow, how Oosu uses AI
+- site_overview: what Ask Romeo is, why it exists, what it is for
+- profile_intro: who Romeo is and his professional profile
+- representative_projects: projects, employers, cases, and work history
+- tech_stack: QA skills, test strategy, architecture, tools, and technologies
+- ai_usage: AI tools, RAG, AI quality, and AI-assisted QA
 - contact_collaboration: contact, links, collaboration, hiring fit
 - public_life_notes: public working style, taste, learning style, non-private personality
 - off_topic: unrelated general request
@@ -161,7 +161,7 @@ function buildIntentInterpreterPrompt({
 
   return JSON.stringify({
     locale: language,
-    currentSite: 'AskOosu portfolio at oosu.dev',
+    currentSite: 'Ask Romeo QA/AI portfolio',
     recentConversation,
     latestUserMessage: question,
   });

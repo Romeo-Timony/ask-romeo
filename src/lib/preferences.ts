@@ -24,12 +24,18 @@ export function normalizeLanguage(
   if (!value) return undefined;
 
   const normalized = value.toLowerCase();
-  // Internal locale key stays 'ko' for compatibility; UI copy is Russian.
+  // Internal locale keys stay 'ko'/'en' for FAQ/i18n compatibility.
+  // Public URL params: lang=rus (Russian), lang=eng (English).
   if (['ko', 'kr', 'korean', 'ru', 'rus', 'russian'].includes(normalized))
     return 'ko';
   if (['en', 'eng', 'english'].includes(normalized)) return 'en';
 
   return undefined;
+}
+
+/** Serialize language for public URLs (`lang=rus` / `lang=eng`). */
+export function toUrlLanguage(language: DisplayLanguage): string {
+  return language === 'ko' ? 'rus' : 'eng';
 }
 
 export function parsePreferenceTokens(tokens: string[]): PreferenceTokens {

@@ -1322,17 +1322,49 @@ function toLikePattern(value: string) {
 
 function toFullTextQuery(value: string) {
   const sourceAwareTerms = getSourceAwareSearchTerms(value);
-  if (sourceAwareTerms.length === 0) return value;
-
   const normalizedTokens = normalizeAliasText(value)
     .split(' ')
-    .map((token) => token.trim())
-    .filter((token) => token.length >= 2);
+    .map((token) => token.trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ''))
+    .filter(
+      (token) =>
+        token.length >= 3 && !FULL_TEXT_QUESTION_STOP_WORDS.has(token)
+    );
 
-  return uniqueSearchTerms([...normalizedTokens, ...sourceAwareTerms])
-    .map(quoteWebsearchTerm)
-    .join(' OR ');
+  const terms = uniqueSearchTerms([...normalizedTokens, ...sourceAwareTerms]);
+  if (terms.length === 0) return value;
+
+  return terms.map(quoteWebsearchTerm).join(' OR ');
 }
+
+const FULL_TEXT_QUESTION_STOP_WORDS = new Set([
+  'как',
+  'что',
+  'это',
+  'где',
+  'когда',
+  'почему',
+  'какой',
+  'какая',
+  'какие',
+  'расскажи',
+  'опиши',
+  'про',
+  'для',
+  'при',
+  'или',
+  'его',
+  'роман',
+  'romeo',
+  'how',
+  'what',
+  'why',
+  'where',
+  'when',
+  'tell',
+  'about',
+  'the',
+  'and',
+]);
 
 function getSourceAwareSearchTerms(value: string) {
   const terms: string[] = [];

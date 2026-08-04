@@ -1,5 +1,9 @@
 import type { AnswerVariant } from '@/data/question-surfaces.shared';
-import type { DisplayLanguage, DisplayTheme } from '@/lib/preferences';
+import {
+  toUrlLanguage,
+  type DisplayLanguage,
+  type DisplayTheme,
+} from '@/lib/preferences';
 
 export function buildChatHref({
   query,
@@ -28,7 +32,7 @@ export function buildChatHref({
 }) {
   const params = new URLSearchParams({
     query,
-    lang: language,
+    lang: toUrlLanguage(language),
     theme,
   });
 
