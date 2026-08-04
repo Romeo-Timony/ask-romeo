@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "faq:eval": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/eval-rag.ts --faq-only",
-    "rag:eval": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/eval-rag.ts"
+    "rag:eval": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/eval-rag.ts",
+    "rag:sync-gdrive": "node scripts/sync-gdrive-rag.mjs"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
