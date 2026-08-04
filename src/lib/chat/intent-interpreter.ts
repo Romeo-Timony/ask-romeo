@@ -117,7 +117,7 @@ function shouldUseAiIntentInterpreter({
 }
 
 function buildIntentInterpreterSystemPrompt(language: ChatLanguage) {
-  const outputLanguage = language === 'ko' ? 'Russian' : 'English';
+  const outputLanguage = language === 'ru' ? 'Russian' : 'English';
 
   return `You are a tiny intent interpreter for Ask Romeo, Romeo Timony's QA/AI portfolio.
 Return only compact JSON. Do not answer the user.

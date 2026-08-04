@@ -239,7 +239,7 @@ const Chat = () => {
 
   const replaceChatUrl = useCallback(() => {
     const params = new URLSearchParams({
-      lang: language === 'ko' ? 'rus' : 'eng',
+      lang: language === 'ru' ? 'rus' : 'eng',
       theme,
     });
     if (isDebugMode) params.set('debug', 'true');
@@ -297,7 +297,7 @@ const Chat = () => {
     }
 
     const params = new URLSearchParams({
-      lang: language === 'ko' ? 'rus' : 'eng',
+      lang: language === 'ru' ? 'rus' : 'eng',
       theme,
       conversationId: activeConversationId,
     });
@@ -828,7 +828,7 @@ const Chat = () => {
                     size="sm"
                     variant="secondary"
                     aria-label={
-                      language === 'ko'
+                      language === 'ru'
                         ? 'К последнему ответу'
                         : 'Jump to the latest answer'
                     }
@@ -836,7 +836,7 @@ const Chat = () => {
                     onClick={() => scrollToLatest()}
                   >
                     <ArrowDown className="h-4 w-4" />
-                    {language === 'ko' ? 'Последний' : 'Latest'}
+                    {language === 'ru' ? 'Последний' : 'Latest'}
                   </Button>
                 </motion.div>
               )}
@@ -896,14 +896,14 @@ function PendingQuestionBubble({
   language,
 }: {
   content: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   return (
     <div className="mx-auto flex w-full max-w-3xl justify-center px-4 pb-4">
       <div className="mx-auto max-w-[min(85%,40rem)] rounded-2xl border border-dashed border-teal-400/45 bg-teal-500/10 px-4 py-3 text-center text-sm text-teal-900/75 backdrop-blur-sm dark:text-teal-100/75">
         <p className="break-words whitespace-pre-wrap">{content}</p>
         <p className="mt-1 text-xs text-teal-800/55 dark:text-teal-100/50">
-          {language === 'ko' ? 'Ожидание ответа' : 'Queued'}
+          {language === 'ru' ? 'Ожидание ответа' : 'Queued'}
         </p>
       </div>
     </div>
@@ -1067,7 +1067,7 @@ function toAnswerVariant(value: string | null): AnswerVariant {
 
 function buildChatErrorNotice(
   error: unknown,
-  language: 'ko' | 'en'
+  language: 'ru' | 'en'
 ): ChatErrorNotice {
   const message = getErrorMessage(error);
   const normalizedMessage = message.toLowerCase();
@@ -1092,9 +1092,9 @@ function buildChatErrorNotice(
 
   return {
     ...copy,
-    retryLabel: language === 'ko' ? 'Повторить' : 'Retry',
+    retryLabel: language === 'ru' ? 'Повторить' : 'Retry',
     reportLabel:
-      language === 'ko' ? 'Сообщить об ошибке' : 'Report this issue',
+      language === 'ru' ? 'Сообщить об ошибке' : 'Report this issue',
     reportHref: buildErrorReportHref({
       kind,
       language,
@@ -1102,8 +1102,8 @@ function buildChatErrorNotice(
   };
 }
 
-function getChatErrorCopy(language: 'ko' | 'en') {
-  if (language === 'ko') {
+function getChatErrorCopy(language: 'ru' | 'en') {
+  if (language === 'ru') {
     return {
       title: 'Попробуйте чуть позже.',
       message:
@@ -1123,7 +1123,7 @@ function buildErrorReportHref({
   language,
 }: {
   kind: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const subject = `[AskOosu] Chat error report: ${kind}`;
   const currentUrl =

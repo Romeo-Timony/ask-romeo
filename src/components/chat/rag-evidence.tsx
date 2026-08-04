@@ -50,7 +50,7 @@ type RagMetadata = {
   matchedFaqId?: string;
   renderSpecKey?: string;
   answerSource?: string;
-  language?: 'ko' | 'en';
+  language?: 'ru' | 'en';
   skippedGroq?: boolean;
   provider?: string;
   model?: string;
@@ -65,8 +65,8 @@ type RagMetadata = {
 type ProjectCardInfo = {
   id: string;
   title: string;
-  category: Record<'ko' | 'en', string>;
-  description: Record<'ko' | 'en', string>;
+  category: Record<'ru' | 'en', string>;
+  description: Record<'ru' | 'en', string>;
   tags: string[];
 };
 
@@ -99,33 +99,33 @@ const MAX_CLIENT_QUESTION_LENGTH = 1000;
 const MAX_CLIENT_REASON_LENGTH = 1000;
 const FEEDBACK_REASON_OPTIONS: {
   key: FeedbackReasonKey;
-  label: Record<'ko' | 'en', string>;
+  label: Record<'ru' | 'en', string>;
 }[] = [
   {
     key: 'incorrect',
     label: {
-      ko: 'Неточно',
+      ru: 'Неточно',
       en: 'Inaccurate',
     },
   },
   {
     key: 'missing_context',
     label: {
-      ko: 'Мало источников',
+      ru: 'Мало источников',
       en: 'Needs sources',
     },
   },
   {
     key: 'hard_to_follow',
     label: {
-      ko: 'Сложно понять',
+      ru: 'Сложно понять',
       en: 'Hard to follow',
     },
   },
   {
     key: 'too_long',
     label: {
-      ko: 'Слишком длинно',
+      ru: 'Слишком длинно',
       en: 'Too long',
     },
   },
@@ -161,11 +161,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'askoosu',
     title: 'AskOosu',
     category: {
-      ko: 'AI-портфолио',
+      ru: 'AI-портфолио',
       en: 'AI Portfolio',
     },
     description: {
-      ko: 'Диалоговое портфолио, объединяющее Notion Wiki, RAG-поиск и чат.',
+      ru: 'Диалоговое портфолио, объединяющее Notion Wiki, RAG-поиск и чат.',
       en: 'Notion Wiki, RAG search, and Groq chat are connected into a conversational portfolio.',
     },
     tags: ['Next.js', 'AI SDK', 'RAG'],
@@ -174,11 +174,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'instagram_clone',
     title: 'Instagram Clone',
     category: {
-      ko: 'Полнофункциональная SNS-платформа',
+      ru: 'Полнофункциональная SNS-платформа',
       en: 'Fullstack SNS',
     },
     description: {
-      ko: 'Полнофункциональный проект с лентой, подписками, комментариями, API и базой данных.',
+      ru: 'Полнофункциональный проект с лентой, подписками, комментариями, API и базой данных.',
       en: 'A fullstack practice project for feed, follow, comment, API, and database flows.',
     },
     tags: ['Spring Boot', 'React', 'PostgreSQL'],
@@ -187,11 +187,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'sticks_and_stones',
     title: 'Sticks & Stones',
     category: {
-      ko: 'Миграция рабочего сервиса',
+      ru: 'Миграция рабочего сервиса',
       en: 'Real Service Migration',
     },
     description: {
-      ko: 'Обновление и перенос рабочего сайта с WordPress на современный frontend TypeScript/Vite.',
+      ru: 'Обновление и перенос рабочего сайта с WordPress на современный frontend TypeScript/Vite.',
       en: 'A real homepage renewal and migration project from WordPress into a modern frontend stack.',
     },
     tags: ['TypeScript', 'Vite', 'Migration'],
@@ -200,11 +200,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'portfoli_oh',
     title: 'Portfoli-Oh!',
     category: {
-      ko: 'Frontend-портфолио',
+      ru: 'Frontend-портфолио',
       en: 'Frontend Portfolio',
     },
     description: {
-      ko: 'Интерактивное портфолио 2025 года с акцентом на motion, экспериментальный UI и сторителлинг.',
+      ru: 'Интерактивное портфолио 2025 года с акцентом на motion, экспериментальный UI и сторителлинг.',
       en: 'The 2025 interactive portfolio focused on motion, experimental UI, and storytelling.',
     },
     tags: ['HTML', 'CSS', 'JavaScript'],
@@ -213,11 +213,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'ez_air',
     title: 'EZ Air',
     category: {
-      ko: 'AI-поиск путешествий',
+      ru: 'AI-поиск путешествий',
       en: 'AI Travel Search',
     },
     description: {
-      ko: 'Проект о поиске авиабилетов на естественном языке и UX туристических сервисов.',
+      ru: 'Проект о поиске авиабилетов на естественном языке и UX туристических сервисов.',
       en: 'A project entity reserved for natural-language flight search and travel product evidence.',
     },
     tags: ['AI Search', 'Travel UX', 'API'],
@@ -226,11 +226,11 @@ const PROJECT_CARDS: Record<string, ProjectCardInfo> = {
     id: 'uncorked',
     title: 'Uncorked',
     category: {
-      ko: 'Концепция винного бара',
+      ru: 'Концепция винного бара',
       en: 'Wine Bar Concept',
     },
     description: {
-      ko: 'Проект о сервис-дизайне винного бара, позиционировании бренда и веб-представлении.',
+      ru: 'Проект о сервис-дизайне винного бара, позиционировании бренда и веб-представлении.',
       en: 'A project entity for wine-bar service design, brand direction, and polished web presence.',
     },
     tags: ['Figma', 'Brand UX', 'Website'],
@@ -299,142 +299,142 @@ const SOURCE_WORD_LABELS: Record<string, string> = {
   oosu: 'Oosu',
 };
 
-const SOURCE_CHUNK_LABELS: Record<string, Record<'ko' | 'en', string>> = {
-  'profile.basic_info': { ko: 'Базовая информация профиля', en: 'Profile basics' },
-  'profile.summary': { ko: 'Краткое описание профиля', en: 'Profile summary' },
-  'profile.career': { ko: 'Карьерный контекст', en: 'Career context' },
-  'profile.current_focus': { ko: 'Текущий фокус', en: 'Current focus' },
+const SOURCE_CHUNK_LABELS: Record<string, Record<'ru' | 'en', string>> = {
+  'profile.basic_info': { ru: 'Базовая информация профиля', en: 'Profile basics' },
+  'profile.summary': { ru: 'Краткое описание профиля', en: 'Profile summary' },
+  'profile.career': { ru: 'Карьерный контекст', en: 'Career context' },
+  'profile.current_focus': { ru: 'Текущий фокус', en: 'Current focus' },
   'profile.business_to_dev': {
-    ko: 'Путь от бизнеса к разработке',
+    ru: 'Путь от бизнеса к разработке',
     en: 'Business-to-development path',
   },
-  'profile.contact': { ko: 'Публичные контакты', en: 'Public contact channels' },
+  'profile.contact': { ru: 'Публичные контакты', en: 'Public contact channels' },
   'profile.qa_summary': {
-    ko: 'Профиль Senior QA',
+    ru: 'Профиль Senior QA',
     en: 'Senior QA profile',
   },
   'profile.qa_specialization': {
-    ko: 'Специализация и стек',
+    ru: 'Специализация и стек',
     en: 'Specialization and stack',
   },
   'profile.collaboration': {
-    ko: 'Форматы сотрудничества',
+    ru: 'Форматы сотрудничества',
     en: 'Collaboration formats',
   },
   'profile.contact_channels': {
-    ko: 'Каналы связи',
+    ru: 'Каналы связи',
     en: 'Contact channels',
   },
   'profile.faq.contact': {
-    ko: 'FAQ по контактам и сотрудничеству',
+    ru: 'FAQ по контактам и сотрудничеству',
     en: 'Contact and collaboration FAQ',
   },
   'profile.links.resume_policy': {
-    ko: 'Политика публикации резюме',
+    ru: 'Политика публикации резюме',
     en: 'Resume sharing policy',
   },
   'project.askoosu.overview': {
-    ko: 'Обзор проекта Ask Romeo',
+    ru: 'Обзор проекта Ask Romeo',
     en: 'Ask Romeo project overview',
   },
   'project.askoosu.story': {
-    ko: 'История создания Ask Romeo',
+    ru: 'История создания Ask Romeo',
     en: 'Ask Romeo build story',
   },
   'project.sminex_comfort.overview': {
-    ko: 'Обзор проекта Sminex Comfort',
+    ru: 'Обзор проекта Sminex Comfort',
     en: 'Sminex Comfort project overview',
   },
   'project.elme_messer.overview': {
-    ko: 'Обзор проекта Elme Messer',
+    ru: 'Обзор проекта Elme Messer',
     en: 'Elme Messer project overview',
   },
   'project.dpd.overview': {
-    ko: 'Обзор проекта DPD',
+    ru: 'Обзор проекта DPD',
     en: 'DPD project overview',
   },
   'project.instagram_clone.overview': {
-    ko: 'Обзор проекта Aigram/SNS',
+    ru: 'Обзор проекта Aigram/SNS',
     en: 'Aigram/SNS project overview',
   },
   'project.sticks_and_stones.overview': {
-    ko: 'Ребилд Sticks & Stones',
+    ru: 'Ребилд Sticks & Stones',
     en: 'Sticks & Stones rebuild',
   },
   'project.portfolioh': {
-    ko: 'Эксперименты Portfoli-Oh!',
+    ru: 'Эксперименты Portfoli-Oh!',
     en: 'Portfoli-Oh! interaction work',
   },
   'project.portfolio_oh.story': {
-    ko: 'История Portfoli-Oh!',
+    ru: 'История Portfoli-Oh!',
     en: 'Portfoli-Oh! story',
   },
-  'project.onjung': { ko: 'Мобильное приложение Onjung', en: 'Onjung mobile app' },
+  'project.onjung': { ru: 'Мобильное приложение Onjung', en: 'Onjung mobile app' },
   'project.nomad_market': {
-    ko: 'Мобильное приложение Nomad Market',
+    ru: 'Мобильное приложение Nomad Market',
     en: 'Nomad Market mobile app',
   },
   'project.webtoon_translate': {
-    ko: 'Пайплайн Webtoon AI Translate',
+    ru: 'Пайплайн Webtoon AI Translate',
     en: 'Webtoon AI Translate pipeline',
   },
   'project.links.public': {
-    ko: 'Публичные ссылки на проекты',
+    ru: 'Публичные ссылки на проекты',
     en: 'Public project links',
   },
   'skills.current_stack': {
-    ko: 'Текущий ключевой стек',
+    ru: 'Текущий ключевой стек',
     en: 'Current core stack',
   },
   'skills.qa_processes': {
-    ko: 'QA-процессы и стратегия',
+    ru: 'QA-процессы и стратегия',
     en: 'QA processes and strategy',
   },
   'skills.requirements_shift_left': {
-    ko: 'Требования и Shift-Left',
+    ru: 'Требования и Shift-Left',
     en: 'Requirements and Shift-Left',
   },
   'skills.api_integrations': {
-    ko: 'API и интеграции',
+    ru: 'API и интеграции',
     en: 'API and integrations',
   },
   'skills.web_mobile_qa': {
-    ko: 'Web и Mobile QA',
+    ru: 'Web и Mobile QA',
     en: 'Web and Mobile QA',
   },
   'skills.regression_documentation': {
-    ko: 'Регресс и тестовая документация',
+    ru: 'Регресс и тестовая документация',
     en: 'Regression and test documentation',
   },
   'skills.ai_qa_automation': {
-    ko: 'AI и автоматизация QA',
+    ru: 'AI и автоматизация QA',
     en: 'AI and QA automation',
   },
   'career.oosu_salon': {
-    ko: 'Опыт операционного управления',
+    ru: 'Опыт операционного управления',
     en: 'OOSU SALON operating experience',
   },
   'profile.public_interests': {
-    ko: 'Публичные рабочие интересы',
+    ru: 'Публичные рабочие интересы',
     en: 'Public work-adjacent interests',
   },
   'profile.strengths': {
-    ko: 'Сильные стороны и подход к работе',
+    ru: 'Сильные стороны и подход к работе',
     en: 'Working strengths',
   },
   'policy.live_url': {
-    ko: 'Политика публичных ссылок',
+    ru: 'Политика публичных ссылок',
     en: 'Public URL policy',
   },
 };
 
-const SOURCE_CHUNK_CONTEXTS: Record<string, Record<'ko' | 'en', string>> = {
+const SOURCE_CHUNK_CONTEXTS: Record<string, Record<'ru' | 'en', string>> = {
   'faq.project.top_three.default': {
-    ko: 'Ответ по ключевым проектам',
+    ru: 'Ответ по ключевым проектам',
     en: 'Representative projects answer',
   },
   'faq.skills.tech_stack.default': {
-    ko: 'Ответ по стеку технологий',
+    ru: 'Ответ по стеку технологий',
     en: 'Tech stack answer',
   },
 };
@@ -524,7 +524,7 @@ export function RagEvidencePanel({
     <section
       className="mt-5 space-y-3 border-t pt-4"
       aria-label={
-        displayLanguage === 'ko'
+        displayLanguage === 'ru'
           ? 'Источники ответа портфолио'
           : 'Portfolio answer evidence'
       }
@@ -573,7 +573,7 @@ export function RagEvidencePanel({
             className="rounded-lg border-amber-300 bg-amber-50 px-2.5 py-1 text-amber-800 dark:border-amber-700/70 dark:bg-amber-950/30 dark:text-amber-200"
           >
             <AlertTriangle className="h-3.5 w-3.5" />
-            {displayLanguage === 'ko'
+            {displayLanguage === 'ru'
               ? 'Часть информации уточняется'
               : 'Needs confirmation'}
           </Badge>
@@ -585,7 +585,7 @@ export function RagEvidencePanel({
             className="rounded-lg border-rose-300 bg-rose-50 px-2.5 py-1 text-rose-800 dark:border-rose-700/70 dark:bg-rose-950/30 dark:text-rose-200"
           >
             <ShieldAlert className="h-3.5 w-3.5" />
-            {displayLanguage === 'ko' ? 'Нужна проверка' : 'needs review'}
+            {displayLanguage === 'ru' ? 'Нужна проверка' : 'needs review'}
           </Badge>
         )}
 
@@ -728,7 +728,7 @@ export function RagEvidencePanel({
 
       {!isDebugMode && hasTodoEvidence && (
         <p className="text-muted-foreground text-xs">
-          {displayLanguage === 'ko'
+          {displayLanguage === 'ru'
             ? 'Часть информации ещё обновляется.'
             : 'Some details are still being updated.'}
         </p>
@@ -750,7 +750,7 @@ export function RagEvidencePanel({
             className="text-muted-foreground hover:text-foreground h-8 rounded-lg px-2 text-xs"
             onClick={() => setIsFeedbackOpen((current) => !current)}
           >
-            {displayLanguage === 'ko'
+            {displayLanguage === 'ru'
               ? 'Предложить улучшение'
               : 'Suggest an improvement'}
             {isFeedbackOpen ? (
@@ -770,7 +770,7 @@ export function RagEvidencePanel({
                 variant={feedbackRating === 'up' ? 'secondary' : 'outline'}
                 aria-pressed={feedbackRating === 'up'}
                 aria-label={
-                  displayLanguage === 'ko'
+                  displayLanguage === 'ru'
                     ? 'Отметить ответ как полезный'
                     : 'Mark this answer as helpful'
                 }
@@ -790,7 +790,7 @@ export function RagEvidencePanel({
                 }}
               >
                 <ThumbsUp className="h-4 w-4" />
-                {displayLanguage === 'ko' ? 'Полезно' : 'Helpful'}
+                {displayLanguage === 'ru' ? 'Полезно' : 'Helpful'}
               </Button>
               <Button
                 type="button"
@@ -798,7 +798,7 @@ export function RagEvidencePanel({
                 variant={feedbackRating === 'down' ? 'secondary' : 'outline'}
                 aria-pressed={feedbackRating === 'down'}
                 aria-label={
-                  displayLanguage === 'ko'
+                  displayLanguage === 'ru'
                     ? 'Отметить ответ как недостаточно полезный'
                     : 'Mark this answer as not quite right'
                 }
@@ -818,7 +818,7 @@ export function RagEvidencePanel({
                 }}
               >
                 <ThumbsDown className="h-4 w-4" />
-                {displayLanguage === 'ko' ? 'Не очень' : 'Not quite'}
+                {displayLanguage === 'ru' ? 'Не очень' : 'Not quite'}
               </Button>
             </div>
 
@@ -860,7 +860,7 @@ export function RagEvidencePanel({
                   className="text-muted-foreground text-xs"
                   htmlFor={feedbackReasonId}
                 >
-                  {displayLanguage === 'ko' ? 'Доп. комментарий' : 'Optional note'}
+                  {displayLanguage === 'ru' ? 'Доп. комментарий' : 'Optional note'}
                 </label>
                 <textarea
                   id={feedbackReasonId}
@@ -868,7 +868,7 @@ export function RagEvidencePanel({
                   maxLength={MAX_CLIENT_REASON_LENGTH}
                   onChange={(event) => setFeedbackReason(event.target.value)}
                   placeholder={
-                    displayLanguage === 'ko'
+                    displayLanguage === 'ru'
                       ? 'Чего не хватило или что было неточно?'
                       : 'What felt missing or inaccurate?'
                   }
@@ -888,7 +888,7 @@ export function RagEvidencePanel({
                       setIsFeedbackOpen(false);
                     }}
                   >
-                    {displayLanguage === 'ko' ? 'Отмена' : 'Cancel'}
+                    {displayLanguage === 'ru' ? 'Отмена' : 'Cancel'}
                   </Button>
                   <Button
                     type="button"
@@ -911,7 +911,7 @@ export function RagEvidencePanel({
                     }}
                   >
                     <Send className="h-4 w-4" />
-                    {displayLanguage === 'ko' ? 'Сохранить отзыв' : 'Save feedback'}
+                    {displayLanguage === 'ru' ? 'Сохранить отзыв' : 'Save feedback'}
                   </Button>
                 </div>
               </div>
@@ -1042,7 +1042,7 @@ function SourceEvidenceCard({
   debug,
 }: {
   sourceItem: DisplaySourceItem;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   debug: boolean;
 }) {
   const { source, title: sourceTitle, sectionPath, count } = sourceItem;
@@ -1064,7 +1064,7 @@ function SourceEvidenceCard({
         </div>
         {count > 1 && !debug && (
           <span className="bg-muted text-muted-foreground shrink-0 rounded-md border px-1.5 py-0.5 text-[10px]">
-            {language === 'ko' ? `×${count}` : `x${count}`}
+            {language === 'ru' ? `×${count}` : `x${count}`}
           </span>
         )}
       </div>
@@ -1094,7 +1094,7 @@ function buildDisplaySourceItems({
   debug,
 }: {
   sources: RagSource[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   debug: boolean;
 }): DisplaySourceItem[] {
   if (debug) {
@@ -1209,15 +1209,15 @@ async function submitFeedback({
 function getFeedbackStatusText(
   state: FeedbackState,
   rating: FeedbackRating | null,
-  language: 'ko' | 'en'
+  language: 'ru' | 'en'
 ) {
   if (state === 'saved') {
-    return language === 'ko'
+    return language === 'ru'
       ? 'Спасибо за отзыв.'
       : 'Thanks for the feedback.';
   }
 
-  if (language === 'ko') {
+  if (language === 'ru') {
     if (state === 'saving') return 'Сохраняем отзыв...';
     if (state === 'error') return 'Не удалось сохранить отзыв.';
     if (state === 'editing-down') return 'Что стоит улучшить?';
@@ -1243,7 +1243,7 @@ function buildDownFeedbackReason({
 }: {
   reasonKeys: FeedbackReasonKey[];
   note: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const reasonLabels = reasonKeys
     .map((reasonKey) => {
@@ -1289,8 +1289,8 @@ function parseRagMetadata(value: unknown): RagMetadata | null {
     language:
       value.language === 'en'
         ? 'en'
-        : value.language === 'ko'
-          ? 'ko'
+        : value.language === 'ru'
+          ? 'ru'
           : undefined,
     skippedGroq: value.skippedGroq === true,
     provider: parseString(value.provider) ?? undefined,
@@ -1371,10 +1371,10 @@ function normalizeProjectEntityId(entityId: string) {
   return PROJECT_ENTITY_ALIASES[normalized];
 }
 
-function getConfidenceTone(confidence: number, language: 'ko' | 'en') {
+function getConfidenceTone(confidence: number, language: 'ru' | 'en') {
   if (confidence >= 0.78) {
     return {
-      label: language === 'ko' ? 'Хорошо обосновано' : 'Well grounded',
+      label: language === 'ru' ? 'Хорошо обосновано' : 'Well grounded',
       className:
         'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-700/70 dark:bg-emerald-950/30 dark:text-emerald-200',
     };
@@ -1382,66 +1382,66 @@ function getConfidenceTone(confidence: number, language: 'ko' | 'en') {
 
   if (confidence >= 0.5) {
     return {
-      label: language === 'ko' ? 'Частично обосновано' : 'Partially grounded',
+      label: language === 'ru' ? 'Частично обосновано' : 'Partially grounded',
       className:
         'border-blue-300 bg-blue-50 text-blue-800 dark:border-blue-700/70 dark:bg-blue-950/30 dark:text-blue-200',
     };
   }
 
   return {
-    label: language === 'ko' ? 'Мало доказательств' : 'Limited evidence',
+    label: language === 'ru' ? 'Мало доказательств' : 'Limited evidence',
     className:
       'border-zinc-300 bg-zinc-50 text-zinc-800 dark:border-zinc-700/70 dark:bg-zinc-900/40 dark:text-zinc-200',
   };
 }
 
-function getAnswerSourceLabel(metadata: RagMetadata, language: 'ko' | 'en') {
-  const labels: Record<string, Record<'ko' | 'en', string>> = {
-    faq_cache: { ko: 'Ответ портфолио', en: 'Portfolio answer' },
+function getAnswerSourceLabel(metadata: RagMetadata, language: 'ru' | 'en') {
+  const labels: Record<string, Record<'ru' | 'en', string>> = {
+    faq_cache: { ru: 'Ответ портфолио', en: 'Portfolio answer' },
     philosophy_docs: {
-      ko: 'Visionary Builder Docs',
+      ru: 'Visionary Builder Docs',
       en: 'Visionary Builder Docs',
     },
     faq_rewrite: {
-      ko: 'Ответ портфолио',
+      ru: 'Ответ портфолио',
       en: 'Portfolio answer',
     },
     answer_cache: {
-      ko: 'Кэшированный ответ портфолио',
+      ru: 'Кэшированный ответ портфолио',
       en: 'Cached portfolio answer',
     },
-    deterministic_rule: { ko: 'Политика портфолио', en: 'Portfolio policy' },
-    smalltalk: { ko: 'Лёгкий разговор', en: 'Small talk' },
+    deterministic_rule: { ru: 'Политика портфолио', en: 'Portfolio policy' },
+    smalltalk: { ru: 'Лёгкий разговор', en: 'Small talk' },
     off_topic_redirect: {
-      ko: 'Возврат к портфолио',
+      ru: 'Возврат к портфолио',
       en: 'Portfolio redirect',
     },
-    clarify: { ko: 'Уточнение вопроса', en: 'Clarifying question' },
+    clarify: { ru: 'Уточнение вопроса', en: 'Clarifying question' },
     private_guardrail: {
-      ko: 'Публичная безопасность',
+      ru: 'Публичная безопасность',
       en: 'Public safety notice',
     },
     prompt_guardrail: {
-      ko: 'Защита внутренних данных',
+      ru: 'Защита внутренних данных',
       en: 'Internal safety notice',
     },
     rag_generation: {
-      ko: 'На основе данных портфолио',
+      ru: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
-    rag_groq: { ko: 'На основе данных портфолио', en: 'Based on portfolio data' },
+    rag_groq: { ru: 'На основе данных портфолио', en: 'Based on portfolio data' },
     rag_google: {
-      ko: 'На основе данных портфолио',
+      ru: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
     rag_openai: {
-      ko: 'На основе данных портфолио',
+      ru: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
-    rag_xai: { ko: 'На основе данных портфолио', en: 'Based on portfolio data' },
-    fallback: { ko: 'Базовый ответ портфолио', en: 'Basic portfolio answer' },
+    rag_xai: { ru: 'На основе данных портфолио', en: 'Based on portfolio data' },
+    fallback: { ru: 'Базовый ответ портфолио', en: 'Basic portfolio answer' },
     insufficient_evidence: {
-      ko: 'Недостаточно источников',
+      ru: 'Недостаточно источников',
       en: 'Insufficient evidence',
     },
   };
@@ -1452,21 +1452,21 @@ function getAnswerSourceLabel(metadata: RagMetadata, language: 'ko' | 'en') {
 
 function getPublicSourceBadgeText(
   count: number,
-  language: 'ko' | 'en',
+  language: 'ru' | 'en',
   answerSource?: string
 ) {
   if (count === 0) {
-    return language === 'ko' ? 'Мало доказательств' : 'Limited evidence';
+    return language === 'ru' ? 'Мало доказательств' : 'Limited evidence';
   }
 
   if (answerSource === 'philosophy_docs') {
-    if (language === 'ko') {
+    if (language === 'ru') {
       return `Visionary Builder Docs · ${count} источников`;
     }
     return `Visionary Builder Docs · ${count} source${count === 1 ? '' : 's'}`;
   }
 
-  if (language === 'ko') return `Из Wiki Romeo · ${count} источников`;
+  if (language === 'ru') return `Из Wiki Romeo · ${count} источников`;
   return `From Romeo Wiki · ${count} source${count === 1 ? '' : 's'}`;
 }
 
@@ -1478,41 +1478,41 @@ function getRemainingSourcesButtonLabel({
 }: {
   count: number;
   expanded: boolean;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   debug: boolean;
 }) {
   if (debug) {
-    if (language === 'ko') return expanded ? 'Свернуть' : `Ещё +${count}`;
+    if (language === 'ru') return expanded ? 'Свернуть' : `Ещё +${count}`;
     return expanded ? 'Collapse' : `+${count} more`;
   }
 
   if (expanded) {
-    return language === 'ko' ? 'Скрыть источники' : 'Hide sources';
+    return language === 'ru' ? 'Скрыть источники' : 'Hide sources';
   }
 
-  return language === 'ko' ? 'Показать источники' : 'View sources';
+  return language === 'ru' ? 'Показать источники' : 'View sources';
 }
 
-function formatWarningCount(count: number, language: 'ko' | 'en') {
-  if (language === 'ko') return `Предупреждений: ${count}`;
+function formatWarningCount(count: number, language: 'ru' | 'en') {
+  if (language === 'ru') return `Предупреждений: ${count}`;
   return `${count} warning${count === 1 ? '' : 's'}`;
 }
 
-function formatEntityLabel(entityId: string, language: 'ko' | 'en') {
+function formatEntityLabel(entityId: string, language: 'ru' | 'en') {
   const projectId = normalizeProjectEntityId(entityId);
   if (projectId) return PROJECT_CARDS[projectId].title;
 
-  const labels: Record<string, Record<'ko' | 'en', string>> = {
-    'profile.identity': { ko: 'Профиль', en: 'Profile' },
-    'profile.career': { ko: 'Карьера', en: 'Career' },
-    'career.oosu_salon': { ko: 'Операционный опыт', en: 'Oosu Salon' },
-    'policy.guardrail': { ko: 'Политика ответов', en: 'Answer policy' },
+  const labels: Record<string, Record<'ru' | 'en', string>> = {
+    'profile.identity': { ru: 'Профиль', en: 'Profile' },
+    'profile.career': { ru: 'Карьера', en: 'Career' },
+    'career.oosu_salon': { ru: 'Операционный опыт', en: 'Oosu Salon' },
+    'policy.guardrail': { ru: 'Политика ответов', en: 'Answer policy' },
   };
 
   return labels[entityId]?.[language] ?? entityId;
 }
 
-function formatPublicSourceTitle(source: RagSource, language: 'ko' | 'en') {
+function formatPublicSourceTitle(source: RagSource, language: 'ru' | 'en') {
   const chunkLabel = formatPublicChunkLabel(source.chunk_id, language);
   if (chunkLabel) return chunkLabel;
 
@@ -1533,10 +1533,10 @@ function formatPublicSourceTitle(source: RagSource, language: 'ko' | 'en') {
     return humanizeSourcePathSegment(source.title);
   }
 
-  return language === 'ko' ? 'Wiki Romeo' : 'Romeo Wiki';
+  return language === 'ru' ? 'Wiki Romeo' : 'Romeo Wiki';
 }
 
-function formatSectionPathLabel(source: RagSource, language: 'ko' | 'en') {
+function formatSectionPathLabel(source: RagSource, language: 'ru' | 'en') {
   const chunkContext = formatPublicChunkContext(source.chunk_id, language);
   if (chunkContext) return chunkContext;
 
@@ -1549,15 +1549,15 @@ function formatSectionPathLabel(source: RagSource, language: 'ko' | 'en') {
   const label = path.map(humanizeSourcePathSegment).filter(Boolean).join(' > ');
 
   if (label) return label;
-  return language === 'ko' ? 'Wiki Romeo' : 'Romeo Wiki';
+  return language === 'ru' ? 'Wiki Romeo' : 'Romeo Wiki';
 }
 
-function formatPublicChunkLabel(chunkId: string, language: 'ko' | 'en') {
+function formatPublicChunkLabel(chunkId: string, language: 'ru' | 'en') {
   const exactLabel = SOURCE_CHUNK_LABELS[chunkId]?.[language];
   if (exactLabel) return exactLabel;
 
   if (chunkId.startsWith('faq.')) {
-    return language === 'ko' ? 'Источник FAQ' : 'FAQ answer source';
+    return language === 'ru' ? 'Источник FAQ' : 'FAQ answer source';
   }
 
   if (chunkId.startsWith('project.')) {
@@ -1565,38 +1565,38 @@ function formatPublicChunkLabel(chunkId: string, language: 'ko' | 'en') {
   }
 
   if (chunkId.startsWith('profile.')) {
-    return language === 'ko' ? 'Запись Wiki профиля' : 'Profile Wiki entry';
+    return language === 'ru' ? 'Запись Wiki профиля' : 'Profile Wiki entry';
   }
 
   if (chunkId.startsWith('skills.')) {
-    return language === 'ko' ? 'Запись Wiki навыков' : 'Skills Wiki entry';
+    return language === 'ru' ? 'Запись Wiki навыков' : 'Skills Wiki entry';
   }
 
   if (chunkId.startsWith('career.')) {
-    return language === 'ko' ? 'Запись Wiki карьеры' : 'Career Wiki entry';
+    return language === 'ru' ? 'Запись Wiki карьеры' : 'Career Wiki entry';
   }
 
   return null;
 }
 
-function formatPublicChunkContext(chunkId: string, language: 'ko' | 'en') {
+function formatPublicChunkContext(chunkId: string, language: 'ru' | 'en') {
   const exactContext = SOURCE_CHUNK_CONTEXTS[chunkId]?.[language];
   if (exactContext) return exactContext;
 
   if (chunkId.startsWith('project.')) {
-    return language === 'ko' ? 'Wiki проектов' : 'Project Wiki';
+    return language === 'ru' ? 'Wiki проектов' : 'Project Wiki';
   }
 
   if (chunkId.startsWith('profile.')) {
-    return language === 'ko' ? 'Wiki профиля' : 'Profile Wiki';
+    return language === 'ru' ? 'Wiki профиля' : 'Profile Wiki';
   }
 
   if (chunkId.startsWith('skills.')) {
-    return language === 'ko' ? 'Wiki навыков' : 'Skills Wiki';
+    return language === 'ru' ? 'Wiki навыков' : 'Skills Wiki';
   }
 
   if (chunkId.startsWith('career.')) {
-    return language === 'ko' ? 'Wiki карьеры' : 'Career Wiki';
+    return language === 'ru' ? 'Wiki карьеры' : 'Career Wiki';
   }
 
   return null;

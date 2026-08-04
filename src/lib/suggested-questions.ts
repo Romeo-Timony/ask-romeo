@@ -1,5 +1,5 @@
 import { questionSurfacesEn } from '@/data/question-surfaces.en';
-import { questionSurfacesKo } from '@/data/question-surfaces.ko';
+import { questionSurfacesRu } from '@/data/question-surfaces.ru';
 import {
   sortQuestionTriggers,
   type AnswerVariant,
@@ -10,7 +10,7 @@ import type { DisplayLanguage } from '@/lib/preferences';
 
 export const suggestedQuestionIds = [
   ...new Set(
-    [...questionSurfacesKo, ...questionSurfacesEn].map((question) => question.id)
+    [...questionSurfacesRu, ...questionSurfacesEn].map((question) => question.id)
   ),
 ];
 
@@ -35,7 +35,7 @@ const legacySuggestedQuestionIds: Record<string, string> = {
 };
 
 const questionSurfaces: Record<DisplayLanguage, QuestionTrigger[]> = {
-  ko: questionSurfacesKo,
+  ru: questionSurfacesRu,
   en: questionSurfacesEn,
 };
 
@@ -101,7 +101,7 @@ export function getSuggestedQuestionMeta(
   const normalizedId = legacySuggestedQuestionIds[id.trim()] ?? id.trim();
   if (!normalizedId) return null;
 
-  const languages = language ? [language] : (['ko', 'en'] as const);
+  const languages = language ? [language] : (['ru', 'en'] as const);
 
   for (const displayLanguage of languages) {
     const question = questionSurfaces[displayLanguage].find(
@@ -137,7 +137,7 @@ export function getRelatedSuggestedQuestionIds(id: string | null | undefined) {
   if (!question) return id ? [id] : [];
 
   const relatedIds = new Set<string>([question.id]);
-  for (const surfaceQuestion of [...questionSurfacesKo, ...questionSurfacesEn]) {
+  for (const surfaceQuestion of [...questionSurfacesRu, ...questionSurfacesEn]) {
     if (surfaceQuestion.faqId === question.faqId) {
       relatedIds.add(surfaceQuestion.id);
     }
@@ -149,7 +149,7 @@ export function getRelatedSuggestedQuestionIds(id: string | null | undefined) {
 export function findSuggestedQuestionId(query: string) {
   const normalizedQuery = normalizeQuestion(query);
 
-  for (const language of ['ko', 'en'] as const) {
+  for (const language of ['ru', 'en'] as const) {
     const match = questionSurfaces[language].find((question) => {
       const candidates = [
         question.id,

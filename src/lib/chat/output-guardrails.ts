@@ -16,7 +16,7 @@ export function detectPromptLeakage(answer: string) {
 }
 
 export function buildInsufficientEvidenceAnswer(language: ChatLanguage) {
-  if (language === 'ko') {
+  if (language === 'ru') {
     return [
       'В Wiki недостаточно подтверждённых данных для уверенного ответа на этот вопрос.',
       '',

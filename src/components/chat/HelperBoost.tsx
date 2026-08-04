@@ -178,10 +178,10 @@ export default function HelperBoost({
                   }`}
                   aria-label={
                     isAsked
-                      ? language === 'ko'
+                      ? language === 'ru'
                         ? `Уже спрашивали: ${question.displayQuestion}`
                         : `Already asked starter question: ${question.displayQuestion}`
-                      : language === 'ko'
+                      : language === 'ru'
                         ? `Задать вопрос: ${question.displayQuestion}`
                         : `Ask starter question: ${question.displayQuestion}`
                   }
@@ -220,10 +220,10 @@ export default function HelperBoost({
           aria-expanded={isVisible}
           aria-label={
             isVisible
-              ? language === 'ko'
+              ? language === 'ru'
                 ? 'Скрыть быстрые вопросы'
                 : 'Hide starter questions'
-              : language === 'ko'
+              : language === 'ru'
                 ? 'Показать быстрые вопросы'
                 : 'Show starter questions'
           }

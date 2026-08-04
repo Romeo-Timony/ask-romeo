@@ -21,7 +21,7 @@ export function useDisplayPreferences() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [systemTheme, setSystemTheme] = useState<DisplayTheme>('light');
-  const [browserLanguage, setBrowserLanguage] = useState<DisplayLanguage>('ko');
+  const [browserLanguage, setBrowserLanguage] = useState<DisplayLanguage>('ru');
   const [storedPreferences, setStoredPreferences] = useState<PreferenceTokens>(
     {}
   );
@@ -56,7 +56,7 @@ export function useDisplayPreferences() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     document.documentElement.dataset.theme = theme;
-    document.documentElement.lang = language === 'ko' ? 'ru' : 'en';
+    document.documentElement.lang = language === 'ru' ? 'ru' : 'en';
   }, [theme, language]);
 
   // Canonical public URL uses lang=rus / lang=eng.

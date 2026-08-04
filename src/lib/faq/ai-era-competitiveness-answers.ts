@@ -27,7 +27,7 @@ export const AI_ERA_COMPETITIVENESS_FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['faq.ai_competitiveness.irreplaceable_work.default'],
     intentId: 'ai_era.replace_developer',
     entityId: 'ai_era_competitiveness',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'AI 시대 경쟁력',
     displayQuestion:
       'AI가 개발자를 대체할 것 같은데, 우수는 어떻게 생각하나요?',
@@ -93,7 +93,7 @@ export const AI_ERA_COMPETITIVENESS_FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.ai_era.skill_atrophy.default',
     intentId: 'ai_era.skill_atrophy',
     entityId: 'ai_era_competitiveness',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'AI와 실력',
     displayQuestion: 'AI 도구를 많이 쓰면 실력이 안 늘지 않나요?',
     alternativeDisplayQuestions: [
@@ -143,7 +143,7 @@ export const AI_ERA_COMPETITIVENESS_FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['faq.ai_competitiveness.real_competitor.default'],
     intentId: 'ai_era.competitiveness_source',
     entityId: 'ai_era_competitiveness',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '경쟁력',
     displayQuestion: '우수의 경쟁력은 AI 시대에 어디서 온다고 생각하나요?',
     alternativeDisplayQuestions: [
@@ -203,7 +203,7 @@ export const AI_ERA_COMPETITIVENESS_FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.ai_competitiveness.ai_fluency_vs_dependency.default',
     intentId: 'ai_competitiveness.ai_fluency_vs_dependency',
     entityId: 'ai_era_competitiveness',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'AI fluency',
     displayQuestion: 'AI를 잘 쓰는 것과 AI에 의존하는 것은 어떻게 다른가요?',
     patterns: [

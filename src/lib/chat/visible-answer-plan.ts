@@ -3,21 +3,21 @@ import type { ChatLanguage } from '@/lib/i18n/detect-language';
 const MAX_VISIBLE_STEPS = 3;
 
 type TopicRule = {
-  ko: string;
+  ru: string;
   en: string;
   pattern: RegExp;
 };
 
 const TOPIC_RULES: TopicRule[] = [
-  { ko: 'Проверяю IDE и рабочее окружение', en: 'Review IDE and workspace', pattern: /(vscode|intellij|ide|workspace|battery|sleep|window|редактор|окно|сон|энергосбережение)/i },
-  { ko: 'Проверяю сервер и Docker', en: 'Review server and Docker', pattern: /(localserver|localhost|docker|server|gui|compose|container|сервер|докер|контейнер)/i },
-  { ko: 'Анализирую использование памяти', en: 'Interpret memory usage', pattern: /(memory|ram|gb|pressure|swap|память|оперативная)/i },
-  { ko: 'Сверяю данные по проектам', en: 'Check project evidence', pattern: /(project|portfolio|askoosu|ask romeo|aigram|instagram|проект|портфолио)/i },
-  { ko: 'Уточняю роль AI в процессе', en: 'Clarify the AI workflow', pattern: /(ai|claude|codex|gemini|agent|workflow|искусственный интеллект|агент|процесс)/i },
-  { ko: 'Проверяю контекст команды', en: 'Check collaboration context', pattern: /(collaboration|teamwork|team fit|work in a team|команда|сотрудничество)/i },
-  { ko: 'Уточняю профессиональную роль', en: 'Frame role positioning', pattern: /(pm|po|product owner|developer|role|position|разработчик|роль|позиция)/i },
-  { ko: 'Проверяю удобный канал связи', en: 'Check contact path', pattern: /(contact|email|github|linkedin|контакт|почта|связь)/i },
-  { ko: 'Уточняю риски и ограничения', en: 'Calibrate risks and constraints', pattern: /(risk|concern|dependent|solo|weak|риск|сомнение|ограничение)/i },
+  { ru: 'Проверяю IDE и рабочее окружение', en: 'Review IDE and workspace', pattern: /(vscode|intellij|ide|workspace|battery|sleep|window|редактор|окно|сон|энергосбережение)/i },
+  { ru: 'Проверяю сервер и Docker', en: 'Review server and Docker', pattern: /(localserver|localhost|docker|server|gui|compose|container|сервер|докер|контейнер)/i },
+  { ru: 'Анализирую использование памяти', en: 'Interpret memory usage', pattern: /(memory|ram|gb|pressure|swap|память|оперативная)/i },
+  { ru: 'Сверяю данные по проектам', en: 'Check project evidence', pattern: /(project|portfolio|askoosu|ask romeo|aigram|instagram|проект|портфолио)/i },
+  { ru: 'Уточняю роль AI в процессе', en: 'Clarify the AI workflow', pattern: /(ai|claude|codex|gemini|agent|workflow|искусственный интеллект|агент|процесс)/i },
+  { ru: 'Проверяю контекст команды', en: 'Check collaboration context', pattern: /(collaboration|teamwork|team fit|work in a team|команда|сотрудничество)/i },
+  { ru: 'Уточняю профессиональную роль', en: 'Frame role positioning', pattern: /(pm|po|product owner|developer|role|position|разработчик|роль|позиция)/i },
+  { ru: 'Проверяю удобный канал связи', en: 'Check contact path', pattern: /(contact|email|github|linkedin|контакт|почта|связь)/i },
+  { ru: 'Уточняю риски и ограничения', en: 'Calibrate risks and constraints', pattern: /(risk|concern|dependent|solo|weak|риск|сомнение|ограничение)/i },
 ];
 
 export function buildVisibleAnswerPlan(question: string | null | undefined, language: ChatLanguage) {
@@ -37,16 +37,16 @@ function shouldSplitLongQuestion(question: string) {
 }
 
 function getQuestionSplitLabel(language: ChatLanguage, question: string) {
-  if (shouldSplitLongQuestion(question)) return language === 'ko' ? 'Разбиваю вопрос на 2–3 части' : 'Splitting the longer question into 2–3 points';
-  return language === 'ko' ? 'Уточняю смысл вопроса' : 'Checking the question intent';
+  if (shouldSplitLongQuestion(question)) return language === 'ru' ? 'Разбиваю вопрос на 2–3 части' : 'Splitting the longer question into 2–3 points';
+  return language === 'ru' ? 'Уточняю смысл вопроса' : 'Checking the question intent';
 }
 
 function getDefaultVisiblePlan(language: ChatLanguage) {
-  return language === 'ko' ? ['Уточняю запрос', 'Проверяю источники Wiki и FAQ', 'Собираю структурированный ответ'] : ['Check intent', 'Review Wiki/FAQ evidence', 'Shape the answer'];
+  return language === 'ru' ? ['Уточняю запрос', 'Проверяю источники Wiki и FAQ', 'Собираю структурированный ответ'] : ['Check intent', 'Review Wiki/FAQ evidence', 'Shape the answer'];
 }
 
 function getLongQuestionPlan(language: ChatLanguage) {
-  return language === 'ko' ? ['Разбиваю вопрос на 2–3 части', 'Проверяю источники для каждой части', 'Убираю повторы и структурирую ответ'] : ['Splitting the longer question into 2–3 points', 'Checking evidence for each point', 'Removing repeated answer blocks'];
+  return language === 'ru' ? ['Разбиваю вопрос на 2–3 части', 'Проверяю источники для каждой части', 'Убираю повторы и структурирую ответ'] : ['Splitting the longer question into 2–3 points', 'Checking evidence for each point', 'Removing repeated answer blocks'];
 }
 
 function uniqueValues(values: string[]) {

@@ -77,7 +77,7 @@ const faqItemsEn = [
 
 function AiCompetitivenessPageContentInner() {
   const { language } = useDisplayPreferences();
-  const isRu = language === 'ko';
+  const isRu = language === 'ru';
 
   if (isRu) {
     return (

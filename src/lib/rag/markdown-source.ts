@@ -7,7 +7,7 @@ import type { RagChunk, RagChunkMetadataValue } from './types';
 type LocalMarkdownDocument = {
   path: string;
   slug: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   author: 'claude' | 'gpt' | 'gemini';
   docId?: string;
   sourceType?: string;
@@ -26,7 +26,7 @@ type ParsedFrontmatter = Record<string, RagChunkMetadataValue>;
 type SecondBrainManifestEntry = {
   path: string;
   docId: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   sourceType: string;
 };
 
@@ -34,7 +34,7 @@ export type LocalMarkdownRagSyncResult = {
   documents: Array<{
     path: string;
     slug: string;
-    language: 'ko' | 'en';
+    language: 'ru' | 'en';
     title: string;
     sectionCount: number;
     chunkCount: number;
@@ -47,7 +47,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-claude.md',
     slug: 'notion-wiki-draft-v12-ko-add-claude',
-    language: 'ko',
+    language: 'ru',
     author: 'claude',
   },
   {
@@ -59,7 +59,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-recruiter-risk-gpt.md',
     slug: 'notion-wiki-draft-v12-ko-add-recruiter-risk-gpt',
-    language: 'ko',
+    language: 'ru',
     author: 'gpt',
   },
   {
@@ -71,7 +71,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-visionary-claude.md',
     slug: 'notion-wiki-draft-v12-ko-add-visionary-claude',
-    language: 'ko',
+    language: 'ru',
     author: 'claude',
   },
   {
@@ -83,7 +83,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-visionary-gpt.md',
     slug: 'notion-wiki-draft-v12-ko-add-visionary-gpt',
-    language: 'ko',
+    language: 'ru',
     author: 'gpt',
   },
   {
@@ -95,7 +95,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-visionary-gemini.md',
     slug: 'notion-wiki-draft-v12-ko-add-visionary-gemini',
-    language: 'ko',
+    language: 'ru',
     author: 'gemini',
   },
   {
@@ -107,7 +107,7 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
   {
     path: 'docs/askoosu-wiki-addon-v13-ko.md',
     slug: 'askoosu-wiki-addon-v13-ko',
-    language: 'ko',
+    language: 'ru',
     author: 'gpt',
     docId: 'faq.ai_competitiveness_addon.v13.ko',
     sourceType: 'faq_addon',
@@ -201,7 +201,7 @@ async function loadSecondBrainManifestDocuments(warnings: string[]) {
           entry &&
           typeof entry.path === 'string' &&
           typeof entry.docId === 'string' &&
-          (entry.language === 'ko' || entry.language === 'en') &&
+          (entry.language === 'ru' || entry.language === 'en') &&
           typeof entry.sourceType === 'string'
       )
       .map(

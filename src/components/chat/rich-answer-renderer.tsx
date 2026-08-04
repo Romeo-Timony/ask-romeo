@@ -77,7 +77,7 @@ type MediaRef = {
 };
 
 type RichPayload = {
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   badge?: string;
   todoBadge?: string;
   renderSpecKey?: string;
@@ -251,11 +251,11 @@ function renderPart({
       '> «Сильное сотрудничество начинается с ясности: какая задача стоит перед командой, какие риски критичны и что будет считаться качественным результатом.»',
     ].join('\n');
     const localizedContent = (
-      payload.language === 'ko' && hasCoreSkills
+      payload.language === 'ru' && hasCoreSkills
         ? localizedSkillContent
-        : payload.language === 'ko' && hasContactCard
+        : payload.language === 'ru' && hasContactCard
         ? localizedContactContent
-        : payload.language === 'ko' && hasLegacyMoreProjects
+        : payload.language === 'ru' && hasLegacyMoreProjects
         ? localizedProjectContent
         : (part.content ?? markdownContent)
     )
@@ -522,17 +522,17 @@ function sanitizeRichMarkdownContent(content: string) {
   );
 }
 
-function createAskRomeoProject(language: 'ko' | 'en'): ProjectItem {
+function createAskRomeoProject(language: 'ru' | 'en'): ProjectItem {
   return {
     id: 'ask_romeo',
     title: 'Ask Romeo',
     label: 'AI Portfolio',
     subtitle:
-      language === 'ko'
+      language === 'ru'
         ? 'AI-портфолио с диалоговым интерфейсом'
         : 'AI-connected conversational portfolio',
     description:
-      language === 'ko'
+      language === 'ru'
         ? 'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.'
         : 'An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo\'s projects and experience.',
     image: 'project.askoosu.cover',
@@ -541,18 +541,18 @@ function createAskRomeoProject(language: 'ko' | 'en'): ProjectItem {
   };
 }
 
-function createQaFeaturedProjects(language: 'ko' | 'en'): ProjectItem[] {
+function createQaFeaturedProjects(language: 'ru' | 'en'): ProjectItem[] {
   return [
     {
       id: 'sminex_comfort',
       title: 'Sminex Comfort',
       label: 'PropTech',
       subtitle:
-        language === 'ko'
+        language === 'ru'
           ? 'Web- и мобильная платформа'
           : 'Web and mobile platform',
       description:
-        language === 'ko'
+        language === 'ru'
           ? 'QA платформы для жителей: пользовательские сценарии, API, интеграции и регрессия перед релизами.'
           : 'QA for a resident platform: user journeys, APIs, integrations, and release regression testing.',
       image: 'project.sminex_comfort.cover',
@@ -564,11 +564,11 @@ function createQaFeaturedProjects(language: 'ko' | 'en'): ProjectItem[] {
       title: 'Elme Messer',
       label: 'Enterprise',
       subtitle:
-        language === 'ko'
+        language === 'ru'
           ? 'Web- и мобильная платформа'
           : 'Web and mobile platform',
       description:
-        language === 'ko'
+        language === 'ru'
           ? 'QA корпоративных цифровых сервисов: функциональность, интеграции, пользовательские сценарии и релизы.'
           : 'QA for enterprise digital services: functionality, integrations, user journeys, and releases.',
       image: 'project.elme_messer.cover',
@@ -580,11 +580,11 @@ function createQaFeaturedProjects(language: 'ko' | 'en'): ProjectItem[] {
       title: 'DPD',
       label: 'Logistics',
       subtitle:
-        language === 'ko'
+        language === 'ru'
           ? 'Web- и мобильная платформа'
           : 'Web and mobile platform',
       description:
-        language === 'ko'
+        language === 'ru'
           ? 'QA логистических сценариев: отправления, API, интеграции и регрессия критичных процессов доставки.'
           : 'QA for logistics flows: shipments, APIs, integrations, and regression of critical delivery processes.',
       image: 'project.dpd.cover',
@@ -602,7 +602,7 @@ function ProjectShowcaseCards({
 }: {
   block: VisualBlock;
   mediaRefs: MediaRef[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   splitLegacyWiki?: boolean;
 }) {
   const featuredProjectIds = new Set([
@@ -684,7 +684,7 @@ function ProjectShowcaseCards({
         <ProjectShowcaseCards
           block={{
             ...block,
-            title: language === 'ko' ? 'Дополнительно' : 'Additional',
+            title: language === 'ru' ? 'Дополнительно' : 'Additional',
             dataKey: 'projects.wiki_featured',
           }}
           mediaRefs={mediaRefs}
@@ -699,10 +699,10 @@ function ProjectShowcaseCards({
   const sectionTitle =
     block.dataKey === 'projects.wiki_featured' ||
     block.dataKey === 'projects.more'
-      ? language === 'ko'
+      ? language === 'ru'
         ? 'Дополнительно'
         : 'Additional'
-      : language === 'ko' && block.title === 'Featured Projects'
+      : language === 'ru' && block.title === 'Featured Projects'
         ? 'Избранные проекты'
         : block.title;
 
@@ -716,7 +716,7 @@ function ProjectShowcaseCards({
         )}
         {isMoreProjectsRail && (
           <span className="text-muted-foreground shrink-0 text-xs">
-            {language === 'ko' ? 'Листайте в стороны' : 'Scroll for more'}
+            {language === 'ru' ? 'Листайте в стороны' : 'Scroll for more'}
           </span>
         )}
       </div>
@@ -788,7 +788,7 @@ function ProjectShowcaseCards({
                   >
                     <MessageSquareText className="h-3.5 w-3.5" />
                     <span className="min-w-0 truncate">
-                      {language === 'ko' ? 'Вопросы' : 'Questions'}
+                      {language === 'ru' ? 'Вопросы' : 'Questions'}
                     </span>
                   </button>
                 )}
@@ -805,7 +805,7 @@ function ProjectShowcaseCards({
                     )}
                   >
                     <span className="min-w-0 truncate">
-                      {language === 'ko' ? 'Открыть' : 'Open'}
+                      {language === 'ru' ? 'Открыть' : 'Open'}
                     </span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
@@ -824,7 +824,7 @@ function ComparisonGrid({
   language,
 }: {
   block: VisualBlock;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const tables = block.items.map(parseComparisonTable).filter(isDefined);
   if (tables.length === 0) return null;
@@ -842,7 +842,7 @@ function ComparisonGrid({
           >
             <div className="grid grid-cols-[0.72fr_1fr_1fr] border-b bg-slate-50 text-xs font-semibold dark:bg-slate-900/40">
               <div className="px-3 py-2 text-slate-500 dark:text-slate-400">
-                {language === 'ko' ? 'Критерий' : 'Criteria'}
+                {language === 'ru' ? 'Критерий' : 'Criteria'}
               </div>
               <div className="min-w-0 truncate border-l px-3 py-2">
                 {table.leftTitle}
@@ -879,18 +879,18 @@ function SkillChipGroup({
   language,
 }: {
   block: VisualBlock;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const skillItems =
     block.dataKey === 'skills.core'
-      ? language === 'ko'
+      ? language === 'ru'
         ? resumeProjectSkillGroupsRu
         : resumeProjectSkillGroupsEn
       : block.items;
   const skillGroups = skillItems.map(parseSkillGroup).filter(isDefined);
   if (skillGroups.length === 0) return null;
   const sectionTitle =
-    block.dataKey === 'skills.core' && language === 'ko'
+    block.dataKey === 'skills.core' && language === 'ru'
       ? 'Навыки, подтверждённые опытом'
       : block.title;
 
@@ -931,7 +931,7 @@ function SkillChipGroup({
             {group.evidence.length > 0 && (
               <div className="text-muted-foreground mt-3 space-y-1.5 text-xs leading-relaxed">
                 <p className="font-medium text-slate-600 dark:text-slate-300">
-                  {language === 'ko' ? 'Контекст использования' : 'Used in context'}
+                  {language === 'ru' ? 'Контекст использования' : 'Used in context'}
                 </p>
                 <ul className="space-y-1">
                   {group.evidence.map((evidence) => (
@@ -951,9 +951,9 @@ function SkillChipGroup({
 
 function localizeSkillProficiency(
   proficiency: string,
-  language: 'ko' | 'en'
+  language: 'ru' | 'en'
 ) {
-  if (language !== 'ko') return proficiency;
+  if (language !== 'ru') return proficiency;
 
   const labels: Record<string, string> = {
     confident: 'уверенно',
@@ -972,7 +972,7 @@ function ContactCard({
 }: {
   block: VisualBlock;
   mediaRefs: MediaRef[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const parsedActions = block.items
     .map(parseContactAction)
@@ -1006,12 +1006,12 @@ function ContactCard({
         action.href.startsWith('mailto:')
           ? `mailto:${oosuProfile.email}`
           : action.kind?.toLowerCase().includes('portfolio')
-          ? language === 'ko'
+          ? language === 'ru'
             ? '/projects?lang=rus&theme=dark'
             : '/projects?lang=en&theme=dark'
           : action.href,
       label:
-        language === 'ko'
+        language === 'ru'
           ? localizeContactActionLabel(action.label)
           : action.label,
     }));
@@ -1034,47 +1034,47 @@ function ContactCard({
               {oosuProfile.name}
             </h3>
             <p className="text-muted-foreground text-sm">
-              {language === 'ko' ? 'Бриф для сотрудничества' : 'Collaboration Brief'}
+              {language === 'ru' ? 'Бриф для сотрудничества' : 'Collaboration Brief'}
             </p>
           </div>
         </div>
         <div className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 sm:px-3 sm:text-sm dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200">
           <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          {language === 'ko' ? 'Открыт' : 'Open'}
+          {language === 'ru' ? 'Открыт' : 'Open'}
         </div>
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <ContactBriefItem
           icon={CalendarDays}
-          title={language === 'ko' ? 'Режим' : 'Mode'}
+          title={language === 'ru' ? 'Режим' : 'Mode'}
           text={
-            language === 'ko'
+            language === 'ru'
               ? 'Открыт к разговору о проектах и сотрудничестве'
               : 'Open to project and collaboration conversations'
           }
         />
         <ContactBriefItem
           icon={Globe2}
-          title={language === 'ko' ? 'Локация' : 'Location'}
+          title={language === 'ru' ? 'Локация' : 'Location'}
           text={
-            language === 'ko' ? oosuProfile.location : oosuProfile.locationEn
+            language === 'ru' ? oosuProfile.location : oosuProfile.locationEn
           }
         />
               <ContactBriefItem
                 icon={Layers3}
-                title={language === 'ko' ? 'Специализация' : 'Specialization'}
+                title={language === 'ru' ? 'Специализация' : 'Specialization'}
                 text={
-                  language === 'ko'
+                  language === 'ru'
                     ? 'Senior QA: процессы качества, Shift-Left, Web и Mobile, API, интеграции, микросервисы и AI-автоматизация.'
                     : 'Senior QA: quality processes, Shift-Left, Web and Mobile, APIs, integrations, microservices, and AI-assisted automation.'
                 }
               />
               <ContactBriefItem
                 icon={Rocket}
-                title={language === 'ko' ? 'Стек' : 'Stack'}
+                title={language === 'ru' ? 'Стек' : 'Stack'}
                 text={
-                  language === 'ko'
+                  language === 'ru'
                     ? 'Web/Mobile, REST/SOAP, SQL, Postman, Swagger, Allure TestOps, Sentry, Kibana, Grafana, Charles, Docker, Kafka и CI/CD.'
                     : 'Web/Mobile, REST/SOAP, SQL, Postman, Swagger, Allure TestOps, Sentry, Kibana, Grafana, Charles, Docker, Kafka, and CI/CD.'
                 }
@@ -1085,10 +1085,10 @@ function ContactCard({
         <div>
           <h4 className="flex items-center gap-2 text-sm font-semibold">
             <Sparkles className="h-4 w-4" />
-            {language === 'ko' ? 'Что я даю' : 'What I bring'}
+            {language === 'ru' ? 'Что я даю' : 'What I bring'}
           </h4>
           <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
-            {language === 'ko'
+            {language === 'ru'
               ? 'Сильная сторона — связывать требования, качество, автоматизацию и AI-инструменты в рабочий процесс команды. Важно быстро находить риски и доводить продукт до стабильного релиза.'
               : 'I connect ideas into screens, APIs, data flows, and AI answer experiences. I care about fast prototypes that still feel clear, usable, and real enough to discuss.'}
           </p>
@@ -1096,10 +1096,10 @@ function ContactCard({
         <div>
           <h4 className="flex items-center gap-2 text-sm font-semibold">
             <Goal className="h-4 w-4" />
-            {language === 'ko' ? 'Цель' : 'Goal'}
+            {language === 'ru' ? 'Цель' : 'Goal'}
           </h4>
           <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
-            {language === 'ko'
+            {language === 'ru'
               ? 'Помогать командам выпускать надёжное ПО и применять AI там, где это реально ускоряет QA и инженерные процессы.'
               : 'I want to build more AI-connected products that people can actually use and understand: playful where it helps, but working where it matters.'}
           </p>
@@ -1233,7 +1233,7 @@ function ImageFallbackCards({
 }: {
   block: VisualBlock;
   mediaRefs: MediaRef[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const imageItems = block.items
     .map((item) => (isRecord(item) ? item : null))
@@ -1264,7 +1264,7 @@ function ImageFallbackCards({
               <p className="text-muted-foreground p-3 text-xs leading-relaxed">
                 {media?.status === 'ready'
                   ? caption
-                  : language === 'ko'
+                  : language === 'ru'
                     ? 'Превью скоро появится'
                     : 'Preview asset pending'}
               </p>
@@ -1287,8 +1287,8 @@ const PROFILE_TAGS = [
   'UI/UX',
 ] as const;
 
-function ProfileHeroCard({ language }: { language: 'ko' | 'en' }) {
-  const isRu = language === 'ko';
+function ProfileHeroCard({ language }: { language: 'ru' | 'en' }) {
+  const isRu = language === 'ru';
 
   return (
     <section className="overflow-hidden rounded-lg border bg-white/80 shadow-sm dark:bg-white/[0.05]">
@@ -1398,7 +1398,7 @@ function MediaPreview({
   className?: string;
   compact?: boolean;
   preferMobile?: boolean;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const storedMedia = assetKey ? findMediaRef(mediaRefs, assetKey) : null;
   const media =
@@ -1565,7 +1565,7 @@ function SourceBadgeList({
   showPublicSources,
 }: {
   sourceChunkIds: string[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
   showPublicSources: boolean;
 }) {
   const isDebugMode = useMemo(isAskOosuDebugUiEnabled, []);
@@ -1621,13 +1621,13 @@ function SourceBadgeList({
   );
 }
 
-function getPendingAssetLabel(language: 'ko' | 'en', compact: boolean) {
-  if (language === 'ko') return compact ? 'Скоро' : 'Превью скоро появится';
+function getPendingAssetLabel(language: 'ru' | 'en', compact: boolean) {
+  if (language === 'ru') return compact ? 'Скоро' : 'Превью скоро появится';
   return compact ? 'Pending' : 'Preview asset pending';
 }
 
-function getSourceBadgeCopy(language: 'ko' | 'en') {
-  if (language === 'ko') {
+function getSourceBadgeCopy(language: 'ru' | 'en') {
+  if (language === 'ru') {
     return {
       viewSources: 'Показать источники',
       hideSources: 'Скрыть источники',
@@ -1700,25 +1700,25 @@ function componentNameForBlock(blockType: string) {
 
 function localizeBadge(
   badge: string | undefined,
-  language: 'ko' | 'en'
+  language: 'ru' | 'en'
 ): string | undefined {
   if (!badge) return badge;
-  const map: Record<string, { ko: string; en: string }> = {
-    'From Romeo Wiki': { ko: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
-    'Из Wiki Romeo': { ko: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
+  const map: Record<string, { ru: string; en: string }> = {
+    'From Romeo Wiki': { ru: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
+    'Из Wiki Romeo': { ru: 'Из Wiki Romeo', en: 'From Romeo Wiki' },
   };
   return map[badge]?.[language] ?? badge;
 }
 
 function localizeTodoBadge(
   badge: string | undefined,
-  language: 'ko' | 'en'
+  language: 'ru' | 'en'
 ): string | undefined {
   if (!badge) return badge;
-  const map: Record<string, { ko: string; en: string }> = {
-    'Some assets pending': { ko: 'Часть материалов скоро появится', en: 'Some assets pending' },
+  const map: Record<string, { ru: string; en: string }> = {
+    'Some assets pending': { ru: 'Часть материалов скоро появится', en: 'Some assets pending' },
     'Часть материалов скоро появится': {
-      ko: 'Часть материалов скоро появится',
+      ru: 'Часть материалов скоро появится',
       en: 'Some assets pending',
     },
   };
@@ -1756,7 +1756,7 @@ function parseRichPayload(metadata: unknown): RichPayload | null {
   if (visualBlocks.length === 0 && answerParts.length === 0) return null;
 
   return {
-    language: metadata.language === 'ko' ? 'ko' : 'en',
+    language: metadata.language === 'ru' ? 'ru' : 'en',
     badge: parseString(metadata.badge) ?? undefined,
     todoBadge: parseString(metadata.todoBadge) ?? undefined,
     renderSpecKey: parseString(metadata.renderSpecKey) ?? undefined,

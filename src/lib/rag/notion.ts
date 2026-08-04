@@ -22,7 +22,7 @@ export type NotionRagSyncResult = {
   pageId: string;
   pageUrl?: string;
   pageTitle: string;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
   blockCount: number;
   textLength: number;
   sections: NotionRagSection[];
@@ -199,7 +199,7 @@ function detectNotionPageLanguage({
 }: {
   pageId: string;
   pageTitle: string;
-}): 'ko' | 'en' | null {
+}): 'ru' | 'en' | null {
   const normalizedPageId = pageId.replace(/-/g, '').toLowerCase();
   const configuredKoPageIds = getListEnv('ASKOOSU_NOTION_KO_PAGE_IDS').map(
     (value) => parseNotionId(value)
@@ -208,11 +208,11 @@ function detectNotionPageLanguage({
     (value) => parseNotionId(value)
   );
 
-  if (configuredKoPageIds.includes(normalizedPageId)) return 'ko';
+  if (configuredKoPageIds.includes(normalizedPageId)) return 'ru';
   if (configuredEnPageIds.includes(normalizedPageId)) return 'en';
 
   const normalizedTitle = pageTitle.toLowerCase();
-  if (/\bko\b|korean|한국|한글|국문/.test(normalizedTitle)) return 'ko';
+  if (/\bko\b|korean|한국|한글|국문/.test(normalizedTitle)) return 'ru';
   if (/\ben\b|english|영문|영어/.test(normalizedTitle)) return 'en';
 
   return null;

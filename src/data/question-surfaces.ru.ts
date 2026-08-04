@@ -2,7 +2,7 @@ import type { AnswerVariant, QuestionSurface, QuestionTrigger } from './question
 
 const entry = (id: string, faqId: string, surface: QuestionSurface, priority: number, quickLabel: string, displayQuestion: string, renderSpec: string, visibleByDefault = false, answerVariant: AnswerVariant = 'default'): QuestionTrigger => ({ id, faqId, surface, priority, quickLabel, displayQuestion, answerVariant, renderSpec, visibleByDefault });
 
-export const questionSurfacesKo = [
+export const questionSurfacesRu = [
   entry('home.profile.intro', 'faq.profile.intro.default', 'home', 1, 'Кто ты?', 'Кто такой Romeo и чем он занимается? Расскажи коротко о себе.', 'profile_hero_card', true),
   entry('home.projects.top3', 'faq.projects.top3.summary', 'home', 2, 'Проекты', 'Покажи ключевые проекты Romeo и объясни, какие QA-задачи он решал.', 'project_showcase_carousel', true),
   entry('home.skills.level', 'faq.tech_stack.level.default', 'home', 3, 'Навыки', 'Какие навыки и технологии использует Romeo в QA и разработке?', 'skills_cloud_card', true),

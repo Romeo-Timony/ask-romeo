@@ -120,7 +120,7 @@ export async function ensureRagSearchCacheSchema() {
       cache_key text PRIMARY KEY,
       query_hash text NOT NULL,
       normalized_query text NOT NULL DEFAULT '',
-      language text CHECK (language IS NULL OR language IN ('ko', 'en')),
+      language text CHECK (language IS NULL OR language IN ('ru', 'en')),
       entity_id text,
       include_private boolean NOT NULL DEFAULT false,
       include_content boolean NOT NULL DEFAULT false,

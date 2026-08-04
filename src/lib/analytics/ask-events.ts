@@ -224,7 +224,7 @@ async function createAskEventsSchema() {
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       created_at timestamptz NOT NULL DEFAULT now(),
       session_id text NOT NULL DEFAULT '' CHECK (char_length(session_id) <= 128),
-      language text CHECK (language IS NULL OR language IN ('ko', 'en')),
+      language text CHECK (language IS NULL OR language IN ('ru', 'en')),
       question text NOT NULL DEFAULT '',
       question_redacted text NOT NULL DEFAULT '',
       normalized_intent text,

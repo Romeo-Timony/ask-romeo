@@ -1,5 +1,5 @@
 export type DisplayTheme = 'light' | 'dark';
-export type DisplayLanguage = 'ko' | 'en';
+export type DisplayLanguage = 'ru' | 'en';
 
 export type PreferenceTokens = {
   theme?: DisplayTheme;
@@ -27,7 +27,7 @@ export function normalizeLanguage(
   // Internal locale keys stay 'ko'/'en' for FAQ/i18n compatibility.
   // Public URL params: lang=rus (Russian), lang=eng (English).
   if (['ko', 'kr', 'korean', 'ru', 'rus', 'russian'].includes(normalized))
-    return 'ko';
+    return 'ru';
   if (['en', 'eng', 'english'].includes(normalized)) return 'en';
 
   return undefined;
@@ -35,7 +35,7 @@ export function normalizeLanguage(
 
 /** Serialize language for public URLs (`lang=rus` / `lang=eng`). */
 export function toUrlLanguage(language: DisplayLanguage): string {
-  return language === 'ko' ? 'rus' : 'eng';
+  return language === 'ru' ? 'rus' : 'eng';
 }
 
 export function parsePreferenceTokens(tokens: string[]): PreferenceTokens {
@@ -76,7 +76,7 @@ export function parsePreferencePath(pathname: string): PreferenceTokens {
 }
 
 export function detectBrowserLanguage(): DisplayLanguage {
-  if (typeof navigator === 'undefined') return 'ko';
+  if (typeof navigator === 'undefined') return 'ru';
 
   const languages = navigator.languages?.length
     ? navigator.languages
@@ -87,7 +87,7 @@ export function detectBrowserLanguage(): DisplayLanguage {
   }
 
   // Default to Russian UI (stored as internal 'ko' locale key).
-  return 'ko';
+  return 'ru';
 }
 
 export function detectSystemTheme(): DisplayTheme {

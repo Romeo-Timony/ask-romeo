@@ -211,7 +211,7 @@ export function PortfolioSidebar({
     } else {
       const params = new URLSearchParams({
         conversationId: conversation.id,
-        lang: language === 'ko' ? 'rus' : 'eng',
+        lang: language === 'ru' ? 'rus' : 'eng',
         theme,
       });
 
@@ -410,7 +410,7 @@ export function PortfolioSidebar({
                       onClick={() => handleEnterSelectionMode()}
                       className="text-primary hover:bg-sidebar-accent inline-flex h-8 items-center rounded-lg px-2.5 text-xs font-semibold transition-colors"
                     >
-                      {language === 'ko' ? 'Редактировать' : 'Edit'}
+                      {language === 'ru' ? 'Редактировать' : 'Edit'}
                     </button>
                   )}
                 </div>
@@ -445,10 +445,10 @@ export function PortfolioSidebar({
                     >
                       <Archive className="h-4 w-4" />
                       {confirmArchiveAll
-                        ? language === 'ko'
+                        ? language === 'ru'
                           ? 'Нажмите ещё раз, чтобы архивировать всё'
                           : 'Tap again to archive all'
-                        : language === 'ko'
+                        : language === 'ru'
                           ? 'Архивировать все'
                           : 'Archive all'}
                     </button>
@@ -678,7 +678,7 @@ function ConversationHistoryItem({
             className="text-destructive hover:bg-destructive/15 flex h-10 items-center justify-center gap-2 rounded-lg bg-destructive/10 text-sm font-semibold transition-colors"
           >
             <Trash2 className="h-4 w-4" />
-            {language === 'ko' ? 'Удалить' : 'Delete'}
+            {language === 'ru' ? 'Удалить' : 'Delete'}
           </button>
         </div>
       )}
@@ -948,7 +948,7 @@ function formatConversationDate(isoDate: string, language: DisplayLanguage) {
   const date = new Date(isoDate);
   if (Number.isNaN(date.getTime())) return '';
 
-  return new Intl.DateTimeFormat(language === 'ko' ? 'ru-RU' : 'en-US', {
+  return new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : 'en-US', {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',

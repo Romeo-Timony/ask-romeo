@@ -7,7 +7,7 @@ import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 function AskPageContentInner() {
   const { language } = useDisplayPreferences();
-  const isRu = language === 'ko';
+  const isRu = language === 'ru';
 
   if (isRu) {
     return (

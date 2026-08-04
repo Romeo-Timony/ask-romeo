@@ -4,7 +4,7 @@ import type { FaqAnswer } from './answers';
 
 type RecruiterRiskSourceDocument = {
   path: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 };
 
 type RecruiterRiskFaqInput = Omit<
@@ -53,7 +53,7 @@ function sectionToFaqAnswer({
   language,
 }: {
   section: string;
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const id = extractField(section, 'FAQ ID');
   const intentId = extractField(section, 'Intent ID');
@@ -116,7 +116,7 @@ function createCompositeRetentionStartupAnswers() {
       id: 'faq.recruiter.retention_startup_risk.default',
       intentId: 'recruiter.retention_startup_risk',
       entityId: 'recruiter',
-      language: 'ko',
+      language: 'ru',
       quickLabel: 'Retention risk',
       displayQuestion:
         '오래 근무하지 못하고 배울 것만 배운 뒤 창업 쪽으로 빠질 위험은 없나요?',
@@ -316,11 +316,11 @@ function enhanceRecruiterRiskPatterns({
 }: {
   id: string;
   patterns: string[];
-  language: 'ko' | 'en';
+  language: 'ru' | 'en';
 }) {
   const additions: Record<string, string[]> = {
     'faq.recruiter.retention_risk.default':
-      language === 'ko'
+      language === 'ru'
         ? [
             '오래 못머물고 금방 그만둘거 같은데',
             '회사에 오래 못 머물 것 같은데',
@@ -333,7 +333,7 @@ function enhanceRecruiterRiskPatterns({
             'retention concern',
           ],
     'faq.recruiter.startup_intent.default':
-      language === 'ko'
+      language === 'ru'
         ? [
             '배울거만 뽑아먹고 창업쪽으로 빠질수도',
             '창업 쪽으로 빠질 것 같은데',
@@ -345,11 +345,11 @@ function enhanceRecruiterRiskPatterns({
             'startup concern',
           ],
     'faq.recruiter.ai_dependency.default':
-      language === 'ko'
+      language === 'ru'
         ? ['AI 없으면 개발 못 하는 것 아닌가', '프롬프트만 잘하는 것 아닌가']
         : ['is Oosu just prompting', 'can Oosu code without AI'],
     'faq.recruiter.age_career_timing.default':
-      language === 'ko'
+      language === 'ru'
         ? [
             '지원자는 나이가 너무 많지 않나 신입으로 채용하기엔',
             '신입으로 채용하기엔 나이가 너무 많아서 적응하기 힘들지 않을까',
@@ -364,7 +364,7 @@ function enhanceRecruiterRiskPatterns({
             'will age make it hard to adapt',
           ],
     'faq.recruiter.role_ambiguity.default':
-      language === 'ko'
+      language === 'ru'
         ? [
             '뭘 제일 잘하지',
             '분야가 다양해서 전문분야를 모르겠네',
@@ -379,7 +379,7 @@ function enhanceRecruiterRiskPatterns({
             'generalist or specialist',
           ],
     'faq.recruiter.role_recommendation.default':
-      language === 'ko'
+      language === 'ru'
         ? [
             '어떤 일을 맡기면 좋을까',
             '어떤 역할이 제일 맞을까',
@@ -395,7 +395,7 @@ function enhanceRecruiterRiskPatterns({
   return uniqueText([...patterns, ...(additions[id] ?? [])]);
 }
 
-function getQuickLabel(intentId: string, language: 'ko' | 'en') {
+function getQuickLabel(intentId: string, language: 'ru' | 'en') {
   const label = intentId.split('.').at(-1)?.replaceAll('_', ' ') ?? intentId;
   if (language === 'en') return label;
 

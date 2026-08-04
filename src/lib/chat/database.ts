@@ -97,7 +97,7 @@ async function ensureChatRuntimeSchemaOnce() {
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       normalized_question text NOT NULL CHECK (normalized_question <> ''),
       question_hash text NOT NULL CHECK (question_hash <> ''),
-      language text NOT NULL CHECK (language IN ('ko', 'en')),
+      language text NOT NULL CHECK (language IN ('ru', 'en')),
       answer text NOT NULL CHECK (answer <> ''),
       answer_source text NOT NULL,
       matched_entity_ids text[] NOT NULL DEFAULT '{}'::text[],

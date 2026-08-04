@@ -20,42 +20,42 @@ export type ContextualQuote = {
 export const contextualQuotes: ContextualQuote[] = [
   {
     text: {
-      ko: 'Сильное сотрудничество начинается с ясности: какую задачу решает команда, какие риски критичны и что считается качественным результатом.',
+      ru: 'Сильное сотрудничество начинается с ясности: какую задачу решает команда, какие риски критичны и что считается качественным результатом.',
       en: 'Strong collaboration starts with clarity: the problem the team is solving, the risks that matter, and what a quality outcome means.',
     },
     category: 'contact',
   },
   {
     text: {
-      ko: 'AI ускоряет выполнение задач, но ответственность за качество решения остаётся у человека.',
+      ru: 'AI ускоряет выполнение задач, но ответственность за качество решения остаётся у человека.',
       en: 'AI accelerates execution, but responsibility for solution quality remains human.',
     },
     category: 'ai_era',
   },
   {
     text: {
-      ko: 'Качество — это обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.',
+      ru: 'Качество — это обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.',
       en: 'Quality is justified confidence that a system can withstand real scenarios, change, and human error.',
     },
     category: 'ux',
   },
   {
     text: {
-      ko: 'Навык подтверждается не названием технологии, а результатом её применения в реальной задаче.',
+      ru: 'Навык подтверждается не названием технологии, а результатом её применения в реальной задаче.',
       en: 'A skill is proven not by a technology name, but by the result of applying it to a real problem.',
     },
     category: 'learning',
   },
   {
     text: {
-      ko: 'Хороший продукт начинается с правильного вопроса и проверяемых критериев результата.',
+      ru: 'Хороший продукт начинается с правильного вопроса и проверяемых критериев результата.',
       en: 'A good product starts with the right question and verifiable outcome criteria.',
     },
     category: 'product',
   },
   {
     text: {
-      ko: 'Сильный специалист видит качество как ответственность всей системы, а не отдельный этап перед релизом.',
+      ru: 'Сильный специалист видит качество как ответственность всей системы, а не отдельный этап перед релизом.',
       en: 'A strong specialist treats quality as a system-wide responsibility, not a separate pre-release stage.',
     },
     category: 'positioning',

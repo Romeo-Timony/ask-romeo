@@ -15,7 +15,7 @@ export type NotionDatabaseChunk = {
   content: string;
   contentHash: string;
   metadata: RagChunkMetadata;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
   visibility: string;
   freshness: string;
   hasTodo: boolean;
@@ -216,7 +216,7 @@ function sectionToDatabaseChunks({
 }: {
   pageId: string;
   pageUrl?: string;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
   section: NotionRagSection;
   sectionIndex: number;
 }) {

@@ -20,7 +20,7 @@ type PhilosophyAnswerInput = Omit<
 const PHILOSOPHY_SOURCE_DOCUMENTS: PhilosophySourceDocument[] = [
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-visionary-claude.md',
-    language: 'ko',
+    language: 'ru',
     author: 'claude',
   },
   {
@@ -30,7 +30,7 @@ const PHILOSOPHY_SOURCE_DOCUMENTS: PhilosophySourceDocument[] = [
   },
   {
     path: 'docs/notion-wiki-draft-v12-ko-add-visionary-gpt.md',
-    language: 'ko',
+    language: 'ru',
     author: 'gpt',
   },
   {
@@ -253,7 +253,7 @@ function cleanMarkdownAnswer(value: string) {
 
 function normalizePortfolioVoice(value: string, language: ChatLanguage) {
   if (!value) return value;
-  if (language === 'ko') return normalizeKoreanPortfolioVoice(value);
+  if (language === 'ru') return normalizeKoreanPortfolioVoice(value);
   return normalizeEnglishPortfolioVoice(value);
 }
 
@@ -322,7 +322,7 @@ function enhancePhilosophyPatterns({
   language: ChatLanguage;
 }) {
   const shared =
-    language === 'ko'
+    language === 'ru'
       ? [
           'AI 시대',
           '우수의 관점',
@@ -341,23 +341,23 @@ function enhancePhilosophyPatterns({
         ];
   const additions: Record<string, string[]> = {
     'vision.team_future':
-      language === 'ko'
+      language === 'ru'
         ? ['팀 프로젝트 미래', 'AI 시대 팀', '팀은 사라지나']
         : ['future of teams', 'will teams disappear', 'AI era teams'],
     'ai_thesis.future_of_teams':
-      language === 'ko'
+      language === 'ru'
         ? ['팀 프로젝트 미래', 'AI 시대 팀', '팀은 사라지나']
         : ['future of teams', 'will teams disappear', 'AI era teams'],
     'ai_thesis.solo_vs_team':
-      language === 'ko'
+      language === 'ru'
         ? ['혼자 일하나', '팀에서도 괜찮나', '협업을 싫어하나']
         : ['solo builder', 'work in a team', 'does Oosu dislike collaboration'],
     'ai_thesis.ai_dependency':
-      language === 'ko'
+      language === 'ru'
         ? ['AI 의존', 'AI 없으면 개발 못하나', '프롬프트만']
         : ['AI dependency', 'code without AI', 'just prompting'],
     'ai_thesis.pm_or_developer':
-      language === 'ko'
+      language === 'ru'
         ? ['PM인가 개발자인가', 'PO인가 개발자인가', '포지션']
         : ['PM or developer', 'product owner or developer', 'role fit'],
   };
@@ -387,26 +387,26 @@ function getQuickLabel(
 ) {
   const key = intentId.split('.').at(-1)?.replaceAll('_', ' ') ?? intentId;
   const labels: Record<string, Record<ChatLanguage, string>> = {
-    ai_developer_future: { ko: 'AI 시대 경쟁력', en: 'AI-era edge' },
-    team_future: { ko: '팀의 미래', en: 'Team future' },
-    ai_workflow_origin: { ko: 'AI 워크플로', en: 'AI workflow' },
-    pm_or_developer: { ko: 'PM/개발자', en: 'PM or developer' },
-    learning_dev_now: { ko: '개발 학습', en: 'Learning dev now' },
-    ai_philosophy_summary: { ko: 'AI 철학', en: 'AI philosophy' },
-    solo_ai_work: { ko: '혼자 AI와 일하기', en: 'Solo with AI' },
-    why_chatbot_portfolio: { ko: '챗봇 포트폴리오', en: 'Chatbot portfolio' },
-    five_year_future: { ko: '5년 후', en: 'Five-year future' },
-    competitive_edge: { ko: 'AI 시대 경쟁력', en: 'AI-era edge' },
-    future_of_teams: { ko: '팀의 미래', en: 'Team future' },
-    solo_vs_team: { ko: '팀과 1인 작업', en: 'Solo vs team' },
-    ai_dependency: { ko: 'AI 의존도', en: 'AI dependency' },
-    agent_workflow: { ko: 'AI 에이전트', en: 'AI agents' },
-    one_sentence: { ko: '한 문장 요약', en: 'One sentence' },
+    ai_developer_future: { ru: 'AI 시대 경쟁력', en: 'AI-era edge' },
+    team_future: { ru: '팀의 미래', en: 'Team future' },
+    ai_workflow_origin: { ru: 'AI 워크플로', en: 'AI workflow' },
+    pm_or_developer: { ru: 'PM/개발자', en: 'PM or developer' },
+    learning_dev_now: { ru: '개발 학습', en: 'Learning dev now' },
+    ai_philosophy_summary: { ru: 'AI 철학', en: 'AI philosophy' },
+    solo_ai_work: { ru: '혼자 AI와 일하기', en: 'Solo with AI' },
+    why_chatbot_portfolio: { ru: '챗봇 포트폴리오', en: 'Chatbot portfolio' },
+    five_year_future: { ru: '5년 후', en: 'Five-year future' },
+    competitive_edge: { ru: 'AI 시대 경쟁력', en: 'AI-era edge' },
+    future_of_teams: { ru: '팀의 미래', en: 'Team future' },
+    solo_vs_team: { ru: '팀과 1인 작업', en: 'Solo vs team' },
+    ai_dependency: { ru: 'AI 의존도', en: 'AI dependency' },
+    agent_workflow: { ru: 'AI 에이전트', en: 'AI agents' },
+    one_sentence: { ru: '한 문장 요약', en: 'One sentence' },
   };
 
   return (
     labels[key.replaceAll(' ', '_')]?.[language] ??
-    displayQuestion.slice(0, language === 'ko' ? 18 : 28)
+    displayQuestion.slice(0, language === 'ru' ? 18 : 28)
   );
 }
 

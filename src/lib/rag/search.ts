@@ -27,7 +27,7 @@ export type RagChunkSearchInput = {
   q?: string;
   limit?: number;
   entityId?: string;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
   includePrivate?: boolean;
   includeContent?: boolean;
   debug?: boolean;
@@ -37,7 +37,7 @@ export type RagChunkSearchQuery = {
   q: string;
   limit: number;
   entityId?: string;
-  language?: 'ko' | 'en';
+  language?: 'ru' | 'en';
   includePrivate: boolean;
   includeContent: boolean;
   debug: boolean;
@@ -270,7 +270,7 @@ function normalizeSearchInput(input: RagChunkSearchInput): RagChunkSearchQuery {
   const q = input.q?.trim() ?? '';
   const entityId = input.entityId?.trim();
   const language =
-    input.language === 'ko' || input.language === 'en'
+    input.language === 'ru' || input.language === 'en'
       ? input.language
       : undefined;
 

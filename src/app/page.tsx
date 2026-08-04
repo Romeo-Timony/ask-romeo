@@ -49,7 +49,7 @@ const questionConfig: Record<string, { color: string; icon: ElementType }> = {
 };
 
 const aeoLinks = {
-  ko: [
+  ru: [
     {
       href: '/about',
       label: 'О себе',
@@ -121,7 +121,7 @@ function HomeContent() {
 
   const startNewChat = () => {
     const params = new URLSearchParams({
-      lang: language === 'ko' ? 'rus' : 'eng',
+      lang: language === 'ru' ? 'rus' : 'eng',
       theme,
     });
     router.push(`/chat?${params.toString()}`);
@@ -215,7 +215,7 @@ function HomeContent() {
 
   const links = aeoLinks[language];
   const heroTitle =
-    language === 'ko' ? oosuProfile.title : oosuProfile.titleEn;
+    language === 'ru' ? oosuProfile.title : oosuProfile.titleEn;
 
   return (
     <div className="relative flex h-dvh max-h-dvh flex-col overflow-hidden px-4 pt-14 md:px-8 md:pt-8 md:pl-[calc(72px+2rem)]">
@@ -242,7 +242,7 @@ function HomeContent() {
           {heroTitle}
         </h1>
         <p className="text-muted-foreground mt-2 max-w-xl text-xs leading-relaxed font-medium italic sm:text-sm">
-          {language === 'ko'
+          {language === 'ru'
             ? '«Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»'
             : '“Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error.”'}
         </p>
@@ -269,7 +269,7 @@ function HomeContent() {
       <div className="relative z-20 flex min-h-0 w-full flex-1 items-center justify-center py-[15px] [container-type:size]">
         <VideoVisitCard
           className="aspect-square size-[min(365px,100cqmin)] shrink-0"
-          label={language === 'ko' ? 'Видеовизитка' : 'Video visit card'}
+          label={language === 'ru' ? 'Видеовизитка' : 'Video visit card'}
         />
       </div>
 

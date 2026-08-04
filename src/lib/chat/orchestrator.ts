@@ -708,7 +708,7 @@ function buildRepeatedQuestionAnswer({
       ? ` "${repeatedQuestion.label}"`
       : '';
 
-  if (language === 'ko') {
+  if (language === 'ru') {
     if (/контакт|сотруднич/i.test(repeatedQuestion.label ?? '')) {
       return `Способы связи и форматы сотрудничества указаны выше. Чтобы перейти к предметному разговору, напишите:\n\n- кратко о продукте и текущей задаче;\n- какие QA-риски или процессы нужно улучшить;\n- ожидаемый результат и сроки;\n- удобный канал для дальнейшей связи.\n\nДля быстрого контакта используйте почту или Telegram.`;
     }
@@ -940,7 +940,7 @@ function hasRecentCollaborationBrief(messages: UIMessage[]) {
 }
 
 function getCollaborationFollowUpClarifier(language: ChatLanguage) {
-  return language === 'ko'
+  return language === 'ru'
     ? 'Уточните, что именно вас интересует: стиль работы, адаптация в команде, зона ответственности или способ предложить сотрудничество.'
     : 'The collaboration brief above may not have covered the part you wanted. Tell me whether you mean working style, team fit, role scope, or how to reach out, and I’ll continue from that angle.';
 }
@@ -1243,47 +1243,47 @@ function getAnswerSourceBadge(
 ) {
   const labels: Record<string, Record<ChatLanguage, string>> = {
     faq_cache: {
-      ko: 'Из Wiki Romeo',
+      ru: 'Из Wiki Romeo',
       en: 'From Romeo Wiki',
     },
     philosophy_docs: {
-      ko: 'На основе профессиональных материалов',
+      ru: 'На основе профессиональных материалов',
       en: 'From Visionary Builder Docs',
     },
     faq_rewrite: {
-      ko: 'Ответ по портфолио',
+      ru: 'Ответ по портфолио',
       en: 'Portfolio answer',
     },
     rag_generation: {
-      ko: 'На основе данных портфолио',
+      ru: 'На основе данных портфолио',
       en: 'Based on portfolio data',
     },
     fallback: {
-      ko: 'Ответ по портфолио',
+      ru: 'Ответ по портфолио',
       en: 'Basic portfolio answer',
     },
     smalltalk: {
-      ko: 'Общий ответ',
+      ru: 'Общий ответ',
       en: 'Small talk',
     },
     off_topic_redirect: {
-      ko: 'Навигация по портфолио',
+      ru: 'Навигация по портфолио',
       en: 'Portfolio redirect',
     },
     clarify: {
-      ko: 'Уточнение вопроса',
+      ru: 'Уточнение вопроса',
       en: 'Clarifying question',
     },
     private_guardrail: {
-      ko: 'Непубличные сведения',
+      ru: 'Непубличные сведения',
       en: 'Public safety notice',
     },
     prompt_guardrail: {
-      ko: 'Защита внутренних данных',
+      ru: 'Защита внутренних данных',
       en: 'Internal safety notice',
     },
     insufficient_evidence: {
-      ko: 'Недостаточно данных',
+      ru: 'Недостаточно данных',
       en: 'Insufficient evidence',
     },
   };
@@ -1292,11 +1292,11 @@ function getAnswerSourceBadge(
 }
 
 function getTodoBadge(language: ChatLanguage) {
-  return language === 'ko' ? 'Требует уточнения' : 'Needs confirmation';
+  return language === 'ru' ? 'Требует уточнения' : 'Needs confirmation';
 }
 
 function getTodoWarning(language: ChatLanguage) {
-  return language === 'ko'
+  return language === 'ru'
     ? 'Часть информации требует дополнительного подтверждения.'
     : 'Some information still needs confirmation.';
 }
@@ -1376,7 +1376,7 @@ function prefixRepeatedConcernAnswer({
   if (!hasPreviousAnswerForConcern) return answer;
 
   const prefix =
-    language === 'ko'
+    language === 'ru'
       ? 'Эта тема уже упоминалась выше. Сформулирую ещё раз с другого ракурса:'
       : 'As mentioned above, reframed slightly:';
 

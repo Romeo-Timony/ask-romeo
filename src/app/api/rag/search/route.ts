@@ -52,7 +52,7 @@ async function searchResponse({
   q: string;
   limit?: number;
   entityId?: string;
-  language?: 'ko' | 'en';
+  language?: 'ru' | 'en';
   includePrivate?: boolean;
   debug?: boolean;
 }) {
@@ -92,7 +92,7 @@ async function searchResponse({
 }
 
 function parseLanguage(value: string | null | undefined) {
-  if (value === 'ko' || value === 'en') return value;
+  if (value === 'ru' || value === 'en') return value;
   return undefined;
 }
 

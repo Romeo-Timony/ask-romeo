@@ -740,7 +740,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['faq.projects.top3.summary'],
     intentId: 'project.representative',
     entityId: 'projects.representative',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Проекты',
     displayQuestion:
       'Покажи основные проекты Romeo и его опыт в QA.',
@@ -876,7 +876,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['faq.tech_stack.level.default'],
     intentId: 'skills.tech_stack',
     entityId: 'skills.core',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '기술 스택',
     displayQuestion:
       '우수님은 어떤 기술 스택을 다루고, 각 기술은 어떤 프로젝트에서 써봤나요?',
@@ -1001,7 +1001,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['contact.collab.ko', 'faq.contact.default'],
     intentId: 'contact.collaboration',
     entityId: 'contact.public',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '연락/협업',
     displayQuestion:
       '우수님에게 어떻게 연락할 수 있고, 어떤 협업을 열어두고 있나요?',
@@ -1112,7 +1112,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['ai.usage.ko', 'faq.ai_usage.default'],
     intentId: 'ai_usage.workflow',
     entityId: 'ai.workflow',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'AI 활용',
     displayQuestion:
       '우수님은 Claude Code, Codex, Gemini 같은 AI 도구를 실제 개발에 어떻게 활용하나요?',
@@ -1237,7 +1237,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.project.askoosu.rag.default',
     intentId: 'project.askoosu.rag',
     entityId: 'askoosu',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'RAG 구조',
     displayQuestion:
       'AskOosu 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
@@ -1334,7 +1334,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['profile.intro.ko'],
     intentId: 'profile.intro',
     entityId: 'profile.summary',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Кто ты?',
     displayQuestion:
       'Кто такой Romeo и чем он занимается? Расскажи коротко о себе.',
@@ -1428,7 +1428,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['career.oosu_salon_closed.ko'],
     intentId: 'career.oosu_salon_closed',
     entityId: 'career.oosu_salon',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '우수살롱',
     displayQuestion: '와인바는 왜 그만뒀나요?',
     patterns: [
@@ -1521,7 +1521,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['project.askoosu.ko'],
     intentId: 'project.askoosu.overview',
     entityId: 'askoosu',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'AskOosu',
     displayQuestion:
       'AskOosu는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
@@ -1642,7 +1642,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['project.instagram.ko'],
     intentId: 'project.instagram.learned',
     entityId: 'instagram_clone',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Aigram',
     displayQuestion:
       'Instagram Clone을 혼자 만들면서 풀스택 개발에 대해 무엇을 배웠나요?',
@@ -1755,7 +1755,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['project.sticks.ko'],
     intentId: 'project.sticks.importance',
     entityId: 'sticks_and_stones',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Sticks & Stones',
     displayQuestion:
       'Sticks & Stones 프로젝트가 우수님의 포트폴리오에서 중요한 이유는 무엇인가요?',
@@ -1869,7 +1869,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.project.portfoliooh_vs_askoosu.default',
     intentId: 'project.portfoliooh_vs_askoosu',
     entityId: 'portfoli_oh',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Portfoli-Oh! vs AskOosu',
     displayQuestion: 'Portfoli-Oh!와 AskOosu는 어떤 점이 다른가요?',
     patterns: [
@@ -2027,7 +2027,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.portfolio.creator.default',
     intentId: 'portfolio.creator',
     entityId: 'project.askoosu',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '제작자',
     displayQuestion: '이 포트폴리오는 누가 만들었어?',
     patterns: [
@@ -2128,7 +2128,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['business.connection.ko'],
     intentId: 'profile.business_to_dev',
     entityId: 'career.business_to_dev',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '비즈니스 → 개발',
     displayQuestion:
       '비즈니스와 고객 경험은 우수님의 개발 방식에 어떻게 연결되나요?',
@@ -2268,7 +2268,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['fun.public_notes.ko'],
     intentId: 'profile.public_life_notes',
     entityId: 'profile.public_life_notes',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '작업 취향',
     displayQuestion:
       '우수님의 작업 성향이나 공개 가능한 취향을 가볍게 알려줄 수 있나요?',
@@ -2396,7 +2396,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['resume.url.ko'],
     intentId: 'link.resume',
     entityId: 'contact.resume',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '이력서',
     displayQuestion: '이력서나 경력 정보를 볼 수 있는 링크가 준비되어 있나요?',
     patterns: [
@@ -2478,7 +2478,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     legacyIds: ['live-url.policy.ko'],
     intentId: 'link.live_url',
     entityId: 'links.public',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '라이브 URL',
     displayQuestion:
       '지금 바로 확인할 수 있는 포트폴리오나 프로젝트 링크가 있나요?',
@@ -2588,7 +2588,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.project.askoosu.visual_ui.default',
     intentId: 'project.askoosu.visual_ui',
     entityId: 'askoosu',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'UI/UX 방향',
     displayQuestion: 'AskOosu의 UI/UX는 어떤 방향으로 설계했나요?',
     patterns: [
@@ -2738,7 +2738,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.project.askoosu.deployment.default',
     intentId: 'project.askoosu.deployment',
     entityId: 'askoosu',
-    language: 'ko',
+    language: 'ru',
     quickLabel: '배포 / 운영',
     displayQuestion: 'AskOosu는 어떻게 배포하고 운영하나요?',
     patterns: [
@@ -2888,7 +2888,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.tech.rag_vs_faq_cache.default',
     intentId: 'tech.rag_vs_faq_cache',
     entityId: 'rag',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'RAG vs Cache',
     displayQuestion: 'FAQ cache와 RAG는 어떻게 역할이 다른가요?',
     patterns: [
@@ -3046,7 +3046,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.tech.springboot.postgresql.default',
     intentId: 'tech.springboot_postgresql',
     entityId: 'tech',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Spring/PostgreSQL',
     displayQuestion: 'Spring Boot와 PostgreSQL은 어떤 프로젝트에서 사용했나요?',
     patterns: [
@@ -3186,7 +3186,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.recruiter.first_30_days.default',
     intentId: 'recruiter.first_30_days',
     entityId: 'recruiter',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'First 30 days',
     displayQuestion: '입사 후 첫 30일 동안 어떻게 기여할 수 있나요?',
     patterns: [
@@ -3330,7 +3330,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     id: 'faq.collaboration.project_yes.default',
     intentId: 'collaboration.project_yes',
     entityId: 'collaboration',
-    language: 'ko',
+    language: 'ru',
     quickLabel: 'Say yes project',
     displayQuestion: '어떤 프로젝트라면 바로 함께하고 싶나요?',
     patterns: [
@@ -3554,7 +3554,7 @@ function toContentKey(
 
 function createFaqAnswer(input: FaqAnswerInput): FaqAnswer {
   const localizedInput =
-    input.id === 'faq.ai_usage.workflow.default' && input.language === 'ko'
+    input.id === 'faq.ai_usage.workflow.default' && input.language === 'ru'
       ? {
           ...input,
           quickLabel: 'AI в работе',

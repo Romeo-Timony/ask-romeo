@@ -920,14 +920,14 @@ function parseMappedLanguage(
   if (!normalizedValue) return null;
   // Public URL uses lang=rus; internal chat locale key remains 'ko'.
   if (
-    normalizedValue === 'ko' ||
+    normalizedValue === 'ru' ||
     normalizedValue.startsWith('ko-') ||
     normalizedValue === 'ru' ||
     normalizedValue === 'rus' ||
     normalizedValue === 'russian' ||
     normalizedValue.startsWith('ru-')
   ) {
-    return 'ko';
+    return 'ru';
   }
   if (
     normalizedValue === 'en' ||
@@ -948,7 +948,7 @@ function getRequestFallbackLanguage(req: Request): ChatLanguage {
     ?.trim()
     .slice(0, 2);
 
-  return parsePreferredLanguage(primaryAcceptedLanguage) ?? 'ko';
+  return parsePreferredLanguage(primaryAcceptedLanguage) ?? 'ru';
 }
 
 function createRateLimitedJsonResponse({
@@ -974,7 +974,7 @@ function createRateLimitedJsonResponse({
 }
 
 function getRateLimitedErrorCopy(language: ChatLanguage) {
-  return language === 'ko'
+  return language === 'ru'
     ? 'Сейчас поступает слишком много вопросов. Попробуйте ещё раз немного позже.'
     : 'I’m getting a lot of questions right now. Please try again shortly.';
 }
@@ -1045,7 +1045,7 @@ function getOrchestrationMetadata(
 }
 
 function buildModelUnavailableAnswer(language: ChatLanguage) {
-  return language === 'ko'
+  return language === 'ru'
     ? 'Сервис ответов временно недоступен. Попробуйте ещё раз немного позже.'
     : 'The answer engine is taking a short break. Please try again soon.';
 }

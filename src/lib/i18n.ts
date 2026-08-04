@@ -2,13 +2,13 @@ import type { DisplayLanguage } from '@/lib/preferences';
 import { getSuggestedQuestionText } from '@/lib/suggested-questions';
 
 export const localizedQuestions = {
-  // Internal key 'ko' = Russian UI
-  ko: {
-    Portfolio: getSuggestedQuestionText('ko', 'bestProjects'),
-    Me: getSuggestedQuestionText('ko', 'developerType'),
-    Skills: getSuggestedQuestionText('ko', 'techStack'),
-    Process: getSuggestedQuestionText('ko', 'conversationalPortfolio'),
-    Contact: getSuggestedQuestionText('ko', 'contactCollab'),
+  // Russian UI
+  ru: {
+    Portfolio: getSuggestedQuestionText('ru', 'bestProjects'),
+    Me: getSuggestedQuestionText('ru', 'developerType'),
+    Skills: getSuggestedQuestionText('ru', 'techStack'),
+    Process: getSuggestedQuestionText('ru', 'conversationalPortfolio'),
+    Contact: getSuggestedQuestionText('ru', 'contactCollab'),
   },
   en: {
     Portfolio: getSuggestedQuestionText('en', 'bestProjects'),
@@ -20,7 +20,7 @@ export const localizedQuestions = {
 } as const;
 
 export const uiText = {
-  ko: {
+  ru: {
     askAnything: 'Спросите Romeo о чём угодно...',
     thinking: 'Разбираю вопрос и проверяю источники...',
     chatLoadingMessages: [
@@ -46,7 +46,7 @@ export const uiText = {
     whyThisFormat: 'Почему такой формат?',
     whyThisFormatBody:
       'Это портфолио, которое само демонстрирует работу с AI: чат, база знаний и продуктовый интерфейс в одном месте.',
-    visitorProcessQuestion: localizedQuestions.ko.Process,
+    visitorProcessQuestion: localizedQuestions.ru.Process,
     internalWikiQuestion: 'Как устроена база знаний портфолио?',
     englishIntroQuestion: 'Can you introduce Romeo in English?',
     portfolioDiffQuestion: 'Расскажи о проектах Romeo',
@@ -63,7 +63,7 @@ export const uiText = {
     githubLinkQuestion: 'Дай ссылку на GitHub',
     socialLinkQuestion: 'Как связаться с Romeo?',
     resumeQuestion: 'Где будет резюме?',
-    contactQuery: localizedQuestions.ko.Contact,
+    contactQuery: localizedQuestions.ru.Contact,
     contactTitle: 'Контакты',
     menu: 'Меню',
     menuDescription: 'Чаты, настройки и ссылки в одном месте.',

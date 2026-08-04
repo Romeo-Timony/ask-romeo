@@ -25,7 +25,7 @@ type RagSourceInput = {
   sourceKey: string;
   title: string;
   url?: string | null;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
 };
 
 type RagDatabaseChunkInput = NotionDatabaseChunk & {
@@ -138,7 +138,7 @@ export async function ensureRagDatabaseSchema() {
       source_key text NOT NULL CHECK (source_key <> ''),
       title text NOT NULL DEFAULT '',
       url text,
-      language text CHECK (language IS NULL OR language IN ('ko', 'en')),
+      language text CHECK (language IS NULL OR language IN ('ru', 'en')),
       last_synced_at timestamptz,
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now(),
@@ -156,7 +156,7 @@ export async function ensureRagDatabaseSchema() {
       content text NOT NULL,
       content_hash text NOT NULL,
       metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
-      language text CHECK (language IS NULL OR language IN ('ko', 'en')),
+      language text CHECK (language IS NULL OR language IN ('ru', 'en')),
       visibility text NOT NULL DEFAULT 'public',
       freshness text NOT NULL DEFAULT 'current',
       has_todo boolean NOT NULL DEFAULT false,
@@ -192,10 +192,10 @@ export async function ensureRagDatabaseSchema() {
     )
   `);
   await pool.query(
-    "ALTER TABLE rag_sources ADD COLUMN IF NOT EXISTS language text CHECK (language IS NULL OR language IN ('ko', 'en'))"
+    "ALTER TABLE rag_sources ADD COLUMN IF NOT EXISTS language text CHECK (language IS NULL OR language IN ('ru', 'en'))"
   );
   await pool.query(
-    "ALTER TABLE rag_chunks ADD COLUMN IF NOT EXISTS language text CHECK (language IS NULL OR language IN ('ko', 'en'))"
+    "ALTER TABLE rag_chunks ADD COLUMN IF NOT EXISTS language text CHECK (language IS NULL OR language IN ('ru', 'en'))"
   );
   await pool.query(
     'ALTER TABLE rag_sync_runs ADD COLUMN IF NOT EXISTS inserted_count integer NOT NULL DEFAULT 0 CHECK (inserted_count >= 0)'
@@ -588,7 +588,7 @@ export async function searchStoredRagChunkRowsByEmbedding({
   limit: number;
   includePrivate?: boolean;
   entityId?: string | null;
-  language?: 'ko' | 'en' | null;
+  language?: 'ru' | 'en' | null;
 }): Promise<StoredRagChunkEmbeddingSearchRow[]> {
   await ensureRagDatabaseSchema();
 
@@ -1176,7 +1176,7 @@ function getMetadataNumber(
 
 function getMetadataLanguage(metadata: RagChunkMetadata | undefined) {
   const language = getMetadataString(metadata, 'language');
-  return language === 'ko' || language === 'en' ? language : null;
+  return language === 'ru' || language === 'en' ? language : null;
 }
 
 function getMetadataStringArray(

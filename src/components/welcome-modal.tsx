@@ -25,7 +25,7 @@ export default function WelcomeModal({ trigger }: WelcomeModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { language, theme } = useDisplayPreferences();
   const text = getUiText(language);
-  const introLabel = language === 'ko' ? 'О сайте' : 'About';
+  const introLabel = language === 'ru' ? 'О сайте' : 'About';
 
   // Default trigger is the logo
   const defaultTrigger = (

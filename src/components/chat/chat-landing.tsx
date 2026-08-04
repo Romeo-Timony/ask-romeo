@@ -68,7 +68,7 @@ export default function ChatLanding({
           Ask Romeo
         </h2>
         <p className="text-muted-foreground mt-2 text-sm font-medium md:text-base">
-          {language === 'ko' ? oosuProfile.title : oosuProfile.titleEn}
+          {language === 'ru' ? oosuProfile.title : oosuProfile.titleEn}
         </p>
         <p className="text-muted-foreground mx-auto mt-3 max-w-md text-sm leading-relaxed md:text-base">
           {text.presentationDescription}

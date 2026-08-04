@@ -55,13 +55,13 @@ const preferenceInitScript = `
   } catch {}
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   const browserLanguage = (navigator.languages || [navigator.language])
-    .some((language) => language.toLowerCase().startsWith('en')) ? 'en' : 'ko';
+    .some((language) => language.toLowerCase().startsWith('en')) ? 'en' : 'ru';
   const theme = explicitTheme || storedTheme || systemTheme;
   const language = explicitLanguage || storedLanguage || browserLanguage;
 
   document.documentElement.classList.toggle('dark', theme === 'dark');
   document.documentElement.dataset.theme = theme;
-  document.documentElement.lang = language === 'ko' ? 'ru' : 'en';
+  document.documentElement.lang = language === 'ru' ? 'ru' : 'en';
 })();
 `;
 
