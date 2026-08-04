@@ -4,7 +4,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 
 FROM base AS builder
-COPY node_modules ./node_modules
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
 ENV NODE_OPTIONS=--max-old-space-size=512
 ENV PORT=3000
