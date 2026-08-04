@@ -165,7 +165,7 @@ function PlainMarkdownContent({ content }: { content: string }) {
           ),
           li: ({ children }) => <li className="my-0 pl-0">{children}</li>,
           blockquote: ({ children }) => (
-            <QuoteBlock attribution="Oosu">{children}</QuoteBlock>
+            <QuoteBlock attribution="Romeo">{children}</QuoteBlock>
           ),
           a: ({ href, children }) => (
             <a

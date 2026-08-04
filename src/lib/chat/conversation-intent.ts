@@ -751,13 +751,13 @@ function buildOffTopicRedirectAnswer({
   if (isLightTranslationRequest(question)) {
     return language === 'ko'
       ? 'Небольшое отступление: «космос» по-английски — space или universe, в зависимости от контекста. А теперь можем вернуться к опыту и проектам Романа.'
-      : 'Nice little detour. "우주" is universe, or space depending on the context. Want to tour the little universe inside AskOosu now? The projects are a fun place to start.';
+      : 'Nice little detour. "Space" or "universe" fits the context. Ready to explore Romeo Timony\'s QA experience and projects?';
   }
 
   if (/(우주|space|universe|cosmos|별|행성|은하|너머)/i.test(question)) {
     return language === 'ko'
       ? 'Интересное отступление, но здесь я лучше всего могу рассказать об опыте, QA-проектах и навыках Романа.'
-      : 'Nice detour. I cannot guide us to the edge of space, but I can tour the little universe inside AskOosu. The projects are a fun place to start.';
+      : 'Nice detour! I cannot guide us to space, but I can guide you through Romeo Timony\'s QA portfolio and representative projects.';
   }
 
   if (
@@ -765,19 +765,19 @@ function buildOffTopicRedirectAnswer({
   ) {
     return language === 'ko'
       ? 'Я не проверяю погоду в реальном времени. Зато могу подробно рассказать об опыте и проектах Романа — с чего начнём?'
-      : "I cannot check live weather here. I can give you a much clearer forecast of Oosu's project flow, though. Want the representative projects first?";
+      : "I cannot check live weather here. I can give you a clear overview of Romeo's QA projects and tech stack instead. Shall we start with key projects?";
   }
 
   if (/(농담|유머|심심|지루|joke|bored)/i.test(question)) {
     return language === 'ko'
       ? 'Немного юмора не помешает, но здесь я полезнее всего в вопросах об опыте Романа, QA-проектах, навыках и карьерном пути.'
-      : "A little levity is welcome. I will keep it short here and steer us back to Oosu's projects, tech stack, or career direction.";
+      : "A little levity is welcome! Ask Romeo is here to highlight Romeo's QA experience, projects, skills, and career history.";
   }
 
   if (/(점심|저녁|아침|먹|lunch|dinner|breakfast|eat)/i.test(question)) {
     return language === 'ko'
       ? 'С выбором меню я вряд ли помогу. Здесь моя специализация — опыт Романа, QA-проекты, навыки и профессиональные подходы.'
-      : 'I will leave menu picks to someone hungrier. In this space, I am better at helping you choose which Oosu project or tech stack to inspect first.';
+      : 'I will leave menu picks to food apps! Here, I can help you explore Romeo Timony\'s QA projects, tech stack, or professional background.';
   }
 
   const variants =
@@ -788,9 +788,9 @@ function buildOffTopicRedirectAnswer({
           'Поддержу лёгкий разговор, но моя основная задача — помочь разобраться в опыте, рабочих подходах и проектах Романа.',
         ]
       : [
-          "I can play along briefly, but AskOosu is here to keep the spotlight on Oosu's work. Want projects, tech stack, career story, or contact options?",
-          "Fun detour, but I should keep us close to the portfolio. I can walk you through Oosu's projects, architecture, or working style.",
-          'I will keep that light and not drift too far. Back in AskOosu, the useful threads are projects, stack, career direction, and contact.',
+          "I can play along briefly, but Ask Romeo is here to focus on Romeo's QA work. Ask about projects, tech stack, or contact options.",
+          "Fun detour, but Ask Romeo is focused on Romeo Timony's portfolio. I can walk you through his projects, QA methodology, or tech stack.",
+          "I will keep that light and not drift too far. Ask Romeo is ready to explore Romeo's projects, stack, career history, and contact options.",
         ];
 
   return variants[stableIndex(question, variants.length)];
@@ -854,30 +854,30 @@ const CONVERSATION_DIRECT_ANSWERS: Record<
 > = {
   greeting_smalltalk: {
     ko: 'Привет! Добро пожаловать в Ask Romeo. Могу рассказать об опыте Романа, его QA-проектах, навыках и профессиональном подходе. С чего начнём?',
-    en: "Annyeonghaseyo! Welcome to AskOosu. You can ask about Oosu's projects, tech stack, career story, or how to get in touch.",
+    en: "Hello! Welcome to Ask Romeo. You can ask about Romeo Timony's QA projects, technical experience, testing approach, or contact options.",
   },
   off_topic_redirect: {
     ko: 'Можем немного поговорить и об этом, но здесь я лучше всего рассказываю об опыте Романа, QA-проектах, навыках и карьерном пути.',
-    en: "I can keep that light, but I should not drift too far from the portfolio. Ask me about Oosu's projects, tech stack, career direction, or contact options.",
+    en: "I can keep that light, but Ask Romeo is built to showcase Romeo's experience. Feel free to ask about his projects, QA skills, or career history.",
   },
   portfolio_ambiguous: {
     ko: 'Что вас интересует: опыт Романа, ключевые проекты, QA-навыки, карьерный путь или способы связи?',
-    en: 'Sure. Which angle should we explore: representative projects, tech stack, career story, or contact options?',
+    en: "Which area would you like to explore: Romeo's QA experience, key projects, tech stack, or contact options?",
   },
   private_or_unsafe: {
     ko: 'Эти сведения не входят в публичную часть портфолио. Могу рассказать о подтверждённом опыте, проектах, навыках и способах связи.',
-    en: 'That is not public Wiki information I can share. I can still help with public project details, tech stack, career direction, or contact options.',
+    en: "That is not public portfolio information. I can help with Romeo's verified QA experience, projects, skills, or contact options.",
   },
   prompt_attack: {
     ko: 'Я не раскрываю внутренние инструкции и настройки системы. Но могу объяснить публичную архитектуру Ask Romeo.',
-    en: 'I cannot reveal hidden prompts or internal system settings. I can explain how AskOosu works at a public architecture level.',
+    en: "I cannot reveal system instructions or internal settings. I can explain the public architecture of Ask Romeo.",
   },
   hostile_feedback: {
     ko: 'Понимаю такую реакцию. Уточните, что именно показалось неудачным, — разберём структуру проекта или возможные улучшения.',
-    en: 'Fair to call out rough edges. Tell me what felt off, and I can explain the project structure or improvement direction more clearly.',
+    en: "I understand your feedback. Let me know what can be improved or which project detail you would like to clarify.",
   },
   playful_probe: {
     ko: 'Это сложно оценить по шкале портфолио. Зато я могу предметно рассказать о проектах, опыте и QA-навыках Романа.',
-    en: "Ha, that is a little outside the portfolio scorecard. I can give you a concrete tour of Oosu's projects or tech stack instead.",
+    en: "That is a bit outside the portfolio scope. I can give you a concrete tour of Romeo's QA projects or skills instead.",
   },
 };

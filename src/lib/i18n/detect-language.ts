@@ -9,13 +9,15 @@ export function detectLanguage(
   input: string,
   preferredLanguage?: ChatLanguage | null
 ): ChatLanguage {
-  const koreanChars = input.match(/[\uAC00-\uD7A3]/g)?.length ?? 0;
   const cyrillicChars =
     input.match(/[\u0410-\u044F\u0401\u0451]/g)?.length ?? 0;
-  const latinChars = input.match(/[a-zA-Z]/g)?.length ?? 0;
+  if (cyrillicChars >= 1) return 'ko';
 
-  if (koreanChars >= 2 || cyrillicChars >= 2) return 'ko';
-  if (latinChars > koreanChars && latinChars > cyrillicChars) return 'en';
+  const koreanChars = input.match(/[\uAC00-\uD7A3]/g)?.length ?? 0;
+  if (koreanChars >= 1) return 'ko';
+
+  const latinChars = input.match(/[a-zA-Z]/g)?.length ?? 0;
+  if (latinChars >= 1) return 'en';
 
   return preferredLanguage ?? 'ko';
 }
