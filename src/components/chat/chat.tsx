@@ -658,11 +658,6 @@ const Chat = () => {
       return;
     }
 
-    if (isGeneratingAnswer && latestUserMessage) {
-      scrollToLatestQuestion('auto');
-      return;
-    }
-
     if (isScrolledNearBottom()) {
       scrollToLatest('auto');
       return;

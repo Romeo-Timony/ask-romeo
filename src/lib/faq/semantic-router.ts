@@ -101,6 +101,11 @@ export async function routeFaqIntent({
     return emptyRouteResult('empty_question', 'token_fallback');
   }
 
+  const isCyrillicQuery = /[А-Яа-яЁё]/.test(question);
+  if (isCyrillicQuery) {
+    return emptyRouteResult('russian_rag_required', 'token_fallback');
+  }
+
   const candidateProfileMatch = getCandidateProfileMatch({
     question: normalizedQuestion,
     language,

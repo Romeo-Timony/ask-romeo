@@ -243,6 +243,7 @@ const RUSSIAN_QA_EXPERTISE_PATTERNS = [
 const RUSSIAN_PORTFOLIO_PATTERNS = [
   /(?:ask\s*romeo|romeo|ромео|роман(?:а|ом|у)?\s+тимошенко|sminex|dpd|elme\s*messer|kode|carenport)/i,
   /(?:портфолио|проект|опыт\s+работ|резюме|карьер|навык|компетенц)/i,
+  /(?:что\s+(?:ты\s+)?(?:умеешь|можешь|делаешь)|чем\s+можешь\s+помочь|какие\s+(?:у\s+тебя\s+)?(?:функции|возможности|задачи|навыки)|о\s+нём\s+спросить|о\s+чём\s+(?:можно\s+)?спросить|расскажи\s+о\s+себе|что\s+за\s+сайт|для\s+чего\s+нужен|кто\s+ты|что\s+умеет\s+бот)/i,
 ];
 
 function classifyRussianPortfolioIntent(
@@ -283,7 +284,11 @@ function classifyRussianPortfolioIntent(
     };
   }
 
-  return null;
+  return {
+    intent: 'portfolio_factual',
+    reason: 'russian_general_portfolio_query',
+    modifiers,
+  };
 }
 
 export function classifyConversationIntent({

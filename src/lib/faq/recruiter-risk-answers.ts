@@ -17,18 +17,6 @@ type RecruiterRiskFaqInput = Omit<
 
 const RECRUITER_RISK_SOURCE_DOCUMENTS: RecruiterRiskSourceDocument[] = [
   {
-    path: 'docs/notion-wiki-draft-v12-ko-add-claude.md',
-    language: 'ko',
-  },
-  {
-    path: 'docs/notion-wiki-draft-v12-en-add-claude.md',
-    language: 'en',
-  },
-  {
-    path: 'docs/askoosu-wiki-addon-v14-sensitive-interview-ko.md',
-    language: 'ko',
-  },
-  {
     path: 'docs/askoosu-wiki-addon-v14-sensitive-interview-en.md',
     language: 'en',
   },
