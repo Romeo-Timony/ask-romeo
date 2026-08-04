@@ -552,6 +552,7 @@ function shouldBypassCurrentFaqDirectAnswer({
   faqRoute: FaqIntentRouteResult;
   conversationIntent: ConversationIntentResult;
 }) {
+  if (conversationIntent.reason.startsWith('russian_')) return true;
   if (!shouldBypassFaqDirectAnswer(conversationIntent)) return false;
 
   return faqRoute.routeDecision.router !== 'quick_question';
