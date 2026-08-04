@@ -508,7 +508,11 @@ export function classifyConversationIntent({
   };
 }
 
-export function shouldAnswerIntentDirectly(intent: ConversationIntent) {
+export function shouldAnswerIntentDirectly(
+  intent: ConversationIntent,
+  reason?: string
+) {
+  if (reason?.startsWith('russian_')) return false;
   return (
     intent === 'greeting_smalltalk' ||
     intent === 'off_topic_redirect' ||

@@ -181,7 +181,10 @@ export async function prepareChatOrchestration({
   if (
     !shouldBypassIntentDirectAnswer &&
     !aiIntentInterpretation &&
-    (shouldAnswerIntentDirectly(effectiveConversationIntent.intent) ||
+    (shouldAnswerIntentDirectly(
+      effectiveConversationIntent.intent,
+      effectiveConversationIntent.reason
+    ) ||
       effectiveConversationIntent.reason === 'follow_up_without_context')
   ) {
     return buildConversationDirectOrchestration({
