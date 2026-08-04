@@ -5,7 +5,7 @@ RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 
 FROM base AS deps
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN corepack pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store corepack pnpm install --registry=https://registry.npmmirror.com
 
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
