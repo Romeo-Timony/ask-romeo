@@ -3,14 +3,12 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 
-FROM base AS deps
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store corepack pnpm install --registry=https://registry.npmmirror.com
-
 FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
+COPY node_modules ./node_modules
 COPY . .
 ENV NODE_OPTIONS=--max-old-space-size=512
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 RUN corepack pnpm build
 
 FROM node:22-alpine AS runner
