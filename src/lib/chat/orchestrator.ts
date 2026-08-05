@@ -552,6 +552,9 @@ function shouldBypassCurrentFaqDirectAnswer({
   faqRoute: FaqIntentRouteResult;
   conversationIntent: ConversationIntentResult;
 }) {
+  // If it's a quick question trigger, never bypass direct cache to preserve custom visual modules
+  if (faqRoute.routeDecision.router === 'quick_question') return false;
+
   if (conversationIntent.reason.startsWith('russian_')) return true;
   if (!shouldBypassFaqDirectAnswer(conversationIntent)) return false;
 
