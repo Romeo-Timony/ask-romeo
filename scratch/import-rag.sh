@@ -23,13 +23,13 @@ docker exec -u root ask-romeo-app chown -R nextjs:nodejs /app/scripts /app/docs/
 
 # Run import inside the container
 echo "Importing RU Answer Guidance..."
-docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-answer-guidance-ru.md romeo.answer-guidance.ru ko
+docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-answer-guidance-ru.md romeo.answer-guidance.ru ru
 
 echo "Importing EN Answer Guidance..."
 docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-answer-guidance-en.md romeo.answer-guidance.en en
 
 echo "Importing RU Past Experience..."
-docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-past-work-experience-ru.md romeo.past-work-experience.ru ko
+docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-past-work-experience-ru.md romeo.past-work-experience.ru ru
 
 echo "Importing EN Past Experience..."
 docker exec -e DATABASE_URL="${DATABASE_URL}" -e OPENAI_API_KEY="${OPENAI_API_KEY}" -w /app ask-romeo-app node scripts/import-markdown-rag.mjs docs/rag/romeo-past-work-experience-en.md romeo.past-work-experience.en en

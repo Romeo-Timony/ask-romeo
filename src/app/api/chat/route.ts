@@ -188,6 +188,11 @@ export async function POST(req: Request) {
       });
     }
 
+    logInfo('chat.request_body_debug', {
+      requestId,
+      bodyJson: JSON.stringify(body)
+    });
+
     orchestration = await prepareChatOrchestration({
       messages,
       requestId,
