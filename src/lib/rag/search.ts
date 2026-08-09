@@ -12,8 +12,12 @@ import {
 import { embedRagQuery, hasEmbeddingCredentials } from './embeddings';
 import { NOTION_ENTITY_ALIAS_MAP } from './notion-chunks';
 import { getCachedRagSearch, upsertCachedRagSearch } from './search-cache';
+import { fetchLocalMarkdownRagChunks } from './markdown-source';
+import { getStaticChunks } from './static-source';
+import { normalizeText, tokenize } from './text';
 import { getPostgresPool, hasPostgresDatabaseUrl } from '@/lib/db/postgres';
 import type {
+  RagChunk,
   RagChunkMetadata,
   RagHybridWeights,
   RagRetrievalMode,
@@ -145,13 +149,9 @@ export async function searchRagChunks(
   const warnings: string[] = [];
 
   if (!hasPostgresDatabaseUrl()) {
-    return {
-      ok: false,
-      query,
-      results: [],
-      warnings: ['DATABASE_URL or POSTGRES_URL is required for RAG search.'],
-      error: 'Database URL is not configured.',
-    };
+    return searchLocalRagFallback(query, [
+      'Database URL is not configured; used local portfolio sources.',
+    ]);
   }
 
   if (!query.q && !query.entityId) {
@@ -212,7 +212,12 @@ export async function searchRagChunks(
       resolvedSearchMode = getLexicalSearchMode(rows);
     }
   } catch (error) {
-    return failedSearchPayload({ query, error, warnings });
+    const message =
+      error instanceof Error ? error.message : 'RAG search query failed.';
+    return searchLocalRagFallback(query, [
+      ...warnings,
+      `Postgres RAG search failed: ${message}`,
+    ]);
   }
 
   if (query.q) {
@@ -227,6 +232,8 @@ export async function searchRagChunks(
   }
 
   if (rows.length === 0) {
+    const localFallback = await searchLocalRagFallback(query, warnings);
+    if (localFallback.results.length > 0) return localFallback;
     warnings.push('No rag_chunks matched the search query.');
   }
 
@@ -1274,27 +1281,6 @@ function isUncertainOrPrivateResult(result: RagChunkSearchResult) {
   );
 }
 
-function failedSearchPayload({
-  query,
-  error,
-  warnings,
-}: {
-  query: RagChunkSearchQuery;
-  error: unknown;
-  warnings: string[];
-}): RagChunkSearchPayload {
-  const message =
-    error instanceof Error ? error.message : 'RAG search query failed.';
-
-  return {
-    ok: false,
-    query,
-    results: [],
-    warnings,
-    error: message,
-  };
-}
-
 function createContentPreview(content: string, q: string) {
   const normalizedContent = content.replace(/\s+/g, ' ').trim();
   if (!q) return trimPreview(normalizedContent);
@@ -1334,6 +1320,104 @@ function toFullTextQuery(value: string) {
   if (terms.length === 0) return value;
 
   return terms.map(quoteWebsearchTerm).join(' OR ');
+}
+
+let localFallbackChunksPromise: Promise<RagChunk[]> | null = null;
+
+async function searchLocalRagFallback(
+  query: RagChunkSearchQuery,
+  warnings: string[]
+): Promise<RagChunkSearchPayload> {
+  localFallbackChunksPromise ??= fetchLocalMarkdownRagChunks().then(
+    ({ chunks }) => [...chunks, ...getStaticChunks()]
+  );
+
+  const chunks = await localFallbackChunksPromise;
+  const normalizedQuery = normalizeText(query.q).toLowerCase();
+  const queryTokens = tokenize(normalizedQuery);
+  const results = chunks
+    .filter((chunk) => matchesLocalFallbackFilters(chunk, query))
+    .map((chunk) => {
+      const metadata = chunk.metadata ?? {};
+      const haystack = normalizeText(`${chunk.title}\n${chunk.text}`).toLowerCase();
+      const tokenScore = queryTokens.reduce(
+        (score, token) => score + (haystack.includes(token) ? 1 : 0),
+        0
+      );
+      const phraseScore =
+        normalizedQuery && haystack.includes(normalizedQuery) ? 3 : 0;
+      const entityScore = query.entityId ? 4 : 0;
+
+      return {
+        chunk,
+        score: tokenScore + phraseScore + entityScore,
+        metadata,
+      };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, query.limit)
+    .map(({ chunk, score, metadata }): RagChunkSearchResult => ({
+      chunk_id: chunk.id,
+      entity_id: getLocalMetadataString(metadata, 'entityId'),
+      title: chunk.title,
+      section_path: getLocalSectionPath(metadata, chunk.title),
+      score,
+      contentPreview: chunk.text.slice(0, DEFAULT_PREVIEW_LENGTH),
+      content: query.includeContent ? chunk.text : undefined,
+      metadata,
+      has_todo: getLocalMetadataBoolean(metadata, 'hasTodo'),
+      visibility: getLocalMetadataString(metadata, 'visibility') ?? 'public',
+    }));
+
+  return {
+    ok: results.length > 0,
+    query,
+    results,
+    warnings: mergeWarnings(warnings, [
+      'Postgres RAG was unavailable or empty; used local portfolio sources.',
+    ]),
+    searchMode: 'ilike',
+  };
+}
+
+function matchesLocalFallbackFilters(
+  chunk: RagChunk,
+  query: RagChunkSearchQuery
+) {
+  const metadata = chunk.metadata ?? {};
+  if (
+    query.language &&
+    getLocalMetadataString(metadata, 'language') &&
+    getLocalMetadataString(metadata, 'language') !== query.language
+  ) {
+    return false;
+  }
+
+  if (query.entityId) {
+    return getLocalMetadataString(metadata, 'entityId') === query.entityId;
+  }
+
+  return Boolean(query.q);
+}
+
+function getLocalMetadataString(
+  metadata: RagChunkMetadata,
+  key: string
+): string | null {
+  const value = metadata[key];
+  return typeof value === 'string' && value.trim() ? value : null;
+}
+
+function getLocalMetadataBoolean(metadata: RagChunkMetadata, key: string) {
+  return metadata[key] === true;
+}
+
+function getLocalSectionPath(metadata: RagChunkMetadata, fallback: string) {
+  const value = metadata.sectionPath;
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string')
+    : [fallback];
 }
 
 const FULL_TEXT_QUESTION_STOP_WORDS = new Set([

@@ -574,8 +574,9 @@ function ConversationHistoryItem({
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === 'mouse' && event.button !== 0) return;
-    if (event.pointerType === 'mouse' && event.buttons !== 1) return;
+    // Mouse clicks should follow the native button path. Pointer capture is
+    // only needed to support long-press selection on touch and pen devices.
+    if (event.pointerType === 'mouse') return;
 
     event.stopPropagation();
     isPointerActiveRef.current = true;
@@ -771,23 +772,23 @@ function SettingsPanel({
         <ExternalLink className="text-muted-foreground h-4 w-4" />
       </a>
 
-      <div
-        aria-disabled="true"
-        className="text-muted-foreground flex items-center justify-between gap-3 rounded-lg px-3 py-3 text-sm"
+      <a
+        href={romeoProfile.resumeUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="hover:bg-accent flex items-center justify-between gap-3 rounded-lg px-3 py-3 text-sm transition-colors"
       >
         <span className="flex min-w-0 items-center gap-3">
           <FileText className="h-5 w-5 shrink-0" />
           <span className="min-w-0">
             <span className="block">{text.resume}</span>
             <span className="block truncate text-xs">
-              {text.resumeRussian} · {text.resumeEnglish}
+              {text.resumeRussian}
             </span>
           </span>
         </span>
-        <span className="shrink-0 rounded-full border px-2 py-0.5 text-xs">
-          {text.resumeComingSoon}
-        </span>
-      </div>
+        <ExternalLink className="text-muted-foreground h-4 w-4 shrink-0" />
+      </a>
 
       <details className="group">
         <summary className="hover:bg-accent flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-3 text-sm transition-colors [&::-webkit-details-marker]:hidden">

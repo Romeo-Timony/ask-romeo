@@ -989,14 +989,26 @@ function ContactCard({
           kind: 'telegram',
         },
       ];
-  const orderedActions = [...actionsWithTelegram].sort((left, right) => {
-    const leftIsPortfolio = left.kind?.toLowerCase().includes('portfolio')
-      ? 1
-      : 0;
-    const rightIsPortfolio = right.kind?.toLowerCase().includes('portfolio')
-      ? 1
-      : 0;
-    return leftIsPortfolio - rightIsPortfolio;
+  const actionsWithLinkedIn = actionsWithTelegram.some((action) =>
+    action.kind?.toLowerCase().includes('linkedin')
+  )
+    ? actionsWithTelegram
+    : insertAfterTelegram(actionsWithTelegram, {
+        label: 'LinkedIn',
+        href: romeoProfile.linkedin,
+        kind: 'linkedin',
+      });
+  const orderedActions = [...actionsWithLinkedIn].sort((left, right) => {
+    const getPriority = (kind?: string) => {
+      const normalizedKind = kind?.toLowerCase() ?? '';
+      if (normalizedKind.includes('email')) return 0;
+      if (normalizedKind.includes('telegram')) return 1;
+      if (normalizedKind.includes('linkedin')) return 2;
+      if (normalizedKind.includes('github')) return 3;
+      if (normalizedKind.includes('portfolio')) return 4;
+      return 3;
+    };
+    return getPriority(left.kind) - getPriority(right.kind);
   });
   const actions = orderedActions
     .map((action) => ({
@@ -1224,6 +1236,14 @@ function getWorkflowStepTitle(
   if (dataKey !== 'qa.ai.workflow') return fallbackTitle;
 
   return ['Контекст', 'AI-идеи', 'Проверка', 'QA-тесты', 'Релиз'][index] ?? fallbackTitle;
+}
+
+function insertAfterTelegram<T extends { kind?: string }>(items: T[], item: T) {
+  const telegramIndex = items.findIndex((candidate) =>
+    candidate.kind?.toLowerCase().includes('telegram')
+  );
+  const insertIndex = telegramIndex >= 0 ? telegramIndex + 1 : items.length;
+  return [...items.slice(0, insertIndex), item, ...items.slice(insertIndex)];
 }
 
 function ImageFallbackCards({

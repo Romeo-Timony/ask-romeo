@@ -12,7 +12,7 @@ export const romeoProfile = {
   email: 'roman.timoshenko@gmail.com',
   telegram: 'https://t.me/romeo_timony',
   github: 'https://github.com/Romeo-Timony',
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/romeo-timony/',
   instagram: '',
   currentPortfolioUrl: 'http://91.132.196.202',
   currentPortfolioGithub: 'https://github.com/Romeo-Timony/ask-romeo',
@@ -22,6 +22,7 @@ export const romeoProfile = {
   notionSourceUrl: '',
   resumeKoUrl: '',
   resumeEnUrl: '',
+  resumeUrl: 'https://hh.ru/resume/ef5141daff0d4973ca0039ed1f624161564b4a',
   wikiSource: 'Static portfolio knowledge (WIP)',
   sourceSummary:
     'Romeo Timony — Fullstack QA Engineer with AI tooling. AI-connected portfolio with Ask chat and RAG (content in progress).',

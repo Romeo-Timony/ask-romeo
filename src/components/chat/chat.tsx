@@ -80,6 +80,12 @@ type PendingChatQuery = {
   suggestedQuestion?: SuggestedQuestion;
 };
 
+type HistoryReplayRequest = {
+  conversationId: string;
+  query: string;
+  baseMessageCount: number;
+};
+
 const Chat = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -99,6 +105,8 @@ const Chat = () => {
   const [chatErrorNotice, setChatErrorNotice] =
     useState<ChatErrorNotice | null>(null);
   const [pendingQueries, setPendingQueries] = useState<PendingChatQuery[]>([]);
+  const [historyReplayRequest, setHistoryReplayRequest] =
+    useState<HistoryReplayRequest | null>(null);
   const [conversations, setConversations] = useState<StoredChatConversation[]>(
     []
   );
@@ -112,6 +120,9 @@ const Chat = () => {
   const latestScrolledUserMessageIdRef = useRef<string | null>(null);
   const pendingQueriesCountRef = useRef(0);
   const autoSubmittedQueryRef = useRef<string | null>(null);
+  const hydratedConversationIdRef = useRef<string | null | undefined>(
+    undefined
+  );
   const { language, theme } = useDisplayPreferences();
   const { markQuestionAsked, markQueryAsked } = useSuggestedQuestions(
     5,
@@ -268,10 +279,13 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      !initialConversationId ||
-      activeConversationId === initialConversationId
-    ) {
+    if (hydratedConversationIdRef.current === initialConversationId) {
+      setIsConversationHydrated(true);
+      return;
+    }
+    hydratedConversationIdRef.current = initialConversationId;
+
+    if (!initialConversationId) {
       setIsConversationHydrated(true);
       return;
     }
@@ -284,9 +298,13 @@ const Chat = () => {
       setMessages(requestedConversation.messages);
       setInput('');
       setActiveConversationId(requestedConversation.id);
+    } else {
+      setMessages([]);
+      setActiveConversationId(null);
+      replaceChatUrl();
     }
     setIsConversationHydrated(true);
-  }, [activeConversationId, initialConversationId, setInput, setMessages]);
+  }, [initialConversationId, replaceChatUrl, setInput, setMessages]);
 
   useEffect(() => {
     if (
@@ -388,7 +406,11 @@ const Chat = () => {
   );
 
   const executeQuery = useCallback(
-    (query: string, suggestedQuestion?: SuggestedQuestion) => {
+    (
+      query: string,
+      suggestedQuestion?: SuggestedQuestion,
+      conversationIdOverride?: string
+    ) => {
       const trimmedQuery = query.trim();
       if (!trimmedQuery) return false;
 
@@ -399,7 +421,8 @@ const Chat = () => {
           language
         ) ??
         undefined;
-      const conversationId = activeConversationId ?? createConversationId();
+      const conversationId =
+        conversationIdOverride ?? activeConversationId ?? createConversationId();
       if (!activeConversationId) setActiveConversationId(conversationId);
       const sessionId =
         anonymousSessionId ?? getOrCreateAnonymousSessionId() ?? conversationId;
@@ -502,6 +525,27 @@ const Chat = () => {
   }, [executeQuery, isGeneratingAnswer, pendingQueries]);
 
   useEffect(() => {
+    if (
+      !historyReplayRequest ||
+      activeConversationId !== historyReplayRequest.conversationId ||
+      messages.length !== historyReplayRequest.baseMessageCount ||
+      isGeneratingAnswer
+    ) {
+      return;
+    }
+
+    const replayRequest = historyReplayRequest;
+    setHistoryReplayRequest(null);
+    executeQuery(replayRequest.query, undefined, replayRequest.conversationId);
+  }, [
+    activeConversationId,
+    executeQuery,
+    historyReplayRequest,
+    isGeneratingAnswer,
+    messages,
+  ]);
+
+  useEffect(() => {
     if (pendingQueries.length > pendingQueriesCountRef.current) {
       window.requestAnimationFrame(() => scrollToLatest('smooth'));
     }
@@ -562,22 +606,42 @@ const Chat = () => {
     setChatErrorNotice(null);
     setLoadingSubmit(false);
     setPendingQueries([]);
+    setHistoryReplayRequest(null);
     autoSubmittedQueryRef.current = null;
     replaceChatUrl();
   }, [replaceChatUrl, setInput, setMessages]);
 
   const handleSelectConversation = useCallback(
     (conversation: StoredChatConversation) => {
-      setMessages(conversation.messages);
+      const latestUserMessageIndex = conversation.messages.findLastIndex(
+        (message) => message.role === 'user'
+      );
+      const latestQuery =
+        latestUserMessageIndex >= 0
+          ? getMessageText(conversation.messages[latestUserMessageIndex])
+          : '';
+      const baseMessages = latestQuery
+        ? conversation.messages.slice(0, latestUserMessageIndex)
+        : conversation.messages;
+
+      setMessages(baseMessages);
       setInput('');
       setActiveConversationId(conversation.id);
-      setLastSubmittedQuery(null);
+      setLastSubmittedQuery(latestQuery || null);
       setChatErrorNotice(null);
       setLoadingSubmit(false);
       setPendingQueries([]);
-      replaceChatUrl();
+      setHistoryReplayRequest(
+        latestQuery
+          ? {
+              conversationId: conversation.id,
+              query: latestQuery,
+              baseMessageCount: baseMessages.length,
+            }
+          : null
+      );
     },
-    [replaceChatUrl, setInput, setMessages]
+    [setInput, setMessages]
   );
 
   const handleArchiveConversation = useCallback(
@@ -774,11 +838,12 @@ const Chat = () => {
                   return null;
                 })}
 
-                {loadingSubmit &&
-                latestAssistantMessageIndex <
-                  messages.findLastIndex(
-                    (message) => message.role === 'user'
-                  ) ? (
+                {isGeneratingAnswer &&
+                (messages.length === 0 ||
+                  latestAssistantMessageIndex <
+                    messages.findLastIndex(
+                      (message) => message.role === 'user'
+                    )) ? (
                   <div className="px-4 pt-4">
                     <ChatBubble variant="received">
                       <ChatBubbleMessage

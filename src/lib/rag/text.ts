@@ -76,7 +76,7 @@ export function normalizeText(value: string) {
 }
 
 export function tokenize(value: string) {
-  return Array.from(new Set(value.match(/[a-z0-9가-힣]{2,}/gi) ?? []));
+  return Array.from(new Set(value.match(/[\p{L}\p{N}]{2,}/gu) ?? []));
 }
 
 export function parseNotionId(input: string) {
