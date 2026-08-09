@@ -7,7 +7,7 @@ const { Pool } = pg;
 
 const documentPath = process.argv[2];
 const sourceKey = process.argv[3] || documentPath;
-const language = process.argv[4] || 'ko';
+const language = process.argv[4] || 'ru';
 const embeddingModel =
   process.env.ASKOOSU_EMBEDDING_MODEL || 'text-embedding-3-small';
 const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;

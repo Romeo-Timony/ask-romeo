@@ -1,11 +1,4 @@
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
 import type { FaqAnswer } from './answers';
-
-type RecruiterRiskSourceDocument = {
-  path: string;
-  language: 'ru' | 'en';
-};
 
 type RecruiterRiskFaqInput = Omit<
   FaqAnswer,
@@ -15,223 +8,626 @@ type RecruiterRiskFaqInput = Omit<
   visibility?: FaqAnswer['visibility'];
 };
 
-const RECRUITER_RISK_SOURCE_DOCUMENTS: RecruiterRiskSourceDocument[] = [
-  {
-    path: 'docs/askoosu-wiki-addon-v14-sensitive-interview-en.md',
-    language: 'en',
-  },
-];
-
 export const RECRUITER_RISK_FAQ_ANSWERS: FaqAnswer[] = [
-  ...createCompositeRetentionStartupAnswers(),
-  ...loadRecruiterRiskFaqAnswers(),
+  // 1. Retention / Startup Risk (RU)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.retention_startup_risk.default',
+    intentId: 'recruiter.retention_startup_risk',
+    entityId: 'recruiter',
+    language: 'ru',
+    quickLabel: 'Риск увольнения',
+    displayQuestion:
+      'Есть ли риск того, что он не задержится надолго и уйдет открывать свой стартап, получив нужные знания?',
+    alternativeDisplayQuestions: [
+      'Мне кажется, он быстро уйдет из компании. Что вы думаете?',
+      'Может ли он быстро научиться новому и уйти в собственный стартап?',
+    ],
+    patterns: [
+      'не задержится надолго',
+      'быстро уволится',
+      'уйдет в стартап',
+      'создаст свой стартап',
+      'уйдет открывать свое дело',
+      'быстро уйдет',
+      'риск долгосрочной работы',
+      'проблема удержания сотрудника',
+      'уйдет через несколько месяцев',
+      'быстрый уход из компании',
+      'будет отвлекаться на стартапы',
+    ],
+    shortAnswer:
+      'Это логичное опасение. Однако суть не в том, чтобы удерживать сотрудника любой ценой, а в том, готов ли он взять на себя ответственность за сложную задачу и довести её до конца.',
+    defaultAnswer: [
+      'Это опасение вполне объяснимо. Роман не из тех, кто годами готов выполнять рутинные, узкие задачи. Ему важно переносить знания на уровень работающих продуктов и систем, поэтому в условиях жестких ограничений и отсутствия зон ответственности он может почувствовать дискомфорт.',
+      '',
+      'Но это не значит, что он просто «заберет опыт и уйдет». Его интерес к созданию продуктов и стартап-опыт — это показатель ответственного подхода: ему действительно важно, чтобы продукт приносил пользу. Если в компании ему доверят сложные задачи на стыке фронтенда, бэкенда, тестирования и AI, он будет вовлечен с максимальной отдачей и проработает долго.',
+      '',
+      'С точки зрения найма, важнее оценивать не гипотеческую склонность к стартапам, а то, дает ли текущая роль достаточный профессиональный вызов и сможем ли мы четко определить его зону ответственности на первые 90 дней.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Этот риск стоит учитывать, но полезно сместить фокус оценки.',
+      '',
+      'Карьерный путь Романа — это движение к более глубокому пониманию продукта. Маркетинг, аналитика данных, UX, fullstack-разработка и внедрение AI — всё это подчинено одной цели: создавать работающие решения.',
+      '',
+      'Поэтому вероятность долгосрочной работы зависит от среды. Если задачи интересные, зона ответственности расширяется, а проекты находятся на стыке разработки, QA и AI — он будет максимально мотивирован работать долго. Если же задачи рутинные, а рост заблокирован — риск ухода действительно возрастает.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'faq.recruiter.retention_risk.default',
+      'faq.recruiter.startup_intent.default',
+      'profile.work_style',
+      'career.oosu_salon',
+      'career.target_role',
+    ],
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career', 'career.oosu_salon'],
+    confidence: 0.98,
+  }),
+
+  // 1. Retention / Startup Risk (EN)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.retention_startup_risk.default',
+    intentId: 'recruiter.retention_startup_risk',
+    entityId: 'recruiter',
+    language: 'en',
+    quickLabel: 'Retention risk',
+    displayQuestion:
+      'Is Oosu likely to leave quickly after learning enough, or move toward a startup?',
+    alternativeDisplayQuestions: [
+      'Will Oosu stay long-term?',
+      'Will Oosu just learn enough and leave to start something?',
+    ],
+    patterns: [
+      'retention risk startup risk',
+      'will Oosu just learn and leave',
+      'will Oosu leave quickly',
+      'will Oosu leave to start a company',
+      'learn enough and leave for a startup',
+      'job hopping founder mindset',
+      'will Oosu leave to start a company',
+      'founder mindset risk',
+      'startup concern',
+    ],
+    shortAnswer:
+      'It is a fair concern. The better question is not whether Oosu can be kept in place at all costs, but whether the role gives him a real product problem to own and finish.',
+    defaultAnswer: [
+      'That concern is reasonable. Oosu does not look like someone who would thrive for long in a very narrow, repetitive role. He tends to connect what he learns into working products and systems, so a role with no room for responsibility or growth could become frustrating.',
+      '',
+      'That does not mean he would simply learn enough and leave. His founder/operator background is better read as a product ownership signal: he cares whether the thing actually works for users. If a company gives him problems that connect UI, APIs, data, AI, and deployment, that same energy can become focus and ownership inside the company.',
+      '',
+      'From a hiring perspective, the useful question is not "will he ever think about startups?" It is "does this role give him a deep enough product problem to own, and can we define a first-90-days responsibility he can carry through?"',
+    ].join('\n'),
+    detailedAnswer: [
+      'The risk should be acknowledged, but the evaluation frame matters.',
+      '',
+      'Oosu has repeatedly moved toward more direct ownership of problems: marketing, data, consulting, operating a service, UX, full-stack development, and AI product design. That pattern is less about leaving and more about wanting to work closer to real product outcomes.',
+      '',
+      'The retention signal is therefore environment-dependent. If the work has real user impact, room to grow responsibility, and cross-functional product/AI/data problems, the fit is stronger. If the role is narrow, repetitive, and disconnected from product impact, the risk becomes higher.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'faq.recruiter.retention_risk.default',
+      'faq.recruiter.startup_intent.default',
+      'profile.work_style',
+      'career.oosu_salon',
+      'career.target_role',
+    ],
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career', 'career.oosu_salon'],
+    confidence: 0.98,
+  }),
+
+  // 2. Age / Career Timing (RU)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.age_career_timing.default',
+    intentId: 'recruiter.age_career_timing',
+    entityId: 'recruiter',
+    language: 'ru',
+    quickLabel: 'Возраст кандидата',
+    displayQuestion: 'Не слишком ли кандидат взрослый для джуниор-специалиста?',
+    alternativeDisplayQuestions: [
+      'Не староват ли он?',
+      'Тяжело ли ему адаптироваться в молодой команде?',
+    ],
+    patterns: [
+      'слишком взрослый для джуна',
+      'возраст кандидата',
+      'не староват ли',
+      'трудности адаптации из-за возраста',
+      'возраст для младшего специалиста',
+      'too old to hire as a junior',
+      'too old for a junior candidate',
+      'will age make it hard to adapt',
+    ],
+    shortAnswer:
+      'Роман перешел в сферу разработки программного обеспечения позже типичных кандидатов, но он не считает прошлые годы упущенным временем. Это был период накопления опыта в аналитике данных, бизнесе, управлении качеством и операциях.',
+    defaultAnswer: [
+      'Это правда, что Роман сменил сферу деятельности и занялся разработкой позже, чем стандартные джуниор-специалисты. Однако этот опыт не был паузой — он посвящен практическому пониманию потребностей пользователей, анализу данных и управлению проектами.',
+      '',
+      'Как QA-инженер, он понимает необходимость быстрой адаптации и подтверждения навыков через реальные результаты. Для этого он активно применяет современные AI-инструменты, RAG-системы и детальное тестирование.',
+      '',
+      'Роман рассматривает свой возраст не как недостаток, а как контекст, помогающий лучше понимать бизнес-ограничения, требования к качеству и оценивать риски продукта.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Это вполне понятное опасение. Поскольку Роман пришел в разработку позже традиционного возраста, у него меньше лет непосредственного кодинга, чем у выпускников вузов.',
+      '',
+      'Однако его прошлый опыт имеет высокую ценность. Аналитика данных научила его видеть смысл за цифрами, а операционное управление бизнесом — понимать, как доверие пользователей, качество сервиса и доходы связаны между собой.',
+      '',
+      'В работе он стремится конвертировать этот бэкграунд в практическую пользу: быстро вникать в требования, писать понятные тест-планы, прогнозировать риски интеграции и подтверждать качество продукта.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'career.timeline',
+      'career.oosu_salon',
+      'profile.learning_style',
+      'project.askoosu.fact',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 2. Age / Career Timing (EN)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.age_career_timing.default',
+    intentId: 'recruiter.age_career_timing',
+    entityId: 'recruiter',
+    language: 'en',
+    quickLabel: 'Career timing',
+    displayQuestion: 'Are you older than typical junior candidates?',
+    alternativeDisplayQuestions: [
+      'Career transition was late',
+      'Age concern',
+    ],
+    patterns: [
+      'older junior candidate',
+      'career transition was late',
+      'age concern',
+      'late career switch',
+      'older than typical junior',
+      'age risk',
+      'too old to hire as a junior',
+      'too old for a junior candidate',
+      'will age make it hard to adapt',
+    ],
+    shortAnswer:
+      'It is true that Oosu transitioned into software development later than some traditional junior candidates. But he does not see that time as a gap. He spent it building experience in customer-facing work, data analysis, brand operation, entrepreneurship, and service operations.',
+    defaultAnswer: [
+      'It is true that Oosu transitioned into software development later than some traditional junior candidates. But he does not see that time as a gap. He spent it building experience in customer-facing work, data analysis, brand operation, entrepreneurship, and service operations.',
+      '',
+      'As a developer, he understands that he needs to learn quickly and prove his ability through real output. That is why he has leaned into AI tools, documentation, project-based learning, and the AskOosu RAG portfolio system.',
+      '',
+      'Oosu does not frame age as something to defend. He frames it as context that helps him understand users, business constraints, and product judgment more realistically.',
+    ].join('\n'),
+    detailedAnswer: [
+      'That is a fair concern. Because Oosu started software development relatively late, he has less accumulated engineering time than someone who followed the traditional path.',
+      '',
+      'However, the previous time was not empty. Data analysis taught him to read the context behind numbers, and operating a brand and service taught him how user trust, service quality, revenue, and operational risk connect in real situations.',
+      '',
+      'At work, he wants to turn that context into practical contribution: reading user needs, making grounded product judgments, learning quickly, and proving progress through working output. He does not want to overstate this. It is something he needs to keep proving through projects and collaboration.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'career.timeline',
+      'career.oosu_salon',
+      'profile.learning_style',
+      'project.askoosu.fact',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 3. Non-CS Background (RU)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.non_cs_background.default',
+    intentId: 'recruiter.non_cs_background',
+    entityId: 'recruiter',
+    language: 'ru',
+    quickLabel: 'Отсутствие ИТ-диплома',
+    displayQuestion: 'Беспокоит ли вас отсутствие профильного ИТ-образования (CS)?',
+    alternativeDisplayQuestions: [
+      'Как вы справляетесь без диплома Computer Science?',
+      'Не мешает ли отсутствие профильного образования в работе?',
+    ],
+    patterns: [
+      'отсутствие профильного образования',
+      'непрофильный бэкграунд',
+      'нет диплома программиста',
+      'не айтишник по образованию',
+      'самоучка',
+      'not having a CS degree',
+      'non CS background',
+      'no computer science degree',
+      'non traditional background',
+      'not a CS major',
+      'career changer developer',
+    ],
+    shortAnswer:
+      'Роман не скрывает отсутствие классического профильного диплома. Для него это стимул учиться быстрее, больше практиковаться и подтверждать свои знания реальными работающими решениями.',
+    defaultAnswer: [
+      'Роман открыто говорит о том, что у него нет классического диплома в области компьютерных наук (Computer Science). Это мотивирует его постоянно развиваться и подтверждать экспертизу практическими проектами.',
+      '',
+      'В процессе обучения и работы он всегда тянулся к сильным техническим специалистам, перенимая у них лучшие практики, работая с документацией и глубоко погружаясь в автоматизацию процессов.',
+      '',
+      'Его сила — не в начальном багаже готовых академических знаний, а в умении быстро находить пробелы, разбираться в сложных инструментах, эффективно использовать ИИ для рутины и выдавать качественный результат.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Отсутствие профильного образования Роман воспринимает как условие, требующее более тщательного практического подтверждения навыков.',
+      '',
+      'Поэтому он не ограничивается теорией, а сразу переходит к практике: от командных проектов и написания API до развертывания RAG-систем и создания детальных планов тестирования. В случае нехватки знаний его цикл действий прост: изучить документацию, проконсультироваться с AI-ассистентами, проверить гипотезу в коде и зафиксировать работающее решение в виде автотеста или рабочего модуля.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'profile.learning_style',
+      'career.timeline',
+      'project.askoosu.fact',
+      'postmortem.instagram-clone-fullstack-lessons',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 3. Non-CS Background (EN)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.non_cs_background.default',
+    intentId: 'recruiter.non_cs_background',
+    entityId: 'recruiter',
+    language: 'en',
+    quickLabel: 'Non-CS background',
+    displayQuestion: 'Are you concerned about not having a CS degree?',
+    alternativeDisplayQuestions: [
+      'Do you have a CS degree?',
+      'How do you handle technical concepts without CS major?',
+    ],
+    patterns: [
+      'not having a CS degree',
+      'non CS background',
+      'no computer science degree',
+      'non traditional background',
+      'not a CS major',
+      'career changer developer',
+    ],
+    shortAnswer:
+      'Oosu does not hide the fact that he does not come from a traditional computer science background. Instead, he treats it as a reason to learn faster and prove himself through real output.',
+    defaultAnswer: [
+      'Oosu does not hide the fact that he does not come from a traditional computer science background. Instead, he treats it as a reason to learn faster and prove himself through real output.',
+      '',
+      'During bootcamp and project work, he learned alongside people with stronger technical backgrounds and pushed himself to keep up through practice, questions, documentation, and project-based learning.',
+      '',
+      'His strength is not that he knew everything from the beginning. It is that he can identify what he does not know, learn quickly, use AI and documentation effectively, and turn that learning into working products.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Oosu treats the non-CS starting point as a condition that requires more deliberate proof, not as something to hide.',
+      '',
+      'That is why he tried not to stop at lectures alone. He moved through team projects, full-stack implementation, a RAG-based portfolio system, deployment, and operational documentation. When he does not know something, his loop is to identify the gap, use documentation and AI tools carefully, verify through code, and turn the result into a working artifact.',
+      '',
+      'At work, this means he should not pretend to know what he does not know. He should clarify quickly, organize what he learns to team standards, and connect it to working output.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'profile.learning_style',
+      'career.timeline',
+      'project.askoosu.fact',
+      'postmortem.instagram-clone-fullstack-lessons',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 4. Programming Transition (RU)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.programming_transition.default',
+    intentId: 'recruiter.programming_transition',
+    entityId: 'recruiter',
+    language: 'ru',
+    quickLabel: 'Причины перехода',
+    displayQuestion: 'Почему вы перешли в сферу ИТ и программирования?',
+    alternativeDisplayQuestions: [
+      'Зачем вам кодинг после собственного бизнеса?',
+      'Что подтолкнуло сменить сферу деятельности?',
+    ],
+    patterns: [
+      'почему айти',
+      'зачем перешел в программирование',
+      'почему решил стать тестировщиком',
+      'причина смены профессии',
+      'почему ушел из бизнеса',
+      'why programming',
+      'why transition into programming',
+      'why become a developer',
+      'career transition reason',
+      'why software development',
+    ],
+    shortAnswer:
+      'Переход Романа в программирование и QA — это осознанный выбор в пользу создания масштабируемых и проверяемых решений, развивающий его многолетний опыт работы с данными и бизнес-процессами.',
+    defaultAnswer: [
+      'Переход в сферу ИТ не был спонтанным решением. Это логичный шаг к поиску той деятельности, которая максимально раскрывает его аналитические и инженерные сильные стороны.',
+      '',
+      'Работая в аналитике данных, Роман чувствовал нехватку созидательного процесса. Запуск собственного офлайн-бизнеса (винотеки) дал автономию, но показал, насколько физический бизнес привязывает человека к месту и времени.',
+      '',
+      'Переломным моментом стала травма во время работы, потребовавшая госпитализации. В этот период бизнес не мог функционировать нормально без его личного участия. Это сделало ограничения привязанного к локации бизнеса очевидными.',
+      '',
+      'ИТ дает другой путь: созданные цифровые продукты и автотесты работают непрерывно, легко масштабируются и становятся мощнее при интеграции с AI. Для Романа это возможность создавать надежные, работающие системы.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Этот переход не следует трактовать как «побег от рутины» или «желание работать из любой точки». Это рациональное стремление к масштабируемости и автоматизации процессов.',
+      '',
+      'И через аналитику данных, и через бизнес-операции Роман всегда стремился решать проблемы пользователей. Работа с кодом и качеством ПО (QA) позволяет делать это на системном уровне. В компании он использует свой разносторонний опыт, чтобы находить скрытые риски и обеспечивать высокое качество релизов.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'career.timeline',
+      'career.oosu_salon',
+      'profile.development_philosophy',
+      'project.askoosu.fact',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 4. Programming Transition (EN)
+  createRecruiterRiskAnswer({
+    id: 'faq.recruiter.programming_transition.default',
+    intentId: 'recruiter.programming_transition',
+    entityId: 'recruiter',
+    language: 'en',
+    quickLabel: 'Transition reason',
+    displayQuestion: 'Why did you transition into programming?',
+    alternativeDisplayQuestions: [
+      'Why software development?',
+      'Why switch from entrepreneurship to development?',
+    ],
+    patterns: [
+      'why programming',
+      'why transition into programming',
+      'why become a developer',
+      'career transition reason',
+      'why software development',
+      'why did Oosu switch careers',
+    ],
+    shortAnswer:
+      "Oosu's transition into programming was not simply about following a trend. Programming was a choice to solve problems in a more scalable and repeatable way, extending offline operating experience into software and AI-based product building.",
+    defaultAnswer: [
+      "Oosu's transition into programming was not simply about following a trend. It was part of a longer process of finding the type of work that fits his strengths and constraints better.",
+      '',
+      'While working in data analysis, he felt that the fixed structure of corporate work did not fully match how he wanted to build and explore. Later, he started and operated a wine bar expecting more autonomy, but he learned that operating a physical business can tie a person even more tightly to time and place.',
+      '',
+      'A major turning point came when he was injured while operating the store and had to be hospitalized. During that period, the store could not operate normally and revenue stopped. That experience made the limits of a location-bound business very clear.',
+      '',
+      'Programming offered a different path. Software can run repeatedly once built, scale beyond one physical location, and become even more powerful when combined with AI. For Oosu, programming is not just a career switch. It is a move toward solving problems in a more scalable and flexible way.',
+    ].join('\n'),
+    detailedAnswer: [
+      'This transition should not be framed as "he disliked company life" or "he simply wanted freedom." The more accurate frame is that he was looking for a more scalable and repeatable way to solve problems.',
+      '',
+      'Through data analysis and service operations, Oosu moved closer to real user problems. At the same time, he experienced the limits of operating models that are tightly bound to time and place. The hospitalization period made that limitation concrete, but it should be treated as a structural turning point rather than an emotional story.',
+      '',
+      'Software became a tool for solving similar problems in a more repeatable way. Inside a company, Oosu wants to bring that perspective into development work that considers user experience, operational risk, and implementation together.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'career.timeline',
+      'career.oosu_salon',
+      'profile.development_philosophy',
+      'project.askoosu.fact',
+    ],
+    visibility: 'limited',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 5. AI Director (RU)
+  createRecruiterRiskAnswer({
+    id: 'faq.ai_working_style.ai_director.default',
+    intentId: 'ai_working_style.ai_director',
+    entityId: 'ai_usage',
+    language: 'ru',
+    quickLabel: 'AI Director',
+    displayQuestion: 'Что означает роль «AI Director» в контексте вашей работы?',
+    alternativeDisplayQuestions: [
+      'Что это за должность такая?',
+      'Как вы управляете продуктом с помощью ИИ?',
+    ],
+    patterns: [
+      'AI Director',
+      'кто такой AI Director',
+      'стиль работы с AI',
+      'управление продуктом с помощью ИИ',
+      'интеграция AI в разработку',
+      'AI working style',
+      'AI product loop',
+      'AI product builder',
+      'using AI across product roles',
+    ],
+    shortAnswer:
+      '«AI Director» — это не формальная должность, а подход к работе: координация проектирования, разработки, тестирования и развертывания продукта с использованием AI в качестве эффективного исполнителя.',
+    defaultAnswer: [
+      '«AI Director» — это концепция работы, а не официальная штатная позиция. Роман не видит ценность разработчика эпохи AI в одной лишь генерации строк кода.',
+      '',
+      'Сегодня, когда границы между планированием, дизайном, разработкой и контролем качества размываются, ключевым навыком становится понимание языков всех этих ролей и объединение их в единый продуктовый цикл с помощью ИИ-ассистентов.',
+      '',
+      'ИИ генерирует варианты и ускоряет рутину. Но именно человек определяет ценность задачи, оценивает безопасность, проверяет работу API и гарантирует качество.',
+    ].join('\n'),
+    detailedAnswer: [
+      'AI Director — это умение связать воедино планирование, кодинг, тестирование и релиз, используя ИИ для автоматизации рутины.',
+      '',
+      'В Ask Romeo ИИ помог ускорить написание RAG API, шаблонов компонентов и базовых схем данных. Однако решения о разделении кэша FAQ и поиска RAG, использование PostgreSQL/pgvector и обеспечение строгой конфиденциальности — это инженерные решения, принятые и верифицированные Романом лично.',
+      '',
+      'Этот подход объединяет высокую скорость разработки с человеческой ответственностью за конечный результат.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'decision.why-ai-native-working-thesis',
+      'ops.ai-agent-workflow',
+      'ops.product-build-loop',
+      'project.askoosu.fact',
+    ],
+    visibility: 'public',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
+
+  // 5. AI Director (EN)
+  createRecruiterRiskAnswer({
+    id: 'faq.ai_working_style.ai_director.default',
+    intentId: 'ai_working_style.ai_director',
+    entityId: 'ai_usage',
+    language: 'en',
+    quickLabel: 'AI Director',
+    displayQuestion: 'What does AI Director mean here?',
+    alternativeDisplayQuestions: [
+      'What is an AI Director working style?',
+      'How do you build products with AI?',
+    ],
+    patterns: [
+      'AI Director',
+      'AI Director style product builder',
+      'AI working style',
+      'AI product loop',
+      'AI product builder',
+      'using AI across product roles',
+    ],
+    shortAnswer:
+      'AI Director is not a formal title here. It is a working style: coordinating problem definition, UX judgment, implementation, content, deployment, and operational feedback with AI as an execution partner.',
+    defaultAnswer: [
+      'AI Director is not a formal title here. Oosu does not see the AI-era developer role as only writing code faster.',
+      '',
+      'As the boundaries between product planning, design, engineering, marketing, and operations become less rigid, the valuable skill is not replacing every role alone. It is understanding the language of each role and using AI tools to connect them into one coherent product loop.',
+      '',
+      'AI expands speed and options. But humans still need to decide which problem matters, which interface feels trustworthy, which message sounds overclaimed, and which data should guide the next iteration.',
+      '',
+      "Oosu's strength is not competing with AI. It is connecting AI to real users, real product context, and responsible product judgment.",
+    ].join('\n'),
+    detailedAnswer: [
+      'AI Director does not mean replacing planners, designers, developers, and marketers alone with AI. It means almost the opposite: understanding the language of those roles, reviewing AI-generated output in real product context, and connecting the pieces responsibly.',
+      '',
+      'In AskOosu, AI helped with execution speed: RAG API drafts, component drafts, and data-structure ideas. But the decisions to separate RAG from FAQ cache, use Notion as CMS while keeping PostgreSQL as retrieval cache, and separate public evidence from debug metadata required product judgment and operational awareness.',
+      '',
+      'So the phrase is closer to a working attitude than a title. Build faster with AI, but keep human responsibility for what gets built and how it is verified.',
+    ].join('\n'),
+    renderSpec: {
+      layout: 'text_only',
+      density: 'standard',
+      components: ['SourceBadgeList'],
+    },
+    visualBlocks: [{ type: 'sourceBadges' }],
+    sourceChunkIds: [
+      'decision.why-ai-native-working-thesis',
+      'ops.ai-agent-workflow',
+      'ops.product-build-loop',
+      'project.askoosu.fact',
+    ],
+    visibility: 'public',
+    hasTodo: false,
+    freshness: 'stable',
+    guardrails: [
+      'Answer only when the user directly raises recruiter-risk concerns.',
+      'Do not turn this concern bank into visible recommended questions.',
+    ],
+    matchedEntityIds: ['recruiter', 'profile', 'career'],
+    confidence: 0.95,
+  }),
 ];
-
-function loadRecruiterRiskFaqAnswers() {
-  return RECRUITER_RISK_SOURCE_DOCUMENTS.flatMap((document) => {
-    try {
-      const content = readFileSync(
-        path.join(process.cwd(), document.path),
-        'utf8'
-      );
-
-      return parseFaqSections(content).flatMap((section) =>
-        sectionToFaqAnswer({ section, language: document.language })
-      );
-    } catch (error) {
-      console.warn('Recruiter-risk FAQ source was not loaded.', {
-        path: document.path,
-        error: error instanceof Error ? error.message : 'Unknown error',
-      });
-      return [];
-    }
-  });
-}
-
-function sectionToFaqAnswer({
-  section,
-  language,
-}: {
-  section: string;
-  language: 'ru' | 'en';
-}) {
-  const id = extractField(section, 'FAQ ID');
-  const intentId = extractField(section, 'Intent ID');
-  const entityId = extractField(section, 'Entity ID') || 'recruiter';
-  const visibility = normalizeVisibility(extractField(section, 'Visibility'));
-  const patterns = extractBacktickValues(extractField(section, 'Patterns'));
-  const sourceChunkIds = extractBacktickValues(
-    extractField(section, 'Source Chunk IDs')
-  );
-  const displayQuestion = extractFaqHeading(section);
-  const shortAnswer = extractAnswerBlock(section, 'Short Answer');
-  const defaultAnswer = extractAnswerBlock(section, 'Default Answer');
-  const detailedAnswer = extractAnswerBlock(section, 'Detailed Answer');
-
-  if (!id || !intentId || !displayQuestion || !shortAnswer || !defaultAnswer) {
-    return [];
-  }
-
-  return [
-    createRecruiterRiskAnswer({
-      id,
-      intentId,
-      entityId,
-      language,
-      quickLabel: getQuickLabel(intentId, language),
-      displayQuestion,
-      alternativeDisplayQuestions: patterns,
-      patterns: enhanceRecruiterRiskPatterns({ id, patterns, language }),
-      shortAnswer,
-      defaultAnswer,
-      detailedAnswer: detailedAnswer || undefined,
-      renderSpec: {
-        layout: 'text_only',
-        density: 'standard',
-        components: ['SourceBadgeList'],
-      },
-      visualBlocks: [{ type: 'sourceBadges' }],
-      sourceChunkIds: sourceChunkIds.length > 0 ? sourceChunkIds : [id],
-      visibility,
-      hasTodo: false,
-      freshness: 'stable',
-      guardrails: [
-        'Treat recruiter-risk answers as direct responses only; do not expose them as recommended quick questions.',
-        'Frame concerns honestly without overstating tenure, seniority, or private intent.',
-      ],
-      matchedEntityIds: uniqueText([
-        entityId,
-        'recruiter',
-        'profile',
-        'career',
-      ]),
-      confidence: 0.95,
-    }),
-  ];
-}
-
-function createCompositeRetentionStartupAnswers() {
-  return [
-    createRecruiterRiskAnswer({
-      id: 'faq.recruiter.retention_startup_risk.default',
-      intentId: 'recruiter.retention_startup_risk',
-      entityId: 'recruiter',
-      language: 'ru',
-      quickLabel: 'Retention risk',
-      displayQuestion:
-        '오래 근무하지 못하고 배울 것만 배운 뒤 창업 쪽으로 빠질 위험은 없나요?',
-      alternativeDisplayQuestions: [
-        '회사에 오래 못 머물고 금방 그만둘 것 같은데 어떻게 생각해?',
-        '배울 것만 빠르게 배우고 창업 쪽으로 빠질 수도 있지 않나요?',
-      ],
-      patterns: [
-        '오래 못머물고 금방 그만둘거 같은데',
-        '회사에 오래 못머물고 금방 그만둘거 같은데',
-        '회사에 오래 못 머물고 금방 그만둘 것 같은데',
-        '배울거만 뽑아먹고 창업쪽으로 빠질수도',
-        '배울 것만 빠르게 배우고 창업 쪽으로 빠질 수도',
-        '배울 것만 배우고 창업쪽으로 빠질 것 같은데',
-        '오래 근무 리스크와 창업 리스크',
-        '장기 근속과 창업 우려',
-      ],
-      shortAnswer:
-        '현실적인 우려입니다. 다만 핵심은 무조건 오래 붙잡을 수 있는 사람인가보다, 책임 있는 제품 문제를 맡겼을 때 끝까지 소유하고 기여할 사람인가에 더 가깝습니다.',
-      defaultAnswer: [
-        '그 우려는 자연스럽습니다. 우수는 좁고 반복적인 역할에 오래 머무르는 타입이라기보다는, 배운 것을 실제 제품과 시스템으로 연결하고 싶어 하는 사람에 가깝습니다. 그래서 역할이 너무 좁거나 성장과 책임 범위가 막혀 있으면 답답함을 느낄 가능성은 있습니다.',
-        '',
-        '다만 그것이 곧 "배울 것만 얻고 떠난다"는 뜻은 아닙니다. 창업 경험과 관심은 회사를 연습 무대로 본다는 신호라기보다, 실제 사용자와 운영, 제품의 책임을 중요하게 보는 배경에 가깝습니다. 회사 안에서 UI, API, 데이터, AI, 배포를 연결하는 책임 있는 문제를 맡는다면 오히려 더 강한 소유감으로 오래 기여할 가능성이 큽니다.',
-        '',
-        '채용 관점에서는 "떠날 사람인가" 하나로 판단하기보다, 이 역할이 충분히 깊은 제품 문제와 성장 방향을 주는지, 첫 90일에 어떤 책임을 맡겼을 때 끝까지 가져가는지를 확인하는 편이 더 정확합니다.',
-      ].join('\n'),
-      detailedAnswer: [
-        '리스크를 인정하되, 평가 기준을 조금 바꾸는 것이 좋습니다.',
-        '',
-        '우수의 커리어 전환은 단순한 이탈이라기보다 더 직접적인 문제 소유권으로 이동해 온 흐름입니다. 마케팅, 데이터, 컨설팅, 서비스 운영, UX, 풀스택, AI 서비스 설계가 모두 "실제로 작동하는 결과물을 만들고 싶다"는 방향으로 이어져 있습니다.',
-        '',
-        '따라서 장기 근속 가능성은 성향 하나보다 환경 적합성에 더 좌우됩니다. 제품과 사용자 문제가 충분히 깊고, 기여에 따라 책임이 확장되며, AI와 데이터와 UI를 연결하는 과제가 있다면 오래 몰입할 가능성이 높습니다. 반대로 반복 업무만 있고 성장 경로가 막힌 환경이라면 리스크가 커집니다.',
-      ].join('\n'),
-      renderSpec: {
-        layout: 'text_only',
-        density: 'standard',
-        components: ['SourceBadgeList'],
-      },
-      visualBlocks: [{ type: 'sourceBadges' }],
-      sourceChunkIds: [
-        'faq.recruiter.retention_risk.default',
-        'faq.recruiter.startup_intent.default',
-        'profile.work_style',
-        'career.oosu_salon',
-        'career.target_role',
-      ],
-      hasTodo: false,
-      freshness: 'stable',
-      guardrails: [
-        'Answer only when the user directly raises recruiter-risk concerns.',
-        'Do not turn this concern bank into visible recommended questions.',
-      ],
-      matchedEntityIds: ['recruiter', 'profile', 'career', 'career.oosu_salon'],
-      confidence: 0.98,
-    }),
-    createRecruiterRiskAnswer({
-      id: 'faq.recruiter.retention_startup_risk.default',
-      intentId: 'recruiter.retention_startup_risk',
-      entityId: 'recruiter',
-      language: 'en',
-      quickLabel: 'Retention risk',
-      displayQuestion:
-        'Is Oosu likely to leave quickly after learning enough, or move toward a startup?',
-      alternativeDisplayQuestions: [
-        'Will Oosu stay long-term?',
-        'Will Oosu just learn enough and leave to start something?',
-      ],
-      patterns: [
-        'retention risk startup risk',
-        'will Oosu just learn and leave',
-        'will Oosu leave quickly',
-        'will Oosu leave to start a company',
-        'learn enough and leave for a startup',
-        'job hopping founder mindset',
-      ],
-      shortAnswer:
-        'It is a fair concern. The better question is not whether Oosu can be kept in place at all costs, but whether the role gives him a real product problem to own and finish.',
-      defaultAnswer: [
-        'That concern is reasonable. Oosu does not look like someone who would thrive for long in a very narrow, repetitive role. He tends to connect what he learns into working products and systems, so a role with no room for responsibility or growth could become frustrating.',
-        '',
-        'That does not mean he would simply learn enough and leave. His founder/operator background is better read as a product ownership signal: he cares whether the thing actually works for users. If a company gives him problems that connect UI, APIs, data, AI, and deployment, that same energy can become focus and ownership inside the company.',
-        '',
-        'From a hiring perspective, the useful question is not "will he ever think about startups?" It is "does this role give him a deep enough product problem to own, and can we define a first-90-days responsibility he can carry through?"',
-      ].join('\n'),
-      detailedAnswer: [
-        'The risk should be acknowledged, but the evaluation frame matters.',
-        '',
-        'Oosu has repeatedly moved toward more direct ownership of problems: marketing, data, consulting, operating a service, UX, full-stack development, and AI product design. That pattern is less about leaving and more about wanting to work closer to real product outcomes.',
-        '',
-        'The retention signal is therefore environment-dependent. If the work has real user impact, room to grow responsibility, and cross-functional product/AI/data problems, the fit is stronger. If the role is narrow, repetitive, and disconnected from product impact, the risk becomes higher.',
-      ].join('\n'),
-      renderSpec: {
-        layout: 'text_only',
-        density: 'standard',
-        components: ['SourceBadgeList'],
-      },
-      visualBlocks: [{ type: 'sourceBadges' }],
-      sourceChunkIds: [
-        'faq.recruiter.retention_risk.default',
-        'faq.recruiter.startup_intent.default',
-        'profile.work_style',
-        'career.oosu_salon',
-        'career.target_role',
-      ],
-      hasTodo: false,
-      freshness: 'stable',
-      guardrails: [
-        'Answer only when the user directly raises recruiter-risk concerns.',
-        'Do not turn this concern bank into visible recommended questions.',
-      ],
-      matchedEntityIds: ['recruiter', 'profile', 'career', 'career.oosu_salon'],
-      confidence: 0.98,
-    }),
-  ];
-}
 
 function createRecruiterRiskAnswer(
   input: RecruiterRiskFaqInput
@@ -244,199 +640,4 @@ function createRecruiterRiskAnswer(
     skippedGroq: true,
     visibility: input.visibility ?? 'public',
   };
-}
-
-function parseFaqSections(content: string) {
-  const matches = Array.from(content.matchAll(/^###\s+FAQ\s+.+$/gm));
-
-  return matches.map((match, index) => {
-    const start = match.index ?? 0;
-    const end = matches[index + 1]?.index ?? content.length;
-    return content.slice(start, end).trim();
-  });
-}
-
-function extractFaqHeading(section: string) {
-  const heading = section.match(/^###\s+FAQ\s+[^.]+[.]\s*(.+)$/m)?.[1] ?? '';
-  return heading.trim();
-}
-
-function extractField(section: string, field: string) {
-  const pattern = new RegExp(
-    String.raw`\|\s*${escapeRegExp(field)}\s*\|\s*([^|]+?)\s*\|`,
-    'i'
-  );
-  const match = section.match(pattern);
-  return match?.[1]?.trim().replace(/^`|`$/g, '') ?? '';
-}
-
-function extractAnswerBlock(section: string, label: string) {
-  const pattern = new RegExp(
-    String.raw`\*\*${escapeRegExp(label)}\*\*\s*([\s\S]*?)(?=\n\*\*(?:Short Answer|Default Answer|Detailed Answer)\*\*|\n---|\n###\s+FAQ|$)`,
-    'i'
-  );
-  const match = section.match(pattern);
-
-  return cleanMarkdownAnswer(match?.[1] ?? '');
-}
-
-function cleanMarkdownAnswer(value: string) {
-  return value
-    .trim()
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/[“”]/g, '"')
-    .replace(/[‘’]/g, "'");
-}
-
-function extractBacktickValues(value: string) {
-  const commaSeparatedValues = value
-    .replace(/`/g, '')
-    .split(',')
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-  if (commaSeparatedValues.length > 1) return commaSeparatedValues;
-
-  const values = Array.from(value.matchAll(/`([^`]+)`/g), (match) =>
-    match[1].trim()
-  );
-
-  if (values.length > 0) return values;
-
-  return value
-    .split(',')
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function enhanceRecruiterRiskPatterns({
-  id,
-  patterns,
-  language,
-}: {
-  id: string;
-  patterns: string[];
-  language: 'ru' | 'en';
-}) {
-  const additions: Record<string, string[]> = {
-    'faq.recruiter.retention_risk.default':
-      language === 'ru'
-        ? [
-            '오래 못머물고 금방 그만둘거 같은데',
-            '회사에 오래 못 머물 것 같은데',
-            '금방 퇴사할 것 같은데',
-            '배울거만 배우고 나갈 것 같은데',
-          ]
-        : [
-            'will Oosu leave quickly',
-            'will Oosu just learn and leave',
-            'retention concern',
-          ],
-    'faq.recruiter.startup_intent.default':
-      language === 'ru'
-        ? [
-            '배울거만 뽑아먹고 창업쪽으로 빠질수도',
-            '창업 쪽으로 빠질 것 같은데',
-            '회사에 집중 못 하는 것 아닌가',
-          ]
-        : [
-            'will Oosu leave to start a company',
-            'founder mindset risk',
-            'startup concern',
-          ],
-    'faq.recruiter.ai_dependency.default':
-      language === 'ru'
-        ? ['AI 없으면 개발 못 하는 것 아닌가', '프롬프트만 잘하는 것 아닌가']
-        : ['is Oosu just prompting', 'can Oosu code without AI'],
-    'faq.recruiter.age_career_timing.default':
-      language === 'ru'
-        ? [
-            '지원자는 나이가 너무 많지 않나 신입으로 채용하기엔',
-            '신입으로 채용하기엔 나이가 너무 많아서 적응하기 힘들지 않을까',
-            '나이가 너무 많지 않나',
-            '나이가 많아서 조직 적응이 힘들지 않겠냐고',
-            '신입 치고 나이가 많지 않나',
-            '나이 때문에 적응이 어렵지 않을까',
-          ]
-        : [
-            'too old to hire as a junior',
-            'too old for a junior candidate',
-            'will age make it hard to adapt',
-          ],
-    'faq.recruiter.role_ambiguity.default':
-      language === 'ru'
-        ? [
-            '뭘 제일 잘하지',
-            '분야가 다양해서 전문분야를 모르겠네',
-            '전문분야가 뭔지 모르겠다',
-            '가장 잘하는 분야가 뭐야',
-            '제너럴리스트인지 스페셜리스트인지 모르겠다',
-          ]
-        : [
-            'what is Oosu best at',
-            'too many fields to understand specialty',
-            'what is Oosu specialty',
-            'generalist or specialist',
-          ],
-    'faq.recruiter.role_recommendation.default':
-      language === 'ru'
-        ? [
-            '어떤 일을 맡기면 좋을까',
-            '어떤 역할이 제일 맞을까',
-            '채용하면 무슨 분야를 맡겨야 할까',
-          ]
-        : [
-            'what role fits Oosu best',
-            'what should Oosu work on',
-            'what position should Oosu have',
-          ],
-  };
-
-  return uniqueText([...patterns, ...(additions[id] ?? [])]);
-}
-
-function getQuickLabel(intentId: string, language: 'ru' | 'en') {
-  const label = intentId.split('.').at(-1)?.replaceAll('_', ' ') ?? intentId;
-  if (language === 'en') return label;
-
-  const labels: Record<string, string> = {
-    retention_risk: '장기 근속',
-    startup_intent: '창업 우려',
-    depth_concern: '개발 깊이',
-    ai_dependency: 'AI 의존도',
-    project_breadth_vs_depth: '프로젝트 깊이',
-    collaboration_experience: '협업 경험',
-    role_ambiguity: '포지션 명확성',
-    weaknesses_risks: '단점과 리스크',
-    role_recommendation: '역할 추천',
-    career_switcher_value: '전환형 가치',
-    age_career_timing: '커리어 시점',
-    non_cs_background: '비전공 배경',
-    programming_transition: '전향 이유',
-    ambiguity_handling: '모호함 처리',
-    growth_potential: '성장 가능성',
-    business_in_code: '비즈니스 감각',
-    ideal_environment: '이상적 환경',
-    onboarding_questions: '첫 질문',
-    ai_director: 'AI Director',
-  };
-
-  return labels[label.replaceAll(' ', '_')] ?? label;
-}
-
-function normalizeVisibility(value: string): FaqAnswer['visibility'] {
-  const normalized = value.trim().toLowerCase();
-  if (normalized === 'limited') return 'limited';
-  if (normalized === 'private') return 'private';
-  return 'public';
-}
-
-function uniqueText(values: string[]) {
-  return Array.from(
-    new Set(values.map((value) => value.trim()).filter(Boolean))
-  );
-}
-
-function escapeRegExp(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

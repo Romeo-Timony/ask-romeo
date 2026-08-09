@@ -361,7 +361,13 @@ function renderPart({
   }
 
   if (block.type === 'statelessDiagram' || block.type === 'timeline') {
-    return <WorkflowSteps key={`${block.type}-${index}`} block={block} />;
+    return (
+      <WorkflowSteps
+        key={`${block.type}-${index}`}
+        block={block}
+        language={payload.language}
+      />
+    );
   }
 
   if (block.type === 'comparisonTable') {
@@ -699,9 +705,7 @@ function ProjectShowcaseCards({
   const sectionTitle =
     block.dataKey === 'projects.wiki_featured' ||
     block.dataKey === 'projects.more'
-      ? language === 'ru'
-        ? 'Дополнительно'
-        : 'Additional'
+      ? block.title || (language === 'ru' ? 'Дополнительно' : 'Additional')
       : language === 'ru' && block.title === 'Featured Projects'
         ? 'Избранные проекты'
         : block.title;
@@ -1193,7 +1197,13 @@ function CtaButtons({ block }: { block: VisualBlock }) {
   );
 }
 
-function WorkflowSteps({ block }: { block: VisualBlock }) {
+function WorkflowSteps({
+  block,
+  language,
+}: {
+  block: VisualBlock;
+  language: 'ru' | 'en';
+}) {
   const steps = block.items.map(parseDiagramStep).filter(isDefined);
   if (steps.length === 0) return null;
 
@@ -1213,7 +1223,7 @@ function WorkflowSteps({ block }: { block: VisualBlock }) {
                 {index + 1}
               </span>
               <h4 className="min-w-0 flex-1 whitespace-nowrap text-[13px] leading-5 font-semibold">
-                {getWorkflowStepTitle(block.dataKey, index, step.title)}
+                {getWorkflowStepTitle(block.dataKey, index, step.title, language)}
               </h4>
             </div>
             {step.description && (
@@ -1231,11 +1241,15 @@ function WorkflowSteps({ block }: { block: VisualBlock }) {
 function getWorkflowStepTitle(
   dataKey: string | undefined,
   index: number,
-  fallbackTitle: string
+  fallbackTitle: string,
+  language: 'ru' | 'en'
 ) {
   if (dataKey !== 'qa.ai.workflow') return fallbackTitle;
 
-  return ['Контекст', 'AI-идеи', 'Проверка', 'QA-тесты', 'Релиз'][index] ?? fallbackTitle;
+  const ruTitles = ['Контекст', 'AI-идеи', 'Проверка', 'QA-тесты', 'Релиз'];
+  const enTitles = ['Context', 'AI Ideas', 'Verification', 'QA Testing', 'Release'];
+
+  return (language === 'ru' ? ruTitles : enTitles)[index] ?? fallbackTitle;
 }
 
 function insertAfterTelegram<T extends { kind?: string }>(items: T[], item: T) {

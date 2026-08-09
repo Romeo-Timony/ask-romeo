@@ -1223,9 +1223,9 @@ function uniqueValues(values: string[]) {
 }
 
 function toSourceTitle(answerSource: ChatAnswerMetadata['answerSource']) {
-  if (answerSource === 'faq_cache') return 'Oosu Wiki';
+  if (answerSource === 'faq_cache') return 'Romeo Wiki';
   if (answerSource === 'philosophy_docs') {
-    return 'oosu.dev Visionary Builder Docs';
+    return 'romeo.dev Visionary Builder Docs';
   }
   if (answerSource === 'faq_rewrite') return 'Portfolio answer';
   if (answerSource === 'answer_cache') return 'Portfolio answer cache';
@@ -1237,7 +1237,7 @@ function toSourceTitle(answerSource: ChatAnswerMetadata['answerSource']) {
   if (answerSource === 'prompt_guardrail') return 'Prompt safety policy';
   if (answerSource === 'rag_generation') return 'Portfolio data';
   if (answerSource === 'insufficient_evidence') return 'Insufficient evidence';
-  return 'Oosu portfolio data';
+  return 'Romeo portfolio data';
 }
 
 function getAnswerSourceBadge(

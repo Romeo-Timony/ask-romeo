@@ -51,6 +51,8 @@ export const romeoProjects = [
       'Vercel AI SDK',
       'OpenAI',
       'RAG',
+      'PostgreSQL',
+      'pgvector',
       'Docker',
     ],
     links: [

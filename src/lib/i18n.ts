@@ -87,7 +87,7 @@ export const uiText = {
     darkMode: 'Тёмная',
     links: 'Ссылки',
     github: 'GitHub',
-    resume: 'Resume',
+    resume: 'Резюме',
     resumeComingSoon: 'Скоро',
     help: 'Помощь',
     siteStackQuestion: 'Какой стек у этого сайта?',

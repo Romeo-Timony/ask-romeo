@@ -19,12 +19,12 @@ const preferenceInitScript = `
 (() => {
   const themeTokens = new Set(['dark', 'light']);
   const languageMap = new Map([
-    ['ko', 'ko'],
-    ['kr', 'ko'],
-    ['korean', 'ko'],
-    ['ru', 'ko'],
-    ['rus', 'ko'],
-    ['russian', 'ko'],
+    ['ko', 'ru'],
+    ['kr', 'ru'],
+    ['korean', 'ru'],
+    ['ru', 'ru'],
+    ['rus', 'ru'],
+    ['russian', 'ru'],
     ['en', 'en'],
     ['eng', 'en'],
     ['english', 'en'],
@@ -151,6 +151,8 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg?v=3" sizes="any" />
+        <link rel="preload" href="/images/profile/romeo-timony-new.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/video-visit/romeo-videovizitka-poster.jpg" as="image" type="image/jpeg" />
         <script dangerouslySetInnerHTML={{ __html: preferenceInitScript }} />
       </head>
       <body

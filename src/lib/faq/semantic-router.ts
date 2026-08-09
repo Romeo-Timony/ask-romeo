@@ -101,6 +101,26 @@ export async function routeFaqIntent({
     return emptyRouteResult('empty_question', 'token_fallback');
   }
 
+  const quickQuestionMatch =
+    source === 'quick_question'
+      ? getTrustedQuickQuestionMatch({ starterQuestionId, language })
+      : null;
+
+  if (quickQuestionMatch) {
+    return {
+      answer: quickQuestionMatch,
+      matchedFaqId: quickQuestionMatch.id,
+      intentScore: 1,
+      intentSecondScore: 0,
+      intentMargin: 1,
+      routeDecision: {
+        mode: 'direct',
+        reason: 'trusted_quick_question',
+        router: 'quick_question',
+      },
+    };
+  }
+
   const isCyrillicQuery = /[А-Яа-яЁё]/.test(question);
   if (isCyrillicQuery) {
     return emptyRouteResult('russian_rag_required', 'token_fallback');
@@ -186,25 +206,7 @@ export async function routeFaqIntent({
     };
   }
 
-  const quickQuestionMatch =
-    source === 'quick_question'
-      ? getTrustedQuickQuestionMatch({ starterQuestionId, language })
-      : null;
 
-  if (quickQuestionMatch) {
-    return {
-      answer: quickQuestionMatch,
-      matchedFaqId: quickQuestionMatch.id,
-      intentScore: 1,
-      intentSecondScore: 0,
-      intentMargin: 1,
-      routeDecision: {
-        mode: 'direct',
-        reason: 'trusted_quick_question',
-        router: 'quick_question',
-      },
-    };
-  }
 
   const hiddenRecruiterRiskMatch = getHiddenRecruiterRiskMatch({
     question: normalizedQuestion,

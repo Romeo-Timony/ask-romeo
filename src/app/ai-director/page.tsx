@@ -1,10 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import {
-  FaqList,
-  PublicPageShell,
-  TextSection,
-} from '@/components/seo/public-page-shell';
+import { AiDirectorPageContent } from '@/components/faq/ai-director-page-content';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
@@ -21,79 +16,5 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function AiDirectorPage() {
-  return (
-    <PublicPageShell
-      eyebrow="Рабочий подход"
-      title="Senior QA в эпоху AI"
-      summary="Мой подход объединяет инженерное мышление, управление рисками и практическое применение AI. Я выстраиваю качество от анализа требований до мониторинга после релиза, а AI использую для ускорения исследований, автоматизации проверок и принятия более обоснованных решений."
-      primaryCta={{
-        href: '/chat?lang=rus&theme=dark',
-        label: 'Спросить Romeo',
-      }}
-      secondaryCta={{ href: '/projects', label: 'Смотреть проекты' }}
-      navLabels={{
-        ask: 'Спросить Romeo',
-        projects: 'Проекты',
-        faq: 'FAQ',
-      }}
-    >
-      <TextSection title="Что это означает">
-        <p>
-          Для меня Senior QA — это не только поиск дефектов. Это понимание
-          продукта и архитектуры, раннее выявление рисков, прозрачные критерии
-          качества и процессы, которые помогают команде выпускать надёжное ПО
-          без лишних задержек.
-        </p>
-        <p>
-          В работе я охватываю Web и Mobile, API, интеграции и микросервисы:
-          проверяю требования, проектирую тестовые сценарии, развиваю регрессию
-          и автоматизацию, анализирую логи и метрики. AI дополняет этот подход,
-          но не заменяет инженерную оценку и ответственность за результат.
-        </p>
-      </TextSection>
-
-      <TextSection title="Как Ask Romeo подтверждает этот подход">
-        <p>
-          Ask Romeo — практический AI-проект, в котором соединены диалоговый
-          интерфейс, база знаний, Wiki/RAG-поиск, отображение источников и
-          контроль качества ответов. В нём я применяю QA-подход к AI-продукту:
-          проверяю локализацию, устойчивость интерфейса, корректность маршрутов,
-          работу при недостатке данных и регрессию пользовательских сценариев.
-        </p>
-        <p>
-          Подробнее можно посмотреть в разделе{' '}
-          <Link className="underline" href="/projects/ask-romeo">
-            проекта Ask Romeo
-          </Link>{' '}
-          и в разделе{' '}
-          <Link className="underline" href="/projects">
-            проектов
-          </Link>
-          .
-        </p>
-      </TextSection>
-
-      <TextSection title="Частые вопросы">
-        <FaqList
-          items={[
-            {
-              question: 'Какую роль AI играет в вашей работе?',
-              answer:
-                'AI помогает быстрее анализировать требования и логи, готовить тестовые данные и черновики проверок, исследовать риски и автоматизировать повторяемые задачи. Финальные решения остаются за инженером.',
-            },
-            {
-              question: 'На чём сосредоточена ваша QA-экспертиза?',
-              answer:
-                'На построении и развитии QA-процессов, тестировании Web и Mobile, API, интеграций и микросервисов, а также на регрессии, наблюдаемости и автоматизации качества.',
-            },
-            {
-              question: 'Где можно увидеть практический результат?',
-              answer:
-                'В Ask Romeo и других проектах портфолио: там показаны реальные продуктовые сценарии, применяемые технологии и QA-задачи, с которыми я работаю.',
-            },
-          ]}
-        />
-      </TextSection>
-    </PublicPageShell>
-  );
+  return <AiDirectorPageContent />;
 }

@@ -68,7 +68,7 @@ async function main() {
 
       const sourceKey = `gdrive.${file.id}`;
       const title = file.name.replace(/\.[^/.]+$/, '');
-      const language = /[А-Яа-яЁё]/.test(content) ? 'ko' : 'en';
+      const language = /[А-Яа-яЁё]/.test(content) ? 'ru' : 'en';
 
       const chunks = buildChunks(content, title);
       if (chunks.length === 0) continue;

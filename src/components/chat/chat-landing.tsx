@@ -27,8 +27,8 @@ export default function ChatLanding({
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 80 } },
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { type: 'tween', ease: 'easeOut', duration: 0.25 } },
   };
 
   return (

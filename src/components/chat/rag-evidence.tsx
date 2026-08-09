@@ -1056,7 +1056,7 @@ function SourceEvidenceCard({
         <BookOpenCheck className="text-foreground mt-0.5 h-3.5 w-3.5 shrink-0" />
         <div className="min-w-0 flex-1 space-y-0.5">
           <p className="truncate text-xs font-medium">{sourceTitle}</p>
-          {sectionPath && (
+          {debug && sectionPath && (
             <p className="text-muted-foreground truncate text-[11px]">
               {sectionPath}
             </p>
@@ -1107,30 +1107,61 @@ function buildDisplaySourceItems({
     }));
   }
 
-  const sourceGroups = new Map<string, DisplaySourceItem>();
+  const sourceGroups = new Map<string, {
+    source: RagSource;
+    title: string;
+    sections: string[];
+    count: number;
+  }>();
 
   for (const source of sources) {
     const title = formatPublicSourceTitle(source, language);
     const rawSectionPath = formatSectionPathLabel(source, language);
-    const sectionPath = rawSectionPath === title ? '' : rawSectionPath;
-    const key = `${title}::${sectionPath}`;
-    const existingSource = sourceGroups.get(key);
+
+    // Clean up rawSectionPath by removing the title prefix if it exists
+    let cleanedPath = rawSectionPath;
+    if (title && rawSectionPath.startsWith(title)) {
+      cleanedPath = rawSectionPath.substring(title.length).replace(/^(\s*>\s*)+/, '').trim();
+    }
+
+    const existingSource = sourceGroups.get(title);
 
     if (existingSource) {
       existingSource.count += 1;
-      continue;
+      if (cleanedPath && !existingSource.sections.includes(cleanedPath)) {
+        existingSource.sections.push(cleanedPath);
+      }
+    } else {
+      sourceGroups.set(title, {
+        source,
+        title,
+        sections: cleanedPath ? [cleanedPath] : [],
+        count: 1,
+      });
     }
-
-    sourceGroups.set(key, {
-      key,
-      source,
-      title,
-      sectionPath,
-      count: 1,
-    });
   }
 
-  return Array.from(sourceGroups.values());
+  return Array.from(sourceGroups.entries()).map(([title, item]) => {
+    let sectionPath = '';
+    if (item.sections.length === 1) {
+      sectionPath = item.sections[0];
+    } else if (item.sections.length > 1) {
+      const lastSegments = item.sections.map(path => {
+        const parts = path.split(' > ');
+        return parts[parts.length - 1];
+      }).filter(Boolean);
+      const uniqueSegments = Array.from(new Set(lastSegments));
+      sectionPath = uniqueSegments.join(', ');
+    }
+
+    return {
+      key: title,
+      source: item.source,
+      title,
+      sectionPath,
+      count: item.count,
+    };
+  });
 }
 
 function shouldShowFeedbackForAnswerSource(answerSource?: string) {
@@ -1521,19 +1552,35 @@ function formatPublicSourceTitle(source: RagSource, language: 'ru' | 'en') {
     : null;
   if (entityLabel && entityLabel !== source.entity_id) return entityLabel;
 
+  let titleText = '';
   if (source.section_path.length > 0) {
-    return humanizeSourcePathSegment(source.section_path[0]);
-  }
-
-  if (
+    titleText = humanizeSourcePathSegment(source.section_path[0]);
+  } else if (
     source.title &&
     source.title !== 'Oosu Wiki' &&
     source.title !== 'Romeo Wiki'
   ) {
-    return humanizeSourcePathSegment(source.title);
+    titleText = humanizeSourcePathSegment(source.title);
+  } else {
+    titleText = language === 'ru' ? 'Wiki Romeo' : 'Romeo Wiki';
   }
 
-  return language === 'ru' ? 'Wiki Romeo' : 'Romeo Wiki';
+  // Shorten specific long titles
+  const lowerTitle = titleText.toLowerCase();
+  if (lowerTitle.includes('профессиональный опыт романа тимошенко')) {
+    return language === 'ru' ? 'Профессиональный опыт' : 'Professional Experience';
+  }
+  if (lowerTitle.includes('romeo timony professional experience')) {
+    return 'Professional Experience';
+  }
+  if (lowerTitle.includes('принципы ответов ask romeo')) {
+    return language === 'ru' ? 'Принципы ответов' : 'Answer Guidance';
+  }
+  if (lowerTitle.includes('ask romeo answer guidance')) {
+    return 'Answer Guidance';
+  }
+
+  return titleText;
 }
 
 function formatSectionPathLabel(source: RagSource, language: 'ru' | 'en') {

@@ -8,7 +8,7 @@ export const getPresentation = tool({
   execute: async () => {
     return {
       presentation:
-        'Romeo Timony is an AI-connected Fullstack Developer building Ask Romeo, a 2026 conversational portfolio that connects frontend experience, backend logic, and LLM-powered answers.',
+        'Romeo Timony is a Fullstack QA/AI engineer specializing in software quality, test automation, and integrating AI into development workflows. He has built the Ask Romeo conversational portfolio to showcase his QA engineering experience and AI orchestration skills.',
     };
   },
 });

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { Pause, Play, Volume2 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 interface VideoVisitCardProps {
   className?: string;
@@ -13,9 +14,13 @@ interface VideoVisitCardProps {
 
 export function VideoVisitCard({
   className,
-  label = 'Video visit card',
+  label,
   compactControls = false,
 }: VideoVisitCardProps) {
+  const { language } = useDisplayPreferences();
+  const defaultLabel = language === 'ru' ? 'Видеовизитка' : 'Video visit card';
+  const displayLabel = label || defaultLabel;
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -65,7 +70,7 @@ export function VideoVisitCard({
         autoPlay
         muted
         loop
-        preload="auto"
+        preload="none"
         playsInline
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -87,10 +92,10 @@ export function VideoVisitCard({
         )}
         aria-label={
           isMuted
-            ? 'Включить звук видеовизитки'
+            ? language === 'ru' ? 'Включить звук видеовизитки' : 'Unmute video visit card'
             : isPlaying
-            ? 'Приостановить видеовизитку'
-            : 'Воспроизвести видеовизитку'
+            ? language === 'ru' ? 'Приостановить видеовизитку' : 'Pause video visit card'
+            : language === 'ru' ? 'Воспроизвести видеовизитку' : 'Play video visit card'
         }
       >
         {isMuted ? (
@@ -110,7 +115,13 @@ export function VideoVisitCard({
           />
         )}
         {!compactControls && (
-          <span>{isMuted ? 'Включить звук' : isPlaying ? 'Пауза' : label}</span>
+          <span>
+            {isMuted
+              ? language === 'ru' ? 'Включить звук' : 'Unmute'
+              : isPlaying
+              ? language === 'ru' ? 'Пауза' : 'Pause'
+              : displayLabel}
+          </span>
         )}
       </button>
     </div>
