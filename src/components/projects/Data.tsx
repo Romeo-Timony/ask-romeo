@@ -99,7 +99,7 @@ function questionSurfaceForProjectTitle(
 ): QuestionSurface | undefined {
   const normalizedTitle = title.toLowerCase();
 
-  if (normalizedTitle.includes('ask-romeo') || normalizedTitle.includes('askoosu')) return 'project.ask-romeo';
+  if (normalizedTitle.includes('ask-romeo') || normalizedTitle.includes('askoosu')) return 'project.askoosu';
   if (normalizedTitle.includes('instagram')) return 'project.instagram';
   if (normalizedTitle.includes('sticks')) return 'project.sticks';
   if (

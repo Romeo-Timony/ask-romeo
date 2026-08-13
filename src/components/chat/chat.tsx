@@ -120,6 +120,7 @@ const Chat = () => {
   const latestScrolledUserMessageIdRef = useRef<string | null>(null);
   const pendingQueriesCountRef = useRef(0);
   const autoSubmittedQueryRef = useRef<string | null>(null);
+  const wasGeneratingRef = useRef(false);
   const hydratedConversationIdRef = useRef<string | null | undefined>(
     undefined
   );
@@ -378,7 +379,9 @@ const Chat = () => {
 
     latestScrolledUserMessageIdRef.current = latestUserMessage.id;
     window.requestAnimationFrame(() => {
-      scrollToLatestQuestion('smooth');
+      window.requestAnimationFrame(() => {
+        scrollToLatestQuestion('smooth');
+      });
     });
   }, [latestUserMessage?.id, scrollToLatestQuestion]);
 
@@ -387,6 +390,52 @@ const Chat = () => {
       m.role === 'assistant' && m.parts?.some((part) => isPendingToolPart(part))
   );
   const isGeneratingAnswer = isLoading || isToolInProgress || loadingSubmit;
+
+  const shouldAutoScrollToBottom = useCallback(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return true;
+
+    const distanceFromBottom =
+      scrollContainer.scrollHeight -
+      scrollContainer.scrollTop -
+      scrollContainer.clientHeight;
+
+    if (distanceFromBottom < 180) return true;
+
+    if (isGeneratingAnswer) {
+      const latestUserBubble = latestUserBubbleRef.current;
+      if (!latestUserBubble) return true;
+
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const bubbleRect = latestUserBubble.getBoundingClientRect();
+      const questionScrollTop =
+        scrollContainer.scrollTop +
+        bubbleRect.top -
+        containerRect.top -
+        LATEST_QUESTION_TOP_OFFSET;
+
+      const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+      const targetScrollTop = Math.min(questionScrollTop, maxScrollTop);
+
+      // Calculate a dynamic buffer based on viewport height to account for large content updates (like RAG results)
+      const dynamicBuffer = Math.max(150, scrollContainer.clientHeight - LATEST_QUESTION_TOP_OFFSET - 40);
+
+      return scrollContainer.scrollTop >= targetScrollTop - dynamicBuffer;
+    }
+
+    return false;
+  }, [isGeneratingAnswer]);
+
+  useEffect(() => {
+    if (wasGeneratingRef.current && !isGeneratingAnswer) {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          scrollToLatestQuestion('smooth');
+        });
+      });
+    }
+    wasGeneratingRef.current = isGeneratingAnswer;
+  }, [isGeneratingAnswer, scrollToLatestQuestion]);
 
   const enqueuePendingQuery = useCallback(
     (query: string, suggestedQuestion?: SuggestedQuestion) => {
@@ -722,7 +771,7 @@ const Chat = () => {
       return;
     }
 
-    if (isScrolledNearBottom()) {
+    if (shouldAutoScrollToBottom()) {
       scrollToLatest('auto');
       return;
     }
@@ -732,7 +781,7 @@ const Chat = () => {
     }
   }, [
     hasConversationContent,
-    isScrolledNearBottom,
+    shouldAutoScrollToBottom,
     isGeneratingAnswer,
     latestUserMessage,
     loadingSubmit,
@@ -794,6 +843,9 @@ const Chat = () => {
                 key="conversation"
                 className="flex min-h-full flex-col justify-start gap-4 pb-4"
                 {...MOTION_CONFIG}
+                onAnimationComplete={() => {
+                  scrollToLatestQuestion('smooth');
+                }}
               >
                 {messages.map((message, index) => {
                   if (message.role === 'user') {

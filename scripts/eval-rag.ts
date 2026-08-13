@@ -1333,7 +1333,7 @@ function buildFailureFailedAssertions({
   expectedEntityIds: string[];
   matchedEntityIds: string[];
   entityOk: boolean;
-  expectedLanguage?: 'ko' | 'en';
+  expectedLanguage?: 'ko' | 'en' | 'ru';
   actualLanguage: string | null;
   languageOk: boolean;
   expectedAnswerSource?: string;
