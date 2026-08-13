@@ -41,13 +41,14 @@ export const resumeProjectSkillGroupsRu: ResumeProjectSkillGroup[] = [
       { name: 'AI / LLM', proficiency: 'usable' },
     ],
     evidence: [
-      'Отвечает за построение и масштабирование QA-процессов Sminex App: функциональное, системное, интеграционное и регрессионное тестирование iOS, Android, Web, API и смежных систем.',
-      'Увеличил покрытие ключевых модулей с 10% до 85–95%, создал более 2000 сценариев и внедрил трёхуровневую стратегию регресса MIN / MID / MAX; доля критических дефектов на Production снижена до менее 5%.',
-      'Внедрил Shift-Left-проверку требований, пострелизный мониторинг через Sentry и применение LLM для генерации вариативных тест-кейсов и тестовых данных.',
+      'Отвечал за построение и масштабирование QA-процессов Sminex App (Nov 2024 — Aug 2026): функциональное, системное, интеграционное и регрессионное тестирование iOS, Android, Web, API.',
+      'Увеличил покрытие критичных модулей с 10% до 85%, создал более 2000 сценариев и совместно с QA/AQA внедрил трёхуровневую модель регресса MIN / MID / MAX.',
+      'Внедрил Shift-Left-проверку требований, пострелизный мониторинг через Sentry/Grafana и применение AI/LLM для генерации тест-кейсов и создания RAG-ассистентов в Confluence.',
+      'В мобильном контуре совместно с AQA-командой выстроил процесс запуска порядка 700 Appium-автотестов в CI с публикацией в Allure TestOps, сокративший время регресса на 40%.',
     ],
   },
   {
-    group: 'Elme Messer — QA-инженер',
+    group: 'Messer Group — Middle QA-инженер',
     skills: [
       { name: 'React.js / React Native', proficiency: 'usable' },
       { name: 'PHP Laravel', proficiency: 'usable' },
@@ -67,7 +68,7 @@ export const resumeProjectSkillGroupsRu: ResumeProjectSkillGroup[] = [
     ],
   },
   {
-    group: 'DPD Russia — QA-инженер',
+    group: 'DPD Russia — Junior QA-инженер',
     skills: [
       { name: 'Vue.js / Node.js', proficiency: 'usable' },
       { name: 'Oracle SQL', proficiency: 'confident' },
@@ -122,13 +123,14 @@ export const resumeProjectSkillGroupsEn: ResumeProjectSkillGroup[] = [
       { name: 'AI / LLM', proficiency: 'usable' },
     ],
     evidence: [
-      'Owns and scales QA processes for Sminex App across iOS, Android, Web, APIs, and connected systems, covering functional, system, integration, and regression testing.',
-      'Raised key-module coverage from 10% to 85–95%, authored 2,000+ scenarios, and introduced MIN / MID / MAX regression levels; critical production defect leakage fell below 5%.',
-      'Introduced Shift-Left requirements review, post-release monitoring in Sentry, and LLM-assisted generation of variable test cases and test data.',
+      'Managed and scaled QA processes for Sminex App (Nov 2024 — Aug 2026) across iOS, Android, Web, APIs, and connected systems.',
+      'Raised critical module coverage from 10% to 85%, authored 2,000+ scenarios, and co-introduced MIN / MID / MAX regression levels and unified test coverage tags.',
+      'Introduced Shift-Left requirements review, post-release monitoring via Sentry/Grafana, and LLM usage for test cases and Confluence RAG assistants.',
+      'In the mobile loop, built a regular run of ~700 Appium autotests in CI with Allure TestOps integration, reducing regression time by 40%.',
     ],
   },
   {
-    group: 'Elme Messer — QA Engineer',
+    group: 'Messer Group — Middle QA Engineer',
     skills: [
       { name: 'React.js / React Native', proficiency: 'usable' },
       { name: 'PHP Laravel', proficiency: 'usable' },
@@ -148,7 +150,7 @@ export const resumeProjectSkillGroupsEn: ResumeProjectSkillGroup[] = [
     ],
   },
   {
-    group: 'DPD Russia — QA Engineer',
+    group: 'DPD Russia — Junior QA Engineer',
     skills: [
       { name: 'Vue.js / Node.js', proficiency: 'usable' },
       { name: 'Oracle SQL', proficiency: 'confident' },

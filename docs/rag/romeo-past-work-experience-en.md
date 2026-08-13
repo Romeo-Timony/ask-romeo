@@ -4,41 +4,41 @@ title: "Romeo Timony Professional Experience"
 language: en
 sourceType: professional-experience
 visibility: public
-freshness: needs-review
+freshness: current
 confidence: medium
 relatedEntities: [profile.romeo, experience.sminex, experience.messer-group, experience.dpd, experience.kode, experience.industry]
-sourceUpdatedAt: "2026-07-08"
+sourceUpdatedAt: "2026-08-12"
 ---
 
 # Romeo Timony Professional Experience
 
 > Document status: draft for verification by the owner before uploading to RAG.
-> Sources: "past experience.docx", resume "Resume QA engineer.pdf", updated July 8, 2026, internal materials on architecture and Mobile GitFlow Sminex App, mobile autotests regulations dated July 7, 2026, and corporate AI platform review dated July 9, 2026. In case of discrepancies in dates and current place of work, priority is given to the resume. Formulations are shortened and cleaned from personal and internal infrastructure data.
+> Sources: "past experience.docx", resume "Тимошенко Роман.pdf", updated August 12, 2026, internal materials on architecture and Mobile GitFlow Sminex App, mobile autotests regulations dated July 7, 2026, and corporate AI platform review dated July 9, 2026. In case of discrepancies in dates and current place of work, priority is given to the resume. Formulations are shortened and cleaned from personal and internal infrastructure data.
 
 ## Brief Professional Positioning
 
-Romeo Timony is a Senior QA Engineer with an engineering background and experience in industrial quality, project management, and digital product testing. According to the resume, as of July 8, 2026, relevant experience in QA and IT is 5 years 1 month. Prior to transitioning to IT, he was involved in quality control and assurance, safety, customer processes, and project work in international and manufacturing companies.
+Romeo Timony is a Senior QA Engineer with an engineering background and experience in industrial quality, project management, and digital product testing. According to the resume, as of August 12, 2026, relevant experience in QA and IT is 5 years 1 month. Prior to transitioning to IT, he was involved in quality control and assurance, safety, customer processes, and project work in international and manufacturing companies.
 
 In IT, Romeo developed from a project administrator to a Senior QA Engineer. His main profile is building QA processes, functional, integration, system, and regression testing of Web, Mobile, and API, verification of E2E business processes, requirements analysis, working with test documentation, logs, and databases. An additional area is the application of AI/LLM tools to prepare test scenarios, test data, and analyze documentation.
 
 ## Current QA Experience Chronology
 
-- **November 2024 — present:** Sminex, Senior QA Engineer.
-- **September 2023 — November 2024:** Messer Group, Test Engineer / QA Engineer.
-- **August 2021 — September 2023:** DPD Russia, Test Engineer / QA Engineer.
+- **November 2024 — August 2026:** Sminex, Senior QA Engineer.
+- **September 2023 — November 2024:** Messer Group, Test Engineer / Middle QA Engineer.
+- **August 2021 — September 2023:** DPD Russia, Test Engineer / Junior QA Engineer.
 - **Before DPD:** IT project administration in KODE and earlier quality and project management experience. Exact dates of separate early roles are not specified in the resume, so they are not reconstructed in this document.
 
 ## Sminex — Senior QA Engineer
 
 **Entity ID:** `experience.sminex`
 
-**Period:** November 2024 — present as of July 8, 2026.
+**Period:** November 2024 — August 2026, 1 year 10 months.
 
 ### Role and Context
 
-Romeo works as a Senior QA Engineer in the IT Department of Sminex and is responsible for building, scaling, and optimizing QA processes for the mobile application and the Sminex App ecosystem. He helped transition the product from an unstructured startup phase to a controlled and transparent quality phase.
+Romeo worked as a Senior QA Engineer in the IT Department of Sminex and was responsible for building, scaling, and optimizing QA processes for the mobile application and the Sminex App ecosystem. He helped transition the product from an unstructured startup phase to a controlled and transparent quality phase.
 
-The cross-functional team has 23 people and includes a Product Owner, Scrum Master, analysts, architect, DevOps, Backend and Frontend developers, designer, four QAs, one AQA, and 1C developers.
+The cross-functional team had 23 people and included a Product Owner, Scrum Master, analysts, architect, DevOps, Backend and Frontend developers, designer, four QAs, one AQA, and 1C developers.
 
 ### Core QA Tasks
 
@@ -52,12 +52,14 @@ The cross-functional team has 23 people and includes a Product Owner, Scrum Mast
 
 ### Confirmed Results
 
-- expanded the test base of key Sminex App modules from 10% to 85–95%, creating over 2000 test scenarios;
-- developed a three-level regression strategy: MIN / MID / MAX;
-- reduced the share of critical defects missed in Production to less than 5%;
-- due to early requirements review, reduced the number of inaccuracies in development by 30%;
-- improved the accuracy of sprint planning for the team by 15% due to QA effort estimation;
-- prepared a test automation strategy with an expected regression time reduction of 40%. The last figure is the expected effect of the strategy, not an already achieved result.
+- participated in the successful launch and MVP release of the application in the 1st iteration; successfully led the product through dozens of major and integration releases, rolling it out to all owners and buyers of Sminex luxury real estate, and growing the basic MVP into a powerful, fully-featured super application (Super App);
+- increased the test coverage of critical modules from approximately 10% to 85%; created and maintained over 2,000 test cases, checklists, and mind maps;
+- reduced the number of inaccuracies in development by 30% due to early requirements review on the Discovery phase;
+- improved the accuracy of sprint planning for the team by 15% due to precise QA effort estimation;
+- jointly with the QA/AQA team, implemented a three-level regression model (MIN / MID / MAX) and unified test coverage tags, making the scope of testing manageable under release risks;
+- ensured a minimal target leakage level of critical defects into production due to early QA review, multi-stage testing, and risk-oriented release control;
+- provided 72-hour post-release monitoring after each release, accelerating detection and triage of critical incidents;
+- in the mobile loop, built a regular run and maintenance process for approximately 700 Appium autotests for iOS and Android with parallel execution in CI and automated publication of results to Allure TestOps, reducing regression time by 40%.
 
 ### Technologies and Tools
 
@@ -92,9 +94,13 @@ QA tests functionality in the feature branch after code review and records the r
 
 This process confirms Romeo's participation not only in functional testing, but also in controlling the passage of changes from a task and Merge Request to the release build and the Production branch.
 
-### Use of Mobile Autotests Under Regulations
+### Participation in Test Automation
 
-Sminex has a unified mobile automation project for Android and iOS using Appium and Python with Pytest, Page Object Model, and Allure. Romeo uses this circuit as a Senior QA: runs required test suites, monitors CI pipeline execution, and analyzes results. The source confirms the operation of the ready solution, but does not confirm Romeo's independent creation of the automation framework.
+Sminex has a unified mobile automation project for Android and iOS using Appium and Python with Pytest, Page Object Model, and Allure. Romeo participates in mobile automation as a Senior QA:
+- hands over AQA feature packs from Allure TestOps with preconditions, test data, expected results, platform differences, and priorities;
+- analyzes mobile regression run results on Python + pytest + Appium, classifying failures (product defect, data issue, test bug, or infrastructure problem);
+- collaborates with AQA to analyze the Page Object Model, requests resource-id locators, installs drivers for UiAutomator2 / XCUITest, and studies GitLab CI, sharding, and Allure reporting;
+- independently develops small isolated autotests and API checks.
 
 #### Launching Autotests
 
@@ -122,11 +128,17 @@ Romeo distinguishes between Passed, Failed, Flaky, and Skipped statuses, opens a
 
 Screenshots on failure are attached automatically. Analysis checks the current screen, presence of expected elements, UI messages, form state, popups, and potential keyboard occlusion.
 
-### Corporate AI Platform Usage
+### Corporate AI Platform Usage and AI-assisted QA
 
 Sminex has a corporate AI platform — a unified boundary for employee user queries and automated LLM calls from services, bots, and integrations. The platform provides centralized management of models, access, budgets, security, tracing, and metrics.
 
-Romeo uses the corporate AI platform in QA processes to prepare varied test cases and test data, analyze requirements and large volumes of project documentation, structure information, and accelerate research. This confirms the practical application of AI/LLM as a Senior QA tool, but does not mean Romeo administers the platform infrastructure or acts as an MLOps engineer.
+Romeo actively piloted the use of LLM and AI-assisted QA tools:
+- used LLMs to analyze Jira tasks, find ambiguities, and draft positive/negative test cases, checklists, test data, and questions for analysts;
+- developed system prompts and structured template responses, ensuring the mandatory QA-review step; shared AI-assisted QA practices with the team;
+- participated in building and testing internal Confluence RAG assistants—evaluating answer relevance, completeness, factual accuracy, and alignment with the company's business context;
+- designed an MVP AI-assisted Test Design workflow for the dev pipeline: Jira via MCP → normalization → RAG context → JSON LLM response → validation → Draft test cases in Allure TestOps.
+
+This confirms the practical application of AI/LLM as a Senior QA tool, but does not mean Romeo administers the platform infrastructure or acts as an MLOps engineer.
 
 #### Platform Capabilities
 
@@ -221,7 +233,7 @@ Note: This list describes the project technological environment. It does not imp
 
 Project coordination, requirements analysis, risk and timeline management, facilitation, project documentation, cross-functional team collaboration, digital product test organization.
 
-## DPD — QA Engineer of Logistics Services
+## DPD Russia — Junior QA Engineer
 
 **Entity ID:** `experience.dpd`
 
@@ -270,7 +282,7 @@ Practical QA context included Postman, SoapUI, Swagger, Jira, Confluence, DBeave
 
 E2E testing of complex logistics, API and integrations, SOAP/XML, test design, release and regression testing, log and database analysis, test documentation, cross-team collaboration, impact area assessment.
 
-## Messer Group — Test Engineer
+## Messer Group — Middle QA Engineer
 
 **Entity ID:** `experience.messer-group`
 
@@ -380,7 +392,7 @@ Yes. Before and after transitioning to IT, Romeo coordinated projects, managed r
 - Distinguish tools Romeo used personally from the project's general tech stack.
 - Do not attribute independent Cypress framework development, CI/CD infrastructure setup, or product architecture design to Romeo.
 - Do not claim that unreleased products were active in production.
-- Sminex should be called the current workplace only as long as the resume from July 8, 2026 remains the newest source.
+- Sminex should be called the last workplace according to the resume from August 12, 2026.
 - Do not disclose internal URLs, nodes, services, network segments, topic/bucket/DB schema names, integration routes, or other detailed Sminex topology.
 - When answering about Sminex architecture, use only the high-level description from this document; do not cite raw design diagrams or internal architecture docs.
 - Do not disclose internal GitLab/Allure TestOps URLs, project/pipeline IDs, internal job names, local paths, credentials, auth codes, ports, or other automation parameters.
@@ -389,4 +401,3 @@ Yes. Before and after transitioning to IT, Romeo coordinated projects, managed r
 - Do not list internal AI projects, requesting departments, or financial metrics. Only generalized scenarios are allowed.
 - Do not call Romeo an AI platform administrator, AI Engineer, or MLOps Engineer. Confirmed context is using AI tools in QA and testing LLM/RAG quality.
 - If a question requires exact quantitative evaluation not in confirmed data, state the lack of such metrics directly.
-
