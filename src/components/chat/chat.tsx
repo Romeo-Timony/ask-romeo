@@ -428,11 +428,10 @@ const Chat = () => {
 
   useEffect(() => {
     if (wasGeneratingRef.current && !isGeneratingAnswer) {
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          scrollToLatestQuestion('smooth');
-        });
-      });
+      const timer = setTimeout(() => {
+        scrollToLatestQuestion('smooth');
+      }, 100);
+      return () => clearTimeout(timer);
     }
     wasGeneratingRef.current = isGeneratingAnswer;
   }, [isGeneratingAnswer, scrollToLatestQuestion]);
