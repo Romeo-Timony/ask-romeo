@@ -49,7 +49,7 @@ declare global {
   var askOosuGroqKeyPool: GroqKeyPoolState | undefined;
 }
 
-const DEFAULT_OPENAI_MODEL = 'gpt-4o-mini';
+const DEFAULT_OPENAI_MODEL = 'gpt-5.4';
 const DEFAULT_XAI_MODEL = 'grok-4';
 const DEFAULT_GROQ_MODEL = 'llama-3.3-70b-versatile';
 const DEFAULT_GOOGLE_VERTEX_MODEL = 'gemini-2.5-flash';
