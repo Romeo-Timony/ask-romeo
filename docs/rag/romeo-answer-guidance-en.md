@@ -99,7 +99,7 @@ Automate only checks with repeatable value: critical regression, stable business
 
 Before automating, evaluate feature stability, implementation cost, launch frequency, test data complexity, and maintenance cost. UI tests are left for key user chains when a lower level does not provide sufficient confidence.
 
-Describe Romeo's automation experience strictly according to the professional experience source: launching, configuring, and analyzing existing autotests, collaborating with AQA, and participating in strategy. Do not attribute independent framework development without confirmation.
+Describe Romeo's mobile automation experience strictly according to the professional experience source: launching, maintaining, and analyzing results in CI. For the Web track, independent development of a suite of UI/API autotests using Playwright, Python, and pytest (using Page Object Model, reusable storage state, and page.route network mocking) is fully confirmed.
 
 ## Shift Left and Requirements
 

@@ -35,6 +35,8 @@ import {
   PROMPT_LEAK_DETECTED_ERROR_CODE,
 } from '@/lib/chat/output-guardrails';
 import { generateAnswerWithFallback } from '@/lib/ai/fallback';
+import { hasChatModelCredentials } from '@/lib/ai/providers';
+import { createStaticFallbackResponse } from './static-fallback';
 import {
   detectLanguage,
   parsePreferredLanguage,
@@ -273,6 +275,16 @@ export async function POST(req: Request) {
       });
     }
 
+    if (!hasChatModelCredentials()) {
+      return createStaticFallbackResponse({
+        messages,
+        query: orchestration.question,
+        retrievedContext: orchestration.ragContext.contextText,
+        reason: 'model_unavailable',
+        metadata: orchestration.metadata,
+      });
+    }
+
     const tools = {
       getProjects,
       getPresentation,
@@ -495,9 +507,11 @@ export async function POST(req: Request) {
       latencyMs: Date.now() - requestStartedAt,
     });
 
-    return createDirectAnswerResponse({
+    return createStaticFallbackResponse({
       messages,
-      answer: buildModelUnavailableAnswer(fallbackMetadata.language),
+      query: orchestration?.question ?? getLatestUserText(messages),
+      retrievedContext: orchestration?.ragContext?.contextText ?? '',
+      reason: 'model_unavailable',
       metadata: fallbackMetadata,
     });
   }
@@ -1051,11 +1065,6 @@ function getOrchestrationMetadata(
     : orchestration.directAnswer.metadata;
 }
 
-function buildModelUnavailableAnswer(language: ChatLanguage) {
-  return language === 'ru'
-    ? 'Сервис ответов временно недоступен. Попробуйте ещё раз немного позже.'
-    : 'The answer engine is taking a short break. Please try again soon.';
-}
 
 function uniqueWarnings(warnings: string[]) {
   return Array.from(

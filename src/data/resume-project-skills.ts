@@ -31,6 +31,8 @@ export const resumeProjectSkillGroupsRu: ResumeProjectSkillGroup[] = [
     skills: [
       { name: 'Mobile QA', proficiency: 'confident' },
       { name: 'Web QA', proficiency: 'confident' },
+      { name: 'Playwright (Python)', proficiency: 'confident' },
+      { name: 'Pytest', proficiency: 'confident' },
       { name: 'REST API', proficiency: 'confident' },
       { name: 'Zephyr / Allure TestOps', proficiency: 'confident' },
       { name: 'Sentry', proficiency: 'confident' },
@@ -42,6 +44,7 @@ export const resumeProjectSkillGroupsRu: ResumeProjectSkillGroup[] = [
     ],
     evidence: [
       'Отвечал за построение и масштабирование QA-процессов Sminex App (Nov 2024 — Aug 2026): функциональное, системное, интеграционное и регрессионное тестирование iOS, Android, Web, API.',
+      'Спроектировал и разработал фреймворк и набор UI/API автотестов на Python, pytest и Playwright для ЛК Sminex (React, C#, Keycloak), внедрив Playwright storage state (без OTP при каждом тесте), сетевые моки через page.route и локальный запуск с Allure-отчетностью.',
       'Увеличил покрытие критичных модулей с 10% до 85%, создал более 2000 сценариев и совместно с QA/AQA внедрил трёхуровневую модель регресса MIN / MID / MAX.',
       'Внедрил Shift-Left-проверку требований, пострелизный мониторинг через Sentry/Grafana и применение AI/LLM для генерации тест-кейсов и создания RAG-ассистентов в Confluence.',
       'В мобильном контуре совместно с AQA-командой выстроил процесс запуска порядка 700 Appium-автотестов в CI с публикацией в Allure TestOps, сокративший время регресса на 40%.',
@@ -113,6 +116,8 @@ export const resumeProjectSkillGroupsEn: ResumeProjectSkillGroup[] = [
     skills: [
       { name: 'Mobile QA', proficiency: 'confident' },
       { name: 'Web QA', proficiency: 'confident' },
+      { name: 'Playwright (Python)', proficiency: 'confident' },
+      { name: 'Pytest', proficiency: 'confident' },
       { name: 'REST API', proficiency: 'confident' },
       { name: 'Zephyr / Allure TestOps', proficiency: 'confident' },
       { name: 'Sentry', proficiency: 'confident' },
@@ -124,6 +129,7 @@ export const resumeProjectSkillGroupsEn: ResumeProjectSkillGroup[] = [
     ],
     evidence: [
       'Managed and scaled QA processes for Sminex App (Nov 2024 — Aug 2026) across iOS, Android, Web, APIs, and connected systems.',
+      'Designed and developed a set of UI/API autotests using Python, pytest, and Playwright for Sminex Personal Cabinet (React, C#, Keycloak), introducing Playwright storage state for authorization (avoiding OTP log-ins on every test), network mocking with page.route, and local shell execution with Allure reporting.',
       'Raised critical module coverage from 10% to 85%, authored 2,000+ scenarios, and co-introduced MIN / MID / MAX regression levels and unified test coverage tags.',
       'Introduced Shift-Left requirements review, post-release monitoring via Sentry/Grafana, and LLM usage for test cases and Confluence RAG assistants.',
       'In the mobile loop, built a regular run of ~700 Appium autotests in CI with Allure TestOps integration, reducing regression time by 40%.',

@@ -102,6 +102,16 @@ Sminex has a unified mobile automation project for Android and iOS using Appium 
 - collaborates with AQA to analyze the Page Object Model, requests resource-id locators, installs drivers for UiAutomator2 / XCUITest, and studies GitLab CI, sharding, and Allure reporting;
 - independently develops small isolated autotests and API checks.
 
+### Web and API Test Automation Development
+
+Romeo independently designed and developed automated tests for the Sminex Personal Cabinet (React.js web app, C# microservices behind API Gateway, Keycloak, PostgreSQL, 1C integrations via Kafka/ETL):
+- Designed and developed a suite of autotests at the UI and API levels using Python, pytest (version 8.4.1), and Playwright (version 1.54.0, synchronous Python API).
+- Used Playwright's `APIRequestContext` for API testing, isolating authorization requests into a dedicated `AuthApi` client.
+- Built a reusable authorization state workflow: the full UI auth flow (phone input, OTP from DEV API, project selection) runs once per session (session-scoped `ui_storage_state` fixture), saving cookies and browser storage into `.auth/sminex_ui.json` via `context.storage_state()`, eliminating OTP entry on every test.
+- Implemented network mocking via Playwright's `page.route` to bypass DEV backend constraints on billing/reading intervals: intercepted API responses to override availability flags and mocked successful submissions while validating sent payloads (tariffs and inputted values).
+- Set up environment configuration management using `python-dotenv` and stand-specific profile files (`.env.dev`, `.env.stage`, `.env.example`).
+- Wrote PowerShell scripts to automate local test execution (`scripts/run_suite.ps1` sets up the environment and runs Chromium tests) and Allure HTML report generation (`run_with_allure.ps1`, `open_allure.ps1`).
+
 #### Launching Autotests
 
 - manual pipeline launch via GitLab CI with branch, platform, and environment selection;
@@ -379,7 +389,7 @@ Yes. He tested REST and SOAP integrations using Postman and SoapUI, analyzed req
 
 ### Is there automation experience?
 
-Yes, on the level of running and analyzing existing autotests. In Sminex, Romeo runs Android and iOS autotests in GitLab CI, selecting platforms, branches, environments, and suites, monitors pipeline stages, and analyzes results in Allure TestOps, HTML reports, logs, screenshots, and artifacts. Also has experience running/analyzing Cypress tests, basic Postman checks, collaborating with AQA, and preparing automation strategies. Sources do not confirm independent framework creation.
+Yes, Romeo has experience developing automated tests for Web and APIs. For the Sminex Personal Cabinet (React, C#, Keycloak), he designed and developed a framework and a suite of autotests using Python, Playwright, and pytest. In this project, he configured a reusable session using Playwright storage state (which allowed bypassing OTP logins on every test run), implemented network mocking via page.route to simulate the DEV backend, and automated local test execution with Allure reporting (pytest + Playwright + allure-pytest). In the mobile space, Romeo ran, maintained, and analyzed about 700 Appium autotests using Python/pytest in CI with Allure TestOps reporting.
 
 ### Is there management and coordination experience?
 
@@ -396,7 +406,7 @@ Yes. Before and after transitioning to IT, Romeo coordinated projects, managed r
 - Do not disclose internal URLs, nodes, services, network segments, topic/bucket/DB schema names, integration routes, or other detailed Sminex topology.
 - When answering about Sminex architecture, use only the high-level description from this document; do not cite raw design diagrams or internal architecture docs.
 - Do not disclose internal GitLab/Allure TestOps URLs, project/pipeline IDs, internal job names, local paths, credentials, auth codes, ports, or other automation parameters.
-- Formulate automation experience as "launching, configuring, and analyzing existing autotests". Do not claim Page Object Model, CI config, or base framework development without specific confirmation.
+- Formulate mobile automation experience as "launching, maintaining, and analyzing results in CI". However, independent development of a set of UI/API autotests for Web using Python, Playwright, pytest, Page Object Model, storage state reuse, and page.route network mocking is fully confirmed.
 - Do not disclose internal corporate AI platform name, address, keys, accounts, GPU config, cluster/node names, repos, task IDs, budgets, cost, or incidents.
 - Do not list internal AI projects, requesting departments, or financial metrics. Only generalized scenarios are allowed.
 - Do not call Romeo an AI platform administrator, AI Engineer, or MLOps Engineer. Confirmed context is using AI tools in QA and testing LLM/RAG quality.

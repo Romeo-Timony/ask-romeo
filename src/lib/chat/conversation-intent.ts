@@ -166,7 +166,7 @@ const RECOMMENDATION_PATTERNS = [
 ];
 
 const TECHNICAL_DEEP_DIVE_PATTERNS = [
-  /(rag|groq|postgres|postgresql|pgvector|cache|fallback|docker|compose|next\.?js|ai sdk|semantic router|routeDecision)/i,
+  /(rag|groq|postgres|postgresql|pgvector|cache|fallback|docker|compose|next\.?js|ai sdk|semantic router|routeDecision|qa|autotest|autotests|playwright|pytest|appium|cypress|allure|sminex|тестирован|автотест|автоматизац)/i,
   /(아키텍처|구조|캐시|라우팅|검색|하이브리드|임베딩|벡터|배포|서버|기술적으로|자세히)/,
 ];
 

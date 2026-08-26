@@ -322,7 +322,7 @@ function sectionToRagChunk({
 }
 
 function parseDocumentFrontmatter(content: string) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
   if (!match) {
     return { frontmatter: {}, body: content };
   }
@@ -336,7 +336,7 @@ function parseDocumentFrontmatter(content: string) {
 function parseSimpleYamlFrontmatter(value: string): ParsedFrontmatter {
   const frontmatter: ParsedFrontmatter = {};
 
-  for (const rawLine of value.split('\n')) {
+  for (const rawLine of value.split(/\r?\n/)) {
     const line = rawLine.trim();
     if (!line || line.startsWith('#')) continue;
     const delimiterIndex = line.indexOf(':');

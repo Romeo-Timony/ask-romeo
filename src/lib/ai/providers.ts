@@ -4,7 +4,7 @@ import path from 'node:path';
 import { APICallError, RetryError, type LanguageModel } from 'ai';
 import { createVertex } from '@ai-sdk/google-vertex';
 import { createGroq } from '@ai-sdk/groq';
-import { createOpenAI, openai } from '@ai-sdk/openai';
+import { createOpenAI } from '@ai-sdk/openai';
 import { createXai } from '@ai-sdk/xai';
 import { logInfo, logWarn } from '@/lib/observability/logger';
 
@@ -49,7 +49,7 @@ declare global {
   var askOosuGroqKeyPool: GroqKeyPoolState | undefined;
 }
 
-const DEFAULT_OPENAI_MODEL = 'gpt-5.4';
+const DEFAULT_OPENAI_MODEL = 'gpt-5.6-terra';
 const DEFAULT_XAI_MODEL = 'grok-4';
 const DEFAULT_GROQ_MODEL = 'llama-3.3-70b-versatile';
 const DEFAULT_GOOGLE_VERTEX_MODEL = 'gemini-2.5-flash';
@@ -303,9 +303,13 @@ function getChatModelForProvider(provider: ChatProviderName): ChatModelSelection
   if (provider === 'google_vertex') return getGoogleVertexChatModel();
   if (provider === 'openrouter') return getOpenRouterChatModel();
 
+  const openAiClient = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: process.env.OPENAI_BASE_URL,
+  });
   const modelName = process.env.OPENAI_MODEL ?? DEFAULT_OPENAI_MODEL;
   return {
-    model: openai(modelName),
+    model: openAiClient(modelName),
     provider,
     modelName,
   };

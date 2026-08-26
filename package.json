@@ -67,6 +67,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ssh2": "^1.15.5",
     "@typescript-eslint/parser": "^8.27.0",
     "eslint": "^9.22.0",
     "eslint-config-next": "15.2.3",
@@ -75,6 +76,7 @@
     "eslint-plugin-tailwindcss": "^3.18.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "ssh2": "^1.17.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

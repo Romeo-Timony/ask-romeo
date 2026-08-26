@@ -1,9 +1,20 @@
 import { createUIMessageStream, createUIMessageStreamResponse } from 'ai';
 import type { UIMessage } from 'ai';
-import { romeoProfile, romeoProjects } from '@/lib/romeo-profile';
+import { romeoProfile } from '@/lib/romeo-profile';
 
-export function createStaticFallbackResponse({ messages, query, retrievedContext, reason = 'model_unavailable', metadata }: { messages: UIMessage[]; query: string; retrievedContext: string; reason?: 'model_unavailable' | 'rate_limit'; metadata?: unknown }) {
-  const answer = buildStaticPortfolioAnswer({ query, retrievedContext, reason });
+export function createStaticFallbackResponse({
+  messages,
+  query,
+  retrievedContext,
+  metadata,
+}: {
+  messages: UIMessage[];
+  query: string;
+  retrievedContext: string;
+  reason?: 'model_unavailable' | 'rate_limit';
+  metadata?: unknown;
+}) {
+  const answer = buildStaticPortfolioAnswer({ query, retrievedContext });
   const stream = createUIMessageStream<UIMessage>({
     originalMessages: messages,
     execute({ writer }) {
@@ -11,32 +22,451 @@ export function createStaticFallbackResponse({ messages, query, retrievedContext
       writer.write({ type: 'text-start', id: 'fallback-text' });
       writer.write({ type: 'text-delta', id: 'fallback-text', delta: answer });
       writer.write({ type: 'text-end', id: 'fallback-text' });
-      writer.write({ type: 'finish', finishReason: 'stop', messageMetadata: addAnswerToMetadata(metadata, answer) });
+      writer.write({
+        type: 'finish',
+        finishReason: 'stop',
+        messageMetadata: addAnswerToMetadata(metadata, answer),
+      });
     },
   });
   return createUIMessageStreamResponse({ stream });
 }
 
-function buildStaticPortfolioAnswer({ query, retrievedContext, reason }: { query: string; retrievedContext: string; reason: 'model_unavailable' | 'rate_limit' }) {
-  const normalizedQuery = query.toLowerCase();
-  const intro = reason === 'rate_limit' ? 'Сейчас много запросов. Отвечу на основе проверяемой информации из портфолио.' : 'Отвечу на основе проверяемой информации из портфолио.';
-  if (matches(normalizedQuery, ['проект', 'project', 'portfolio', 'портфолио'])) {
-    return [intro, '', 'Ключевые проекты:', '', ...romeoProjects.slice(0, 5).map((project) => `- ${project.title}: ${project.description}${project.links[0]?.url ? `\n  Ссылка: ${project.links[0].url}` : ''}`)].join('\n');
+function buildStaticPortfolioAnswer({
+  query,
+  retrievedContext,
+}: {
+  query: string;
+  retrievedContext: string;
+}) {
+  const q = query.toLowerCase();
+
+  // 1. Предпочтения в стеке и любимые инструменты
+  if (
+    hasMatch(q, [
+      'стек.*нравится',
+      'нравится.*стек',
+      'любимый стек',
+      'с чем любишь работать',
+      'что предпочитаешь',
+      'какие технологии предпочитаешь',
+      'почему playwright',
+      'почему python',
+      'любимые инструменты',
+      'любимый инструмент',
+    ])
+  ) {
+    return [
+      '### Технологический стек, с которым мне наиболее приятно и продуктивно работать:',
+      '',
+      '- **В Web-автоматизации — Python + Playwright:**',
+      '  Мой безусловный фаворит. В отличие от Selenium, Playwright работает напрямую через браузерные протоколы (CDP), обеспечивает мгновенные изолированные контексты (`storage_state`), удобнейший перехват сети (`page.route`) и умные встроенные ожидания без костылей с `time.sleep()`.',
+      '',
+      '- **В API-тестировании — Playwright APIRequestContext + Postman:**',
+      '  Для автоматизации API-проверок и подготовки данных обожаю легковесный `APIRequestContext`, а для исследовательского ручного анализа — связку Postman, Swagger и Charles Proxy.',
+      '',
+      '- **В разработке и AI-инструментах — TypeScript + React / Next.js:**',
+      '  Ценю типизацию и компонентный подход. Именно на этом стеке я разработал интерактивное AI-портфолио Ask Romeo.',
+      '',
+      '- **В базах данных и инфраструктуре — PostgreSQL, Kafka, Docker:**',
+      '  Люблю работать с прозрачными реляционными базами и надежными событийно-ориентированными очередями, где легко контролировать консистентность данных.',
+    ].join('\n');
   }
-  if (matches(normalizedQuery, ['контакт', 'связь', 'contact', 'collab', 'github'])) {
-    return [intro, '', `- GitHub: ${romeoProfile.github}`, `- LinkedIn: ${romeoProfile.linkedin}`, `- Instagram: ${romeoProfile.instagram}`, `- Email: ${romeoProfile.email}`].join('\n');
+
+  // 2. Планы по развитию, карьерные цели, векторы роста
+  if (
+    hasMatch(q, [
+      'планы по развитию',
+      'планы на развитие',
+      'куда расти',
+      'в какую сторону.*расти',
+      'куда развиваешься',
+      'векторы развития',
+      'цели',
+      'кем видишь себя',
+      'карьерные планы',
+      'развиваться дальше',
+      'профессиональные цели',
+      'куда двигаешься',
+    ])
+  ) {
+    return [
+      '### Мои ключевые векторы профессионального развития:',
+      '',
+      '1. **Углубление в AQA-архитектуру и Performance Engineering:**',
+      '   - Проектирование высоконагруженных распределенных фреймворков тестирования.',
+      '   - Внедрение контрактного тестирования (Contract Testing на базе Pact / OpenAPI) для микросервисов.',
+      '   - Расширение экспертизы в нагрузочном тестировании (JMeter / k6) и профилировании узких мест в БД.',
+      '',
+      '2. **Лидерство и Quality Engineering (QA Lead / Head of QA):**',
+      '   - Выстраивание комплексных процессов обеспечения качества с нуля под задачи бизнеса.',
+      '   - Управление релизными рисками, внедрение инженерных метрик (DORA, Defect Escape Rate, MTTR).',
+      '   - Менторинг инженеров и развитие сильной инженерной культуры качества в кросс-функциональных командах.',
+      '',
+      '3. **AI-assisted QA & LLM Testing:**',
+      '   - Практическое применение AI-агентов для автоматизации тест-дизайна и анализа требований.',
+      '   - Развитие методологий валидации и тестирования RAG-систем и больших языковых моделей (Faithfulness, Relevance, Groundedness).',
+    ].join('\n');
   }
-  if (matches(normalizedQuery, ['стек', 'технолог', 'stack', 'skill', 'ai'])) {
-    return [intro, '', 'Romeo работает с React, Next.js, TypeScript, Tailwind CSS, Spring Boot, Node.js и PostgreSQL/MySQL. AI-инструменты применяются для ускорения анализа, реализации и документации с обязательной проверкой результата.', '', 'Ask Romeo объединяет Next.js, чат, Wiki, RAG и метаданные источников, чтобы показывать обоснованность ответов.'].join('\n');
+
+  // 3. Философия качества и подход к QA
+  if (
+    hasMatch(q, [
+      'что для тебя качество',
+      'философия qa',
+      'философия тестирования',
+      'подход к тестированию',
+      'подход к качеству',
+      'принципы работы',
+      'отношение к качеству',
+    ])
+  ) {
+    return [
+      '### Моя философия и подход к обеспечению качества:',
+      '',
+      '> *«Качество — это не просто отсутствие багов в трекере, а обоснованная уверенность команды и бизнеса в том, что система надежно выдержит реальные пользовательские сценарии, пиковые нагрузки и изменения.»*',
+      '',
+      '**Ключевые принципы:**',
+      '- **Shift-Left:** Предотвращать дефекты еще до написания кода — на этапе анализа требований в Jira и макетов в Figma. Это в разы дешевле, чем чинить баги на проде.',
+      '- **Прагматичная автоматизация:** Автоматизировать проверки с повторяемой бизнес-ценностью (критический регресс, API-контракты), а не гнаться за бессмысленным 100% покрытием нестабильных UI-анимаций.',
+      '- **Прозрачность и Observability:** Контролировать систему на всех этапах — от пре-коммит хуков до логов Sentry и дашбордов Grafana в продакшне.',
+      '- **QA как партнер бизнеса:** Тестирование должно не тормозить релизы, а ускорять Time-to-Market за счет четких релизных гейтов (MIN/MID/MAX).',
+    ].join('\n');
   }
-  if (matches(normalizedQuery, ['резюме', 'resume', 'cv'])) return 'Публичная ссылка на резюме пока готовится.';
-  if (retrievedContext) return [intro, '', retrievedContext.replace(/^## Retrieved (Portfolio|Wiki) Context\n/, '')].join('\n');
-  return [intro, '', `Ask Romeo — диалоговое портфолио ${romeoProfile.name}. Здесь можно спросить о проектах, QA-навыках, технологиях и сотрудничестве.`, '', `GitHub: ${romeoProfile.github}`].join('\n');
+
+  // 4. Мотивация и вдохновение
+  if (
+    hasMatch(q, [
+      'что тебя вдохновляет',
+      'что мотивирует',
+      'почему выбрал qa',
+      'почему именно qa',
+      'почему тестирование',
+      'что нравится в профессии',
+    ])
+  ) {
+    return [
+      '### Что меня мотивирует и вдохновляет в QA-инженерии:',
+      '',
+      '- **Влияние на конечный продукт:** Возможность видеть цифровую систему целиком — от архитектуры баз данных и брокеров сообщений до реального пользовательского интерфейса.',
+      '- **Инженерный драйв:** Превращать хаос и рутину в четкую, работающую как часы автоматизированную систему (CI/CD пайплайны, зеленые Allure-отчеты за считанные минуты).',
+      '- **Создание надежности:** Чувство уверенности, когда сложный релиз с сотнями изменений выходит в продакшн плавно, стабильно и без единого ночного инцидента.',
+    ].join('\n');
+  }
+
+  // 5. Идеальный проект и команда
+  if (
+    hasMatch(q, [
+      'идеальный проект',
+      'какой проект ищешь',
+      'идеальная команда',
+      'какую команду ищешь',
+      'какую компанию ищешь',
+      'какую работу ищешь',
+    ])
+  ) {
+    return [
+      '### Идеальный проект и команда, в которой мне комфортно работать:',
+      '',
+      '- **Зрелая инженерная культура:** Команда, где качество воспринимается как общая цель разработчиков, аналитиков и QA, а не как изолированная обязанность одного человека.',
+      '- **Продукт с реальной аудиторией:** Проект, где важна высокая надежность, отказоустойчивость и продуманный пользовательский опыт.',
+      '- **Готовность к автоматизации и росту:** Пространство для внедрения современных практик (Playwright, Shift-Left, Observability, AI-assisted QA) и оптимизации процессов.',
+      '- **Открытая коммуникация:** Культура прозрачной обратной связи, конструктивного код-ревью и уважения к чужому времени.',
+    ].join('\n');
+  }
+
+  // 6. Отношение к AI и будущее профессии
+  if (hasMatch(q, ['заменит ли ai', 'будущее qa', 'будущее тестирования', 'роль ai в будущем'])) {
+    return [
+      '### Взгляд на будущее QA и роль искусственного интеллекта:',
+      '',
+      'AI не заменит думающего инженера, но инженеры, использующие AI, заменят тех, кто его игнорирует:',
+      '- **AI как мультипликатор скорости:** Модели великолепно справляются с черновой генерацией тест-кейсов, поиском краевых условий в спецификациях и анализом логов.',
+      '- **Человек как архитектор качества:** Финальная ответственность за архитектуру автотестов, понимание бизнес-рисков, безопасность данных и принятие решений о релизе всегда остается за человеком с критическим мышлением.',
+    ].join('\n');
+  }
+
+  // 7. AI в QA, LLM, RAG и промпт-инжиниринг
+  if (
+    hasMatch(q, [
+      '\\bai\\b',
+      'llm',
+      'prompt',
+      '\\brag\\b',
+      'искусствен',
+      'нейросет',
+      'gpt',
+      'ai-assisted',
+    ])
+  ) {
+    return [
+      '### Применение AI и LLM в QA-инженерии:',
+      '',
+      '- **AI-assisted Test Design:** Использование LLM для декомпозиции требований из Jira, выявления серых зон в спецификациях и генерации черновиков позитивных/негативных тест-кейсов с обязательным экспертным QA-ревью.',
+      '- **Тестирование RAG-систем:** Участие в тестировании внутренних RAG-ассистентов по корпоративной базе знаний Confluence — оценка метрик Context Relevance, Groundedness, Faithfulness и защита от галлюцинаций.',
+      '- **Разработка Ask Romeo:** Создание собственного AI-портфолио на Next.js с гибридным RAG-поиском, защитными гардрейлами (Prompt Leakage, PII Protection) и системой оценки уверенности (Answer Confidence Score).',
+    ].join('\n');
+  }
+
+  // 8. Сетевое мокирование (page.route)
+  if (hasMatch(q, ['page.route', 'мокирован', 'сетев', 'mock', 'моки', 'перехват'])) {
+    return [
+      '### Сетевое мокирование и изоляция UI через `page.route` (Playwright):',
+      '',
+      'Для обеспечения 100% детерминированности UI-тестов и независимости от нестабильности бэкенда я активно использую возможности сетевого перехвата Playwright:',
+      '- **Симуляция граничных состояний бэкенда:** Перехват ответов API для подмены динамических данных (например, флагов доступности передачи показаний счетчиков вне расчетного периода, когда реальный DEV-бэкенд блокирует ввод).',
+      '- **Валидация отправляемого полезного Payload:** Перехват исходящих POST/PUT-запросов перед отправкой на сервер с детальной верификацией структуры JSON-тела, типов полей и переданных тарифов.',
+      '- **Эмуляция сетевых сбоев и таймаутов:** Симуляция задержек сети, статус-кодов 400, 403, 500 и обрывов соединения (`route.abort("timedout")`) для проверки отказоустойчивости клиентского интерфейса (показ Toast-уведомлений, Empty States, отсутствие крашей).',
+    ].join('\n');
+  }
+
+  // 9. Авторизация, OTP и сессии в UI тестах (storage_state)
+  if (
+    hasMatch(q, [
+      'otp',
+      'storage_state',
+      'storage state',
+      'сессии в тест',
+      'сохранение сесс',
+      'сохранение состоян',
+      'авторизац.*(ui|тест|браузер|хранени|storage)',
+    ])
+  ) {
+    return [
+      '### Реализация авторизации и сохранение состояния (`storage_state`):',
+      '',
+      'Для решения проблемы долгой авторизации и обхода OTP в каждом UI-тесте я реализовал следующий архитектурный паттерн:',
+      '- **Однократная сессия (Session Scope):** Полный UI-флоу входа с вводом номера телефона и получением проверочного OTP-кода через DEV API выполняется ровно один раз за тестовый прогон внутри session-scoped фикстуры pytest `ui_storage_state`.',
+      '- **Сохранение контекста:** Полученное авторизованное состояние (Cookies, LocalStorage, сессионные токены) сохраняется в изолированный файл `.auth/sminex_ui.json` с помощью `context.storage_state()`.',
+      '- **Переиспользование в тестах:** Все последующие UI-тесты инициализируют `BrowserContext` сразу с предзагруженным файлом состояния (`storage_state=".auth/sminex_ui.json"`), минуя экраны логина.',
+      '- **Эффект:** Устранена нагрузка на SMS/OTP-сервисы, сокращено до 80% времени прогона каждого тестового сценария и полностью исключены флаки на этапе аутентификации.',
+    ].join('\n');
+  }
+
+  // 10. Backend, REST API, Keycloak, Kafka, SQL
+  if (
+    hasMatch(q, [
+      'keycloak',
+      'jwt',
+      'kafka',
+      'rest api',
+      'rest-api',
+      'микросервис',
+      'gateway',
+      'sql',
+      'postgres',
+      'postman',
+      'swagger',
+      'api.*тестирован',
+      'тестируешь.*api',
+      'бэкенд',
+      'backend',
+    ])
+  ) {
+    return [
+      '### Тестирование API, микросервисов и распределенных систем:',
+      '',
+      '- **Микросервисная архитектура:** Тестирование сервисов за API Gateway, валидация контрактов по OpenAPI/Swagger, проверка статус-кодов, структур JSON и граничных условий.',
+      '- **Авторизация (Keycloak / JWT):** Проверка структуры токенов, валидация подписи, проверка срока жизни (`exp`), ролевой модели доступа (RBAC) и бесшовного обновления через Refresh Token.',
+      '- **Событийно-ориентированная интеграция (Apache Kafka):** Проверка публикации и вычитки событий (Producer/Consumer), валидация идемпотентности повторной обработки и пересылки некорректных сообщений в Dead Letter Queue (DLQ).',
+      '- **Базы данных (PostgreSQL / SQL):** Проверка консистентности данных, выполнение сложных SQL-запросов с JOIN, GROUP BY, агрегацией, оконными функциями и валидацией JSONB-полей.',
+    ].join('\n');
+  }
+
+  // 11. Архитектура AQA фреймворка, Playwright, Pytest, POM, APIRequestContext
+  if (
+    hasMatch(q, [
+      'автотест',
+      'autotest',
+      'playwright',
+      'pytest',
+      'фреймворк',
+      'framework',
+      'page object',
+      'pom',
+      'apirequestcontext',
+      'архитектур',
+    ])
+  ) {
+    return [
+      '### Архитектура фреймворка автоматизации тестирования (Python + Playwright + Pytest):',
+      '',
+      'Фреймворк спроектирован по модульной, слоистой архитектуре для обеспечения масштабируемости, высокой скорости и простоты поддержки:',
+      '',
+      '1. **Page Object Model (POM) Layer:**',
+      '   - Базовый класс `BasePage` с инкапсуляцией умных ожиданий, скролла и базовых UI-действий.',
+      '   - Страницы-компоненты с декларативными семантическими локаторами (`page.get_by_role()`, `get_by_text()`, `data-testid`), исключающими хрупкие XPath.',
+      '',
+      '2. **Session & State Management Layer:**',
+      '   - Session-scoped фикстура для однократной UI/OTP авторизации и сохранения контекста в `storage_state`.',
+      '   - Function-scoped фикстуры для изоляции браузерных страниц (`page`) и предотвращения сайд-эффектов между тестами.',
+      '',
+      '3. **API Client Layer (`APIRequestContext`):**',
+      '   - Обертки над HTTP API для быстрой подготовки сущностей и очистки данных (Arrange / TearDown) в обход медленного UI.',
+      '',
+      '4. **Network Mocking Layer (`page.route`):**',
+      '   - Перехват сетевых вызовов для симуляции состояний бэкенда и валидации исходящего payload.',
+      '',
+      '5. **Reporting & CI Layer:**',
+      '   - Декораторы Allure (`@allure.step`, `@allure.feature`, `@allure.severity`) со сбором скриншотов, сетевых трейсов и логов при падении; запуск в GitLab CI.',
+    ].join('\n');
+  }
+
+  // 12. Мобильная автоматизация и Appium
+  if (hasMatch(q, ['appium', 'мобильн', 'mobile', 'ios', 'android', 'uiautomator', 'xcuitest'])) {
+    return [
+      '### Опыт в мобильной автоматизации (Appium + Python + Pytest):',
+      '',
+      '- **Масштаб и инфраструктура:** В Sminex выстроил и поддерживал регулярный запуск и стабильность набора из порядка **700 автотестов** для платформ iOS и Android в GitLab CI с публикацией отчетов в Allure TestOps.',
+      '- **Классификация и триаж падений:** Разделение падений на категории: реальный дефект приложения, устаревший локатор/UI, нестабильность сети/эмулятора или ошибка тестовых данных.',
+      '- **Селекторы и взаимодействие с разработкой:** Проработка Page Object Model, проброс надежных `accessibility-id` и `resource-id` локаторов совместно с мобильными разработчиками.',
+      '- **Оптимизация регресса:** Сокращение общего времени мобильного регрессионного цикла на **40%** благодаря параллелизации и интеграции с Allure TestOps.',
+    ].join('\n');
+  }
+
+  // 13. QA Lead, Процессы, Регресс (MIN/MID/MAX), Shift-Left, Метрики
+  if (
+    hasMatch(q, [
+      'процесс',
+      'регресс',
+      'shift-left',
+      'shift left',
+      'стратеги',
+      'методолог',
+      'управлен',
+      'lead',
+      'лид',
+      'покрыти',
+      'метрики',
+      'sentry',
+      'grafana',
+      'kibana',
+    ])
+  ) {
+    return [
+      '### QA Lead: Процессы обеспечения качества и Test Strategy:',
+      '',
+      '- **Трехуровневая модель регресса (MIN / MID / MAX):**',
+      '  - **MIN (Smoke, 15–20 мин):** Критические пользовательские цепочки перед каждым деплоем в develop/stage.',
+      '  - **MID (Targeted Regression, 1–2 часа):** Расширенное тестирование затронутых модулей перед выпуском Release Candidate.',
+      '  - **MAX (Full Regression):** Полный прогон всех функциональных областей перед мажорными релизами и передачей в магазины приложений.',
+      '- **Shift-Left подход:** Внедрение ревью требований и макетов Figma на этапе груминга задач, позволяющее предотвращать до 40% логических дефектов до написания кода.',
+      '- **Рост покрытия:** Масштабирование покрытия критичных модулей с 10% до 85%, создание базы из более 2000 тест-кейсов.',
+      '- **Observability и мониторинг:** Настройка сквозного контроля ошибок на production через Sentry, Kibana и Grafana для контроля стабильности релизов и быстрой локализации инцидентов.',
+    ].join('\n');
+  }
+
+  // 14. Проекты (Sminex, Messer Group, DPD, KODE, Ask Romeo)
+  if (hasMatch(q, ['проект', 'project', 'portfolio', 'портфолио', 'опыт', 'о себе', 'кто ты'])) {
+    return [
+      '### Ключевые проекты и опыт Романа Тимошенко:',
+      '',
+      '1. **Sminex (Senior QA-инженер, Ноябрь 2024 — Август 2026):**',
+      '   - Масштабирование QA-процессов мобильной экосистемы (iOS/Android) и Web-кабинета (React, C#, Keycloak).',
+      '   - Проектирование с нуля фреймворка автотестирования Web/API на Python + Playwright + Pytest.',
+      '   - Поддержка и запуск набора из ~700 мобильных автотестов на Appium в GitLab CI (сокращение регресса на 40%).',
+      '   - Рост покрытия критических модулей с 10% до 85%, внедрение модели регресса MIN/MID/MAX и Shift-Left.',
+      '',
+      '2. **Messer Group (Middle QA-инженер, Август 2023 — Октябрь 2024):**',
+      '   - Тестирование международных цифровых сервисов (GAS-WIKI, E-Service, E-Monitoring, Gas-Converter) в Scrum-командах.',
+      '   - Функциональное, интеграционное, API- и нагрузочное тестирование (JMeter, Postman, PostgreSQL, Docker).',
+      '',
+      '3. **DPD (QA-инженер / Интеграции, Ноябрь 2021 — Июль 2023):**',
+      '   - Тестирование интеграционных решений, API и обмена данными в крупной логистической платформе.',
+      '',
+      '4. **KODE (Администратор проектов / QA-координация, Февраль 2021 — Октябрь 2021):**',
+      '   - Управление требованиями, координация тестирования и сроков релизов мобильных и веб-приложений.',
+      '',
+      '5. **Ask Romeo (AI/QA портфолио):**',
+      '   - Разработка диалогового AI-портфолио на Next.js, TypeScript, Tailwind CSS с RAG-поиском и гардрейлами.',
+    ].join('\n');
+  }
+
+  // 15. Контакты
+  if (
+    hasMatch(q, [
+      'контакт',
+      'связь',
+      'contact',
+      'collab',
+      'github',
+      'почта',
+      'телеграм',
+      'telegram',
+      'email',
+      'написать',
+      'связаться',
+    ])
+  ) {
+    return [
+      '### Контакты для связи с Романом:',
+      '',
+      `- **Telegram:** [${romeoProfile.telegram}](${romeoProfile.telegram})`,
+      `- **GitHub:** [${romeoProfile.github}](${romeoProfile.github})`,
+      `- **LinkedIn:** [${romeoProfile.linkedin}](${romeoProfile.linkedin})`,
+      `- **Email:** [${romeoProfile.email}](mailto:${romeoProfile.email})`,
+    ].join('\n');
+  }
+
+  // 16. Стек технологий
+  if (hasMatch(q, ['стек', 'технолог', 'stack', 'skill', 'навык', 'навыки', 'инструмент', 'tools'])) {
+    return [
+      '### Полный технологический стек и инструменты:',
+      '',
+      '- **Test Automation:** Python, Playwright, Pytest, Appium, Cypress, Page Object Model, Playwright APIRequestContext, network mocking (`page.route`), Allure, Allure TestOps.',
+      '- **API & Backend QA:** REST API, Postman, Swagger, Charles Proxy, Proxyman, Kafka, Keycloak, PostgreSQL, Metabase, SQL.',
+      '- **Mobile QA:** iOS, Android, Xcode, Android Studio, UiAutomator2, XCUITest, Firebase, TestFlight.',
+      '- **Management & CI/CD:** GitLab CI, Jira, Confluence, TestIT, Zephyr, Docker, Sentry, Kibana, Grafana.',
+      '- **AI & Web Development:** Next.js, React, TypeScript, Tailwind CSS, LLM/RAG testing, Prompt Engineering.',
+    ].join('\n');
+  }
+
+  const cleanedContext = cleanRetrievedContext(retrievedContext);
+  if (cleanedContext) {
+    return cleanedContext;
+  }
+
+  return `Ask Romeo — интерактивное портфолио ${romeoProfile.name} (Fullstack QA / AI Engineer). Здесь можно подробно узнать об опыте в Web/Mobile/API автоматизации (Playwright, Appium, pytest), QA-процессах, Shift-Left практиках, взглядах на технологии и планах развития.`;
 }
 
-function matches(query: string, keywords: string[]) { return keywords.some((keyword) => query.includes(keyword)); }
+function cleanRetrievedContext(context: string): string {
+  if (!context) return '';
+  if (context.includes('No matching public Wiki evidence') || context.includes('Анализ вопроса перед ответом')) {
+    return '';
+  }
+
+  const contentBlocks = Array.from(
+    context.matchAll(/Content:\s*([\s\S]*?)(?=\n\[S\d+\]|$)/g),
+    (match) => match[1].trim()
+  );
+
+  if (contentBlocks.length > 0) {
+    return contentBlocks.join('\n\n');
+  }
+
+  return context
+    .replace(/^## Portfolio Evidence\n+/i, '')
+    .replace(/^Use only this portfolio evidence[^\n]*\n+/i, '')
+    .replace(/\[S\d+\]\s*Portfolio evidence\n+/gi, '')
+    .replace(/Title:[^\n]*\n+/gi, '')
+    .replace(/Section:[^\n]*\n+/gi, '')
+    .replace(/Status:[^\n]*\n+/gi, '')
+    .replace(/Content:\s*/gi, '')
+    .trim();
+}
+
+function hasMatch(query: string, patterns: string[]): boolean {
+  return patterns.some((pattern) => {
+    if (pattern.startsWith('\\b') || pattern.includes('\\b') || pattern.includes('.*')) {
+      return new RegExp(pattern, 'i').test(query);
+    }
+    return query.includes(pattern);
+  });
+}
 
 function addAnswerToMetadata(metadata: unknown, answer: string) {
-  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) return metadata;
+  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+    return metadata;
+  }
   return { ...metadata, answer };
 }
