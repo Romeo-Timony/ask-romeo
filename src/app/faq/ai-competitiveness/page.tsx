@@ -3,13 +3,15 @@ import { AiCompetitivenessPageContent } from '@/components/faq/ai-competitivenes
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'FAQ: AI Advantages in QA',
+  title: 'FAQ: AI Advantages in PM & QA',
   description:
-    'Short, grounded answers about how a Senior QA Engineer works with AI, keeps quality control, and uses Ask Romeo as a grounded portfolio.',
+    'Grounded answers on how AI accelerates Project Management and QA engineering while maintaining human accountability and release quality.',
   path: '/faq/ai-competitiveness',
   keywords: [
     'AI advantages FAQ',
+    'Project Manager AI',
     'QA AI FAQ',
+    'Fullstack QA',
     'Ask Romeo FAQ',
     'AI competitiveness',
   ],

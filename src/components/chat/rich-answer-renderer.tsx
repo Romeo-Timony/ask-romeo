@@ -217,7 +217,10 @@ function renderPart({
   if (part.type === 'markdown') {
     const hasLegacyMoreProjects = payload.visualBlocks.some(
       (block) =>
-        block.type === 'projectCards' && block.dataKey === 'projects.more'
+        block.type === 'projectCards' &&
+        (block.dataKey === 'projects.more' ||
+          block.dataKey === 'projects.representative' ||
+          block.dataKey === 'projects.wiki_featured')
     );
     const hasCoreSkills = payload.visualBlocks.some(
       (block) => block.type === 'skillChips' && block.dataKey === 'skills.core'
@@ -226,13 +229,22 @@ function renderPart({
       (block) => block.type === 'contactCard'
     );
     const localizedProjectContent = [
-      'В разделе собраны три проекта из QA-портфолио: Sminex Comfort, Elme Messer и DPD.',
+      'В разделе собраны ключевые проекты из коммерческого опыта Романа (Project Manager & QA): Sminex Comfort, Elme Messer и DPD.',
       '',
-      'Карточки показывают назначение бизнеса, QA-контекст, используемые технологии и ссылку на сайт.',
+      'Карточки показывают бизнес-задачи, контекст управления и обеспечения качества, используемые технологии и ссылки на сервисы.',
       '',
       '---',
       '',
       '> «Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»',
+    ].join('\n');
+    const localizedProjectContentEn = [
+      'This section features key commercial projects from Romeo’s experience (Project Manager & QA): Sminex Comfort, Elme Messer, and DPD.',
+      '',
+      'The cards showcase business goals, management and QA context, tech stack, and links to live services.',
+      '',
+      '---',
+      '',
+      '> "Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error."',
     ].join('\n');
     const localizedSkillContent = [
       'Навыки сгруппированы по проектам, чтобы было видно не только название технологии, но и реальный контекст её применения.',
@@ -241,14 +253,14 @@ function renderPart({
       '',
       '---',
       '',
-      '> «Зрелость QA определяется не количеством знакомых инструментов, а способностью превратить требования, риски и данные в уверенность перед релизом.»',
+      '> «Главная задача PM — не просто закрывать задачи в спринте, а гарантировать, что команда создает продукт, решающий реальную проблему бизнеса и пользователей.»',
     ].join('\n');
     const localizedContactContent = [
-      'Связаться со мной можно по электронной почте, через Telegram, GitHub или портфолио. Я открыт к диалогу о задачах Senior QA, построении и развитии QA-процессов, тестировании Web и Mobile, API и микросервисов, а также применении AI/LLM для автоматизации и повышения качества продукта.',
+      'Связаться со мной можно по электронной почте, через Telegram, GitHub или портфолио. Я открыт к диалогу о задачах Project Manager и Fullstack QA, построении и развитии процессов, тестировании Web и Mobile, API и микросервисов, а также применении AI/LLM для автоматизации и повышения качества продукта.',
       '',
       '---',
       '',
-      '> «Сильное сотрудничество начинается с ясности: какая задача стоит перед командой, какие риски критичны и что будет считаться качественным результатом.»',
+      '> «Сильное сотрудничество начинается с ясности: какую задачу мы решаем, какие риски критичны и что считается качественным результатом.»',
     ].join('\n');
     const localizedContent = (
       payload.language === 'ru' && hasCoreSkills
@@ -257,6 +269,8 @@ function renderPart({
         ? localizedContactContent
         : payload.language === 'ru' && hasLegacyMoreProjects
         ? localizedProjectContent
+        : payload.language === 'en' && hasLegacyMoreProjects
+        ? localizedProjectContentEn
         : (part.content ?? markdownContent)
     )
       .replace(
@@ -542,7 +556,17 @@ function createAskRomeoProject(language: 'ru' | 'en'): ProjectItem {
         ? 'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.'
         : 'An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo\'s projects and experience.',
     image: 'project.askoosu.cover',
-    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    tags: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Vercel AI SDK',
+      'OpenAI',
+      'RAG',
+      'PostgreSQL',
+      'Docker',
+    ],
     href: romeoProfile.currentPortfolioUrl,
   };
 }
@@ -562,7 +586,17 @@ function createQaFeaturedProjects(language: 'ru' | 'en'): ProjectItem[] {
           ? 'QA платформы для жителей: пользовательские сценарии, API, интеграции и регрессия перед релизами.'
           : 'QA for a resident platform: user journeys, APIs, integrations, and release regression testing.',
       image: 'project.sminex_comfort.cover',
-      tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+      tags: [
+        'Web & Mobile',
+        'REST API',
+        'Python',
+        'Playwright',
+        'Pytest',
+        'Appium',
+        'Allure TestOps',
+        'PostgreSQL',
+        'Kafka',
+      ],
       href: 'https://comfort.sminex.com/',
     },
     {
@@ -575,10 +609,19 @@ function createQaFeaturedProjects(language: 'ru' | 'en'): ProjectItem[] {
           : 'Web and mobile platform',
       description:
         language === 'ru'
-          ? 'QA корпоративных цифровых сервисов: функциональность, интеграции, пользовательские сценарии и релизы.'
-          : 'QA for enterprise digital services: functionality, integrations, user journeys, and releases.',
+          ? 'Совмещение ролей Project Manager и QA: управление скоупом задач и спринтами (Scrum), тестирование корпоративных web-сервисов, REST API, интеграций и релизные гейты.'
+          : 'Dual Project Manager & QA role: managing task scopes and Scrum sprints, testing enterprise web services, REST APIs, integrations, and release quality gates.',
       image: 'project.elme_messer.cover',
-      tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+      tags: [
+        'PM & QA',
+        'Scrum',
+        'Enterprise Platform',
+        'REST API',
+        'Postman',
+        'PostgreSQL',
+        'Sentry',
+        'TestIT',
+      ],
       href: 'https://elmemesser.lv/',
     },
     {
@@ -594,7 +637,16 @@ function createQaFeaturedProjects(language: 'ru' | 'en'): ProjectItem[] {
           ? 'QA логистических сценариев: отправления, API, интеграции и регрессия критичных процессов доставки.'
           : 'QA for logistics flows: shipments, APIs, integrations, and regression of critical delivery processes.',
       image: 'project.dpd.cover',
-      tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+      tags: [
+        'Logistics Platform',
+        'REST / SOAP API',
+        'Postman',
+        'SoapUI',
+        'Oracle SQL',
+        'RabbitMQ',
+        'Microservices',
+        'Regression',
+      ],
       href: 'https://dpd.ru/',
     },
   ];
@@ -627,17 +679,65 @@ function ProjectShowcaseCards({
   const visibleProjects = isWikiProjects
     ? parsedProjects.filter((project) => featuredProjectIds.has(project.id))
     : parsedProjects;
-  const normalizedProjects = isWikiProjects
-    ? visibleProjects.map((project) =>
-        project.id === 'askoosu'
-          ? { ...project, id: 'ask_romeo', title: 'Ask Romeo' }
-          : project
-      )
-    : visibleProjects;
+  const normalizedProjects = (isWikiProjects ? visibleProjects : parsedProjects).map((project) => {
+    let p =
+      project.id === 'askoosu'
+        ? { ...project, id: 'ask_romeo', title: 'Ask Romeo' }
+        : project;
+    if (p.id === 'elme_messer') {
+      p = {
+        ...p,
+        description:
+          language === 'ru'
+            ? 'Совмещение ролей Project Manager и QA: управление скоупом задач и спринтами (Scrum), тестирование корпоративных web-сервисов, REST API, интеграций и релизные гейты.'
+            : 'Dual Project Manager & QA role: managing task scopes and Scrum sprints, testing enterprise web services, REST APIs, integrations, and release quality gates.',
+      };
+    }
+    return p;
+  });
   const verifiedProjectTags: Record<string, string[]> = {
-    sminex_comfort: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
-    elme_messer: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
-    dpd: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+    ask_romeo: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Vercel AI SDK',
+      'OpenAI',
+      'RAG',
+      'PostgreSQL',
+      'Docker',
+    ],
+    sminex_comfort: [
+      'Web & Mobile',
+      'REST API',
+      'Python',
+      'Playwright',
+      'Pytest',
+      'Appium',
+      'Allure TestOps',
+      'PostgreSQL',
+      'Kafka',
+    ],
+    elme_messer: [
+      'PM & QA',
+      'Scrum',
+      'Enterprise Platform',
+      'REST API',
+      'Postman',
+      'PostgreSQL',
+      'Sentry',
+      'TestIT',
+    ],
+    dpd: [
+      'Logistics Platform',
+      'REST / SOAP API',
+      'Postman',
+      'SoapUI',
+      'Oracle SQL',
+      'RabbitMQ',
+      'Microservices',
+      'Regression',
+    ],
   };
   const projectsWithVerifiedTags = normalizedProjects.map((project) => ({
     ...project,
@@ -727,16 +827,15 @@ function ProjectShowcaseCards({
       <div
         className={
           isMoreProjectsRail
-            ? 'flex snap-x gap-3 overflow-x-auto pb-2'
-            : 'grid grid-cols-1 gap-3 md:grid-cols-3'
+            ? 'grid grid-flow-col auto-cols-[18.5rem] sm:auto-cols-[19.5rem] items-stretch gap-3 overflow-x-auto pb-2 snap-x'
+            : 'grid grid-cols-1 items-stretch gap-3 md:grid-cols-3'
         }
       >
         {projects.map((project) => (
           <article
             key={project.id}
             className={cn(
-              'group overflow-hidden rounded-lg border border-neutral-200/80 bg-neutral-100/70 text-foreground shadow-sm dark:border-neutral-800 dark:bg-neutral-900/90',
-              isMoreProjectsRail && 'w-[18rem] shrink-0 snap-start'
+              'group flex flex-col h-full w-full self-stretch overflow-hidden rounded-lg border border-neutral-200/80 bg-neutral-100/70 text-foreground shadow-sm dark:border-neutral-800 dark:bg-neutral-900/90 snap-start'
             )}
           >
             <MediaPreview
@@ -745,75 +844,79 @@ function ProjectShowcaseCards({
               className={isMoreProjectsRail ? 'aspect-[4/3]' : 'aspect-[16/10]'}
               language={language}
             />
-            <div className="space-y-3 p-3">
-              <div className="space-y-1">
-                <div className="flex min-w-0 flex-wrap items-center gap-1.5">
-                  <span className="bg-background/80 text-muted-foreground inline-flex max-w-full min-w-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold">
-                    <span className="min-w-0 truncate">
-                      {project.label ?? project.subtitle ?? project.id}
+            <div className="flex flex-1 flex-col p-3">
+              <div className="flex-1 space-y-2.5">
+                <div className="space-y-1">
+                  <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+                    <span className="bg-background/80 text-muted-foreground inline-flex max-w-full min-w-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold">
+                      <span className="min-w-0 truncate">
+                        {project.label ?? project.subtitle ?? project.id}
+                      </span>
                     </span>
-                  </span>
+                  </div>
+                  <h4 className="min-w-0 text-lg font-semibold tracking-normal break-words">
+                    {project.title}
+                  </h4>
+                  {project.subtitle && (
+                    <p className="text-muted-foreground text-xs leading-relaxed">
+                      {project.subtitle}
+                    </p>
+                  )}
                 </div>
-                <h4 className="min-w-0 text-lg font-semibold tracking-normal break-words">
-                  {project.title}
-                </h4>
-                {project.subtitle && (
+                {project.description && (
                   <p className="text-muted-foreground text-xs leading-relaxed">
-                    {project.subtitle}
+                    {project.description}
                   </p>
                 )}
               </div>
-              {project.description && (
-                <p className="text-muted-foreground text-xs leading-relaxed">
-                  {project.description}
-                </p>
-              )}
-              <div className="flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-background/70 text-muted-foreground inline-flex max-w-full min-w-0 rounded-md border px-2 py-0.5 text-[11px]"
-                  >
-                    <span className="min-w-0 truncate">{tag}</span>
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {surfaceForProject(project.id) && (
-                  <button
-                    type="button"
-                    onClick={() => switchQuestionSurface(project.id)}
-                    data-project-action="questions"
-                    className={cn(
-                      'bg-background/70 hover:bg-accent hover:text-accent-foreground focus-visible:ring-primary/50 inline-flex h-8 max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none',
-                      highlightedAction === 'questions' &&
-                        'border-primary/70 bg-primary/10 text-primary ring-2 ring-primary/30'
-                    )}
-                  >
-                    <MessageSquareText className="h-3.5 w-3.5" />
-                    <span className="min-w-0 truncate">
-                      {language === 'ru' ? 'Вопросы' : 'Questions'}
+              <div className="mt-auto space-y-3 pt-3">
+                <div className="flex min-h-[4.75rem] flex-wrap content-end items-end gap-1.5">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="bg-background/70 text-muted-foreground inline-flex max-w-full min-w-0 rounded-md border px-2 py-0.5 text-[11px]"
+                    >
+                      <span className="min-w-0 truncate">{tag}</span>
                     </span>
-                  </button>
-                )}
-                {project.href && (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-project-action="open"
-                    className={cn(
-                      'bg-background/70 hover:bg-accent hover:text-accent-foreground focus-visible:ring-primary/50 inline-flex h-8 max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none',
-                      highlightedAction === 'open' &&
-                        'border-primary/70 bg-primary/10 text-primary ring-2 ring-primary/30'
-                    )}
-                  >
-                    <span className="min-w-0 truncate">
-                      {language === 'ru' ? 'Открыть' : 'Open'}
-                    </span>
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                )}
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {surfaceForProject(project.id) && (
+                    <button
+                      type="button"
+                      onClick={() => switchQuestionSurface(project.id)}
+                      data-project-action="questions"
+                      className={cn(
+                        'bg-background/70 hover:bg-accent hover:text-accent-foreground focus-visible:ring-primary/50 inline-flex h-8 max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none',
+                        highlightedAction === 'questions' &&
+                          'border-primary/70 bg-primary/10 text-primary ring-2 ring-primary/30'
+                      )}
+                    >
+                      <MessageSquareText className="h-3.5 w-3.5" />
+                      <span className="min-w-0 truncate">
+                        {language === 'ru' ? 'Вопросы' : 'Questions'}
+                      </span>
+                    </button>
+                  )}
+                  {project.href && (
+                    <a
+                      href={project.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-project-action="open"
+                      className={cn(
+                        'bg-background/70 hover:bg-accent hover:text-accent-foreground focus-visible:ring-primary/50 inline-flex h-8 max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none',
+                        highlightedAction === 'open' &&
+                          'border-primary/70 bg-primary/10 text-primary ring-2 ring-primary/30'
+                      )}
+                    >
+                      <span className="min-w-0 truncate">
+                        {language === 'ru' ? 'Открыть' : 'Open'}
+                      </span>
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </article>
@@ -1216,14 +1319,14 @@ function WorkflowSteps({
         {steps.map((step, index) => (
           <div
             key={`${step.title}-${index}`}
-            className="rounded-lg border border-[#0D9487]/20 bg-[#0D9487]/10 p-3 dark:border-[#0D9487]/35 dark:bg-[#0D9487]/15"
+            className="flex flex-col rounded-lg border border-[#0D9487]/20 bg-[#0D9487]/10 p-3 dark:border-[#0D9487]/35 dark:bg-[#0D9487]/15"
           >
-            <div className="mb-2 flex items-center gap-2">
+            <div className="mb-2 flex flex-col items-start gap-1.5">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#0D9487] text-xs font-semibold text-white shadow-sm">
                 {index + 1}
               </span>
-              <h4 className="min-w-0 flex-1 whitespace-nowrap text-[13px] leading-5 font-semibold">
-                {getWorkflowStepTitle(block.dataKey, index, step.title, language)}
+              <h4 className="w-full text-[13px] leading-snug font-semibold text-foreground">
+                {step.title}
               </h4>
             </div>
             {step.description && (
@@ -1236,20 +1339,6 @@ function WorkflowSteps({
       </div>
     </section>
   );
-}
-
-function getWorkflowStepTitle(
-  dataKey: string | undefined,
-  index: number,
-  fallbackTitle: string,
-  language: 'ru' | 'en'
-) {
-  if (dataKey !== 'qa.ai.workflow') return fallbackTitle;
-
-  const ruTitles = ['Контекст', 'AI-идеи', 'Проверка', 'QA-тесты', 'Релиз'];
-  const enTitles = ['Context', 'AI Ideas', 'Verification', 'QA Testing', 'Release'];
-
-  return (language === 'ru' ? ruTitles : enTitles)[index] ?? fallbackTitle;
 }
 
 function insertAfterTelegram<T extends { kind?: string }>(items: T[], item: T) {

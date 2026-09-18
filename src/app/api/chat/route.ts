@@ -510,7 +510,10 @@ export async function POST(req: Request) {
     return createStaticFallbackResponse({
       messages,
       query: orchestration?.question ?? getLatestUserText(messages),
-      retrievedContext: orchestration?.ragContext?.contextText ?? '',
+      retrievedContext:
+        orchestration && 'ragContext' in orchestration
+          ? orchestration.ragContext?.contextText ?? ''
+          : '',
       reason: 'model_unavailable',
       metadata: fallbackMetadata,
     });

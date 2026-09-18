@@ -3,15 +3,18 @@ import { AboutPageContent } from '@/components/about/about-page-content';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'About Romeo',
+  title: 'About Romeo — Project Manager / QA Engineer',
   description:
-    'Senior QA Engineer focused on software quality, test automation, and applying AI to engineering processes.',
+    'Profile of Romeo Timony: Project Manager & QA Engineer focused on delivery predictability, software quality, and AI orchestration.',
   path: '/about',
   keywords: [
     'About Romeo',
     'Romeo Timony',
-    'Senior QA Engineer',
-    'Test Automation',
+    'Project Manager',
+    'QA Engineer',
+    'Fullstack QA',
+    'Quality Engineering',
+    'Delivery Management',
     'AI',
   ],
 });

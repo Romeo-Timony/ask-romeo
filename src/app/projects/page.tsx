@@ -3,13 +3,15 @@ import { ProjectsPageContent } from '@/components/projects/projects-page-content
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Projects',
+  title: 'Projects — Project Manager / QA Engineer',
   description:
-    'Selected commercial and engineering projects where Romeo Timony worked as Senior QA Engineer.',
+    'Commercial and engineering projects at the intersection of Project Management and QA: scope governance, requirements analysis, and stable releases.',
   path: '/projects',
   keywords: [
     'Romeo Timony projects',
-    'QA projects',
+    'Project Manager',
+    'QA Engineer',
+    'Fullstack QA',
     'Sminex Comfort',
     'Elme Messer',
     'DPD',

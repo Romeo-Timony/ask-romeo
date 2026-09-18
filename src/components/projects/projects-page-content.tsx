@@ -33,12 +33,12 @@ const featuredProjects = [
     },
     paragraphs: {
       ru: [
-        'Участвовал в обеспечении качества корпоративной информационной системы и мобильного приложения для сотрудников и клиентов компании. Проверял новый функционал, интеграции и пользовательские сценарии, анализировал требования и сопровождал релизы на всех этапах тестирования.',
-        'Работал над тем, чтобы новые изменения не нарушали существующую функциональность и соответствовали ожиданиям пользователей.',
+        'Координировал развитие корпоративной платформы и мобильного приложения, совмещая управление скоупом задач с контролем качества. Декомпозировал требования, синхронизировал команду разработки и валидировал интеграции с внутренними сервисами.',
+        'Обеспечивал предсказуемость релизных циклов и сквозное тестирование ключевых сценариев поставок, исключая регрессионные сбои при внедрении нового функционала.',
       ],
       en: [
-        'Contributed to quality assurance for a corporate information system and mobile app for company employees and clients. Validated new functionality, integrations, and user flows, analyzed requirements, and supported releases across all testing stages.',
-        'Focused on ensuring that new changes did not break existing functionality and met user expectations.',
+        'Coordinated the evolution of the corporate platform and mobile app, combining task scope management with quality control. Decomposed requirements, aligned the development team, and validated complex backend integrations.',
+        'Ensured predictable release schedules and end-to-end testing of critical supply workflows, preventing regression issues as new features were rolled out.',
       ],
     },
   },
@@ -74,8 +74,8 @@ function ProjectsPageContentInner() {
       title={isRu ? 'Ключевые проекты' : 'Key Projects'}
       summary={
         isRu
-          ? 'Подборка коммерческих проектов, в которых я участвовал как Senior QA Engineer, обеспечивая качество веб- и мобильных приложений, анализируя требования, проверяя бизнес-сценарии и помогая командам выпускать стабильные и надежные релизы.'
-          : 'A selection of commercial projects where I contributed as a Senior QA Engineer, ensuring the quality of web and mobile applications, analyzing requirements, validating business scenarios, and helping teams ship stable, reliable releases.'
+          ? 'Подборка коммерческих проектов на стыке Project Management и QA: управление скоупом и поставкой, детальный анализ требований, валидация бизнес-сценариев и выпуск стабильных веб- и мобильных платформ.'
+          : 'A selection of commercial projects at the intersection of Project Management and QA: scope and delivery governance, in-depth requirements analysis, business scenario validation, and shipping resilient web and mobile platforms.'
       }
       primaryCta={{
         href: '/chat',

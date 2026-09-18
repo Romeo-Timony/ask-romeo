@@ -3,11 +3,20 @@ import { AskRomeoProjectPageContent } from '@/components/projects/ask-romeo-proj
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Ask Romeo — диалоговое QA/AI-портфолио',
+  title: 'Ask Romeo — диалоговое портфолио Project Manager & QA',
   description:
-    'Ask Romeo — диалоговое портфолио Романа Тимошенко с FAQ-маршрутизацией, базой знаний, RAG и ответами, подкреплёнными источниками.',
+    'Ask Romeo — диалоговое портфолио Романа Тимошенко: архитектура RAG, синтез Project Management и QA-инженерии, проверенная база знаний.',
   path: '/projects/ask-romeo',
-  keywords: ['Ask Romeo', 'RAG-портфолио', 'QA-портфолио', 'AI-чат'],
+  keywords: [
+    'Ask Romeo',
+    'Project Manager',
+    'QA Engineer',
+    'Fullstack QA',
+    'RAG-портфолио',
+    'AI-чат',
+    'Next.js 15',
+    'pgvector',
+  ],
 });
 
 export default function AskRomeoProjectPage() {

@@ -997,9 +997,9 @@ function UserQuestionBubble({
     >
       <ChatBubble
         variant="sent"
-        className="mx-auto max-w-[min(85%,40rem)] self-center text-center"
+        className="w-full max-w-2xl self-center justify-center text-center"
       >
-        <ChatBubbleMessage className="text-center">
+        <ChatBubbleMessage className="w-full px-5 py-3 text-center text-sm font-medium leading-relaxed md:text-base">
           {content}
         </ChatBubbleMessage>
       </ChatBubble>
@@ -1016,7 +1016,7 @@ function PendingQuestionBubble({
 }) {
   return (
     <div className="mx-auto flex w-full max-w-3xl justify-center px-4 pb-4">
-      <div className="mx-auto max-w-[min(85%,40rem)] rounded-2xl border border-dashed border-teal-400/45 bg-teal-500/10 px-4 py-3 text-center text-sm text-teal-900/75 backdrop-blur-sm dark:text-teal-100/75">
+      <div className="w-full max-w-2xl rounded-2xl border border-dashed border-teal-400/45 bg-teal-500/10 px-5 py-3 text-center text-sm font-medium text-teal-900/75 backdrop-blur-sm dark:text-teal-100/75 md:text-base">
         <p className="break-words whitespace-pre-wrap">{content}</p>
         <p className="mt-1 text-xs text-teal-800/55 dark:text-teal-100/50">
           {language === 'ru' ? 'Ожидание ответа' : 'Queued'}

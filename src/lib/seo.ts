@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 import { romeoProfile, romeoProjects } from '@/lib/romeo-profile';
 
-export const siteUrl = 'http://91.132.196.202';
+export const siteUrl = 'https://ask-romeo.ru';
 export const siteName = 'Ask Romeo';
-export const defaultTitle = 'Romeo Timony — QA Engineer / Prompt Engineer';
+export const defaultTitle = 'Romeo Timony — Project Manager / Fullstack QA';
 export const defaultDescription =
-  'AI-connected portfolio of Romeo Timony: QA Engineer / Prompt Engineer. Ask questions via chat, explore projects, skills, and workflow.';
+  'AI-connected portfolio of Romeo Timony: Project Manager / Fullstack QA. Ask questions via chat, explore projects, skills, and workflow.';
 
 export const seoKeywords = [
   'Romeo Timony',
   'Ask Romeo',
+  'Project Manager',
+  'Fullstack QA',
   'QA Engineer',
   'Prompt Engineer',
   'AI portfolio',
@@ -97,10 +99,11 @@ export const jsonLdGraph = [
     name: 'Romeo Timony',
     alternateName: ['Romeo-Timony', 'Ask Romeo'],
     url: siteUrl,
-    jobTitle: 'Fullstack QA/AI engineer',
+    jobTitle: 'Project Manager / Fullstack QA',
     description:
-      'Romeo Timony is a QA Engineer / Prompt Engineer building AI-connected portfolio systems, Telegram assistants, and RAG workflows.',
+      'Romeo Timony is a Project Manager / Fullstack QA building AI-connected portfolio systems, Telegram assistants, and RAG workflows.',
     knowsAbout: [
+      'Project management',
       'QA engineering',
       'Prompt engineering',
       'RAG',

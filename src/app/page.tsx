@@ -7,6 +7,7 @@ import { VideoVisitCard } from '@/components/video-visit-card';
 import { PortfolioSidebar } from '@/components/portfolio-sidebar';
 import { Button } from '@/components/ui/button';
 import WelcomeModal from '@/components/welcome-modal';
+import { HeroQuote } from '@/components/home/hero-quote';
 import { useSuggestedQuestions } from '@/hooks/use-suggested-questions';
 import { getUiText } from '@/lib/i18n';
 import { buildChatHref } from '@/lib/navigation';
@@ -241,11 +242,7 @@ function HomeContent() {
         <h1 className="max-w-[22rem] text-xl leading-tight font-bold sm:max-w-3xl sm:text-2xl md:max-w-4xl md:text-3xl lg:text-4xl">
           {heroTitle}
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-xl text-xs leading-relaxed font-medium italic sm:text-sm">
-          {language === 'ru'
-            ? '«Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»'
-            : '“Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error.”'}
-        </p>
+        <HeroQuote language={language} />
         <nav
           aria-label="Featured portfolio pages"
           className="mt-[15px] flex max-w-3xl flex-wrap justify-center gap-2"

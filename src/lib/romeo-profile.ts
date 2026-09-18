@@ -3,8 +3,8 @@ import { getSuggestedQuestionText } from '@/lib/suggested-questions';
 export const romeoProfile = {
   name: 'Romeo Timony (Роман Тимошенко)',
   handle: '@Romeo-Timony',
-  title: 'Fullstack QA/AI engineer',
-  titleEn: 'Fullstack QA/AI engineer',
+  title: 'Project Manager / Fullstack QA',
+  titleEn: 'Project Manager / Fullstack QA',
   location: 'Удалённо',
   locationEn: 'Remote',
   residence: '',
@@ -14,7 +14,7 @@ export const romeoProfile = {
   github: 'https://github.com/Romeo-Timony',
   linkedin: 'https://www.linkedin.com/in/romeo-timony/',
   instagram: '',
-  currentPortfolioUrl: 'http://91.132.196.202',
+  currentPortfolioUrl: 'https://ask-romeo.ru',
   currentPortfolioGithub: 'https://github.com/Romeo-Timony/ask-romeo',
   legacyPortfolioUrl: '',
   legacyPortfolioGithub: '',
@@ -25,7 +25,7 @@ export const romeoProfile = {
   resumeUrl: 'https://hh.ru/resume/ef5141daff0d4973ca0039ed1f624161564b4a',
   wikiSource: 'Static portfolio knowledge (WIP)',
   sourceSummary:
-    'Romeo Timony — Fullstack QA Engineer with AI tooling. AI-connected portfolio with Ask chat and RAG (content in progress).',
+    'Romeo Timony — Project Manager / Fullstack QA with AI tooling. AI-connected portfolio with Ask chat and RAG (content in progress).',
 } as const;
 
 export const suggestedQuestions = {

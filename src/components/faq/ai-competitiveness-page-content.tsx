@@ -11,34 +11,34 @@ import { useDisplayPreferences } from '@/lib/use-display-preferences';
 
 const faqItemsRu = [
   {
-    question: 'Что Romeo может делать такого, что AI не заменит?',
+    question: 'Что Romeo делает такого, что AI не может заменить?',
     answer:
-      'Безопасный ответ не в том, что AI никогда не заменит человека. Romeo оценивает результат AI относительно реальных требований, бизнес-сценариев, рисков качества, покрытия тестами и доверия к релизу.',
+      'AI генерирует варианты кода и документов, но не несёт ответственности за результат. Romeo оценивает вывод нейросетей сквозь призму реального контекста проекта: сопоставляет бизнес-цели (PM), архитектурные ограничения и риски надёжности (QA), принимая взвешенные решения на основе данных.',
   },
   {
-    question: 'Соревнуется ли Romeo с AI?',
+    question: 'Как AI ускоряет работу в роли Project Manager?',
     answer:
-      'Нет. AI — это слой исполнения. Задача Romeo — встраивать AI-инструменты в реальные процессы QA: анализ требований, тестовую документацию, сценарии, регрессию и контроль качества релизов.',
+      'В управлении проектами AI применяется для быстрой декомпозиции эпиков на атомарные задачи, драфтинга спецификаций, анализа проектных рисков и подготовки отчётов для стейкхолдеров. Это ускоряет Time-to-Market и высвобождает время для прямой координации команды и фокусировки на ключевых целях бизнеса.',
   },
   {
-    question: 'Как Romeo использует AI, не становясь от него зависимым?',
+    question: 'Как AI повышает эффективность в роли QA-инженера?',
     answer:
-      'Сначала определяет цель, scope, ограничения и критерии приёмки, затем проверяет вывод AI по требованиям, тест-кейсам, фактическому поведению системы и границам безопасности/данных.',
+      'В тестировании AI кратно ускоряет построение матриц покрытия, подготовку тестовых данных (mock-данных), генерацию позитивных и граничных сценариев, а также ранний анализ требований в Jira и Figma на противоречивость и полноту (Shift-Left).',
   },
   {
-    question: 'Что значит AI Lead в контексте QA?',
+    question: 'Как Romeo проверяет AI-сгенерированные тесты и документацию?',
     answer:
-      'Это не формальный титул, а рабочий стиль: связывать планирование тестирования, анализ качества, автоматизацию, документацию, релизный контроль и обратную связь, используя AI как партнёра по исполнению.',
+      'Главный принцип — нулевое слепое доверие. Все сгенерированные сценарии валидируются по реальным API-контрактам, структуре БД и фактическому поведению системы. Исключаются галлюцинации, ложные проверки и риски утечки конфиденциальных данных.',
   },
   {
-    question: 'Как Romeo проверяет AI-сгенерированные тесты и артефакты?',
+    question: 'Как сочетание PM и QA защищает команду от ошибок и галлюцинаций AI?',
     answer:
-      'Проверяет соответствие требованиям и архитектуре, корректность API/UI-полей, отсутствие ложных проверок, риски утечки данных и то, можно ли объяснить результат до того, как он попадёт в продуктовый процесс.',
+      'Инженерная экспертиза в QA помогает моментально выявлять скрытые дефекты и краевые случаи в решениях AI, а опыт Project Manager помогает отсекать избыточную генерацию и направлять AI-инструменты строго на решение задач текущего спринта.',
   },
   {
-    question: 'Зачем Ask Romeo использует RAG и базу знаний?',
+    question: 'Зачем Ask Romeo использует RAG и локальную базу знаний?',
     answer:
-      'Чтобы ответы о проектах, навыках и подходе к QA опирались на исходные материалы портфолио, а не превращались в общие ответы чат-бота.',
+      'Чтобы ответы о коммерческих проектах, навыках и процессах опирались на проверенные факты и реальный опыт, а не на абстрактные домыслы модели. RAG делает AI надёжным, точным и проверяемым цифровым представителем.',
   },
 ];
 
@@ -46,32 +46,32 @@ const faqItemsEn = [
   {
     question: 'What can Romeo do that AI cannot replace?',
     answer:
-      'The safer answer is not that AI can never replace human work. Romeo judges AI output against real requirements, business scenarios, quality risks, test coverage, and release confidence.',
+      'AI generates draft code and documentation, but takes zero accountability for the outcome. Romeo evaluates AI output through the lens of real project context: aligning business goals (PM), architectural boundaries, and system reliability risks (QA) to make grounded, data-driven decisions.',
   },
   {
-    question: 'Does Romeo compete with AI?',
+    question: 'How does AI accelerate work in the Project Manager role?',
     answer:
-      'No. AI is an execution layer. Romeo’s goal is to embed AI tools into real QA processes: requirements analysis, test documentation, scenarios, regression, and release quality control.',
+      'In project management, AI is leveraged for rapid epic decomposition, drafting clear technical specifications, modeling delivery risks, and preparing concise stakeholder updates. This accelerates Time-to-Market and frees up time for active team coordination and core business focus.',
   },
   {
-    question: 'How does Romeo use AI without becoming dependent on it?',
+    question: 'How does AI improve efficiency in the QA Engineer role?',
     answer:
-      'He defines the goal, scope, constraints, and acceptance criteria first, then reviews AI output against requirements, test cases, actual system behavior, and security/data boundaries.',
+      'In QA engineering, AI drastically speeds up coverage matrix design, mock data generation, edge-case test case authoring, and early requirements validation in Jira/Figma for ambiguities and missing logic (Shift-Left).',
   },
   {
-    question: 'What does AI Lead mean in a QA context?',
+    question: 'How does Romeo validate AI-generated tests and documentation?',
     answer:
-      'It is not a formal title. It is a working style for connecting test planning, quality analysis, automation, documentation, release control, and feedback, using AI as an execution partner.',
+      'The guiding principle is zero blind trust. Every AI-generated scenario is audited against real API contracts, database schemas, and actual system runtime behavior. Hallucinations, false positives, and sensitive data risks are rigorously eliminated.',
   },
   {
-    question: 'How does Romeo review AI-generated tests and artifacts?',
+    question: 'How does combining PM and QA protect teams from AI errors?',
     answer:
-      'He checks alignment with requirements and architecture, correctness of API/UI fields, absence of false checks, data-leak risks, and whether the result can be explained before it enters the product process.',
+      'QA engineering depth enables immediate detection of subtle flaws and boundary edge cases in AI proposals, while project management discipline prevents scope creep and keeps AI tooling aligned with sprint milestones.',
   },
   {
-    question: 'Why does Ask Romeo use RAG and a knowledge base?',
+    question: 'Why does Ask Romeo use RAG and a verified knowledge base?',
     answer:
-      'So answers about projects, skills, and the QA approach stay grounded in portfolio source material instead of becoming generic chatbot responses.',
+      'To guarantee that answers about commercial projects, skills, and delivery workflows remain anchored in verified facts and real-world experience, rather than generic chatbot guesswork. RAG makes AI a dependable, grounded digital representative.',
   },
 ];
 
@@ -84,8 +84,8 @@ function AiCompetitivenessPageContentInner() {
       <PublicPageShell
         brandLabel="Ask Romeo"
         eyebrow="FAQ"
-        title="FAQ: AI-преимущества в QA"
-        summary="Краткие и приземлённые ответы для рекрутеров и поисковых систем о том, как Senior QA Engineer работает с AI, сохраняет контроль качества и использует Ask Romeo как grounded-портфолио."
+        title="FAQ: AI-преимущества в Project Management и QA"
+        summary="Приземлённые ответы о том, как практическое применение AI ускоряет управление проектами и тестирование: от декомпозиции скоупа и оценки рисков до генерации тест-кейсов и контроля релизов."
         primaryCta={{
           href: '/chat',
           label: 'Открыть чат с AI-ассистентом',
@@ -129,8 +129,8 @@ function AiCompetitivenessPageContentInner() {
     <PublicPageShell
       brandLabel="Ask Romeo"
       eyebrow="FAQ"
-      title="FAQ: AI Advantages in QA"
-      summary="Short, grounded answers for recruiters and search systems about how a Senior QA Engineer works with AI, keeps quality control, and uses Ask Romeo as a grounded portfolio."
+      title="FAQ: AI Advantages in Project Management and QA"
+      summary="Grounded answers on how practical AI workflows accelerate project delivery and quality assurance: from scope decomposition and risk assessment to test case generation and release control."
       primaryCta={{
         href: '/chat',
         label: 'Open the AI assistant chat',
@@ -151,15 +151,15 @@ function AiCompetitivenessPageContentInner() {
 
       <TextSection title="Related Pages">
         <p>
-          Read more:{' '}
+          Explore more:{' '}
           <Link className="underline" href="/ai-era-developer">
             AI Advantages
           </Link>
           ,{' '}
           <Link className="underline" href="/about">
             About
-          </Link>
-          , and{' '}
+          </Link>{' '}
+          and{' '}
           <Link className="underline" href="/projects">
             Projects
           </Link>

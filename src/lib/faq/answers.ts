@@ -318,7 +318,17 @@ const moreProjectsKo = [
     description:
       'Интерактивное портфолио на Next.js с Ask UI, RAG-базой знаний и ответами о проектах и опыте Romeo.',
     image: 'project.askoosu.cover',
-    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    tags: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Vercel AI SDK',
+      'OpenAI',
+      'RAG',
+      'PostgreSQL',
+      'Docker',
+    ],
     href: romeoProfile.currentPortfolioUrl,
   },
   {
@@ -328,17 +338,36 @@ const moreProjectsKo = [
     description:
       'QA веб- и мобильной платформы для жителей: пользовательские сценарии, API, интеграции внутренних сервисов и регрессия перед релизами.',
     image: 'project.sminex_comfort.cover',
-    tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+    tags: [
+      'Web & Mobile',
+      'REST API',
+      'Python',
+      'Playwright',
+      'Pytest',
+      'Appium',
+      'Allure TestOps',
+      'PostgreSQL',
+      'Kafka',
+    ],
     href: 'https://comfort.sminex.com/',
   },
   {
     id: 'elme_messer',
     title: 'Elme Messer',
-    subtitle: 'Enterprise · web и mobile app',
+    subtitle: 'Enterprise · PM & QA',
     description:
-      'QA цифровых сервисов промышленного поставщика газов: каталог продукции, интернет-магазин, личный кабинет клиента, обмен документами и многоязычные пользовательские сценарии.',
+      'Совмещение ролей Project Manager и QA: управление скоупом задач и спринтами (Scrum), тестирование корпоративных web-сервисов, REST API, интеграций и релизные гейты.',
     image: 'project.elme_messer.cover',
-    tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+    tags: [
+      'PM & QA',
+      'Scrum',
+      'Enterprise Platform',
+      'REST API',
+      'Postman',
+      'PostgreSQL',
+      'Sentry',
+      'TestIT',
+    ],
     href: 'https://elmemesser.lv/',
   },
   {
@@ -348,7 +377,16 @@ const moreProjectsKo = [
     description:
       'QA логистических сценариев: оформление и отслеживание отправлений, API, интеграции и регрессия критичных процессов доставки.',
     image: 'project.dpd.cover',
-    tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+    tags: [
+      'Logistics Platform',
+      'REST / SOAP API',
+      'Postman',
+      'SoapUI',
+      'Oracle SQL',
+      'RabbitMQ',
+      'Microservices',
+      'Regression',
+    ],
     href: 'https://dpd.ru/',
   },
 ];
@@ -362,7 +400,17 @@ const moreProjectsEn = [
     description:
       "An interactive Next.js portfolio with an Ask UI, RAG knowledge base, and grounded answers about Romeo's projects and experience.",
     image: 'project.askoosu.cover',
-    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'OpenAI'],
+    tags: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Vercel AI SDK',
+      'OpenAI',
+      'RAG',
+      'PostgreSQL',
+      'Docker',
+    ],
     href: romeoProfile.currentPortfolioUrl,
   },
   {
@@ -372,17 +420,36 @@ const moreProjectsEn = [
     description:
       'QA for a resident web and mobile platform: user journeys, APIs, internal-service integrations, and release regression testing.',
     image: 'project.sminex_comfort.cover',
-    tags: ['Next.js', 'React', 'Webpack', 'Yandex Metrica'],
+    tags: [
+      'Web & Mobile',
+      'REST API',
+      'Python',
+      'Playwright',
+      'Pytest',
+      'Appium',
+      'Allure TestOps',
+      'PostgreSQL',
+      'Kafka',
+    ],
     href: 'https://comfort.sminex.com/',
   },
   {
     id: 'elme_messer',
     title: 'Elme Messer',
-    subtitle: 'Enterprise · web and mobile app',
+    subtitle: 'Enterprise · PM & QA',
     description:
-      'QA for a digital industrial-gas supplier: product catalogue, web shop, customer account, document exchange, and multilingual customer journeys.',
+      'Dual Project Manager & QA role: managing task scopes and Scrum sprints, testing enterprise web services, REST APIs, integrations, and release quality gates.',
     image: 'project.elme_messer.cover',
-    tags: ['WordPress', 'jQuery', 'WPML', 'Autoptimize', 'Google Analytics'],
+    tags: [
+      'PM & QA',
+      'Scrum',
+      'Enterprise Platform',
+      'REST API',
+      'Postman',
+      'PostgreSQL',
+      'Sentry',
+      'TestIT',
+    ],
     href: 'https://elmemesser.lv/',
   },
   {
@@ -392,7 +459,16 @@ const moreProjectsEn = [
     description:
       'QA for logistics scenarios: creating and tracking shipments, APIs, integrations, and regression of critical delivery flows.',
     image: 'project.dpd.cover',
-    tags: ['WordPress', 'jQuery', 'Bootstrap', 'SiteOrigin', 'Slick'],
+    tags: [
+      'Logistics Platform',
+      'REST / SOAP API',
+      'Postman',
+      'SoapUI',
+      'Oracle SQL',
+      'RabbitMQ',
+      'Microservices',
+      'Regression',
+    ],
     href: 'https://dpd.ru/',
   },
 ];
@@ -555,130 +631,87 @@ const skillGroupsEn = [
   },
 ];
 
-const aiWorkflowKo = [
+const pmQaAiWorkflowRu = [
   {
-    title: 'Plan',
+    title: 'Анализ требований (PM · Shift-Left)',
     description:
-      '요구사항을 작은 단위로 쪼개고, 답변 기준과 금지할 추측을 먼저 정리합니다.',
+      'Декомпозиция эпиков, выявление нестыковок бизнес-логики и скрытых краевых сценариев (edge cases) с помощью LLM ещё до старта разработки.',
   },
   {
-    title: 'Generate',
+    title: 'AI-синтез проверок и тест-дизайн',
     description:
-      'Claude Code, Codex, Gemini 같은 도구로 구현 초안과 대안을 빠르게 만듭니다.',
+      'Генерация комбинаторных тест-кейсов, матриц покрытия, заготовок автотестов (Playwright, Pytest) и подготовка тестовых данных.',
   },
   {
-    title: 'Review',
+    title: 'Архитектура и API-контракты',
     description:
-      'AI가 만든 코드 흐름을 직접 읽고, 모르는 부분은 설명과 근거를 다시 확인합니다.',
+      'Проверка изменений в коде, строгая валидация API-контрактов (REST, SOAP, Kafka), сверка со спецификацией и устранение рисков.',
   },
   {
-    title: 'Test',
+    title: 'Автоматизация и CI/CD прогон',
     description:
-      '타입 체크, 빌드, 실행 로그, 문서 대조로 실제 동작을 검증합니다.',
+      'Запуск автотестов в CI/CD (Web и Mobile Appium), статический анализ типов, проверка сборок и анализ системных логов.',
   },
   {
-    title: 'Ship',
+    title: 'Релизные гейты (Go/No-Go)',
     description:
-      '사용자 경험과 운영 흐름 안에서 기능이 자연스럽게 작동하는지 확인합니다.',
-  },
-];
-
-const aiWorkflowEn = [
-  {
-    title: 'Context',
-    description:
-      'I clarify the goal, scenarios, constraints, and risks. I define acceptance criteria and verified assumptions.',
-  },
-  {
-    title: 'AI Ideas',
-    description:
-      'Codex, Claude Code, and Gemini help break down the task, prepare implementation options, test cases, and negative scenarios.',
-  },
-  {
-    title: 'Verification',
-    description:
-      'I check code changes, API contracts, error handling, and impact on existing user flows.',
-  },
-  {
-    title: 'QA Testing',
-    description:
-      'I run type-check, build, automated tests, and manual verifications. I check logs, API responses, and edge cases.',
-  },
-  {
-    title: 'Release',
-    description:
-      'I commit the result, monitor post-release behavior, and turn discovered risks into new validation checks.',
+      'Оценка критериев готовности релиза, защита продакшена от сбоев, согласование с бизнесом и пострелизный мониторинг через Sentry и Grafana.',
   },
 ];
 
-const qaAiWorkflowRu = [
+const pmQaAiWorkflowEn = [
   {
-    title: 'Контекст и риски',
+    title: 'Requirements Analysis (Shift-Left)',
     description:
-      'Уточняю цель, сценарии, ограничения и риски. Формирую критерии приёмки и проверяемые допущения.',
+      'Epic decomposition, resolving business logic ambiguities, and uncovering edge cases using LLMs before code development begins.',
   },
   {
-    title: 'AI-гипотезы',
+    title: 'AI Test Design & Synthesis',
     description:
-      'Codex, Claude Code и Gemini помогают разобрать задачу, подготовить варианты реализации, тест-кейсы и негативные сценарии.',
+      'Rapid generation of combinatorial test cases, coverage matrices, test data preparation, and autotest drafts (Playwright, Pytest).',
   },
   {
-    title: 'Реализация и review',
+    title: 'Architecture & API Contracts',
     description:
-      'Проверяю изменения в коде, контракты API, обработку ошибок и влияние на существующие пользовательские потоки.',
+      'Inspecting code diffs, verifying API contracts (REST, SOAP, Kafka), aligning with specifications, and mitigating structural risks.',
   },
   {
-    title: 'QA-валидация',
+    title: 'Automation & CI/CD Runs',
     description:
-      'Запускаю type-check, build, автотесты и ручные проверки. Сверяю логи, ответы API и граничные случаи.',
+      'Automated test runs (Web & Mobile Appium), static type checks, build validation, and deep log analysis in CI/CD pipelines.',
   },
   {
-    title: 'Релиз и обратная связь',
+    title: 'Release Gates (Go/No-Go)',
     description:
-      'Фиксирую результат, наблюдаю за поведением после релиза и превращаю найденные риски в новые проверки.',
+      'Enforcing Go/No-Go release criteria, assessing business delivery risks, and monitoring production stability via Sentry and Grafana.',
   },
 ];
-
-const qaAiWorkflowRuCopy = {
-  shortAnswer:
-    'Использую AI для ускорения анализа и подготовки проверок, а качество подтверждаю тестами, логами и ручным review.',
-  defaultAnswer: [
-    'AI в моём процессе — не замена QA, а инструмент для более быстрого анализа, подготовки гипотез и покрытия рисков.',
-    '',
-    'Codex, Claude Code и Gemini помогают декомпозировать задачу, изучить кодовую базу, предложить варианты реализации и составить тестовые сценарии. Затем я проверяю изменения как QA-инженер: читаю код, сверяю API-контракты, запускаю type-check, build и автотесты, анализирую логи и прохожу критичные пользовательские сценарии вручную.',
-  ].join('\n'),
-  detailedAnswer: [
-    'Мой QA/AI-процесс строится вокруг доказуемого качества, а не вокруг доверия к сгенерированному коду.',
-    '',
-    'Сначала фиксирую цель, критерии приёмки, риски и запрещённые допущения. AI помогает быстрее собрать варианты, но не принимает решения за меня. На этапе реализации использую его для навигации по коду, идей по тестам, поиска edge cases и подготовки документации.',
-    '',
-    'После этого выполняю review изменений, проверяю ошибки и интеграции, запускаю статические проверки, сборку и тесты. Перед релизом прохожу пользовательские сценарии и контролирую результат по логам и обратной связи. Такой цикл позволяет ускоряться с AI, не теряя управляемость и ответственность за качество.',
-  ].join('\n'),
-};
 
 const ragWorkflowKo = [
   {
-    title: 'Chat UI',
-    description: '방문자는 스크롤 대신 질문으로 포트폴리오 정보를 탐색합니다.',
-  },
-  {
-    title: 'FAQ Cache',
-    description: '반복 질문은 faqId와 intentId로 바로 캐시 답변을 반환합니다.',
-  },
-  {
-    title: 'RAG Search',
+    title: 'Чат-интерфейс',
     description:
-      'FAQ로 충분하지 않은 질문은 Notion Wiki chunk와 PostgreSQL 검색 캐시를 조회합니다.',
+      'Посетитель исследует опыт и проекты Romeo через вопросы вместо долгой прокрутки страниц.',
   },
   {
-    title: 'Model Layer',
+    title: 'FAQ Cache & Router',
     description:
-      '필요한 경우에만 Groq 등 모델 생성을 사용하고, fallback과 근거 메타데이터를 남깁니다.',
+      'Семантический роутер определяет интент и для популярных вопросов мгновенно возвращает проверенный ответ из кэша.',
   },
   {
-    title: 'Rich Answer',
+    title: 'RAG-поиск',
     description:
-      '텍스트, 카드, 칩, 근거 badge를 함께 보여주는 포트폴리오형 답변으로 렌더링합니다.',
+      'Для сложных вопросов система ищет релевантные фрагменты в базе знаний через векторный поиск в PostgreSQL (pgvector).',
+  },
+  {
+    title: 'Model Layer & Guardrails',
+    description:
+      'LLM (Groq / OpenAI) формирует точный ответ строго на основе найденных фактов с проверкой ограничений и без галлюцинаций.',
+  },
+  {
+    title: 'Rich Answer UI',
+    description:
+      'Ответ отображается в виде адаптивных интерактивных карточек, схем, бейджей источников и контекстных цитат.',
   },
 ];
 
@@ -686,27 +719,27 @@ const ragWorkflowEn = [
   {
     title: 'Chat UI',
     description:
-      'Visitors explore portfolio information by asking instead of scrolling.',
+      'Visitors explore Romeo’s experience and projects by asking natural questions instead of endless scrolling.',
   },
   {
-    title: 'FAQ Cache',
+    title: 'FAQ Cache & Router',
     description:
-      'Repeated questions return cached answers directly through faqId and intentId.',
+      'Semantic router matches user intent and instantly returns verified answers for frequent queries without model latency.',
   },
   {
     title: 'RAG Search',
     description:
-      'Questions beyond FAQ coverage search Notion Wiki chunks and the PostgreSQL retrieval cache.',
+      'For in-depth questions, the system retrieves relevant knowledge chunks via vector search in PostgreSQL (pgvector).',
   },
   {
-    title: 'Model Layer',
+    title: 'Model Layer & Guardrails',
     description:
-      'Groq or another model is used only when needed, with fallback and evidence metadata.',
+      'LLMs (Groq / OpenAI) synthesize grounded answers strictly based on verified evidence with strict output guardrails.',
   },
   {
-    title: 'Rich Answer',
+    title: 'Rich Answer UI',
     description:
-      'Answers render as portfolio UI using text, cards, chips, and evidence badges.',
+      'Responses render as interactive cards, diagrams, source badges, and contextual role-based quotes.',
   },
 ];
 
@@ -743,7 +776,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'ru',
     quickLabel: 'Проекты',
     displayQuestion:
-      'Покажи основные проекты Romeo и его опыт в QA.',
+      'Покажи основные проекты Romeo и его опыт в роли Project Manager и QA.',
     patterns: [
       'проекты',
       'основные проекты',
@@ -751,14 +784,19 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'покажи проекты',
       'проекты Romeo',
       'QA проекты',
+      'PM проекты',
       'Sminex Elme Messer DPD',
     ],
     shortAnswer:
-      'В портфолио представлены коммерческие QA-проекты (Sminex Comfort, Elme Messer, DPD) и личные разработки (Ask Romeo и др.).',
+      'В портфолио представлены ключевые коммерческие проекты (Sminex Comfort, Elme Messer, DPD) в роли Project Manager & QA и личные разработки (Ask Romeo и др.).',
     defaultAnswer: [
-      'В портфолио представлены три основных коммерческих проекта из QA-опыта Романа: Sminex Comfort, Elme Messer и DPD.',
+      'В портфолио представлены три основных коммерческих проекта из опыта Романа (Project Manager & QA): Sminex Comfort, Elme Messer и DPD.',
       '',
-      'Также в разделе «Дополнительно (AI)» вы можете посмотреть текущий проект Ask Romeo (диалоговое QA/AI-портфолио). Все карточки показывают контекст тестирования, технологии и ссылки на проекты.',
+      'Также в разделе «Дополнительно (AI)» вы можете посмотреть текущий проект Ask Romeo (диалоговое QA/AI-портфолио). Все карточки показывают контекст управления и обеспечения качества, технологии и ссылки на проекты.',
+      '',
+      '---',
+      '',
+      '> «Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.»',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -809,7 +847,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'Projects',
     displayQuestion:
-      "Could you show Romeo's representative projects and his QA experience?",
+      "Could you show Romeo's representative projects and his Project Manager & QA experience?",
     patterns: [
       'projects',
       'project',
@@ -824,11 +862,15 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'Sminex Elme Messer DPD',
     ],
     shortAnswer:
-      'The portfolio features commercial QA projects (Sminex Comfort, Elme Messer, DPD) and personal developments (Ask Romeo, etc.).',
+      'The portfolio features key commercial projects (Sminex Comfort, Elme Messer, DPD) across Project Manager & QA roles and personal AI developments (Ask Romeo, etc.).',
     defaultAnswer: [
-      'The portfolio features three main commercial projects from Roman\'s QA experience: Sminex Comfort, Elme Messer, and DPD.',
+      'The portfolio features three main commercial projects from Romeo’s experience (Project Manager & QA): Sminex Comfort, Elme Messer, and DPD.',
       '',
-      'Additionally, under the "Additional (AI)" section, you can explore the current Ask Romeo project (conversational QA/AI portfolio). The cards show the testing context, technologies used, and links to the projects.',
+      'Additionally, under the "Additional (AI)" section, you can explore the current Ask Romeo project (conversational QA/AI portfolio). The cards show management and quality engineering context, tech stack, and links to live services.',
+      '',
+      '---',
+      '',
+      '> "Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error."',
     ].join('\n'),
     renderSpec: {
       layout: 'project_showcase',
@@ -877,24 +919,39 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'skills.tech_stack',
     entityId: 'skills.core',
     language: 'ru',
-    quickLabel: '기술 스택',
+    quickLabel: 'Стек и навыки',
     displayQuestion:
-      '우수님은 어떤 기술 스택을 다루고, 각 기술은 어떤 프로젝트에서 써봤나요?',
+      'Какой стек Romeo использует и как применяет его в проектах?',
     patterns: [
-      '기술',
-      '스택',
-      '기술 스택',
-      '우수님은 어떤 기술 스택을 다루고, 각 기술은 어떤 프로젝트에서 써봤나요?',
-      '프론트엔드 백엔드 AI 기술',
-      '쓸 줄 아는 기술',
+      'Какой стек Romeo использует и как применяет его в проектах?',
+      'Какие навыки и технологии использует Romeo в QA и разработке?',
+      'навыки',
+      'стек',
+      'технологический стек',
+      'какие технологии знает Romeo',
+      'навыки и инструменты',
+      'компетенции QA и PM',
       'tech stack',
+      'skills',
     ],
     shortAnswer:
-      'Навыки Romeo сгруппированы по проектам: Ask Romeo, Sminex, Elme Messer и DPD — с технологиями, QA-контекстом и подтверждёнными результатами.',
+      'Компетенции Romeo Timony объединены в связку Project Manager и Fullstack QA на четырёх ключевых проектах: Ask Romeo, Sminex, Messer Group (Elme Messer) и DPD Russia.',
     defaultAnswer: [
-      'Навыки сгруппированы по проектам, чтобы было видно не только название технологии, но и реальный контекст её применения.',
+      'Навыки структурированы по реальным проектам, чтобы наглядно показать синтез продуктово-проектного управления (Project Manager) и обеспечения качества (Fullstack QA):',
       '',
-      'Ask Romeo показывает работу с AI/RAG и качеством ответов, Sminex — построение и масштабирование QA-процессов, Elme Messer — тестирование web-сервисов и интеграций, DPD — проверку логистической платформы и микросервисной архитектуры.',
+      '• Ask Romeo — проектирование AI/RAG-продукта от скоупа и требований до архитектуры кэширования, проверки фактов и многоуровневых guardrails.',
+      '• Sminex — построение процессов обеспечения качества, фреймворк автотестов (Playwright, Python), CI-пайплайны (~700 Appium-тестов) и управление рисками релизов.',
+      '• Messer Group (Elme Messer) — эффективное совмещение ролей Project Manager и QA: фасилитация 4 Scrum-команд, управление бэклогом, координация поставок и релизные гейты для международных web-сервисов.',
+      '• DPD Russia — функциональное, интеграционное и нагрузочное тестирование микросервисной архитектуры и Oracle SQL при объёме 100 000+ посылок в день.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Подход Romeo к технологическому стеку строится на стыке инженерной точности QA и системного видения Project Manager:',
+      '',
+      '1. Управление и координация (PM): декомпозиция бизнес-требований на ранних этапах (Shift-Left), управление скоупом задач и спринтами (Scrum), фасилитация команд и внедрение прозрачных критериев готовности релиза (Go/No-Go). В Messer Group это позволило синхронизировать 4 распределённые команды и бизнес-заказчиков.',
+      '',
+      '2. Тест-инженерия и автоматизация (QA): проектирование стабильных автотестов (Playwright, Pytest, Appium), интеграция в CI/CD, работа со сложными протоколами (REST API, SOAP, Kafka, RabbitMQ) и базами данных (PostgreSQL, Oracle).',
+      '',
+      '3. AI-оркестрация и продуктовая зрелость: интеграция современных LLM и векторных баз данных (pgvector) для автоматизации рутины, быстрого поиска информации и повышения предсказуемости релизных циклов.',
     ].join('\n'),
     renderSpec: {
       layout: 'skill_cloud',
@@ -925,14 +982,11 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     matchedEntityIds: [
       'skills',
       'askoosu',
-      'instagram_clone',
-      'sticks_and_stones',
-      'onjung',
-      'nomad_market',
-      'webtoon_translate',
-      'portfoli_oh',
+      'sminex_comfort',
+      'elme_messer',
+      'dpd',
     ],
-    confidence: 0.97,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.skills.tech_stack.default',
@@ -940,23 +994,38 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'skills.tech_stack',
     entityId: 'skills.core',
     language: 'en',
-    quickLabel: 'Tech stack',
+    quickLabel: 'Tech stack & skills',
     displayQuestion:
       'What technologies does Romeo use, and where has he applied them?',
     patterns: [
-      'skills',
-      'skill',
-      'tech stack',
       'What technologies does Romeo use, and where has he applied them?',
-      'frontend backend AI skills',
+      'What is your current tech stack and strongest area?',
+      'What skills and technologies does Romeo use in QA and engineering?',
+      'tech stack',
+      'skills',
+      'technologies',
       'technical skills',
+      'PM and QA skills',
+      'tools and stack',
     ],
     shortAnswer:
-      'Romeo’s current core stack is Next.js, React, TypeScript, Spring Boot, PostgreSQL, Notion API, RAG, and Groq, with wider project-proven experience across Flutter, FastAPI, GSAP, and more.',
+      'Romeo Timony’s core capabilities combine Project Manager leadership and Fullstack QA across four enterprise cases: Ask Romeo, Sminex, Messer Group (Elme Messer), and DPD Russia.',
     defaultAnswer: [
-      'A tech stack is more useful when you can see where it was actually used. Ask Romeo groups skills by project evidence instead of presenting every keyword at the same level.',
+      'Technical skills are organized around real project outcomes to showcase the synthesis between Project Management (PM) delivery and Fullstack QA quality engineering:',
       '',
-      'The current emphasis is Next.js, React, TypeScript, Tailwind CSS, Spring Boot, PostgreSQL, Notion API, RAG, and Groq. Ask Romeo connects Next.js, AI SDK, Groq, Notion RAG, and PostgreSQL, while Aigram shows Spring Boot and PostgreSQL in a fullstack SNS flow. The answer separates confident, usable, learning, and experimental levels so the breadth does not sound inflated.',
+      '• Ask Romeo — end-to-end AI/RAG product design: scoping requirements, two-tier cache retrieval, factual grounding, and LLM guardrails.',
+      '• Sminex — scaling QA operations, Python/Playwright automation framework, CI test pipelines (~700 Appium tests), and release risk mitigation.',
+      '• Messer Group (Elme Messer) — dual Project Manager & QA role: leading 4 international Scrum teams, backlog refinement, cross-stakeholder alignment, and release quality gates across enterprise web services.',
+      '• DPD Russia — high-throughput logistics QA: microservices, SOAP/REST APIs, and Oracle SQL databases handling 100,000+ parcels daily.',
+    ].join('\n'),
+    detailedAnswer: [
+      'Romeo’s approach combines QA engineering depth with the strategic clarity of a Project Manager:',
+      '',
+      '1. Project Management & Delivery (PM): Shift-Left requirement refinement, backlog prioritization, Scrum sprint planning, stakeholder communication, and unambiguous Go/No-Go release gates. In Messer Group, this leadership aligned 4 distributed teams with business stakeholders across Europe.',
+      '',
+      '2. Fullstack Quality Engineering (QA): designing resilient automation suites (Playwright, Pytest, Appium), CI/CD integration, complex protocol validation (REST, SOAP, Kafka, RabbitMQ), and relational database testing (PostgreSQL, Oracle).',
+      '',
+      '3. AI Orchestration & Tooling: integrating modern LLMs and vector search (pgvector) to accelerate test generation, documentation synthesis, and release velocity.',
     ].join('\n'),
     renderSpec: {
       layout: 'skill_cloud',
@@ -987,14 +1056,11 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     matchedEntityIds: [
       'skills',
       'askoosu',
-      'instagram_clone',
-      'sticks_and_stones',
-      'onjung',
-      'nomad_market',
-      'webtoon_translate',
-      'portfoli_oh',
+      'sminex_comfort',
+      'elme_messer',
+      'dpd',
     ],
-    confidence: 0.97,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.contact.collaboration.default',
@@ -1018,7 +1084,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     shortAnswer:
       'Связаться с Романом можно по почте, через Telegram, GitHub или портфолио.',
     defaultAnswer:
-      'Связаться со мной можно по электронной почте, через Telegram, GitHub или портфолио. Я открыт к диалогу о задачах Senior QA, построении и развитии QA-процессов, тестировании Web и Mobile, API и микросервисов, а также применении AI/LLM для автоматизации и повышения качества продукта.',
+      'Связаться со мной можно по электронной почте, через Telegram, GitHub или портфолио. Я открыт к диалогу о задачах Project Manager / Fullstack QA, выстраивании процессов разработки и качества, тестировании Web и Mobile, API и микросервисов, а также применении AI/LLM для автоматизации и ускорения релизов.',
     renderSpec: {
       layout: 'contact_card',
       density: 'standard',
@@ -1068,7 +1134,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     shortAnswer:
       'You can reach Romeo by email, Telegram, GitHub, or through his portfolio.',
     defaultAnswer:
-      'You can contact me by email, via Telegram, GitHub, or through my portfolio. I am open to discussing Senior QA challenges, establishing and developing QA processes, testing Web & Mobile applications, APIs & microservices, as well as applying AI/LLM tools for automation and improving product quality.',
+      'You can contact me by email, via Telegram, GitHub, or through my portfolio. I am open to discussing Project Manager & Fullstack QA opportunities, establishing robust delivery & quality processes, testing Web & Mobile applications, APIs & microservices, as well as applying AI/LLM tools for automation and delivery acceleration.',
     renderSpec: {
       layout: 'contact_card',
       density: 'standard',
@@ -1102,40 +1168,49 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'ai_usage.workflow',
     entityId: 'ai.workflow',
     language: 'ru',
-    quickLabel: 'AI 활용',
+    quickLabel: 'AI в работе',
     displayQuestion:
-      '우수님은 Claude Code, Codex, Gemini 같은 AI 도구를 실제 개발에 어떻게 활용하나요?',
+      'Как Romeo применяет AI в процессах PM и QA?',
+    alternativeDisplayQuestions: [
+      'Как AI помогает ускорять релизы и повышать качество на стыке PM и QA?',
+      'Как вы используете LLM для декомпозиции требований и генерации тестов?',
+      'Как Romeo использует AI в QA-процессе и разработке?',
+    ],
     patterns: [
+      'AI в PM и QA',
+      'AI в PM и QA процессах',
+      'AI в процессах PM и QA',
+      'AI в работе',
+      'Как Romeo применяет AI в процессах управления (PM) и контроля качества (QA)?',
+      'Как Romeo использует AI в QA-процессе и разработке?',
+      'Как AI помогает в PM и QA',
+      'AI workflow',
+      'AI usage',
+      'AI применение',
+      'Как вы используете AI',
+      'LLM в тестировании',
+      'AI в управлении проектами',
+      'AI в QA',
+      'Shift-left AI',
       'AI 활용',
-      'AI 활용법',
-      'ai 활용법',
-      'AI 쓰는 법',
       'AI 사용법',
-      '우수의 AI 활용법',
-      '우수 AI 활용법',
-      'AI 도구를 어떻게 활용하나요?',
-      'AI를 어떻게 쓰나요?',
-      'AI를 어떻게 사용하나요?',
-      'AI로 어떻게 개발하나요?',
-      '우수님은 Claude Code, Codex, Gemini 같은 AI 도구를 실제 개발에 어떻게 활용하나요?',
-      'Claude Code Gemini CLI Codex',
-      'ai 실제 개발 활용',
     ],
     shortAnswer:
-      '우수는 AI를 기획, 구현, 디버깅, 문서화를 빠르게 연결하는 개발 파트너처럼 사용합니다.',
+      'Romeo использует AI как рабочий акселератор для декомпозиции требований (Shift-Left), генерации тест-дизайна и автоматизации проверок, сохраняя контроль над качеством через строгие релизные гейты и ручной аудит.',
     defaultAnswer: [
-      '우수는 AI를 단순 질문 도구가 아니라 개발 파트너에 가깝게 사용합니다.',
+      'В связке Project Manager & Fullstack QA Romeo использует AI не как замену инженерной экспертизе, а как мультипликатор скорости и глубины проработки:',
       '',
-      'Claude Code, Gemini CLI, Codex 같은 도구로 요구사항을 쪼개고, 코드 구조를 탐색하고, 구현·검증·문서화를 반복합니다. 다만 AI 결과물을 그대로 믿기보다 코드 흐름을 직접 읽고, 타입 체크와 빌드, 로그, 공식 문서 대조로 검증하는 방식을 중요하게 봅니다.',
+      '1. Shift-Left анализ и декомпозиция (PM): С помощью LLM выявляются скрытые пробелы в требованиях, нестыковки бизнес-логики и краевые сценарии (edge cases) ещё до написания кода — экономя бюджет на переделках.',
+      '2. Синтез тест-дизайна и генерация автотестов (QA): AI кратно ускоряет проектирование комбинаторных матриц покрытия, генерацию синтетических тест-данных и черновиков автотестов (Playwright, Pytest, REST API).',
+      '3. Строгая валидация человеком: Сгенерированные артефакты всегда проходят инженерную верификацию — проверку API-контрактов (REST, SOAP, Kafka), валидацию типов, прогон тестов в CI/CD и прозрачные релизные гейты (Go/No-Go).',
     ].join('\n'),
     detailedAnswer: [
-      '우수의 AI 활용은 “AI가 대신 만든다”보다 “AI와 함께 더 빠르게 구조화하고, 사람이 검증한다”에 가깝습니다.',
+      'AI-пайплайн Romeo объединяет скорость современных моделей с системным контролем рисков на стыке PM и QA:',
       '',
-      '처음에는 요구사항을 작은 단위로 쪼개고, 답변 기준과 금지할 추측을 먼저 정리합니다. 이 단계에서 Claude Code, Codex, Gemini 같은 도구는 대안을 빠르게 펼쳐보는 역할을 합니다.',
-      '',
-      '구현 단계에서는 코드 초안, 리팩터링 방향, 디버깅 가설, 문서화 초안을 AI와 함께 만들지만, 결과물을 그대로 붙이는 방식으로 끝내지 않습니다. 코드 흐름을 직접 읽고 타입 체크, 빌드, 실행 로그, 공식 문서 대조로 실제 동작을 확인합니다.',
-      '',
-      'Ask Romeo 자체도 그 방식을 보여주는 프로젝트입니다. 단순 챗봇이 아니라 FAQ cache, Notion Wiki, RAG, source badge, feedback loop를 연결해 “AI 답변이 어디에 근거하는지”까지 제품 흐름 안에 넣고 있습니다.',
+      '• Предпроектный этап и требования (PM): LLM используются для анализа пользовательских историй, поиска противоречий в спецификациях и формирования матриц граничных условий. Это позволяет блокировать архитектурные и логические дефекты на самом раннем этапе (Shift-Left подход).',
+      '• Тест-дизайн и автоматизация (QA): Нейросети помогают быстро покрывать сложные комбинаторные сценарии, генерировать фикстуры и заготовки тестов для Playwright и Pytest, а также составлять запросы для нагрузочного и контрактного тестирования.',
+      '• RAG и документация: Создание и актуализация живой базы знаний с семантическим поиском, связывающим бизнес-требования с архитектурными спецификациями и результатами автотестов.',
+      '• Инженерный контроль и релизные гейты: Ни один AI-сгенерированный результат не попадает в прод без верификации. Качество гарантируется прогонами автотестов в CI/CD, проверкой контрактов (REST, SOAP, Kafka), анализом системных логов и соблюдением чётких критериев готовности к релизу (Go/No-Go).',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1146,9 +1221,9 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'AI-assisted Development Workflow',
+        title: 'Цикл качества и поставок: AI в процессах PM & QA',
         dataKey: 'ai.workflow',
-        items: aiWorkflowKo,
+        items: pmQaAiWorkflowRu,
       },
     ],
     sourceChunkIds: [
@@ -1160,7 +1235,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'stable',
     guardrails: sharedGuardrails,
     matchedEntityIds: ['ai.workflow', 'askoosu'],
-    confidence: 0.96,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.ai_usage.workflow.default',
@@ -1170,30 +1245,45 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     language: 'en',
     quickLabel: 'AI workflow',
     displayQuestion:
-      'How does Romeo actually use tools like Claude Code, Codex, and Gemini in development?',
+      'How does Romeo leverage AI in PM and QA processes?',
+    alternativeDisplayQuestions: [
+      'How does AI accelerate releases and improve quality at the intersection of PM and QA?',
+      'How do you use LLMs for requirements decomposition and test synthesis?',
+      'How do you use AI tools in your development workflow?',
+    ],
     patterns: [
+      'AI in PM & QA',
+      'AI in PM and QA',
+      'AI in PM & QA processes',
       'AI workflow',
       'AI usage',
       'AI usage workflow',
+      'How does Romeo leverage AI in Project Management and QA processes?',
+      'How does Romeo leverage AI in Project Management (PM) and Quality Assurance (QA)?',
+      'How do you use AI tools in your development workflow?',
       'How does Romeo use AI?',
       'How does Romeo use AI tools?',
-      'How does Romeo actually use tools like Claude Code, Codex, and Gemini in development?',
-      'How do you actually use AI in development?',
+      'LLM in testing',
+      'AI in project management',
+      'Shift-left AI',
       'ai tools development',
     ],
     shortAnswer:
-      'I use AI to accelerate analysis and test preparation, while confirming quality through automated tests, logs, and manual reviews.',
+      'Romeo uses AI as a force multiplier for Shift-Left requirements decomposition, test design synthesis, and test automation, while maintaining strict human control via CI/CD gates and API contract validation.',
     defaultAnswer: [
-      'AI in my process is not a replacement for QA, but a tool for faster analysis, hypothesis formulation, and risk coverage.',
+      'Combining Project Management and Fullstack QA, Romeo applies AI not to replace human engineering, but to multiply delivery speed and coverage depth:',
       '',
-      'Codex, Claude Code, and Gemini help decompose tasks, explore the codebase, suggest implementation options, and draft test scenarios. Then I verify the changes as a QA engineer: reading the code, checking API contracts, running type-checks, builds, and autotests, analyzing logs, and running through critical user scenarios manually.',
+      '1. Shift-Left Requirements Analysis (PM): Utilizing LLMs to unpack epics, surface logical gaps, and detect edge cases before implementation begins — preventing expensive redesigns.',
+      '2. Test Design Synthesis & Autotests (QA): Accelerating the generation of combinatorial test matrices, realistic synthetic test data, and boilerplate automation suites (Playwright, Pytest, REST API).',
+      '3. Human-in-the-Loop Quality Verification: All AI outputs are rigorously vetted through code inspections, API contract checks (REST, SOAP, Kafka), automated CI/CD test runs, and objective Go/No-Go release gates.',
     ].join('\n'),
     detailedAnswer: [
-      'My QA/AI process is built around provable quality, not trust in generated code.',
+      "Romeo's AI workflow bridges speed and predictability across the entire product delivery cycle:",
       '',
-      'First, I define the goal, acceptance criteria, risks, and prohibited assumptions. AI helps to quickly assemble options, but it does not make decisions for me. During implementation, I use it for code navigation, test ideas, edge cases search, and drafting documentation.',
-      '',
-      'After that, I perform code review, check errors and integrations, run static checks, builds, and tests. Before release, I run user scenarios and monitor the result via logs and feedback. This cycle allows me to accelerate with AI without losing control or ownership of quality.',
+      '• Early Requirements & Scope (PM): LLMs analyze user stories, detect specification conflicts, and uncover corner cases at the earliest stage — saving engineering budget through proactive Shift-Left validation.',
+      '• Test Design & Automation (QA): Models assist in synthesizing combinatorial edge cases, generating data fixtures, and scaffolding Playwright/Pytest suites, significantly reducing test preparation overhead.',
+      '• RAG & Knowledge Systems: Maintaining living knowledge bases and semantic search architectures connecting business requirements directly to regression test results.',
+      '• Engineering Gates & Verification: No AI output is accepted blindly. Every delivery is governed by deterministic CI/CD pipelines, API contract validation (REST, SOAP, Kafka), system log audits, and clear Go/No-Go release criteria.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1204,9 +1294,9 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'QA / AI: Managed Quality Cycle',
+        title: 'Managed Quality & Delivery Cycle: AI in PM & QA',
         dataKey: 'qa.ai.workflow',
-        items: aiWorkflowEn,
+        items: pmQaAiWorkflowEn,
       },
     ],
     sourceChunkIds: [
@@ -1218,29 +1308,35 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'stable',
     guardrails: sharedGuardrails,
     matchedEntityIds: ['ai.workflow', 'askoosu'],
-    confidence: 0.96,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.project.askoosu.rag.default',
     intentId: 'project.askoosu.rag',
     entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'RAG 구조',
+    quickLabel: 'RAG-архитектура',
     displayQuestion:
-      'Ask Romeo 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
+      'Как устроена RAG-архитектура и поиск ответов в Ask Romeo?',
     patterns: [
-      'RAG 구조',
-      'Ask Romeo 안에서 Notion, RAG, Groq, PostgreSQL은 어떻게 연결되나요?',
-      'Ask Romeo RAG',
-      'Notion RAG Groq PostgreSQL',
-      '포트폴리오를 왜 대화형으로 만들었어요?',
+      'RAG-архитектура',
+      'Как RAG работает в проекте Ask Romeo?',
+      'Как устроена RAG-архитектура и поиск ответов в Ask Romeo?',
+      'RAG архитектура Ask Romeo',
+      'векторный поиск в Ask Romeo',
+      'RAG PostgreSQL',
+      'как работает поиск ответов',
     ],
     shortAnswer:
-      'Ask Romeo는 채팅 UI, FAQ 캐시, Notion Wiki/RAG, PostgreSQL 검색 캐시, Groq 생성 모델을 질문 성격에 따라 연결합니다.',
+      'Ask Romeo сочетает чат-интерфейс, FAQ-кэш, векторный RAG-поиск в PostgreSQL (pgvector) и AI-генерацию с контролем обоснованности ответов.',
     defaultAnswer: [
-      'Ask Romeo는 방문자의 질문을 먼저 FAQ Answer Cache로 확인하고, 반복 질문이면 Groq 호출 없이 바로 답변합니다.',
+      'Входящий вопрос пользователя в Ask Romeo проходит многоуровневую обработку для максимальной точности и скорости:',
       '',
-      'FAQ로 충분하지 않은 질문은 Notion Wiki 기반 chunk와 PostgreSQL 검색 캐시를 통해 근거를 찾고, 필요한 경우에만 Groq 같은 모델 생성으로 넘어갑니다. 답변에는 source chunk id, confidence, TODO 여부 같은 메타데이터를 붙여 UI에서 근거와 fallback 상태를 확인할 수 있게 합니다.',
+      '1. FAQ Answer Cache: система сначала сопоставляет вопрос с верифицированной базой ответов. Если интент совпадает, ответ возвращается мгновенно без обращения к LLM, экономя время и ресурсы.',
+      '',
+      '2. Векторный RAG-поиск: если прямого ответа в кэше нет, выполняется семантический поиск по базе знаний через PostgreSQL и pgvector для подбора наиболее релевантных фрагментов документации.',
+      '',
+      '3. Генерация с guardrails: LLM (Groq / OpenAI) синтезирует ответ строго на основе найденных фактов. Ответ снабжается метаданными: оценкой уверенности, источниками (source chunk id) и контекстными цитатами.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1273,22 +1369,27 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.rag',
     entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'RAG system',
+    quickLabel: 'RAG architecture',
     displayQuestion:
-      'How do Notion, RAG, Groq, and PostgreSQL work together inside Ask Romeo?',
+      'How does the RAG architecture and retrieval work inside Ask Romeo?',
     patterns: [
-      'RAG system',
-      'How do Notion, RAG, Groq, and PostgreSQL work together inside Ask Romeo?',
+      'RAG architecture',
+      'How does RAG work inside Ask Romeo?',
+      'How does the RAG architecture and retrieval work inside Ask Romeo?',
       'Ask Romeo RAG',
-      'Notion RAG Groq PostgreSQL',
-      'Why build this portfolio as a conversation?',
+      'RAG architecture',
+      'vector search in Ask Romeo',
     ],
     shortAnswer:
-      'Ask Romeo connects chat UI, FAQ cache, Notion Wiki/RAG, PostgreSQL retrieval cache, and Groq generation depending on the question type.',
+      'Ask Romeo combines a chat UI, FAQ answer cache, PostgreSQL vector RAG retrieval (pgvector), and LLM generation with grounded evidence verification.',
     defaultAnswer: [
-      'Ask Romeo checks the FAQ Answer Cache first, so repeated questions can return a grounded answer without calling Groq.',
+      'Incoming user queries in Ask Romeo go through a multi-tier pipeline designed for low latency and zero hallucinations:',
       '',
-      'When the FAQ is not enough, it searches Notion Wiki chunks through a PostgreSQL-backed retrieval cache and only then uses a model such as Groq when generation is needed. The answer carries metadata such as source chunk IDs, confidence, and TODO state so the UI can show evidence and fallback status.',
+      '1. FAQ Answer Cache: verified frequent questions are resolved instantly via semantic intent matching without model calls, minimizing latency and costs.',
+      '',
+      '2. Vector RAG Retrieval: when deeper context is needed, semantic search retrieves relevant chunks from the PostgreSQL knowledge base using pgvector embeddings.',
+      '',
+      '3. Grounded LLM Generation: models (Groq / OpenAI) generate answers strictly anchored in retrieved evidence. Every response carries confidence scores, source chunk IDs, and role-based quote badges.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -1509,24 +1610,25 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.overview',
     entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'Ask Romeo',
+    quickLabel: 'Обзор',
     displayQuestion:
-      'Ask Romeo는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
+      'Какую задачу решает проект Ask Romeo и почему выбрано диалоговое портфолио?',
     patterns: [
       'Ask Romeo',
-      'Ask Romeo 프로젝트를 설명해줘',
-      'Ask Romeo는 어떤 문제의식에서 시작했고, 왜 대화형 포트폴리오로 만들었나요?',
-      'askoosu 설명',
-      'ask oosu 프로젝트',
+      'Обзор Ask Romeo',
+      'Какую задачу решает проект Ask Romeo?',
+      'Расскажи о проекте Ask Romeo',
+      'почему диалоговое портфолио',
+      'обзор проекта Ask Romeo',
     ],
     shortAnswer:
-      'Ask Romeo는 방문자가 스크롤 대신 질문으로 우수의 프로젝트와 기술 스택을 탐색하는 AI-connected 대화형 포트폴리오입니다.',
+      'Ask Romeo — это диалоговое AI-портфолио Project Manager & QA Engineer, где вместо долгого чтения резюме можно задавать точные вопросы и получать обоснованные ответы со ссылками на первоисточники.',
     defaultAnswer: [
-      'Ask Romeo는 우수의 2026 대화형 AI 포트폴리오입니다.',
+      'Ask Romeo — это интерактивное AI-портфолио Романа Тимошенко, объединяющее роли Project Manager и Fullstack QA Engineer.',
       '',
-      `방문자는 ${romeoProfile.currentPortfolioUrl}에서 스크롤 대신 질문으로 프로젝트와 경험을 탐색할 수 있습니다. 구조는 Next.js App Router 기반 프론트엔드와 API Route Handler, Notion Wiki, PostgreSQL RAG cache, Groq 생성 모델을 연결한 형태입니다.`,
+      `На ${romeoProfile.currentPortfolioUrl} посетитель может исследовать коммерческий опыт (Sminex Comfort, Elme Messer, DPD), компетенции в тест-дизайне, автоматизации и управлении проектами через диалог на естественном языке, а не через длинную статичную страницу.`,
       '',
-      '핵심 의도는 포트폴리오가 단순 소개 페이지가 아니라, 프론트엔드·백엔드·DB·AI orchestration·홈서버 배포 역량을 한 화면에서 증명하는 것입니다.',
+      'Главная цель проекта — не просто рассказать о навыках, а на практике продемонстрировать инженерный подход: Next.js 15, React 19, TypeScript, векторный поиск RAG на PostgreSQL, AI-оркестрацию с LLM и строгий контроль качества ответов.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -1570,23 +1672,24 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.overview',
     entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'Ask Romeo',
+    quickLabel: 'Overview',
     displayQuestion:
-      'What problem led to Ask Romeo, and why did Romeo build it as a conversational portfolio?',
+      'What problem does Ask Romeo solve, and why build it as a conversational portfolio?',
     patterns: [
       'Ask Romeo',
       'Explain the Ask Romeo project',
       'What problem led to Ask Romeo, and why did Romeo build it as a conversational portfolio?',
-      'what is askoosu',
+      'what is ask romeo',
+      'ask romeo overview',
     ],
     shortAnswer:
-      'Ask Romeo is an AI-connected conversational portfolio where visitors explore projects and skills by asking questions instead of scrolling.',
+      'Ask Romeo is an AI-connected conversational portfolio where visitors explore Romeo’s Project Manager & QA Engineer experience by asking questions instead of scrolling static text.',
     defaultAnswer: [
-      'Ask Romeo is Romeo’s 2026 conversational AI portfolio.',
+      'Ask Romeo is Romeo Timony’s conversational AI portfolio representing his dual Project Manager & Fullstack QA Engineer background.',
       '',
-      `At ${romeoProfile.currentPortfolioUrl}, visitors can explore projects and experience by asking questions instead of scrolling through a static portfolio. The system connects a Next.js App Router frontend, API Route Handlers, a Notion Wiki, PostgreSQL-backed RAG cache, and Groq generation.`,
+      `At ${romeoProfile.currentPortfolioUrl}, visitors can explore commercial projects (Sminex Comfort, Elme Messer, DPD), test automation architecture, and project management flows by asking natural questions instead of scrolling through traditional static resumes.`,
       '',
-      'The point is to make the portfolio itself demonstrate frontend, backend, database, AI orchestration, and home-server deployment ability.',
+      'The primary goal is to make the portfolio itself a living proof of engineering competence: Next.js 15, React 19, TypeScript, PostgreSQL RAG retrieval, AI orchestration, and production quality assurance.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -1855,32 +1958,36 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
   createFaqAnswer({
     id: 'faq.project.portfoliooh_vs_askoosu.default',
     intentId: 'project.portfoliooh_vs_askoosu',
-    entityId: 'portfoli_oh',
+    entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'Portfoli-Oh! vs Ask Romeo',
-    displayQuestion: 'Portfoli-Oh!와 Ask Romeo는 어떤 점이 다른가요?',
+    quickLabel: 'До и после',
+    displayQuestion: 'В чем разница между обычным портфолио/резюме и Ask Romeo?',
     patterns: [
-      'Portfoli-Oh!와 Ask Romeo는 어떤 점이 다른가요?',
-      'Portfoli-Oh!의 한계가 Ask Romeo로 어떻게 이어졌나요?',
-      'portfoli-oh askoosu 차이',
-      'old portfolio vs Ask Romeo',
+      'В чем разница между обычным портфолио/резюме и Ask Romeo?',
+      'В чем разница между обычным портфолио и Ask Romeo?',
+      'До и после Ask Romeo',
+      'Чем Ask Romeo отличается от резюме?',
+      'Разница между статичным портфолио и интерактивным диалогом',
       'before after portfolio',
+      'portfolio vs ask romeo',
     ],
     shortAnswer:
-      'Portfoli-Oh!는 인터랙션 중심의 프론트엔드 아카이브였고, Ask Romeo는 질문 중심의 AI/RAG 포트폴리오입니다.',
+      'Обычное резюме — это статичный текст с линейным чтением. Ask Romeo — это интерактивная AI-система с RAG, отвечающая на вопросы рекрутера или нанимающего менеджера с точными подтверждениями и ссылками на факты.',
     defaultAnswer: [
-      'Portfoli-Oh!는 우수가 프론트엔드 인터랙션을 많이 실험했던 2025 포트폴리오이고, Ask Romeo는 그 경험을 바탕으로 만든 2026 대화형 AI 포트폴리오입니다.',
+      'Традиционное резюме или портфолио — это статичный документ, где нанимающему менеджеру приходится линейно продираться сквозь длинные списки обязанностей и технологий.',
       '',
-      'Portfoli-Oh!에서는 GSAP, Three.js, Lottie, 커스텀 커서, JSON 키워드 매칭 챗봇처럼 “보여줄 수 있는 것”을 많이 넣었습니다. 배운 점은 컸지만 기능이 늘수록 방문자가 무엇을 봐야 하는지 흐름이 흐려질 수 있다는 한계도 보였습니다.',
+      'Ask Romeo меняет парадигму: вместо пассивного чтения вы ведете интерактивный диалог. Вы можете сразу спросить о конкретном опыте управления (Project Manager), архитектуре обеспечения качества (Fullstack QA), метриках проектов (Sminex Comfort, Elme Messer, DPD) или оценить работу RAG-пайплайна.',
       '',
-      'Ask Romeo는 그 반성에서 출발해 “더 많이 보여주기”보다 “더 빨리 묻고 찾게 하기”를 우선합니다. 그래서 FAQ cache, Notion Wiki, RAG, source badge, contextual quick question처럼 정보 구조와 답변 신뢰도를 중심에 둡니다.',
+      'Каждый ответ подкрепляется бейджами источников из базы знаний, интерактивными карточками и схемами, исключая «воду» и подтверждая квалификацию реальным работающим продуктом в продакшене.',
     ].join('\n'),
     detailedAnswer: [
-      'Portfoli-Oh!와 Ask Romeo의 차이는 단순히 2025 포트폴리오와 2026 포트폴리오의 차이가 아니라, 우수의 제품 사고가 어떻게 바뀌었는지를 보여줍니다.',
+      'Разница между традиционным резюме и Ask Romeo демонстрирует продуктовое и инженерное мышление Romeo Timony на стыке PM и Fullstack QA:',
       '',
-      'Portfoli-Oh!는 프론트엔드 학습 아카이브에 가까웠습니다. 애니메이션, 3D, 하이라이터, JSON 챗봇 등 여러 인터랙션을 넣으면서 구현 경험을 쌓았지만, 데이터가 커질수록 JSON 기반 챗봇 유지보수가 어려워지고 방문자 입장에서는 탐색 방향이 흐려지는 문제가 생겼습니다.',
+      '1. Переход от пассивного каталога к Question-First опыту. Посетителю не нужно сканировать страницы текста: один точный вопрос сразу открывает нужный контекст с визуальными блоками, фактами и артефактами.',
       '',
-      'Ask Romeo는 그 문제를 정보 구조로 다시 푼 프로젝트입니다. 방문자가 특정 섹션을 오래 스크롤하지 않아도 질문으로 바로 들어가고, FAQ cache와 RAG가 질문 성격에 맞게 답변을 라우팅합니다. 그래서 Ask Romeo는 “인터랙션을 많이 만든 포트폴리오”가 아니라 “질문과 근거로 탐색하는 포트폴리오”에 가깝습니다.',
+      '2. Доказательность и прозрачность вместо декларативных заявлений. В классическом резюме легко заявить любые навыки. Ask Romeo сам по себе является proof-of-work: проект развернут в production, использует Next.js 15, PostgreSQL с pgvector, RAG-маршрутизацию и строгие guardrails.',
+      '',
+      '3. Экономия времени нанимающей стороны. Рекрутер, PM или техлид получают моментальные ответы на свои критерии отбора без необходимости ждать технического интервью для базового скоринга.',
     ].join('\n'),
     renderSpec: {
       layout: 'comparison_grid',
@@ -1891,27 +1998,32 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'comparisonTable',
-        title: 'Portfoli-Oh! → Ask Romeo',
+        title: 'Традиционное резюме → Диалоговое портфолио Ask Romeo',
         dataKey: 'project.portfoliooh_vs_askoosu',
         items: [
           {
-            leftTitle: 'Portfoli-Oh! 2025',
-            rightTitle: 'Ask Romeo 2026',
+            leftTitle: 'Классическое резюме / сайт',
+            rightTitle: 'Ask Romeo (AI & RAG)',
             rows: [
               {
-                label: '중심',
-                left: '인터랙션과 프론트엔드 실험',
-                right: '질문 중심 정보 탐색',
+                label: 'Поиск информации',
+                left: 'Линейный скролл и ручное чтение длинных списков',
+                right: 'Question-First: мгновенный переход к сути вопроса',
               },
               {
-                label: '답변 구조',
-                left: 'JSON 키워드 매칭 챗봇',
-                right: 'FAQ cache + Notion RAG',
+                label: 'Фокус на роли',
+                left: 'Сухой перечень обязанностей и технологий',
+                right: 'Наглядный синтез PM-управления и Fullstack QA',
               },
               {
-                label: '배운 점',
-                left: '기능이 많아질수록 흐름이 흐려질 수 있음',
-                right: '맥락형 질문과 근거 표시가 더 중요함',
+                label: 'Верификация фактов',
+                left: 'Декларативные заявления без прозрачных пруфов',
+                right: 'RAG-база знаний с бейджами источников и метриками',
+              },
+              {
+                label: 'Интерактивность',
+                left: 'Статичные страницы без персонализации',
+                right: 'Динамические карточки, схемы процессов и контекстные подсказки',
               },
             ],
           },
@@ -1921,45 +2033,48 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     ],
     mediaRefs,
     sourceChunkIds: [
-      'project.portfolio_oh.story',
       'project.askoosu.fact',
+      'project.askoosu.story',
       'rag.answer_routing',
     ],
     hasTodo: false,
     freshness: 'stable',
     guardrails: sharedGuardrails,
-    matchedEntityIds: ['portfoli_oh', 'askoosu'],
-    confidence: 0.97,
+    matchedEntityIds: ['askoosu', 'rag'],
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.project.portfoliooh_vs_askoosu.default',
     intentId: 'project.portfoliooh_vs_askoosu',
-    entityId: 'portfoli_oh',
+    entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'Portfoli-Oh! vs Ask Romeo',
-    displayQuestion: 'What is the difference between Portfoli-Oh! and Ask Romeo?',
+    quickLabel: 'Before & After',
+    displayQuestion: 'How does Ask Romeo differ from a traditional portfolio or resume?',
     patterns: [
-      'What is the difference between Portfoli-Oh! and Ask Romeo?',
-      'How did the limits of Portfoli-Oh! lead to Ask Romeo?',
-      'portfoli-oh askoosu difference',
-      'old portfolio vs Ask Romeo',
-      'before after portfolio',
+      'How does Ask Romeo differ from a traditional portfolio or resume?',
+      'What is the difference between a traditional portfolio and Ask Romeo?',
+      'Before and after portfolio',
+      'How does Ask Romeo differ from a resume?',
+      'Traditional vs conversational portfolio',
+      'portfolio vs ask romeo',
     ],
     shortAnswer:
-      'Portfoli-Oh! was an interaction-heavy frontend archive; Ask Romeo is a question-first AI/RAG portfolio.',
+      'A traditional resume is a static document requiring linear reading. Ask Romeo is an interactive, RAG-powered AI portfolio that answers specific recruiter and manager questions with verifiable evidence and live architecture.',
     defaultAnswer: [
-      'Portfoli-Oh! was Romeo’s 2025 portfolio for experimenting with frontend interactions, while Ask Romeo is the 2026 conversational AI portfolio built from those lessons.',
+      'A traditional resume or portfolio is a static document where hiring managers must scan long lists of bullet points and generic claims.',
       '',
-      'Portfoli-Oh! included GSAP, Three.js, Lottie, a custom cursor, highlighting, and a JSON keyword-matching chatbot. It was valuable as a learning archive, but it also showed that too many features can make visitors lose direction.',
+      'Ask Romeo shifts the paradigm from passive reading to an interactive dialogue. You can instantly ask about project management methodology (PM), test automation architecture (Fullstack QA), production metrics across enterprise cases (Sminex Comfort, Elme Messer, DPD), or inspect the live RAG pipeline.',
       '',
-      'Ask Romeo starts from that reflection. Instead of adding more visual effects, it focuses on helping visitors ask, find, and trust answers faster through FAQ cache, Notion Wiki, RAG, source badges, and contextual quick questions.',
+      'Every answer is grounded in verified knowledge base chunks with source badges, interactive visual blocks, and confidence ratings, replacing vague self-descriptions with a functioning production proof-of-work.',
     ].join('\n'),
     detailedAnswer: [
-      'The difference between Portfoli-Oh! and Ask Romeo is also a difference in product thinking.',
+      'The difference between a traditional resume and Ask Romeo reflects Romeo Timony’s product management and engineering mindset at the intersection of PM and Fullstack QA:',
       '',
-      'Portfoli-Oh! was closer to a frontend learning archive. Romeo tried animation, 3D, highlighting, and a JSON chatbot, which created useful implementation experience. But as the content grew, the JSON chatbot became harder to maintain and the visitor journey became less clear.',
+      '1. Question-First discovery: Visitors don’t need to browse through multiple pages or fixed sections. A single targeted query instantly surfaces the exact context, visual breakdowns, and live artifacts.',
       '',
-      'Ask Romeo reframes that problem as information architecture. Visitors can ask instead of scrolling through every section, and the system routes questions through FAQ cache and RAG depending on the intent. That makes Ask Romeo less about showing every possible interaction and more about conversational discovery with evidence.',
+      '2. Proof-of-work over claims: Anyone can list technologies on a PDF resume. Ask Romeo proves those skills in action — deployed on a production VPS, running Next.js 15, PostgreSQL pgvector retrieval, semantic caching, and strict guardrails.',
+      '',
+      '3. Accelerated hiring evaluation: Recruiters and engineering leads get direct, verifiable answers tailored to their hiring criteria in seconds, saving valuable interview time.',
     ].join('\n'),
     renderSpec: {
       layout: 'comparison_grid',
@@ -1970,27 +2085,32 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'comparisonTable',
-        title: 'Portfoli-Oh! → Ask Romeo',
+        title: 'Traditional Portfolio → Ask Romeo Conversational Experience',
         dataKey: 'project.portfoliooh_vs_askoosu',
         items: [
           {
-            leftTitle: 'Portfoli-Oh! 2025',
-            rightTitle: 'Ask Romeo 2026',
+            leftTitle: 'Traditional Resume / Site',
+            rightTitle: 'Ask Romeo (AI & RAG)',
             rows: [
               {
-                label: 'Center',
-                left: 'Interaction and frontend experiments',
-                right: 'Question-first information discovery',
+                label: 'Information Discovery',
+                left: 'Linear scrolling through dense text and static bullets',
+                right: 'Question-First: instant answers to specific role queries',
               },
               {
-                label: 'Answer model',
-                left: 'JSON keyword-matching chatbot',
-                right: 'FAQ cache + Notion RAG',
+                label: 'Role Demonstration',
+                left: 'Passive list of tools and generic responsibilities',
+                right: 'Live synthesis of PM leadership and Fullstack QA rigor',
               },
               {
-                label: 'Lesson',
-                left: 'Too many features can blur the visitor flow',
-                right: 'Contextual questions and evidence matter more',
+                label: 'Fact Verification',
+                left: 'Unverifiable claims without deep interviews',
+                right: 'Grounded RAG with source badges and tangible metrics',
+              },
+              {
+                label: 'Interactivity',
+                left: 'Static presentation with zero adaptation',
+                right: 'Dynamic rich answers, workflow diagrams, and context chips',
               },
             ],
           },
@@ -2000,47 +2120,42 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     ],
     mediaRefs,
     sourceChunkIds: [
-      'project.portfolio_oh.story',
       'project.askoosu.fact',
+      'project.askoosu.story',
       'rag.answer_routing',
     ],
     hasTodo: false,
     freshness: 'stable',
     guardrails: sharedGuardrails,
-    matchedEntityIds: ['portfoli_oh', 'askoosu'],
-    confidence: 0.97,
+    matchedEntityIds: ['askoosu', 'rag'],
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.portfolio.creator.default',
     intentId: 'portfolio.creator',
     entityId: 'project.askoosu',
     language: 'ru',
-    quickLabel: '제작자',
-    displayQuestion: '이 포트폴리오는 누가 만들었어?',
+    quickLabel: 'Создатель',
+    displayQuestion: 'Кто создал это портфолио?',
     patterns: [
-      '이 포트폴리오는 누가 만들었어?',
-      '이 포트폴리오 사이트는 누가 만들었어?',
-      '이 포트폴리오 사이트 누가 만들었어?',
-      '이 사이트 누가 만들었어?',
-      '이 웹사이트 누가 만들었어?',
-      '이 포트폴리오 제작자',
-      '이 포트폴리오 만든 사람',
-      '포트폴리오 만든 사람 누구야?',
-      '포트폴리오 사이트 제작자',
-      '포트폴리오 사이트 만든 사람',
-      '사이트 제작자 누구야?',
-      '웹사이트 제작자 누구야?',
-      '만든 사람 누구야?',
-      '개발자는 누구야?',
-      '누가 개발했어?',
-      'Ask Romeo 누가 만들었어?',
-      'oosu.dev 누가 만들었어?',
+      'Кто создал это портфолио?',
+      'Кто сделал этот сайт?',
+      'Кто автор этого сайта?',
+      'Кто разработчик?',
+      'Кто создал Ask Romeo?',
+      'Кто такой Romeo Timony?',
+      'Создатель портфолио',
+      'Автор проекта',
+      'who made this portfolio',
     ],
-    shortAnswer: 'Ask Romeo는 Romeo Timony이 직접 기획하고 개발했습니다.',
+    shortAnswer:
+      'Портфолио Ask Romeo спроектировал и разработал Romeo Timony — Project Manager & Fullstack QA Engineer.',
     defaultAnswer: [
-      '이 포트폴리오 Ask Romeo는 Romeo Timony이 직접 기획하고 개발한 AI-connected conversational portfolio입니다. 정적인 포트폴리오를 단순히 보여주는 방식이 아니라, 방문자가 질문을 통해 프로젝트, 기술 스택, 커리어, 협업 가능성을 탐색할 수 있도록 만든 대화형 포트폴리오입니다.',
+      'Портфолио Ask Romeo спроектировал и разработал Romeo Timony — Project Manager и Fullstack QA Engineer.',
       '',
-      '기술적으로는 Next.js 기반 채팅 UI, FAQ answer cache, Notion Wiki/RAG 구조, PostgreSQL 검색 캐시, Groq 기반 답변 생성을 연결하는 방향으로 설계되었습니다.',
+      'Вместо пассивного чтения резюме проект предлагает диалоговый интерфейс: посетители могут напрямую исследовать реальный опыт управления проектами, архитектуру автоматизации тестирования, ключевые кейсы (Sminex Comfort, Elme Messer, DPD) и технологический стек через вопросы.',
+      '',
+      'Инженерно проект построен на связке Next.js 15, PostgreSQL с векторным расширением pgvector, семантическом FAQ Cache и LLM с многоуровневыми guardrails для защиты от галлюцинаций.',
     ].join('\n'),
     renderSpec: {
       layout: 'profile_hero',
@@ -2054,7 +2169,6 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'profile.summary',
       'project.askoosu.overview',
       'project.askoosu.story',
-      'project.portfolio_oh.story',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -2081,14 +2195,16 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'who developed Ask Romeo?',
       'who is the creator of this portfolio?',
       'who is the creator of this site?',
-      'who made oosu.dev?',
       'who built Ask Romeo?',
     ],
-    shortAnswer: 'Ask Romeo was planned and built by Romeo Timony.',
+    shortAnswer:
+      'Ask Romeo was conceptualized and engineered by Romeo Timony — Project Manager & Fullstack QA Engineer.',
     defaultAnswer: [
-      'Ask Romeo was planned and built by Romeo Timony as an AI-connected conversational portfolio. Instead of making visitors scroll through a static portfolio, it lets them ask questions and explore projects, skills, career background, and collaboration fit through chat.',
+      'Ask Romeo was designed and developed by Romeo Timony — Project Manager and Fullstack QA Engineer.',
       '',
-      'Technically, it connects a Next.js chat UI, FAQ answer cache, Notion Wiki/RAG structure, PostgreSQL search cache, and Groq-based answer generation.',
+      'Instead of a traditional static resume, Ask Romeo offers an interactive conversational experience where recruiters, hiring managers, and teams can explore project management leadership, test automation architecture, enterprise cases (Sminex Comfort, Elme Messer, DPD), and technical capabilities through direct dialogue.',
+      '',
+      'Technically, it connects Next.js 15, PostgreSQL with pgvector for semantic search, an instant FAQ Cache, and LLM answer generation guarded by strict safety rails.',
     ].join('\n'),
     renderSpec: {
       layout: 'profile_hero',
@@ -2102,7 +2218,6 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'profile.summary',
       'project.askoosu.overview',
       'project.askoosu.story',
-      'project.portfolio_oh.story',
     ],
     hasTodo: false,
     freshness: 'stable',
@@ -2570,9 +2685,10 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     intentId: 'project.askoosu.visual_ui',
     entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'UI/UX дизайн',
+    quickLabel: 'UI/UX',
     displayQuestion: 'Какова была концепция UI/UX дизайна Ask Romeo?',
     patterns: [
+      'Какова была концепция UI/UX дизайна Ask Romeo?',
       'Как устроен интерфейс Ask Romeo?',
       'UI/UX Ask Romeo',
       'концепция дизайна Ask Romeo',
@@ -2580,22 +2696,22 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'Ask Romeo design direction',
     ],
     shortAnswer:
-      'Интерфейс Ask Romeo спроектирован так, чтобы посетители могли сразу задавать интересующие вопросы, а не читать длинную статичную страницу.',
+      'Интерфейс Ask Romeo спроектирован вокруг Question-First подхода: пользователь сразу получает ответы и интерактивные артефакты, а не продирается через длинный статичный лонгрид.',
     defaultAnswer: [
-      'UI/UX Ask Romeo спроектирован для того, чтобы превратить статичное портфолио в интерактивный опыт исследования информации.',
+      'Концепция UI/UX Ask Romeo переосмысляет традиционное портфолио в интерактивную исследовательскую среду, объединяющую продуктовое видение (Project Manager) и культуру качества (Fullstack QA).',
       '',
-      'Главная идея в том, чтобы посетители могли быстро находить нужную информацию через вопросы, избегая долгой прокрутки страниц. Чат является центральным элементом, но ответы дополняются визуальными блоками: рекомендованными вопросами, карточками проектов, бейджами источников и быстыми действиями, чтобы сделать восприятие более удобным.',
+      'Главный принцип — Question-First навигация: посетитель мгновенно находит нужную информацию через вопросы и контекстные подсказки, избегая утомительной прокрутки страниц. Чат служит ядром системы, но ответ не ограничивается голым текстом: он обогащается карточками проектов, бейджами источников, схемами архитектуры и быстрыми переходами.',
       '',
-      'Опыт создания Portfoli-Oh! показал, что обилие анимаций и переходов может запутать пользователя, поэтому в Ask Romeo приоритет отдан быстроте понимания, а не броским визуальным эффектам.',
+      'Интерфейс избегает визуального шума и показных эффектов: каждый графический компонент, акцент и микровзаимодействие работают на скорость восприятия, доступность и прозрачность данных.',
     ].join('\n'),
     detailedAnswer: [
-      'Концепция UI/UX Ask Romeo опирается на три основных принципа.',
+      'Концепция UI/UX Ask Romeo базируется на трех фундаментальных принципах:',
       '',
-      'Во-первых, навигация от вопроса. Посетителю не нужно последовательно изучать разделы О себе, Проекты и Навыки — достаточно задать один вопрос, чтобы сразу попасть в нужный контекст.',
+      '1. Question-First навигация: посетителю не нужно переключаться между вкладками «О себе», «Проекты» и «Навыки» — один клик по контекстному вопросу или ручной ввод сразу разворачивает необходимый срез информации.',
       '',
-      'Во-вторых, сочетание текста и визуальных блоков. Важная информация воспринимается легче, если она представлена в виде карточек, чипов или пошаговых схем.',
+      '2. Гибридные ответы (Rich Answers): синтез лаконичного текста, структурированных карточек, интерактивных чипов, пайплайн-схем и бейджей достоверности (grounding badges) для мгновенного сканирования сути.',
       '',
-      'В-третьих, четкая информационная иерархия вместо избыточной интерактивности. Ask Romeo — это портфолио, в котором прежде всего удобно задавать вопросы, а не просто рассматривать его.',
+      '3. Продуктовая иерархия и доступность: приоритет читаемости, поддержка светлой/темной темы, адаптивные горизонтальные рельсы карточек и строгая типографика с фокусом на решение задач нанимающей стороны.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -2606,21 +2722,21 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'Ask Romeo UI Principles',
+        title: 'Принципы UI/UX Ask Romeo',
         dataKey: 'askoosu.ui_principles',
         items: [
           {
-            title: 'Навигация от вопроса',
-            description: 'Переход в нужный контекст с помощью одного точного вопроса.',
+            title: 'Question-First навигация',
+            description: 'Мгновенный переход к сути через контекстные подсказки и прямой диалог.',
           },
           {
-            title: 'Текст + визуальные блоки',
+            title: 'Rich UI блоки',
             description:
-              'Использование карточек, чипов и бейджей для быстрого сканирования информации.',
+              'Карточки, пайплайн-схемы, сравнительные таблицы и бейджи подтвержденных источников.',
           },
           {
-            title: 'Приоритет иерархии',
-            description: 'Фокус на быстром и легком понимании структуры ответов, а не на эффектах.',
+            title: 'Продуктовая ясность',
+            description: 'Строгая иерархия и скорость восприятия вместо избыточных декоративных эффектов.',
           },
         ],
       },
@@ -2630,23 +2746,23 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'project.askoosu.fact',
       'project.askoosu.story',
       'project.askoosu.rag_principles',
-      'project.portfolio_oh.story',
       'ui.answer_experience',
     ],
     hasTodo: false,
     freshness: 'stable',
     guardrails: sharedGuardrails,
-    matchedEntityIds: ['askoosu', 'portfoli_oh'],
-    confidence: 0.97,
+    matchedEntityIds: ['askoosu', 'rag'],
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.project.askoosu.visual_ui.default',
     intentId: 'project.askoosu.visual_ui',
     entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'UI/UX direction',
+    quickLabel: 'UI/UX',
     displayQuestion: 'What was the UI/UX direction behind Ask Romeo?',
     patterns: [
+      'What was the UI/UX direction behind Ask Romeo?',
       'What was the UI direction of Ask Romeo?',
       'Ask Romeo UI UX',
       'conversational portfolio UX',
@@ -2654,22 +2770,22 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'Ask Romeo design direction',
     ],
     shortAnswer:
-      'Ask Romeo is designed around letting people ask immediately rather than making them read a long portfolio.',
+      'Ask Romeo is built around Question-First UX: visitors get direct answers with rich interactive visual blocks instead of reading a static, one-way resume.',
     defaultAnswer: [
-      'Ask Romeo’s UI/UX is designed to turn a static portfolio into a conversational information-discovery experience.',
+      'The UI/UX design of Ask Romeo reimagines the traditional developer portfolio into an interactive conversational environment, blending Product Management clarity with QA precision.',
       '',
-      'The goal is to help visitors reach answers quickly by asking natural questions instead of scrolling through long sections. Chat is the main interface, but the answer experience should not be text-only: recommended questions, project cards, source/confidence badges, and quick actions should support understanding.',
+      'The core paradigm is Question-First navigation: visitors immediately find what they need through natural questions and curated prompt chips without scrolling through endless text. The chat is central, but answers are never just plain walls of text: they are augmented by interactive project cards, source badges, workflow diagrams, and context follow-ups.',
       '',
-      'Portfoli-Oh! taught that too many interactions can make people lose their way, so Ask Romeo prioritizes “easier to understand faster” over “more flashy.”',
+      'The interface deliberately avoids decorative noise and vanity animations: every component, color accent, and interaction is engineered for rapid scannability, accessibility, and evidence transparency.',
     ].join('\n'),
     detailedAnswer: [
-      'The UI/UX direction of Ask Romeo has three principles.',
+      'Ask Romeo’s design architecture rests on three core principles:',
       '',
-      'First, question-first navigation. Visitors should not need to read About, Projects, and Skills in a fixed order.',
+      '1. Question-First Navigation: Visitors don’t need to sequentially browse About, Projects, and Skills tabs — clicking a contextual prompt or asking directly opens the exact relevant depth immediately.',
       '',
-      'Second, blended text and visual answer blocks. High-value answers are easier to understand as cards, chips, badges, or step diagrams.',
+      '2. Rich Answer Composition: Answers blend concise natural language with structured visual blocks, including comparison tables, workflow step diagrams, project rails, and grounding badges.',
       '',
-      'Third, clear information hierarchy over excessive interaction. Ask Romeo is meant to be a portfolio that is easy to ask, not just easy to look at.',
+      '3. Information Hierarchy & Scannability: High visual hierarchy, dark/light theme support, responsive card rails, and accessible typography focused on delivering instant value to recruiters and managers.',
     ].join('\n'),
     renderSpec: {
       layout: 'project_deep_dive',
@@ -2686,17 +2802,17 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
           {
             title: 'Question-first navigation',
             description:
-              'A visitor can enter the right context through one question.',
+              'Direct entry into relevant context through contextual prompts and dialogue.',
           },
           {
-            title: 'Text + visual blocks',
+            title: 'Rich visual answer blocks',
             description:
-              'Cards, chips, and badges make answers easier to scan.',
+              'Cards, pipeline diagrams, comparison tables, and grounding source badges.',
           },
           {
-            title: 'Hierarchy first',
+            title: 'Product clarity over noise',
             description:
-              'The interface prioritizes understanding over visual spectacle.',
+              'Information hierarchy engineered for rapid comprehension rather than superficial effects.',
           },
         ],
       },
@@ -2706,42 +2822,49 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
       'project.askoosu.fact',
       'project.askoosu.story',
       'project.askoosu.rag_principles',
-      'project.portfolio_oh.story',
       'ui.answer_experience',
     ],
     hasTodo: false,
     freshness: 'stable',
     guardrails: sharedGuardrails,
-    matchedEntityIds: ['askoosu', 'portfoli_oh'],
-    confidence: 0.97,
+    matchedEntityIds: ['askoosu', 'rag'],
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.project.askoosu.deployment.default',
     intentId: 'project.askoosu.deployment',
     entityId: 'askoosu',
     language: 'ru',
-    quickLabel: 'Деплой / Хостинг',
+    quickLabel: 'Деплой',
     displayQuestion: 'Как развернут и работает проект Ask Romeo?',
     patterns: [
+      'Как развернут и работает проект Ask Romeo?',
       'деплой Ask Romeo',
       'где запущен Ask Romeo',
       'как работает инфраструктура портфолио',
       'deployment of Ask Romeo',
-      'хостинг',
+      'хостинг Ask Romeo',
+      'архитектура деплоя',
     ],
     shortAnswer:
-      'Ask Romeo работает на Next.js, синхронизируя базу знаний из Notion Wiki, сохраняя чанки в PostgreSQL для RAG-поиска и генерируя ответы с помощью LLM.',
+      'Ask Romeo развернут на изолированном Ubuntu VPS в Docker-контейнерах с Next.js 15 Standalone, PostgreSQL + pgvector для RAG-кэша, Nginx с SSL и автоматизированным CI/CD.',
     defaultAnswer: [
-      'Основной адрес работающего проекта — https://ask-romeo.ru (или oosu.dev в качестве канонического URL).',
+      'Ask Romeo работает в production-окружении на выделенном сервере (Ubuntu VPS) с контейнеризацией через Docker.',
       '',
-      'Оригинальный контент хранится в Notion Wiki. Сервисный слой объединяет фронтенд на Next.js, обработчики API-маршрутов, хранилище RAG-кэша на PostgreSQL и генерацию ответов. Для оптимизации стоимости и времени ответа данные периодически синхронизируются в векторный кэш, а популярные вопросы обрабатываются напрямую через FAQ Cache.',
+      'Стек инфраструктуры объединяет фронтенд и API-роуты на Next.js 15 (Standalone build), реляционную и векторную базу данных PostgreSQL с расширением pgvector для семантического поиска чанков, а также обратный прокси Nginx с автоматическими SSL-сертификатами Let’s Encrypt.',
+      '',
+      'Для обеспечения надежности и быстродействия внедрена двухуровневая система ответов: быстрый FAQ Cache для мгновенного отклика (<50 мс) и векторный RAG-пайплайн с моделью эмбеддингов и LLM с верификацией guardrails.',
     ].join('\n'),
     detailedAnswer: [
-      'Архитектура развертывания и работы Ask Romeo состоит из четырех основных уровней:',
+      'Инфраструктура и пайплайн развертывания Ask Romeo состоят из четырех ключевых уровней:',
       '',
-      'Во-первых, Notion Wiki как CMS для редактирования контента. Во-вторых, приложение Next.js, отвечающее за интерфейс чата, рекомендованные вопросы, визуальные блоки и API-эндпоинты.',
+      '1. Слой приложения: Next.js 15 в режиме Standalone, работающий в изолированном Docker-контейнере с оптимизированным потреблением ресурсов.',
       '',
-      'В-третьих, эндпоинты синхронизации, поиска и чата, которые собирают данные из RAG и кэша. В-четвертых, инфраструктура на базе локального сервера и тоннеля Cloudflare для безопасного и стабильного внешнего доступа.',
+      '2. Слой данных и RAG: PostgreSQL с pgvector для гибридного поиска по базе знаний (текстовый + векторный поиск по косинусному расстоянию) и кэш ответов.',
+      '',
+      '3. Сетевой контур и безопасность: Nginx Reverse Proxy с HTTP/2, SSL-шифрованием, строгими заголовками безопасности (CSP, CORS, HSTS) и защитой от перегрузок.',
+      '',
+      '4. Непрерывная доставка (CI/CD): скрипты валидации типов (TypeScript), линтинга, автоматизированных тестов и безопасного бесшовного деплоя без даунтайма.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -2752,26 +2875,27 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'Deployment / Ops Layers',
+        title: 'Инфраструктура и деплой Ask Romeo',
         dataKey: 'askoosu.deployment',
         items: [
           {
-            title: 'Источник контента',
-            description: 'Notion Wiki служит в качестве CMS для управления текстами.',
+            title: 'Приложение (Next.js 15)',
+            description: 'Standalone Node.js контейнер в Docker, API-роуты чата и стриминг ответов.',
           },
           {
-            title: 'Слой приложения',
-            description: 'Интерфейс Next.js и API-эндпоинты обрабатывают запросы.',
-          },
-          {
-            title: 'Данные / RAG',
+            title: 'Данные & Vector Store',
             description:
-              'Векторный поиск по PostgreSQL и метаданные источников формируют ответы.',
+              'PostgreSQL + pgvector: эмбеддинги чанков знаний, FAQ-кэш и метаданные источников.',
           },
           {
-            title: 'Инфраструктура',
+            title: 'Nginx & SSL',
             description:
-              'Запуск на сервере с доступом через Cloudflare Tunnel.',
+              'Обратный прокси с HTTPS/HTTP2, сжатием gzip/brotli и заголовками безопасности.',
+          },
+          {
+            title: 'Production VPS & CI/CD',
+            description:
+              'Выделенный Linux-сервер, скрипты автоматической сборки, проверок и бесшовного перезапуска.',
           },
         ],
       },
@@ -2780,7 +2904,6 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     sourceChunkIds: [
       'links.public',
       'rag.frontend_backend_db',
-      'rag.notion_sync.rules',
       'rag.groq.guardrails',
       'project.askoosu.fact',
     ],
@@ -2788,35 +2911,42 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'time_sensitive',
     guardrails: sharedGuardrails,
     matchedEntityIds: ['askoosu', 'rag'],
-    confidence: 0.94,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.project.askoosu.deployment.default',
     intentId: 'project.askoosu.deployment',
     entityId: 'askoosu',
     language: 'en',
-    quickLabel: 'Deployment',
+    quickLabel: 'Deploy',
     displayQuestion: 'How is Ask Romeo deployed and operated?',
     patterns: [
+      'How is Ask Romeo deployed and operated?',
       'How is Ask Romeo deployed?',
       'Where does Ask Romeo run?',
       'portfolio deployment',
       'deployment of Ask Romeo',
-      'home server deployment',
+      'Ask Romeo hosting and infrastructure',
     ],
     shortAnswer:
-      'Ask Romeo uses oosu.dev as the canonical public URL and connects Notion Wiki, the Next.js app, retrieval cache, and answer generation around it.',
+      'Ask Romeo runs in production on an Ubuntu VPS using Docker containers with Next.js 15 Standalone, PostgreSQL with pgvector for RAG retrieval, Nginx reverse proxy with SSL, and automated CI/CD.',
     defaultAnswer: [
-      'Ask Romeo is intended to run with `https://oosu.dev` as the canonical live URL.',
+      'Ask Romeo is hosted in a production environment on a dedicated Linux VPS (Ubuntu Server) containerized with Docker.',
       '',
-      'The original content lives in Notion Wiki, while the service layer connects a Next.js frontend, route handlers, a retrieval/cache data layer, and Groq-based answer generation. Operationally, Notion content should be synced into chunks, and frequently asked questions should be handled by the FAQ cache first to reduce cost and latency.',
+      'The architecture includes Next.js 15 (Standalone build) handling both UI and server API routes, a PostgreSQL database with the pgvector extension for semantic chunk retrieval, and an Nginx reverse proxy with automated Let’s Encrypt SSL certificates.',
+      '',
+      'To maximize performance and reliability, queries pass through a two-tier retrieval architecture: an instant in-memory/database FAQ Cache (<50ms response) and a semantic RAG pipeline powered by embeddings, vector similarity search, and LLM generation protected by strict guardrails.',
     ].join('\n'),
     detailedAnswer: [
-      'The deployment and operations model of Ask Romeo can be understood in four layers.',
+      'The deployment and operations model of Ask Romeo spans four core layers:',
       '',
-      'First, Notion Wiki is the editable source of truth. Second, the Next.js app handles chat UI, suggested questions, visual answer blocks, and route handlers.',
+      '1. Application Layer: Next.js 15 Standalone running inside an isolated Docker container with minimal memory footprint and fast cold starts.',
       '',
-      'Third, `/api/rag/sync`, `/api/rag/search`, and `/api/chat` assemble FAQ cache, RAG, and Groq. Fourth, the public experience should prioritize a canonical domain such as `oosu.dev`, with a home-server and Cloudflare Tunnel style approach for clean access.',
+      '2. Data & RAG Layer: PostgreSQL + pgvector performing hybrid search (keyword + cosine distance vector retrieval) over versioned knowledge base chunks.',
+      '',
+      '3. Network & Edge Security: Nginx Reverse Proxy configured with HTTP/2, SSL termination, and security headers (CSP, CORS, rate limits).',
+      '',
+      '4. Continuous Delivery (CI/CD): Automated verification pipeline running TypeScript compilation, linting, regression tests, and zero-downtime container redeployment.',
     ].join('\n'),
     renderSpec: {
       layout: 'ai_workflow',
@@ -2827,26 +2957,27 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     visualBlocks: [
       {
         type: 'statelessDiagram',
-        title: 'Deployment / Ops Layers',
+        title: 'Ask Romeo Deployment & Ops Layers',
         dataKey: 'askoosu.deployment',
         items: [
           {
-            title: 'Content source',
-            description: 'Notion Wiki acts as the editable CMS.',
+            title: 'App Layer (Next.js 15)',
+            description: 'Dockerized standalone container with streaming chat API handlers.',
           },
           {
-            title: 'App layer',
-            description: 'Next.js UI and route handlers process requests.',
-          },
-          {
-            title: 'Data / RAG',
+            title: 'Data & Vector Store',
             description:
-              'PostgreSQL retrieval cache and source metadata support answers.',
+              'PostgreSQL + pgvector storing semantic embeddings and FAQ cache.',
           },
           {
-            title: 'Domain / Infra',
+            title: 'Nginx & SSL Proxy',
             description:
-              'The public experience centers on the oosu.dev canonical URL.',
+              'Reverse proxy with HTTPS/HTTP2, gzip compression, and security policies.',
+          },
+          {
+            title: 'Production VPS & CI/CD',
+            description:
+              'Dedicated Ubuntu host with automated test suites and zero-downtime redeploys.',
           },
         ],
       },
@@ -2855,7 +2986,6 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     sourceChunkIds: [
       'links.public',
       'rag.frontend_backend_db',
-      'rag.notion_sync.rules',
       'rag.groq.guardrails',
       'project.askoosu.fact',
     ],
@@ -2863,7 +2993,7 @@ export const FAQ_ANSWERS: FaqAnswer[] = [
     freshness: 'time_sensitive',
     guardrails: sharedGuardrails,
     matchedEntityIds: ['askoosu', 'rag'],
-    confidence: 0.94,
+    confidence: 0.98,
   }),
   createFaqAnswer({
     id: 'faq.tech.rag_vs_faq_cache.default',
@@ -3528,35 +3658,13 @@ function toContentKey(
 }
 
 function createFaqAnswer(input: FaqAnswerInput): FaqAnswer {
-  const localizedInput =
-    input.id === 'faq.ai_usage.workflow.default' && input.language === 'ru'
-      ? {
-          ...input,
-          quickLabel: 'AI в работе',
-          displayQuestion: 'Как вы используете AI в QA-процессе и разработке?',
-          alternativeDisplayQuestions: [
-            'Как AI помогает вам обеспечивать качество продукта?',
-            'Как вы используете Codex, Claude Code и Gemini в QA?',
-          ],
-          ...qaAiWorkflowRuCopy,
-          visualBlocks: [
-            {
-              type: 'statelessDiagram' as const,
-              title: 'QA / AI: управляемый цикл качества',
-              dataKey: 'qa.ai.workflow',
-              items: qaAiWorkflowRu,
-            },
-          ],
-        }
-      : input;
-
   return {
-    ...localizedInput,
-    answer: localizedInput.defaultAnswer,
-    cacheMode: localizedInput.cacheMode ?? 'direct_cache',
-    answerSource: localizedInput.answerSource ?? 'faq_cache',
-    skippedGroq: localizedInput.skippedGroq ?? true,
-    visibility: localizedInput.visibility ?? 'public',
+    ...input,
+    answer: input.defaultAnswer,
+    cacheMode: input.cacheMode ?? 'direct_cache',
+    answerSource: input.answerSource ?? 'faq_cache',
+    skippedGroq: input.skippedGroq ?? true,
+    visibility: input.visibility ?? 'public',
   };
 }
 
