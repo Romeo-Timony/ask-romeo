@@ -55,3 +55,8 @@ next-env.d.ts
 /tmp/
 /.deploy-ssh/
 /.pnpm-store/
+public/video-visit/*.wav
+public/video-visit/*-backup.mp4
+public/video-visit/romeo-new.mp4
+public/video-visit/old-frame.jpg
+scripts/generate-ambient-*.mjs

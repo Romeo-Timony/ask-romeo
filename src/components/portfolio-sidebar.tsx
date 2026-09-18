@@ -31,12 +31,15 @@ import {
   Check,
   ChevronRight,
   Code2,
+  Download,
   ExternalLink,
   FileText,
   Github,
   HelpCircle,
   Languages,
   Menu,
+  Briefcase,
+  Home,
   MessageSquare,
   Moon,
   PanelLeft,
@@ -44,8 +47,10 @@ import {
   SquarePen,
   Sun,
   Trash2,
+  User,
   X,
 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type {
   ElementType,
@@ -319,11 +324,19 @@ export function PortfolioSidebar({
             <Menu className="h-6 w-6" />
           </DrawerTrigger>
 
+          <Link
+            href="/"
+            aria-label={text.home}
+            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground mt-4 inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
+          >
+            <Home className="h-6 w-6" />
+          </Link>
+
           <button
             type="button"
             onClick={handleNewChat}
             aria-label={text.newChat}
-            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground mt-7 inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
+            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground mt-3 inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
           >
             <SquarePen className="h-6 w-6" />
           </button>
@@ -391,15 +404,116 @@ export function PortfolioSidebar({
           </DrawerHeader>
 
           <ScrollArea className="min-h-0 flex-1 px-6">
-            <div className="space-y-8 pb-8">
-              <button
-                type="button"
-                onClick={handleNewChat}
-                className="hover:bg-sidebar-accent flex w-full items-center gap-4 rounded-lg px-4 py-3 text-left text-base font-medium transition-colors"
-              >
-                <SquarePen className="h-5 w-5" />
-                {text.newChat}
-              </button>
+            <div className="space-y-6 pb-8">
+              {/* Primary Navigation Actions */}
+              <div className="space-y-1">
+                <Link
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className="hover:bg-sidebar-accent flex w-full items-center gap-4 rounded-lg px-4 py-3 text-left text-base font-medium transition-colors"
+                >
+                  <Home className="h-5 w-5 text-primary" />
+                  {text.home}
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleNewChat}
+                  className="hover:bg-sidebar-accent flex w-full items-center gap-4 rounded-lg px-4 py-3 text-left text-base font-medium transition-colors"
+                >
+                  <SquarePen className="h-5 w-5" />
+                  {text.newChat}
+                </button>
+              </div>
+
+              {/* Sub-pages Navigation */}
+              <div className="grid grid-cols-2 gap-2 px-1">
+                <Link
+                  href="/about"
+                  onClick={() => setOpen(false)}
+                  className="hover:bg-sidebar-accent text-muted-foreground hover:text-foreground flex items-center justify-center gap-2 rounded-lg border border-slate-200/70 bg-white/40 px-3 py-2 text-xs font-medium transition-colors dark:border-white/10 dark:bg-white/[0.04]"
+                >
+                  <User className="h-3.5 w-3.5" />
+                  {text.aboutMe}
+                </Link>
+                <Link
+                  href="/projects"
+                  onClick={() => setOpen(false)}
+                  className="hover:bg-sidebar-accent text-muted-foreground hover:text-foreground flex items-center justify-center gap-2 rounded-lg border border-slate-200/70 bg-white/40 px-3 py-2 text-xs font-medium transition-colors dark:border-white/10 dark:bg-white/[0.04]"
+                >
+                  <Briefcase className="h-3.5 w-3.5" />
+                  {text.projects}
+                </Link>
+              </div>
+
+              {/* Resume Dropdown */}
+              <div className="px-1">
+                <details className="group rounded-xl border border-slate-200/70 bg-white/40 transition-colors dark:border-white/10 dark:bg-white/[0.03]">
+                  <summary className="hover:bg-sidebar-accent/60 flex cursor-pointer list-none items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden">
+                    <span className="flex items-center gap-3">
+                      <FileText className="h-4 w-4 text-primary" />
+                      {text.resume}
+                    </span>
+                    <ChevronRight className="text-muted-foreground h-4 w-4 transition-transform group-open:rotate-90" />
+                  </summary>
+                  <div className="space-y-2 p-2">
+                    {/* QA Resume */}
+                    <div className="rounded-lg border border-slate-200/70 bg-white/50 p-2.5 space-y-2 dark:border-white/10 dark:bg-white/[0.04]">
+                      <a
+                        href={romeoProfile.resumeQaUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hover:text-primary text-foreground/90 hover:text-foreground flex items-center justify-between text-xs font-semibold transition-colors"
+                      >
+                        <span className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                          {text.resumeQa}
+                        </span>
+                        <ExternalLink className="text-muted-foreground h-3.5 w-3.5" />
+                      </a>
+                      <div className="flex items-center justify-between border-t border-slate-200/50 pt-2 dark:border-white/5">
+                        <span className="text-muted-foreground text-[11px]">PDF</span>
+                        <a
+                          href={romeoProfile.resumeQaPdfUrl}
+                          download="Резюме_Роман_Тимошенко_QA.pdf"
+                          className="hover:bg-primary/10 hover:border-primary/40 text-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-md border border-slate-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium shadow-xs transition-colors dark:border-white/10 dark:bg-white/[0.08]"
+                        >
+                          <Download className="h-3 w-3 text-emerald-500" />
+                          <span>{text.download}</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* PM Resume */}
+                    <div className="rounded-lg border border-slate-200/70 bg-white/50 p-2.5 space-y-2 dark:border-white/10 dark:bg-white/[0.04]">
+                      <a
+                        href={romeoProfile.resumePmUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hover:text-primary text-foreground/90 hover:text-foreground flex items-center justify-between text-xs font-semibold transition-colors"
+                      >
+                        <span className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-blue-500" />
+                          {text.resumePm}
+                        </span>
+                        <ExternalLink className="text-muted-foreground h-3.5 w-3.5" />
+                      </a>
+                      <div className="flex items-center justify-between border-t border-slate-200/50 pt-2 dark:border-white/5">
+                        <span className="text-muted-foreground text-[11px]">PDF</span>
+                        <a
+                          href={romeoProfile.resumePmPdfUrl}
+                          download="Резюме_Роман_Тимошенко_Project_Manager.pdf"
+                          className="hover:bg-primary/10 hover:border-primary/40 text-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-md border border-slate-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium shadow-xs transition-colors dark:border-white/10 dark:bg-white/[0.08]"
+                        >
+                          <Download className="h-3 w-3 text-blue-500" />
+                          <span>{text.download}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <Separator className="my-1 bg-slate-200/60 dark:bg-white/10" />
 
               <section className="space-y-3">
                 <div className="flex items-center justify-between gap-3 px-1">
@@ -772,23 +886,70 @@ function SettingsPanel({
         <ExternalLink className="text-muted-foreground h-4 w-4" />
       </a>
 
-      <a
-        href={romeoProfile.resumeUrl}
-        target="_blank"
-        rel="noreferrer"
-        className="hover:bg-accent flex items-center justify-between gap-3 rounded-lg px-3 py-3 text-sm transition-colors"
-      >
-        <span className="flex min-w-0 items-center gap-3">
-          <FileText className="h-5 w-5 shrink-0" />
-          <span className="min-w-0">
-            <span className="block">{text.resume}</span>
-            <span className="block truncate text-xs">
-              {text.resumeRussian}
-            </span>
+      <details className="group">
+        <summary className="hover:bg-accent flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-3 text-sm transition-colors [&::-webkit-details-marker]:hidden">
+          <span className="flex items-center gap-3">
+            <FileText className="text-muted-foreground h-5 w-5" />
+            <span className="font-medium">{text.resume}</span>
           </span>
-        </span>
-        <ExternalLink className="text-muted-foreground h-4 w-4 shrink-0" />
-      </a>
+          <ChevronRight className="text-muted-foreground h-4 w-4 transition-transform group-open:rotate-90" />
+        </summary>
+        <div className="space-y-2 pt-1 pb-2 pl-3 pr-2">
+          {/* QA Resume */}
+          <div className="rounded-lg border border-slate-200/70 bg-white/50 p-2.5 space-y-2 dark:border-white/10 dark:bg-white/[0.04]">
+            <a
+              href={romeoProfile.resumeQaUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-primary text-foreground/90 flex items-center justify-between text-xs font-semibold transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                {text.resumeQa}
+              </span>
+              <ExternalLink className="text-muted-foreground h-3.5 w-3.5" />
+            </a>
+            <div className="flex items-center justify-between border-t border-slate-200/50 pt-2 dark:border-white/5">
+              <span className="text-muted-foreground text-[11px]">PDF</span>
+              <a
+                href={romeoProfile.resumeQaPdfUrl}
+                download="Резюме_Роман_Тимошенко_QA.pdf"
+                className="hover:bg-primary/10 hover:border-primary/40 text-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-md border border-slate-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium shadow-xs transition-colors dark:border-white/10 dark:bg-white/[0.08]"
+              >
+                <Download className="h-3 w-3 text-emerald-500" />
+                <span>{text.download}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* PM Resume */}
+          <div className="rounded-lg border border-slate-200/70 bg-white/50 p-2.5 space-y-2 dark:border-white/10 dark:bg-white/[0.04]">
+            <a
+              href={romeoProfile.resumePmUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-primary text-foreground/90 flex items-center justify-between text-xs font-semibold transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-blue-500" />
+                {text.resumePm}
+              </span>
+              <ExternalLink className="text-muted-foreground h-3.5 w-3.5" />
+            </a>
+            <div className="flex items-center justify-between border-t border-slate-200/50 pt-2 dark:border-white/5">
+              <span className="text-muted-foreground text-[11px]">PDF</span>
+              <a
+                href={romeoProfile.resumePmPdfUrl}
+                download="Резюме_Роман_Тимошенко_Project_Manager.pdf"
+                className="hover:bg-primary/10 hover:border-primary/40 text-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-md border border-slate-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium shadow-xs transition-colors dark:border-white/10 dark:bg-white/[0.08]"
+              >
+                <Download className="h-3 w-3 text-blue-500" />
+                <span>{text.download}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </details>
 
       <details className="group">
         <summary className="hover:bg-accent flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-3 text-sm transition-colors [&::-webkit-details-marker]:hidden">

@@ -78,17 +78,23 @@ export function HeroQuote({ language }: HeroQuoteProps) {
   const isPm = currentQuote.role === 'pm';
 
   return (
-    <div className="group mt-2 flex max-w-xl flex-col items-center">
-      <p
-        onClick={() => advanceQuote(1)}
-        title={isRu ? 'Нажмите для следующей цитаты' : 'Click for next quote'}
-        className={cn(
-          'text-muted-foreground cursor-pointer select-none text-xs leading-relaxed font-medium italic transition-opacity duration-300 sm:text-sm hover:text-foreground/90',
-          isFading ? 'opacity-0' : 'opacity-100'
-        )}
-      >
-        {quoteText}
-      </p>
+    <div className="group mt-2 flex w-full max-w-xl flex-col items-center">
+      {/* 
+        Fixed 2-line height container (h-10 sm:h-11) with line-clamp-2:
+        Strictly prevents any vertical layout shift when quotes change or rotate.
+      */}
+      <div className="flex h-10 w-full items-center justify-center px-4 text-center sm:h-11">
+        <p
+          onClick={() => advanceQuote(1)}
+          title={isRu ? 'Нажмите для следующей цитаты' : 'Click for next quote'}
+          className={cn(
+            'text-muted-foreground line-clamp-2 max-w-lg cursor-pointer select-none text-xs leading-snug font-medium italic transition-opacity duration-300 sm:text-sm hover:text-foreground/90',
+            isFading ? 'opacity-0' : 'opacity-100'
+          )}
+        >
+          {quoteText}
+        </p>
+      </div>
 
       <button
         type="button"
@@ -100,7 +106,7 @@ export function HeroQuote({ language }: HeroQuoteProps) {
             : `Quote: ${currentQuote.roleLabel[language]}. Click for next`
         }
         className={cn(
-          'mt-2 inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-background/50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80 shadow-xs backdrop-blur-md transition-all hover:bg-background/80 hover:text-foreground active:scale-95 dark:border-white/10 dark:bg-white/[0.05] dark:hover:bg-white/[0.1]',
+          'mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-background/50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80 shadow-xs backdrop-blur-md transition-all hover:bg-background/80 hover:text-foreground active:scale-95 dark:border-white/10 dark:bg-white/[0.05] dark:hover:bg-white/[0.1]',
           isFading ? 'opacity-60' : 'opacity-100'
         )}
       >

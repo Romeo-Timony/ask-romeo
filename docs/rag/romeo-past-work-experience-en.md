@@ -243,7 +243,7 @@ Note: This list describes the project technological environment. It does not imp
 
 Project coordination, requirements analysis, risk and timeline management, facilitation, project documentation, cross-functional team collaboration, digital product test organization.
 
-## DPD Russia — Junior QA Engineer
+## DPD Russia — QA Engineer
 
 **Entity ID:** `experience.dpd`
 

@@ -35,8 +35,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Качество — это не отсутствие дефектов, а обоснованная уверенность в том, что система выдержит реальные сценарии, изменения и человеческие ошибки.',
-      en: 'Quality is not the absence of defects, but justified confidence that the system can withstand real-world scenarios, change, and human error.',
+      ru: 'Качество — это обоснованная уверенность в том, что система выдержит реальные сценарии и нагрузки.',
+      en: 'Quality is justified confidence that the system will withstand real-world scenarios and load.',
     },
   },
   // 1: PM
@@ -49,8 +49,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Управление проектом — это искусство превращать неопределенность в прозрачный план, а риски — в управляемые и своевременные решения.',
-      en: 'Project management is the art of turning uncertainty into a clear plan and risks into manageable, timely decisions.',
+      ru: 'Управление проектом — это умение превращать неопределенность в четкий план, а риски — в решения.',
+      en: 'Project management is turning uncertainty into a clear plan and risks into timely decisions.',
     },
   },
   // 2: QA
@@ -63,8 +63,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Зрелость QA определяется не количеством найденных багов, а способностью превратить требования, риски и данные в уверенность перед релизом.',
-      en: 'QA maturity is measured not by the number of bugs found, but by the ability to turn requirements, risks, and data into release confidence.',
+      ru: 'Зрелость QA измеряется не числом багов, а надежностью и спокойствием команды перед релизом.',
+      en: 'QA maturity is measured not by bug count, but by team confidence and release stability.',
     },
   },
   // 3: PM
@@ -77,8 +77,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Главная задача PM — не просто закрывать задачи в спринте, а гарантировать, что команда создает продукт, решающий реальную проблему бизнеса и пользователей.',
-      en: 'A PM’s primary goal is not just closing sprint tasks, but ensuring the team delivers a product that truly solves real business and user problems.',
+      ru: 'Задача PM — не закрывать тикеты, а создавать продукт, решающий реальные задачи бизнеса.',
+      en: 'A PM’s mission is not closing tickets, but delivering real value to business and users.',
     },
   },
   // 4: QA
@@ -91,8 +91,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Предотвратить дефект на этапе анализа требований в разы дешевле и ценнее для бизнеса, чем героически ловить его перед самым релизом.',
-      en: 'Preventing a defect during requirements analysis is far cheaper and more valuable to the business than heroically catching it right before release.',
+      ru: 'Предотвратить дефект на этапе требований в разы дешевле, чем героически ловить его перед релизом.',
+      en: 'Preventing bugs during requirements review is far cheaper than catching them at release.',
     },
   },
   // 5: PM
@@ -105,8 +105,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Сильная команда держится на прозрачных ожиданиях, доверии и общем контексте, где каждый понимает смысл каждой задачи.',
-      en: 'A strong team thrives on transparent expectations, trust, and shared context, where everyone understands the purpose behind every task.',
+      ru: 'Сильная команда держится на прозрачных ожиданиях, доверии и общем понимании смысла задач.',
+      en: 'A strong team thrives on transparent expectations, trust, and shared purpose in every task.',
     },
   },
   // 6: QA
@@ -119,8 +119,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Автоматизация тестирования эффективна тогда, когда она защищает бизнес-критичные пути и ускоряет поставку, а не пишется ради красивых цифр покрытия.',
-      en: 'Test automation is truly effective when it protects business-critical paths and accelerates delivery, rather than chasing vanity coverage numbers.',
+      ru: 'Автоматизация ценна тогда, когда защищает бизнес-критичные пути, а не гонится за цифрами покрытия.',
+      en: 'Test automation matters when it guards critical user paths, not when chasing vanity metrics.',
     },
   },
   // 7: PM
@@ -133,8 +133,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Успешный релиз — это точный баланс между скоростью Time-to-Market, надежностью архитектуры и управляемостью ожиданий стейкхолдеров.',
-      en: 'A successful release is a precise balance between Time-to-Market speed, architectural stability, and stakeholder expectation management.',
+      ru: 'Успешный релиз — это баланс между скоростью Time-to-Market, надежностью и ожиданиями бизнеса.',
+      en: 'A great release balances Time-to-Market speed, architectural resilience, and clear expectations.',
     },
   },
   // 8: QA
@@ -147,8 +147,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Сильный QA видит систему целиком: от архитектуры API и устойчивости сервисов до эмоционального комфорта конечного пользователя.',
-      en: 'A strong QA sees the entire system: from API architecture and service resilience to the end user’s emotional comfort.',
+      ru: 'Сильный QA видит систему целиком: от архитектуры API до комфорта конечного пользователя.',
+      en: 'Strong QA sees the full picture: from backend architecture to the end-user experience.',
     },
   },
   // 9: PM
@@ -161,8 +161,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Лучший способ уложиться в сроки — не срезать углы в качестве, а вовремя декомпозировать задачи, отсекать лишнее и фокусироваться на главном.',
-      en: 'The best way to hit deadlines is not cutting corners on quality, but early task decomposition, eliminating waste, and focusing on what matters.',
+      ru: 'Уложиться в сроки помогает не спешка, а точная декомпозиция и фокус на главном для бизнеса.',
+      en: 'Hitting deadlines is driven by early task decomposition and ruthless focus on what matters.',
     },
   },
   // 10: QA
@@ -175,8 +175,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'QA Engineer',
     },
     text: {
-      ru: 'Сильный специалист видит качество как ответственность всей системы и команды, а не отдельный этап перед отправкой в продакшн.',
-      en: 'A strong specialist treats quality as a system-wide and team responsibility, not a separate checkpoint right before production.',
+      ru: 'Качество — это ответственность всей системы и команды, а не отдельный шаг перед продакшном.',
+      en: 'Quality is a shared team discipline across the entire SDLC, not a final gate before prod.',
     },
   },
   // 11: PM
@@ -189,8 +189,8 @@ export const contextualQuotes: ContextualQuote[] = [
       en: 'Project Manager',
     },
     text: {
-      ru: 'Сильное сотрудничество начинается с ясности: какую задачу мы решаем, какие риски критичны и что считается качественным результатом.',
-      en: 'Strong collaboration starts with clarity: the problem we are solving, the critical risks, and what counts as a quality outcome.',
+      ru: 'Сильное сотрудничество строится на ясности целей, контроле рисков и общем стандарте качества.',
+      en: 'Great collaboration stems from clear goals, proactive risk control, and high quality standards.',
     },
   },
 ];
@@ -198,10 +198,7 @@ export const contextualQuotes: ContextualQuote[] = [
 export const qaQuotes = contextualQuotes.filter((q) => q.role === 'qa');
 export const pmQuotes = contextualQuotes.filter((q) => q.role === 'pm');
 
-export function getAlternatingQuote(
-  index: number,
-  language: ChatLanguage = 'ru'
-): ContextualQuote {
+export function getAlternatingQuote(index: number): ContextualQuote {
   const normalizedIndex =
     ((index % contextualQuotes.length) + contextualQuotes.length) %
     contextualQuotes.length;

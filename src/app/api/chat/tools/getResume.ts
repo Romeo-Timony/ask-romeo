@@ -3,9 +3,9 @@ import { z } from 'zod';
 
 export const getResume = tool({
   description:
-    'Show Romeo Timony resume placeholders for future Russian and English Notion resume links.',
+    'Show Romeo Timony resumes (QA Engineer and Project Manager) with hh.ru links and direct PDF downloads.',
   inputSchema: z.object({}),
   execute: async () => {
-    return 'Resume links are not connected yet. Russian and English Notion resume slots are prepared for a later update.';
+    return 'Резюме Романа Тимошенко (QA-инженер и Project Manager) отображены со ссылками на hh.ru и кнопками для прямого скачивания PDF.';
   },
 });

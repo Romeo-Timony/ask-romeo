@@ -151,8 +151,7 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg?v=3" sizes="any" />
-        <link rel="preload" href="/images/profile/romeo-timony-new.webp" as="image" type="image/webp" />
-        <link rel="preload" href="/video-visit/romeo-videovizitka-poster.jpg" as="image" type="image/jpeg" />
+        <link rel="preload" href="/video-visit/romeo-videovizitka-poster.jpg" as="image" type="image/jpeg" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: preferenceInitScript }} />
       </head>
       <body

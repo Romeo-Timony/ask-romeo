@@ -1302,10 +1302,9 @@ function CtaButtons({ block }: { block: VisualBlock }) {
 
 function WorkflowSteps({
   block,
-  language,
 }: {
   block: VisualBlock;
-  language: 'ru' | 'en';
+  language?: 'ru' | 'en';
 }) {
   const steps = block.items.map(parseDiagramStep).filter(isDefined);
   if (steps.length === 0) return null;

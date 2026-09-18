@@ -285,9 +285,13 @@ const SOURCE_WORD_LABELS: Record<string, string> = {
   ai: 'AI',
   api: 'API',
   db: 'DB',
+  dpd: 'DPD',
   faq: 'FAQ',
   github: 'GitHub',
   groq: 'Groq',
+  iot: 'IoT',
+  pm: 'PM',
+  qa: 'QA',
   rag: 'RAG',
   ui: 'UI',
   url: 'URL',
@@ -310,8 +314,8 @@ const SOURCE_CHUNK_LABELS: Record<string, Record<'ru' | 'en', string>> = {
   },
   'profile.contact': { ru: 'Публичные контакты', en: 'Public contact channels' },
   'profile.qa_summary': {
-    ru: 'Профиль Senior QA',
-    en: 'Senior QA profile',
+    ru: 'Профиль QA',
+    en: 'QA profile',
   },
   'profile.qa_specialization': {
     ru: 'Специализация и стек',
@@ -1055,9 +1059,14 @@ function SourceEvidenceCard({
       <div className="flex min-w-0 items-start gap-2">
         <BookOpenCheck className="text-foreground mt-0.5 h-3.5 w-3.5 shrink-0" />
         <div className="min-w-0 flex-1 space-y-0.5">
-          <p className="truncate text-xs font-medium">{sourceTitle}</p>
+          <p
+            className="line-clamp-2 text-xs font-medium leading-snug break-words hyphens-none"
+            title={sourceTitle}
+          >
+            {sourceTitle}
+          </p>
           {debug && sectionPath && (
-            <p className="text-muted-foreground truncate text-[11px]">
+            <p className="text-muted-foreground line-clamp-1 text-[11px] break-words">
               {sectionPath}
             </p>
           )}
@@ -1481,6 +1490,21 @@ function getAnswerSourceLabel(metadata: RagMetadata, language: 'ru' | 'en') {
   return labels[metadata.answerSource]?.[language] ?? metadata.answerSource;
 }
 
+function formatRussianSourceCount(count: number): string {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod100 >= 11 && mod100 <= 19) {
+    return `${count} источников`;
+  }
+  if (mod10 === 1) {
+    return `${count} источник`;
+  }
+  if (mod10 >= 2 && mod10 <= 4) {
+    return `${count} источника`;
+  }
+  return `${count} источников`;
+}
+
 function getPublicSourceBadgeText(
   count: number,
   language: 'ru' | 'en',
@@ -1492,12 +1516,12 @@ function getPublicSourceBadgeText(
 
   if (answerSource === 'philosophy_docs') {
     if (language === 'ru') {
-      return `Visionary Builder Docs · ${count} источников`;
+      return `Visionary Builder Docs · ${formatRussianSourceCount(count)}`;
     }
     return `Visionary Builder Docs · ${count} source${count === 1 ? '' : 's'}`;
   }
 
-  if (language === 'ru') return `Из Wiki Romeo · ${count} источников`;
+  if (language === 'ru') return `Из Wiki Romeo · ${formatRussianSourceCount(count)}`;
   return `From Romeo Wiki · ${count} source${count === 1 ? '' : 's'}`;
 }
 
@@ -1565,8 +1589,27 @@ function formatPublicSourceTitle(source: RagSource, language: 'ru' | 'en') {
     titleText = language === 'ru' ? 'Wiki Romeo' : 'Romeo Wiki';
   }
 
-  // Shorten specific long titles
+  // Shorten specific long titles and sanitize company/knowledge cards
   const lowerTitle = titleText.toLowerCase();
+  if (lowerTitle.includes('sminex tech') || lowerTitle.includes('sminex comfort') || lowerTitle.includes('sminex')) {
+    return 'Sminex Tech — QA-инженер';
+  }
+  if (lowerTitle.includes('dpd russia') || lowerTitle.includes('dpd')) {
+    return 'DPD Russia — QA-инженер';
+  }
+  if (lowerTitle.includes('messer group') || lowerTitle.includes('elme messer')) {
+    return 'Messer Group — QA-инженер';
+  }
+  if (lowerTitle.includes('kode')) {
+    return 'KODE — Project Management';
+  }
+  if (
+    lowerTitle.includes('рекомендуемые ответы rag') ||
+    lowerTitle.includes('рекомендуемые ответы') ||
+    lowerTitle.includes('recommended rag answers')
+  ) {
+    return language === 'ru' ? 'База знаний Romeo' : 'Romeo Knowledge Base';
+  }
   if (lowerTitle.includes('профессиональный опыт романа тимошенко')) {
     return language === 'ru' ? 'Профессиональный опыт' : 'Professional Experience';
   }
@@ -1650,7 +1693,7 @@ function formatPublicChunkContext(chunkId: string, language: 'ru' | 'en') {
 }
 
 function humanizeSourcePathSegment(segment: string) {
-  const trimmedSegment = segment.trim();
+  let trimmedSegment = segment.trim();
   if (!trimmedSegment) return '';
 
   const projectId = normalizeProjectEntityId(trimmedSegment);
@@ -1658,6 +1701,23 @@ function humanizeSourcePathSegment(segment: string) {
 
   const knownLabel = SOURCE_SEGMENT_LABELS[trimmedSegment.toLowerCase()];
   if (knownLabel) return knownLabel;
+
+  // Clean forbidden seniority titles
+  trimmedSegment = trimmedSegment
+    .replace(/\b(junior|senior)\s+/gi, '')
+    .replace(/\s+-\s+(junior|senior)\s+/gi, ' - ');
+
+  // If already formatted Russian or human-titled text, avoid destructive slug Title-Casing
+  if (/[а-яА-ЯёЁ]/.test(trimmedSegment) || trimmedSegment.includes('—')) {
+    return trimmedSegment
+      .replace(/\bqa\b/gi, 'QA')
+      .replace(/\bdpd\b/gi, 'DPD')
+      .replace(/\bapi\b/gi, 'API')
+      .replace(/\brag\b/gi, 'RAG')
+      .replace(/\bpm\b/gi, 'PM')
+      .replace(/\biot\b/gi, 'IoT')
+      .trim();
+  }
 
   return trimmedSegment
     .replace(/[-_./]+/g, ' ')

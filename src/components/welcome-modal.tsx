@@ -61,7 +61,8 @@ export default function WelcomeModal({ trigger }: WelcomeModalProps) {
         defaultTrigger
       )}
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      {isOpen && (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-background z-52 max-h-[85vh] overflow-auto rounded-2xl border-none p-4 py-6 shadow-xl sm:max-w-[85vw] md:max-w-[80vw] lg:max-w-[1000px]">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -142,6 +143,7 @@ export default function WelcomeModal({ trigger }: WelcomeModalProps) {
           </motion.div>
         </DialogContent>
       </Dialog>
+      )}
     </>
   );
 }

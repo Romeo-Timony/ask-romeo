@@ -22,6 +22,10 @@ export const romeoProfile = {
   notionSourceUrl: '',
   resumeKoUrl: '',
   resumeEnUrl: '',
+  resumeQaUrl: 'https://hh.ru/resume/ef5141daff0d4973ca0039ed1f624161564b4a',
+  resumePmUrl: 'https://hh.ru/resume/e57288a8ff0d1cfde00039ed1f39584a757875',
+  resumeQaPdfUrl: '/resume-qa-roman-timoshenko.pdf',
+  resumePmPdfUrl: '/resume-pm-roman-timoshenko.pdf',
   resumeUrl: 'https://hh.ru/resume/ef5141daff0d4973ca0039ed1f624161564b4a',
   wikiSource: 'Static portfolio knowledge (WIP)',
   sourceSummary:

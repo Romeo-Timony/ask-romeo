@@ -45,7 +45,8 @@ import {
 } from '@/components/ui/chat/chat-bubble';
 import { Button } from '@/components/ui/button';
 import WelcomeModal from '@/components/welcome-modal';
-import { ArrowDown, Info, MailWarning, RefreshCcw } from 'lucide-react';
+import { ArrowDown, ArrowLeft, Home, Info, MailWarning, RefreshCcw, SquarePen } from 'lucide-react';
+import Link from 'next/link';
 import HelperBoost from './HelperBoost';
 import { buildVisibleAnswerPlan } from '@/lib/chat/visible-answer-plan';
 import {
@@ -803,6 +804,18 @@ const Chat = () => {
         onConversationsChange={setConversations}
       />
 
+      {/* Top Navigation - Back to Home Button */}
+      <div className="fixed top-4 left-16 z-[55] flex items-center gap-2 md:top-6 md:left-[88px]">
+        <Link
+          href="/"
+          aria-label={text.backToHome}
+          className="text-foreground/80 hover:text-foreground inline-flex h-11 items-center gap-2 rounded-xl border border-slate-200/70 bg-white/65 px-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_12px_30px_rgba(15,23,42,0.16)] backdrop-blur-2xl transition hover:bg-white/85 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_12px_30px_rgba(0,0,0,0.32)] dark:hover:bg-white/[0.14]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span className="hidden text-xs font-semibold sm:inline">{text.backToHome}</span>
+        </Link>
+      </div>
+
       <div className="absolute top-4 right-4 z-51 flex flex-col-reverse items-center justify-center gap-1 md:top-6 md:right-8 md:flex-row">
         <WelcomeModal
           trigger={
@@ -920,6 +933,36 @@ const Chat = () => {
                     language={language}
                   />
                 ))}
+
+                {!isEmptyState && !isGeneratingAnswer && !isLoading && messages.length > 0 && (
+                  <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center gap-2.5 pt-4 pb-1">
+                    <div className="flex flex-wrap items-center justify-center gap-2">
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                        className="border-primary/25 bg-background/80 hover:bg-primary/10 hover:border-primary/50 text-foreground h-9 rounded-xl px-4 text-xs font-semibold shadow-sm backdrop-blur-md transition-all"
+                      >
+                        <Link href="/">
+                          <Home className="mr-1.5 h-4 w-4 text-primary" />
+                          {text.finishAndBackHome}
+                        </Link>
+                      </Button>
+
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        onClick={handleNewChat}
+                        className="text-muted-foreground hover:text-foreground h-9 rounded-xl px-3.5 text-xs font-medium"
+                      >
+                        <SquarePen className="mr-1.5 h-4 w-4" />
+                        {text.newChat}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
                 <div ref={conversationEndRef} className="h-1" />
               </motion.div>
               )}

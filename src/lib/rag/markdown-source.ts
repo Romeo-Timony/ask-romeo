@@ -61,6 +61,22 @@ const LOCAL_MARKDOWN_DOCUMENTS: LocalMarkdownDocument[] = [
     sourceType: 'professional-experience',
   },
   {
+    path: 'docs/rag/romeo-experience-pm-ru.md',
+    slug: 'romeo-experience-pm-ru',
+    language: 'ru',
+    author: 'gpt',
+    docId: 'romeo.experience.pm.ru',
+    sourceType: 'professional-experience',
+  },
+  {
+    path: 'docs/rag/romeo-experience-pm-en.md',
+    slug: 'romeo-experience-pm-en',
+    language: 'en',
+    author: 'gpt',
+    docId: 'romeo.experience.pm.en',
+    sourceType: 'professional-experience',
+  },
+  {
     path: 'docs/rag/romeo-answer-guidance-ru.md',
     slug: 'romeo-answer-guidance-ru',
     language: 'ru',
